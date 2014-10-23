@@ -2,11 +2,17 @@
 \name{catmaid_GET}
 \alias{catmaid_GET}
 \alias{catmaid_GETJ}
-\title{Send http GET request to a CATMAID server}
+\alias{catmaid_POST}
+\alias{catmaid_POSTJ}
+\title{Send http GET or POST request to a CATMAID server}
 \usage{
 catmaid_GET(path, conn = NULL, ...)
 
 catmaid_GETJ(path, conn = NULL, ...)
+
+catmaid_POST(path, body, conn = NULL, ...)
+
+catmaid_POSTJ(path, body, conn = NULL, ...)
 }
 \arguments{
 \item{path}{The path on the CATMAID server relative to the CATMAID root}
@@ -17,6 +23,10 @@ object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the \code{httr::GET} function}
+
+\item{body}{For \code{catmaid_POST(J)} the body of the post request, usually
+in the form of a named list. See the \code{\link[httr]{POST}} documentation
+for full details.}
 }
 \value{
 For \code{catmaid_GET} an object of class \code{response} or, for for
@@ -24,20 +34,29 @@ For \code{catmaid_GET} an object of class \code{response} or, for for
   \code{jsonlite::\link[jsonlite]{fromJSON}} on the body of the response.
 }
 \description{
-\code{catmaid_GET} returns the raw response, whereas
-  \code{catmaid_GETJ} parses JSON content into an R object.
+\code{catmaid_GET/POST} returns the raw response, whereas
+  \code{catmaid_GET/POSTJ} parses JSON content into an R object.
 }
 \examples{
 \dontrun{
+## Make a catmaid_connection object to use for these requests
 conn=catmaid_login()
-## fetch a demo skeleton
+
+## fetch a demo skeleton using a GET request
 # raw response
 skel.response=catmaid_GET("1/10418394/0/0/compact-skeleton", conn)
 # list object
 skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+
+## Get the names of two skeletons using a POST request
+# NB that the skids[n] elements are quoted when constructing the list since
+# they are not valid R names.
+catmaid_POSTJ("/1/skeleton/neuronnames", conn=conn,
+  body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485))
 }
 }
 \seealso{
-\code{\link{catmaid_login}}, \code{\link[httr]{GET}}
+\code{\link{catmaid_login}}, \code{\link[httr]{GET}},
+  \code{\link[httr]{POST}}
 }
 
