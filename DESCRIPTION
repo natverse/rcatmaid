@@ -1,6 +1,6 @@
 Package: catmaid
 Type: Package
-Title: R access the API for the CATMAID web image annotation tool
+Title: R access to the API for the CATMAID web image annotation tool
 Version: 0.2
 Date: 2014-10-23
 Author: Gregory Jefferis
@@ -10,7 +10,8 @@ Description: This package provide access to the API exposed by the CATMAID (C
     web tool. This includes a bridge to the neuroanatomy toolbox (R package
     nat) allowing analysis and visualisation of neuronal skeletons.
 License: GPL-3
-URL: http://catmaid.org/
+URL: http://catmaid.org/ https://github.com/jefferis/rcatmaid
+BugReports: https://github.com/jefferis/rcatmaid/issues
 Depends:
     httr,
     jsonlite
