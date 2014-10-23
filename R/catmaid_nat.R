@@ -22,6 +22,8 @@ read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
   swc$Parent[is.na(swc$Parent)]=-1L
   n=nat::as.neuron(swc)
   n[names(res[-1])]=res[-1]
+  fields_to_include=c("url", "headers")
+  n[fields_to_include]=attributes(res)[fields_to_include]
   n
 }
 
