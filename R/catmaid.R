@@ -7,4 +7,5 @@
 #' @aliases catmaid
 #' @docType package
 #' @keywords package
+#' @import httr
 NULL
