@@ -2,7 +2,8 @@
 
 This package provides access to the [CATMAID](http://catmaid.org/) API for 
 [R](http://r-project.org/) users.  At present it simply provides for appropriately
-authenticated GET/POST requests, optionally parsing JSON responses.
+authenticated GET/POST requests, optionally parsing JSON responses and a simple 
+function to retrieve skeleton (i.e. neuron) information.
 
 ## Quick start
 ```r
@@ -16,6 +17,7 @@ library(catmaid)
 # examples
 example(catmaid_login)
 example(catmaid_POST)
+example(catmaid_get_compact_skeleton)
 ```
 
 ## Authentication
