@@ -10,4 +10,5 @@ Description: CATMAID (C ollaborative A nnotation T oolkit for M assive A mounts
 License: GPL-3
 URL: http://catmaid.org/
 Depends:
-    httr
+    httr,
+    jsonlite

@@ -3,3 +3,4 @@
 export(catmaid_connection)
 export(catmaid_login)
 import(httr)
+import(jsonlite)

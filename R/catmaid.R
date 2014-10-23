@@ -7,5 +7,5 @@
 #' @aliases catmaid
 #' @docType package
 #' @keywords package
-#' @import httr
+#' @import httr jsonlite
 NULL
