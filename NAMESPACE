@@ -3,6 +3,7 @@
 export(catmaid_POST)
 export(catmaid_POSTJ)
 export(catmaid_connection)
+export(catmaid_get_compact_skeleton)
 export(catmaid_login)
 import(httr)
 import(jsonlite)
