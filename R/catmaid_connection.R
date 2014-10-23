@@ -9,13 +9,41 @@
 #'   for future requests to the CATMAID server.
 #'   
 #' @details After successful login, the \code{catmaid_connection} will contain a
-#'   \code{cookie} field that includes a sessionid that is required for
+#'   \code{cookie} field that includes a sessionid that is required for 
 #'   subsequent GET/POST operations.
 #'   
 #' @param conn An optional \code{catmaid_connection} connection object.
 #' @param ... Additional arguemnts passed to catmaid_connection
 #' @param Force Whether to force a new login to the CATMAID server (default 
 #'   \code{FALSE})
+#'   
+#' @return a \code{catmaid_connection} object that can be used to make 
+#'   authenticated http requests to a CATMAID server.
+#'   
+#' @section Package options:
+#'   
+#'   You will very likely want to set some of the following package options in
+#'   your .Rprofile file (see \code{\link{Startup}} for details)
+#'   
+#'   \itemize{
+#'   
+#'   \item{catmaid.server}
+#'   
+#'   \item{catmaid.username}
+#'   
+#'   \item{catmaid.password}
+#'   
+#'   \item{catmaid.authname}
+#'   
+#'   \item{catmaid.authpassword}
+#'   
+#'   } using code along these lines:
+#'   
+#'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
+#'   catmaid.authname="Calvin",catmaid.authpassword="hobbes",
+#'   catmaid.username="calvin", catmaid.password="hobbesagain")}
+#'   
+#' @seealso \code{\link{options}}, \code{\link{Startup}}
 catmaid_login<-function(conn=NULL, ..., Force=FALSE){
   if(is.null(conn)) conn=catmaid_connection(...)
   else if(!is.null(conn$authresponse) && !Force) {

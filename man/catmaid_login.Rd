@@ -18,7 +18,7 @@ catmaid_connection(server = getOption("catmaid.server"),
 \item{...}{Additional arguemnts passed to catmaid_connection}
 
 \item{Force}{Whether to force a new login to the CATMAID server (default
-\code{FALSE})}
+  \code{FALSE})}
 
 \item{server}{url of CATMAID server}
 
@@ -26,6 +26,10 @@ catmaid_connection(server = getOption("catmaid.server"),
 
 \item{authname,authpassword}{The http basicauth username/password that
 optionally secures the CATMAID server.}
+}
+\value{
+a \code{catmaid_connection} object that can be used to make
+  authenticated http requests to a CATMAID server.
 }
 \description{
 \code{catmaid_login} allows you to login to a CATMAID server
@@ -40,5 +44,32 @@ optionally secures the CATMAID server.}
 After successful login, the \code{catmaid_connection} will contain a
   \code{cookie} field that includes a sessionid that is required for
   subsequent GET/POST operations.
+}
+\section{Package options}{
+
+
+  You will very likely want to set some of the following package options in
+  your .Rprofile file (see \code{\link{Startup}} for details)
+
+  \itemize{
+
+  \item{catmaid.server}
+
+  \item{catmaid.username}
+
+  \item{catmaid.password}
+
+  \item{catmaid.authname}
+
+  \item{catmaid.authpassword}
+
+  } using code along these lines:
+
+  \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
+  catmaid.authname="Calvin",catmaid.authpassword="hobbes",
+  catmaid.username="calvin", catmaid.password="hobbesagain")}
+}
+\seealso{
+\code{\link{options}}, \code{\link{Startup}}
 }
 
