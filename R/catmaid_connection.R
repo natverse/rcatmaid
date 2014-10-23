@@ -44,6 +44,20 @@
 #'   catmaid.username="calvin", catmaid.password="hobbesagain")}
 #'   
 #' @seealso \code{\link{options}}, \code{\link{Startup}}
+#' @examples
+#' \dontrun{
+#' ## example explicitly specifying connection options
+#' conn = catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
+#'   authname="Calvin",authpassword="hobbes", 
+#'   username="calvin", password="hobbesagain")
+#' 
+#' ## examples assuming that catmaid.* options have been set
+#' conn = catmaid_login()
+#' conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
+#' 
+#' ## now do stuff with the connection like
+#' skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+#' }
 #' @export
 catmaid_login<-function(conn=NULL, ..., Force=FALSE){
   if(is.null(conn)) conn=catmaid_connection(...)
