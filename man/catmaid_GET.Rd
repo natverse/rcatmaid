@@ -8,11 +8,11 @@
 \usage{
 catmaid_GET(path, conn = NULL, ...)
 
-catmaid_GETJ(path, conn = NULL, ...)
+catmaid_GETJ(path, conn = NULL, include_headers = TRUE, ...)
 
 catmaid_POST(path, body, conn = NULL, ...)
 
-catmaid_POSTJ(path, body, conn = NULL, ...)
+catmaid_POSTJ(path, body, conn = NULL, include_headers = TRUE, ...)
 }
 \arguments{
 \item{path}{The path on the CATMAID server relative to the CATMAID root}
@@ -23,6 +23,9 @@ object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the \code{httr::GET} function}
+
+\item{include_headers}{Whether to include basic headers from the http request
+as attributes on the parsed JSON object (default \code{TRUE}).}
 
 \item{body}{For \code{catmaid_POST(J)} the body of the post request, usually
 in the form of a named list. See the \code{\link[httr]{POST}} documentation
