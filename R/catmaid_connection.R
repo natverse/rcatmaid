@@ -44,6 +44,7 @@
 #'   catmaid.username="calvin", catmaid.password="hobbesagain")}
 #'   
 #' @seealso \code{\link{options}}, \code{\link{Startup}}
+#' @export
 catmaid_login<-function(conn=NULL, ..., Force=FALSE){
   if(is.null(conn)) conn=catmaid_connection(...)
   else if(!is.null(conn$authresponse) && !Force) {
@@ -68,6 +69,7 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
 #' @param username,password Your CATMAID username and password.
 #' @param authname,authpassword The http basicauth username/password that
 #'   optionally secures the CATMAID server.
+#' @export
 catmaid_connection<-function(server=getOption("catmaid.server"), 
                              username=getOption("catmaid.username"),
                              password=getOption("catmaid.password"),
