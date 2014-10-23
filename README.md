@@ -3,7 +3,9 @@
 This package provides access to the [CATMAID](http://catmaid.org/) API for 
 [R](http://r-project.org/) users.  At present it simply provides for appropriately
 authenticated GET/POST requests, optionally parsing JSON responses and a simple 
-function to retrieve skeleton (i.e. neuron) information.
+function to retrieve skeleton (i.e. neuron) information and convert it to the 
+representation of the [nat](https://github.com/jefferis/nat)(NeuroAnatomy Toolbox)
+R package.
 
 ## Quick start
 ```r
@@ -18,6 +20,14 @@ library(catmaid)
 example(catmaid_login)
 example(catmaid_POST)
 example(catmaid_get_compact_skeleton)
+
+# use with nat
+library(nat)
+nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
+open3d()
+plot3d(nl)
+# plot the connectors - no built-in functionality yet for this in nat
+sapply(nl, function(n) points3d(n$connectors[4:6], col=n$connectors$prepost+3) )
 ```
 
 ## Authentication
