@@ -39,3 +39,12 @@ devtools::install_github("jefferis/rcatmaid")
 ```
 
 Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+
+## Acknowledgements
+
+Based on python code presently visible at:
+
+* https://github.com/acardona/CATMAID/blob/master/scripts/remote/access.py
+* https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py
+
+by Albert Cardona and Philipp Schlegel. Released under the GPL-3 license.
