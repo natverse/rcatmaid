@@ -9,3 +9,5 @@ Description: CATMAID (C ollaborative A nnotation T oolkit for M assive A mounts
     of I mage D ata) provides a server-based API
 License: GPL-3
 URL: http://catmaid.org/
+Depends:
+    httr
