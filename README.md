@@ -1,11 +1,11 @@
 # catmaid
 
 This package provides access to the [CATMAID](http://catmaid.org/) API for 
-[R](http://r-project.org/) users.  At present it simply provides for appropriately
-authenticated GET/POST requests, optionally parsing JSON responses and a simple 
-function to retrieve skeleton (i.e. neuron) information and convert it to the 
-representation of the [nat](https://github.com/jefferis/nat)(NeuroAnatomy Toolbox)
-R package.
+[R](http://r-project.org/) users.  At present it provides low level functions 
+for appropriately authenticated GET/POST requests, optionally parsing JSON responses.
+There is also an intermediate level function to retrieve skeleton (i.e. neuron) 
+information and a high level function to convert it to the representation of the
+[nat](https://github.com/jefferis/nat) (NeuroAnatomy Toolbox) R package.
 
 ## Quick start
 ```r
