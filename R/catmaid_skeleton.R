@@ -24,7 +24,7 @@
 #' }
 catmaid_get_compact_skeleton<-function(pid, skid, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
   path=file.path("", pid, skid, ifelse(connectors, 1L, 0L), ifelse(tags, 1L, 0L), "compact-skeleton")
-  skel=catmaid_GETJ(path, conn=conn, ...)
+  skel=catmaid_fetch(path, conn=conn, ...)
   names(skel)=c("nodes", "connectors", "tags")
   
   if(raw) return(skel)

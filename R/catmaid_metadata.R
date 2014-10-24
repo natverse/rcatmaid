@@ -13,7 +13,7 @@ catmaid_get_neuronnames<-function(pid, skids, ...) {
   post_data=list(pid=pid)
   post_data[sprintf("skids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/skeleton/neuronnames", pid)
-  res=catmaid_POSTJ(path, post_data, include_headers = F, ...)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
   res=unlist(res)
   # handle any missing return values
   missing_names=setdiff(as.character(skids), names(res))
