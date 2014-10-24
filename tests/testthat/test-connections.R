@@ -1,4 +1,4 @@
-context("catmaid_login")
+context("catmaid login and get/post")
 
 # set any catmaid options from environment vars
 # they could have been exported as follows:
@@ -17,14 +17,23 @@ test_that("can make a connection", {
   expect_is(conn$config, "config")
 })
 
+# we can only run real tests if we can log in with default parameters
+conn=try(catmaid_login(), silent = TRUE)
+
 test_that("can login", {
-  
-  conn=try(catmaid_login(), silent = TRUE)
   if(!inherits(conn, 'try-error')){
-    # we can only run real tests if we can get a valid connection with default parameters
     expect_is(conn, 'catmaid_connection')
     expect_is(conn$authresponse, 'response')
     expect_equal(conn$authresponse$status, 200L)
   }
   
+})
+
+test_that("can get and post data", {
+  if(!inherits(conn, 'try-error')){
+    expect_is(skel<-catmaid_GET("1/10418394/0/0/compact-skeleton", conn=conn), 'response')
+    expect_equivalent(catmaid_POSTJ("/1/skeleton/neuronnames", conn=conn,
+                                    body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
+                      list(`10418394` = "IPC10", `4453485` = "IPC1"))
+  }  
 })
