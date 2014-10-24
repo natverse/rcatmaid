@@ -6,7 +6,8 @@
 \usage{
 read.neuron.catmaid(skid, pid, conn = NULL, ...)
 
-read.neurons.catmaid(skids, pid, conn = NULL, OmitFailures = NA, ...)
+read.neurons.catmaid(skids, pid, conn = NULL, OmitFailures = NA,
+  df = NULL, ...)
 }
 \arguments{
 \item{skid,skids}{One or more skeleton ids}
@@ -24,6 +25,8 @@ options as described in the help for \code{\link{catmaid_login}}.}
 error. The default value (\code{NA}) will result in nlapply stopping with
 an error message the moment there is an eror. For other values, see
 details.}
+
+\item{df}{Optional data frame containing information about each neuron}
 }
 \description{
 \code{read.neuron.catmaid} reads a single neuron, while
@@ -44,6 +47,15 @@ When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
   \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In
   either of the last 2 cases error messages will not be printed because the
   call is wrapped as \code{try(expr, silent=TRUE)}.
+
+  The optional dataframe (\code{df}) detailing each neuron should have
+  \code{rownames} that match the names of each neuron. It would also make
+  sense if the same key was present in a column of the data frame. If the
+  dataframe contains more rows than neurons, the superfluous rows are dropped
+  with a warning. If the dataframe is missing rows for some neurons an error
+  is generated. If SortOnUpdate is TRUE then updating an existing neuronlist
+  should result in a new neuronlist with ordering identical to reading all
+  neurons from scratch.
 }
 \examples{
 \dontrun{
@@ -51,12 +63,35 @@ library(nat)
 nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
 plot3d(nl)
 
-## with progress bar
+## Full worked example looking at Olfactory Receptor Neurons
+# Find ORNs
 conn=catmaid_login()
-al = catmaid_get_annotationlist(pid=1, conn=conn)
-lots_of_skids = subset(al$user, name=='albert')$neuron.id
-# nb we make a progress bar and drop failures
-nl=read.neurons.catmaid(lots_of_skids, pid=1, conn=conn, .progress='text', OmitFailures=T)
+# note use of regex in query
+orn_query=catmaid_query_by_neuronname("ORN (left|right)", conn=conn)
+
+# Tidy up result data.frame keeping only neurons
+orn_query=subset(orn_query, type=='neuron')
+# find the Odorant receptor genes and the side of brain
+orn_query=transform(orn_query,
+   side=factor(ifelse(grepl("left",name), "L", "R")),
+   Or= factor(sub(" ORN.*", "", name)))
+# a table of odorant receptor / side of brain
+ftable(side~Or,data=orn_query)
+
+# set rownames for data.frame so that we can plot neurons by skeleton id
+rownames(orn_query)=orn_query$skeleton_ids
+
+# now fetch those neurons with progress bar, dropping any failures
+orns=read.neurons.catmaid(orn_query$skeleton_ids, pid=1, df=orn_query,
+  OmitFailures = T, .progress='text', conn=conn)
+
+# now some plots
+open3d()
+# colour by side of brain
+plot3d(orns, col=side)
+# colour by Odorant Receptor
+# note similar position of axon terminals for same ORN class on left and right
+plot3d(orns, col=Or)
 }
 }
 \seealso{
