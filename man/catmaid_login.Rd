@@ -10,7 +10,8 @@ catmaid_connection(server = getOption("catmaid.server"),
   username = getOption("catmaid.username"),
   password = getOption("catmaid.password"),
   authname = getOption("catmaid.authname"),
-  authpassword = getOption("catmaid.authpassword"))
+  authpassword = getOption("catmaid.authpassword"),
+  authtype = getOption("catmaid.authtype", default = "basic"))
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
@@ -24,12 +25,16 @@ catmaid_connection(server = getOption("catmaid.server"),
 
 \item{username,password}{Your CATMAID username and password.}
 
-\item{authname,authpassword}{The http basicauth username/password that
-optionally secures the CATMAID server.}
+\item{authname,authpassword}{The http username/password that optionally
+secures the CATMAID server.}
+
+\item{authtype}{The http authentication scheme, see
+\code{\link[httr]{authenticate}} for details.}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make
-  authenticated http requests to a CATMAID server.
+  authenticated http requests to a CATMAID server, specifically by making
+  use of the \code{$config} field.
 }
 \description{
 \code{catmaid_login} allows you to login to a CATMAID server
@@ -82,6 +87,10 @@ conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 
 ## now do stuff with the connection like
 skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+
+## or for those who want to work at the lowest level
+skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
+  config=conn$config)
 }
 }
 \seealso{

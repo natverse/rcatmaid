@@ -18,7 +18,8 @@
 #'   \code{FALSE})
 #'   
 #' @return a \code{catmaid_connection} object that can be used to make 
-#'   authenticated http requests to a CATMAID server.
+#'   authenticated http requests to a CATMAID server, specifically by making
+#'   use of the \code{$config} field.
 #'   
 #' @section Package options:
 #'   
@@ -57,6 +58,10 @@
 #' 
 #' ## now do stuff with the connection like
 #' skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+#' 
+#' ## or for those who want to work at the lowest level
+#' skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
+#'   config=conn$config)
 #' }
 #' @export
 catmaid_login<-function(conn=NULL, ..., Force=FALSE){
@@ -65,32 +70,37 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
     # Bail if we have already logged in (and don't want to login afresh)
     return(conn)
   }
-  
-  conn$authresponse=if(is.null(conn$authname)){
-    POST(url = paste0(conn$server,"/accounts/login"),
-           body=list(name=conn$username,pwd=conn$password))
-  } else {
-    POST(url = paste0(conn$server,"/accounts/login"),
-           body=list(name=conn$username,pwd=conn$password),
-           authenticate(conn$authname,conn$authpassword))
-  }
+  conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
+                           body=list(name=conn$username,pwd=conn$password),
+                           config = conn$config)
+  # store the returned cookies for future use
   conn$cookies=unlist(cookies(conn$authresponse))
+  conn$config=c(conn$config, set_cookies(conn$cookies))
   conn
 }
 
 #' @name catmaid_login
 #' @param server url of CATMAID server
 #' @param username,password Your CATMAID username and password.
-#' @param authname,authpassword The http basicauth username/password that
-#'   optionally secures the CATMAID server.
+#' @param authname,authpassword The http username/password that optionally
+#'   secures the CATMAID server.
+#' @param authtype The http authentication scheme, see
+#'   \code{\link[httr]{authenticate}} for details.
 #' @export
 catmaid_connection<-function(server=getOption("catmaid.server"), 
                              username=getOption("catmaid.username"),
                              password=getOption("catmaid.password"),
                              authname=getOption("catmaid.authname"), 
-                             authpassword=getOption("catmaid.authpassword") ) {
+                             authpassword=getOption("catmaid.authpassword"),
+                             authtype=getOption("catmaid.authtype", default = "basic")) {
   if(is.null(server) || !grepl("^https", server)) stop("Must provide a valid https server")
-  conn=list(server=server, authname=authname, authpassword=authpassword, username=username, password=password)
+  conn=list(server=server, username=username, password=password, 
+            authtype=authtype, authname=authname, authpassword=authpassword)
+  # make a custom curl config that includes authentication information if necessary
+  conn$config = if(is.null(authname)) config() else {
+    authenticate(authname, authpassword, type = authtype)
+  }
+
   class(conn)="catmaid_connection"
   conn
 }
