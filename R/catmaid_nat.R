@@ -15,7 +15,8 @@
 #' @seealso \code{\link{catmaid_fetch}}
 #' @export
 read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
-  res=catmaid_get_compact_skeleton(pid=pid, skid=skid, conn=NULL, ...)
+  res=catmaid_get_compact_skeleton(pid=pid, skid=skid, conn=conn, ...)
+  if(!length(res$nodes)) stop("no valid nodes for skid:", skid)
   swc=with(res$nodes, 
            data.frame(PointNo=id, Label=0, X=location.x, Y=location.y, Z=location.z, W=radius*2, Parent=parent_id)
   )
