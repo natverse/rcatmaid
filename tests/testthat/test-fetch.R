@@ -18,8 +18,8 @@ test_that("get neuron", {
   }
 })
 
-test_that("read.neron.catmaid", {
+test_that("read.neuron.catmaid", {
   if(!inherits(conn, 'try-error')){
-    expect_is(skel<-read.neuron.catmaid(pid=1, skid=10418394, conn=conn), 'neuron')
+    expect_is(n<-read.neuron.catmaid(pid=1, skid=10418394, conn=conn), 'neuron')
   }
 })
