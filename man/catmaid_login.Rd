@@ -29,7 +29,8 @@ optionally secures the CATMAID server.}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make
-  authenticated http requests to a CATMAID server.
+  authenticated http requests to a CATMAID server, specifically by making
+  use of the \code{$config} field.
 }
 \description{
 \code{catmaid_login} allows you to login to a CATMAID server
@@ -82,6 +83,10 @@ conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 
 ## now do stuff with the connection like
 skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+
+## or for those who want to work at the lowest level
+skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
+  config=conn$config)
 }
 }
 \seealso{

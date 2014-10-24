@@ -18,7 +18,8 @@
 #'   \code{FALSE})
 #'   
 #' @return a \code{catmaid_connection} object that can be used to make 
-#'   authenticated http requests to a CATMAID server.
+#'   authenticated http requests to a CATMAID server, specifically by making
+#'   use of the \code{$config} field.
 #'   
 #' @section Package options:
 #'   
@@ -57,6 +58,10 @@
 #' 
 #' ## now do stuff with the connection like
 #' skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+#' 
+#' ## or for those who want to work at the lowest level
+#' skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
+#'   config=conn$config)
 #' }
 #' @export
 catmaid_login<-function(conn=NULL, ..., Force=FALSE){
@@ -65,16 +70,14 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
     # Bail if we have already logged in (and don't want to login afresh)
     return(conn)
   }
-  
-  conn$authresponse=if(is.null(conn$authname)){
-    POST(url = paste0(conn$server,"/accounts/login"),
-           body=list(name=conn$username,pwd=conn$password))
-  } else {
-    POST(url = paste0(conn$server,"/accounts/login"),
-           body=list(name=conn$username,pwd=conn$password),
-           authenticate(conn$authname,conn$authpassword))
-  }
+  # make a custom curl config that includes authentication information if necessary
+  conn$config = if(is.null(conn$authname)) config() else authenticate(conn$authname, conn$authpassword)
+  conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
+                           body=list(name=conn$username,pwd=conn$password),
+                           config = conn$config)
+  # store the returned cookies for future use
   conn$cookies=unlist(cookies(conn$authresponse))
+  conn$config=c(conn$config, set_cookies(conn$cookies))
   conn
 }
 
