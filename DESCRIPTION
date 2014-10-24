@@ -12,8 +12,9 @@ Description: This package provide access to the API exposed by the CATMAID (C
 License: GPL-3
 URL: http://catmaid.org/ https://github.com/jefferis/rcatmaid
 BugReports: https://github.com/jefferis/rcatmaid/issues
-Depends:
+Depends: 
     httr,
     jsonlite
-Suggests:
-    nat
+Suggests: 
+    nat,
+    testthat
