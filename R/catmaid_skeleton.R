@@ -29,7 +29,8 @@ catmaid_get_compact_skeleton<-function(pid, skid, conn=NULL, connectors = TRUE, 
   
   if(raw) return(skel)
   # else process the skeleton
-  skel$nodes=list2df(skel$nodes, 
+  if(length(skel$nodes))
+    skel$nodes=list2df(skel$nodes, 
                      cols=c("id", "parent_id", "user_id", "location.x",
                             "location.y", "location.z", "radius", "confidence"))
   
