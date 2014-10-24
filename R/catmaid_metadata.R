@@ -71,7 +71,7 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, .
                 body=list(neuron_query_by_name=query, display_start=0, display_length=maxresults))
   if(raw) return(res)
   # key fields name type, id
-  res2=list2df(res$entities, c("id", "name", "type"), use.col.names = T)
+  res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
   attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
   res2
 }
