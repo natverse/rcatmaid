@@ -55,3 +55,23 @@ catmaid_get_annotationlist<-function(pid, conn=NULL, raw=FALSE, ...){
   res$users=uidf
   res
 }
+
+#' Get list of neurons/annotations querying by neuron/annotation name
+#' 
+#' @inheritParams catmaid_get_compact_skeleton
+#' @param maxresults The maximum number of results to return
+#' @return a data.frame containing the results with an attribute "annotations"
+#'   containing the annotations as a raw list
+#' @examples
+#' \dontrun{
+#' catmaid_query_by_neuronname("ORN")
+#' }
+catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, ...){
+  res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
+                body=list(neuron_query_by_name=query, display_start=0, display_length=maxresults))
+  if(raw) return(res)
+  # key fields name type, id
+  res2=list2df(res$entities, c("id", "name", "type"), use.col.names = T)
+  attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
+  res2
+}
