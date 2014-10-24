@@ -189,3 +189,28 @@ catmaid_POSTJ<-function(path, body, conn=NULL, include_headers=TRUE, ...) {
   }
   parsed
 }
+
+#' @rdname catmaid_GET
+#' @description \code{catmaid_fetch} carries out a GET operation when
+#'   \code{body=NULL}, POST otherwise.
+#' @param parse.json Whether or not to parse a JSON response to an R object
+#' @export
+catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE, 
+                        include_headers=TRUE, ...) {
+  conn=catmaid_login(conn)
+  req<-with_config(conn$config, {
+    if(is.null(body)) {
+      GET(url=paste0(conn$server, path), ...)
+    } else {
+      POST(url=paste0(conn$server, path), body=body, ...)
+    }
+  } )
+  if(parse.json) {
+    parsed=catmaid_parse_json(req)
+    if(include_headers) {
+      fields_to_include=c("url", "headers")
+      attributes(parsed) = c(attributes(parsed), req[fields_to_include])
+    }
+    parsed
+  } else req
+}
