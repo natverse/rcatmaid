@@ -1,5 +1,14 @@
 context("catmaid_login")
 
+# set any catmaid options from environment vars
+# they could have been exported as follows:
+# do.call(Sys.setenv, options()[grep('catmaid',names(options()))])
+catmaid_opnames=paste("catmaid", c("server", "username", "password", "authname", 
+                                   "authpassword", "authtype"),
+                      sep=".")
+catmaid_ops=Sys.getenv(catmaid_opnames)
+op=options(as.list(catmaid_ops[nzchar(catmaid_ops)]))
+
 test_that("can make a connection", {
   
   expect_error(catmaid_connection(server="http://somewhere.org"))
