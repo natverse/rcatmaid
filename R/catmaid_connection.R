@@ -70,10 +70,6 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
     # Bail if we have already logged in (and don't want to login afresh)
     return(conn)
   }
-  # make a custom curl config that includes authentication information if necessary
-  conn$config = if(is.null(conn$authname)) config() else {
-    authenticate(conn$authname, conn$authpassword, conn$authtype)
-  }
   conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
                            body=list(name=conn$username,pwd=conn$password),
                            config = conn$config)
@@ -100,6 +96,11 @@ catmaid_connection<-function(server=getOption("catmaid.server"),
   if(is.null(server) || !grepl("^https", server)) stop("Must provide a valid https server")
   conn=list(server=server, username=username, password=password, 
             authtype=authtype, authname=authname, authpassword=authpassword)
+  # make a custom curl config that includes authentication information if necessary
+  conn$config = if(is.null(authname)) config() else {
+    authenticate(authname, authpassword, type = authtype)
+  }
+
   class(conn)="catmaid_connection"
   conn
 }
