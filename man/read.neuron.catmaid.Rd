@@ -18,7 +18,7 @@ read.neurons.catmaid(skids, pid, conn = NULL, ...)
 object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the catmaid_GET function}
+\item{...}{Additional arguments passed to the catmaid_fetch function}
 }
 \description{
 \code{read.neuron.catmaid} reads a single neuron, while
@@ -39,6 +39,6 @@ plot3d(nl)
 }
 }
 \seealso{
-\code{\link{catmaid_GET}}
+\code{\link{catmaid_fetch}}
 }
 

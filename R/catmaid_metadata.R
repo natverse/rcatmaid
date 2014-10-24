@@ -8,7 +8,7 @@
 #' \dontrun{
 #' catmaid_get_neuronnames(pid=1, skids=c(10418394,4453485))
 #' }
-#' @seealso \code{\link{catmaid_POSTJ}}
+#' @seealso \code{\link{catmaid_fetch}}
 catmaid_get_neuronnames<-function(pid, skids, ...) {
   post_data=list(pid=pid)
   post_data[sprintf("skids[%d]", seq_along(skids))]=as.list(skids)

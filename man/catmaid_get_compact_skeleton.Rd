@@ -19,7 +19,7 @@ catmaid_get_compact_skeleton(pid, skid, conn = NULL, connectors = TRUE,
 or to convert the nodes and connectors lists into processed data.frames
 (when \code{FALSE}, the default)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_GETJ}}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function.}
 }
 \description{
@@ -38,6 +38,6 @@ skel=catmaid_get_compact_skeleton(1, 10418394)
 }
 }
 \seealso{
-\code{link{catmaid_GETJ}}
+\code{link{catmaid_fetch}}
 }
 

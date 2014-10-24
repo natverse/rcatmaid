@@ -86,7 +86,7 @@ conn = catmaid_login()
 conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 
 ## now do stuff with the connection like
-skel=catmaid_GETJ("1/10418394/0/0/compact-skeleton", conn)
+skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)
 
 ## or for those who want to work at the lowest level
 skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",

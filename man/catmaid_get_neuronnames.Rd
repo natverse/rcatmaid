@@ -10,7 +10,7 @@ catmaid_get_neuronnames(pid, skids, ...)
 
 \item{skids}{One or more skeleton ids}
 
-\item{...}{Additional arguments passed to the catmaid_GET function}
+\item{...}{Additional arguments passed to the catmaid_fetch function}
 }
 \value{
 a named character vector of neuron names. Missing values will be
@@ -25,6 +25,6 @@ catmaid_get_neuronnames(pid=1, skids=c(10418394,4453485))
 }
 }
 \seealso{
-\code{\link{catmaid_POSTJ}}
+\code{\link{catmaid_fetch}}
 }
 

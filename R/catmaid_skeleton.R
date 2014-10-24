@@ -7,9 +7,9 @@
 #' @param raw Whether to return completely unprocessed data (when \code{TRUE}) 
 #'   or to convert the nodes and connectors lists into processed data.frames 
 #'   (when \code{FALSE}, the default)
-#' @param ... Additional arguments passed to the \code{\link{catmaid_GETJ}} 
+#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
 #'   function.
-#' @seealso \code{link{catmaid_GETJ}}
+#' @seealso \code{link{catmaid_fetch}}
 #' @export
 #' @examples
 #' \dontrun{

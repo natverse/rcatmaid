@@ -10,9 +10,9 @@
 #'   within the context of temaplate brains.
 #' @param skid,skids One or more skeleton ids
 #' @param pid Project id
-#' @param ... Additional arguments passed to the catmaid_GET function
-#' @inheritParams catmaid_GET
-#' @seealso \code{\link{catmaid_GET}}
+#' @param ... Additional arguments passed to the catmaid_fetch function
+#' @inheritParams catmaid_fetch
+#' @seealso \code{\link{catmaid_fetch}}
 #' @export
 read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
   res=catmaid_get_compact_skeleton(pid=pid, skid=skid, conn=NULL, ...)
