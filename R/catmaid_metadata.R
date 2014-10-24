@@ -66,7 +66,10 @@ catmaid_get_annotationlist<-function(pid, conn=NULL, raw=FALSE, ...){
 #' @examples
 #' \dontrun{
 #' catmaid_query_by_neuronname("ORN")
+#' # using regex functionality
 #' catmaid_query_by_neuronname("ORN (left|right)")
+#' # fancier regex
+#' catmaid_query_by_neuronname("^[0-9a-f &]+ PN (left|right)")
 #' }
 catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, ...){
   res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
