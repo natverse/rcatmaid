@@ -29,6 +29,18 @@ read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
 }
 
 #' @rdname read.neuron.catmaid
+#' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an 
+#'   error. The default value (\code{NA}) will result in nlapply stopping with 
+#'   an error message the moment there is an eror. For other values, see 
+#'   details.
+#' @details When \code{OmitFailures} is not \code{NA}, \code{FUN} will be 
+#'   wrapped in a call to \code{try} to ensure that failure for any single 
+#'   neuron does not abort the nlapply/nmapply call. When 
+#'   \code{OmitFailures=TRUE} the resultant neuronlist will be subsetted down to
+#'   return values for which \code{FUN} evaluated successfully. When 
+#'   \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In 
+#'   either of the last 2 cases error messages will not be printed because the 
+#'   call is wrapped as \code{try(expr, silent=TRUE)}.
 #' @export
 #' @examples
 #' \dontrun{
@@ -37,12 +49,16 @@ read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
 #' plot3d(nl)
 #' 
 #' ## with progress bar
-#' nl=read.neurons.catmaid(lots_of_skids, pid=1, .progress='text')
+#' conn=catmaid_login()
+#' al = catmaid_get_annotationlist(pid=1, conn=conn)
+#' lots_of_skids = subset(al$user, name=='albert')$neuron.id
+#' # nb we make a progress bar and drop failures
+#' nl=read.neurons.catmaid(lots_of_skids, pid=1, conn=conn, .progress='text', OmitFailures=T)
 #' }
-read.neurons.catmaid<-function(skids, pid, conn=NULL, ...) {
-  l=nat::nlapply(skids, read.neuron.catmaid, pid=pid, conn=conn, ...)
-  names(l)=paste(pid, skids, sep=".")
+read.neurons.catmaid<-function(skids, pid, conn=NULL, OmitFailures=NA, ...) {
+  if(is.null(names(skids))) names(skids)=paste(pid, skids, sep=".")
   df=data.frame(pid=pid, skid=skids)
-  rownames(df)=names(l)
-  nat::as.neuronlist(l, df=df)
+  rownames(df)=names(skids)
+  fakenl=nat::as.neuronlist(as.list(skids), df=df)
+  nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
 }

@@ -6,7 +6,7 @@
 \usage{
 read.neuron.catmaid(skid, pid, conn = NULL, ...)
 
-read.neurons.catmaid(skids, pid, conn = NULL, ...)
+read.neurons.catmaid(skids, pid, conn = NULL, OmitFailures = NA, ...)
 }
 \arguments{
 \item{skid,skids}{One or more skeleton ids}
@@ -19,6 +19,11 @@ object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the catmaid_fetch function}
+
+\item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
+error. The default value (\code{NA}) will result in nlapply stopping with
+an error message the moment there is an eror. For other values, see
+details.}
 }
 \description{
 \code{read.neuron.catmaid} reads a single neuron, while
@@ -30,6 +35,15 @@ These functions provide a bridge between CATMAID and the
   neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}),
   which provides extensive functionality for analysing and plotting neurons
   within the context of temaplate brains.
+
+When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
+  wrapped in a call to \code{try} to ensure that failure for any single
+  neuron does not abort the nlapply/nmapply call. When
+  \code{OmitFailures=TRUE} the resultant neuronlist will be subsetted down to
+  return values for which \code{FUN} evaluated successfully. When
+  \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In
+  either of the last 2 cases error messages will not be printed because the
+  call is wrapped as \code{try(expr, silent=TRUE)}.
 }
 \examples{
 \dontrun{
@@ -38,7 +52,11 @@ nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
 plot3d(nl)
 
 ## with progress bar
-nl=read.neurons.catmaid(lots_of_skids, pid=1, .progress='text')
+conn=catmaid_login()
+al = catmaid_get_annotationlist(pid=1, conn=conn)
+lots_of_skids = subset(al$user, name=='albert')$neuron.id
+# nb we make a progress bar and drop failures
+nl=read.neurons.catmaid(lots_of_skids, pid=1, conn=conn, .progress='text', OmitFailures=T)
 }
 }
 \seealso{
