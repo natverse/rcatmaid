@@ -7,6 +7,8 @@ catmaid_query_by_neuronname(query, pid = 1, maxresults = 500, raw = FALSE,
   ...)
 }
 \arguments{
+\item{query}{A query string (NB this can be a regular expression)}
+
 \item{pid}{project and skeleton ids}
 
 \item{maxresults}{The maximum number of results to return}
@@ -28,6 +30,7 @@ Get list of neurons/annotations querying by neuron/annotation name
 \examples{
 \dontrun{
 catmaid_query_by_neuronname("ORN")
+catmaid_query_by_neuronname("ORN (left|right)")
 }
 }
 
