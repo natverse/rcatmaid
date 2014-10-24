@@ -10,7 +10,8 @@ catmaid_connection(server = getOption("catmaid.server"),
   username = getOption("catmaid.username"),
   password = getOption("catmaid.password"),
   authname = getOption("catmaid.authname"),
-  authpassword = getOption("catmaid.authpassword"))
+  authpassword = getOption("catmaid.authpassword"),
+  authtype = getOption("catmaid.authtype", default = "basic"))
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
@@ -24,8 +25,11 @@ catmaid_connection(server = getOption("catmaid.server"),
 
 \item{username,password}{Your CATMAID username and password.}
 
-\item{authname,authpassword}{The http basicauth username/password that
-optionally secures the CATMAID server.}
+\item{authname,authpassword}{The http username/password that optionally
+secures the CATMAID server.}
+
+\item{authtype}{The http authentication scheme, see
+\code{\link[httr]{authenticate}} for details.}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make

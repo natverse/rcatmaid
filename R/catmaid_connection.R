@@ -71,7 +71,9 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
     return(conn)
   }
   # make a custom curl config that includes authentication information if necessary
-  conn$config = if(is.null(conn$authname)) config() else authenticate(conn$authname, conn$authpassword)
+  conn$config = if(is.null(conn$authname)) config() else {
+    authenticate(conn$authname, conn$authpassword, conn$authtype)
+  }
   conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
                            body=list(name=conn$username,pwd=conn$password),
                            config = conn$config)
@@ -84,16 +86,20 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
 #' @name catmaid_login
 #' @param server url of CATMAID server
 #' @param username,password Your CATMAID username and password.
-#' @param authname,authpassword The http basicauth username/password that
-#'   optionally secures the CATMAID server.
+#' @param authname,authpassword The http username/password that optionally
+#'   secures the CATMAID server.
+#' @param authtype The http authentication scheme, see
+#'   \code{\link[httr]{authenticate}} for details.
 #' @export
 catmaid_connection<-function(server=getOption("catmaid.server"), 
                              username=getOption("catmaid.username"),
                              password=getOption("catmaid.password"),
                              authname=getOption("catmaid.authname"), 
-                             authpassword=getOption("catmaid.authpassword") ) {
+                             authpassword=getOption("catmaid.authpassword"),
+                             authtype=getOption("catmaid.authtype", default = "basic")) {
   if(is.null(server) || !grepl("^https", server)) stop("Must provide a valid https server")
-  conn=list(server=server, authname=authname, authpassword=authpassword, username=username, password=password)
+  conn=list(server=server, username=username, password=password, 
+            authtype=authtype, authname=authname, authpassword=authpassword)
   class(conn)="catmaid_connection"
   conn
 }
