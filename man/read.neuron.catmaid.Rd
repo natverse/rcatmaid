@@ -36,6 +36,9 @@ These functions provide a bridge between CATMAID and the
 library(nat)
 nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
 plot3d(nl)
+
+## with progress bar
+nl=read.neurons.catmaid(lots_of_skids, pid=1, .progress='text')
 }
 }
 \seealso{

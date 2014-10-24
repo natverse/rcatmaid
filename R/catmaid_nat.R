@@ -34,9 +34,12 @@ read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
 #' library(nat)
 #' nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
 #' plot3d(nl)
+#' 
+#' ## with progress bar
+#' nl=read.neurons.catmaid(lots_of_skids, pid=1, .progress='text')
 #' }
 read.neurons.catmaid<-function(skids, pid, conn=NULL, ...) {
-  l=lapply(skids, read.neuron.catmaid, pid=pid, conn=conn, ...)
+  l=nat::nlapply(skids, read.neuron.catmaid, pid=pid, conn=conn, ...)
   names(l)=paste(pid, skids, sep=".")
   df=data.frame(pid=pid, skid=skids)
   rownames(df)=names(l)
