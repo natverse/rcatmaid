@@ -31,17 +31,23 @@ catmaid_get_neuronnames<-function(pid, skids, ...) {
 #' @export
 #' @examples
 #' \dontrun{
-#' catmaid_get_neuronnames(pid=1)
+#' al=catmaid_get_annotationlist(pid=1)
+#' # table of the number of users who have edited each neuron
+#' table(al$neurons$num_users_neuron)
 #' }
 catmaid_get_annotationlist<-function(pid, conn=NULL, raw=FALSE, ...){
   res=catmaid_fetch("/1/annotations/list", conn=conn, parse.json = TRUE, ...)
   if(raw) return(res)
+  # reformat neuron information
   ni=sapply(res[[1]],function(y) unlist(y[c('id','name')]))
   nidf=data.frame(id=as.integer(ni['id',]), name=ni['name',], stringsAsFactors = F)
   
   ui=sapply(res[[1]],function(y) y[!names(y)%in%c('id','name')])
   
-  num_users_neuron=sapply(ui, function(x) length(unlist(x, use.names = F)), USE.NAMES = F)
+  # calculate number of users per neuron (and store it)
+  num_users_neuron=sapply(ui, function(x) length(unlist(x, use.names = F))/2, USE.NAMES = F)
+  nidf$num_users_neuron=num_users_neuron
+  
   uim=matrix(unlist(ui, use.names = F), ncol=2, byrow = T)
   uidf=data.frame(neuron.id=rep(nidf$id, num_users_neuron), id=as.integer(uim[,1]), name=uim[,2])
   

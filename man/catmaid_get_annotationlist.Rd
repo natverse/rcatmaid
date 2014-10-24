@@ -27,7 +27,9 @@ Get list of annotated neurons (including user information) from CATMAID
 }
 \examples{
 \dontrun{
-catmaid_get_neuronnames(pid=1)
+al=catmaid_get_annotationlist(pid=1)
+# table of the number of users who have edited each neuron
+table(al$neurons$num_users_neuron)
 }
 }
 
