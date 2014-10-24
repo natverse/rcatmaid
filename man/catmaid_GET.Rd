@@ -4,6 +4,7 @@
 \alias{catmaid_GETJ}
 \alias{catmaid_POST}
 \alias{catmaid_POSTJ}
+\alias{catmaid_fetch}
 \title{Send http GET or POST request to a CATMAID server}
 \usage{
 catmaid_GET(path, conn = NULL, ...)
@@ -13,6 +14,9 @@ catmaid_GETJ(path, conn = NULL, include_headers = TRUE, ...)
 catmaid_POST(path, body, conn = NULL, ...)
 
 catmaid_POSTJ(path, body, conn = NULL, include_headers = TRUE, ...)
+
+catmaid_fetch(path, body = NULL, conn = NULL, parse.json = TRUE,
+  include_headers = TRUE, ...)
 }
 \arguments{
 \item{path}{The path on the CATMAID server relative to the CATMAID root}
@@ -30,6 +34,8 @@ as attributes on the parsed JSON object (default \code{TRUE}).}
 \item{body}{For \code{catmaid_POST(J)} the body of the post request, usually
 in the form of a named list. See the \code{\link[httr]{POST}} documentation
 for full details.}
+
+\item{parse.json}{Whether or not to parse a JSON response to an R object}
 }
 \value{
 For \code{catmaid_GET} an object of class \code{response} or, for for
@@ -39,6 +45,9 @@ For \code{catmaid_GET} an object of class \code{response} or, for for
 \description{
 \code{catmaid_GET/POST} returns the raw response, whereas
   \code{catmaid_GET/POSTJ} parses JSON content into an R object.
+
+\code{catmaid_fetch} carries out a GET operation when
+  \code{body=NULL}, POST otherwise.
 }
 \examples{
 \dontrun{
