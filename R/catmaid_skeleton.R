@@ -41,10 +41,11 @@ catmaid_get_compact_skeleton<-function(pid, skid, conn=NULL, connectors = TRUE, 
   skel
 }
 
-list2df<-function(x, cols) {  
+list2df<-function(x, cols, use.col.names=F) {
   l=list()
   for(i in seq_along(cols)) {
-    raw_col=sapply(x, "[[", i)
+    colidx=if(use.col.names) cols[i] else i
+    raw_col = sapply(x, "[[", colidx)
     if(is.list(raw_col)) {
       raw_col[sapply(raw_col, is.null)]=NA
       raw_col=unlist(raw_col)
