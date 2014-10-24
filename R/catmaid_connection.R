@@ -144,22 +144,12 @@ catmaid_connection<-function(server=getOption("catmaid.server"),
 #' @seealso \code{\link{catmaid_login}}, \code{\link[httr]{GET}}, 
 #'   \code{\link[httr]{POST}}
 catmaid_GET <- function(path, conn=NULL, ...) {
-  conn=catmaid_login(conn)
-  req <- GET(url=paste0(conn$server, path), 
-             set_cookies(.cookies=conn$cookies),
-             authenticate(conn$authname,conn$authpassword), ...)
-  req
+  catmaid_fetch(path, conn=conn, include_headers=include_headers, parse.json = FALSE, ...)
 }
 
 #' @rdname catmaid_GET
 catmaid_GETJ<-function(path, conn=NULL, include_headers=TRUE, ...) {
-  req=catmaid_GET(path, conn=conn, ...)
-  parsed=catmaid_parse_json(req)
-  if(include_headers) {
-    fields_to_include=c("url", "headers")
-    attributes(parsed) = c(attributes(parsed), req[fields_to_include])
-  }
-  parsed
+  catmaid_fetch(path, conn=conn, include_headers=include_headers, parse.json = TRUE, ...)
 }
 
 catmaid_parse_json <- function(req) {
@@ -171,23 +161,13 @@ catmaid_parse_json <- function(req) {
 #' @rdname catmaid_GET
 #' @export
 catmaid_POST <- function(path, body, conn=NULL, ...) {
-  conn=catmaid_login(conn)
-  req <- POST(url=paste0(conn$server, path), body=body,
-              set_cookies(.cookies=conn$cookies),
-              authenticate(conn$authname,conn$authpassword), ...)
-  req
+  catmaid_fetch(path, body, conn=conn, include_headers=include_headers, parse.json = FALSE, ...)
 }
 
 #' @rdname catmaid_GET
 #' @export
 catmaid_POSTJ<-function(path, body, conn=NULL, include_headers=TRUE, ...) {
-  req=catmaid_POST(path, body=body, conn=conn, ...)
-  parsed=catmaid_parse_json(req)
-  if(include_headers) {
-    fields_to_include=c("url", "headers")
-    attributes(parsed) = c(attributes(parsed), req[fields_to_include])
-  }
-  parsed
+  catmaid_fetch(path, body, conn=conn, include_headers=include_headers, parse.json = TRUE, ...)
 }
 
 #' @rdname catmaid_GET
