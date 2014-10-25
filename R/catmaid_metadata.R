@@ -81,3 +81,30 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, .
   attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
   res2
 }
+
+#' Find neurons connected to a starting neuron
+#' 
+#' @param minimum_synapses Must be at least this number of synapses between 
+#'   starter neuron and returned partners
+#' @inheritParams catmaid_get_compact_skeleton
+#' @return A list containing two data.frames (incoming, outgoing) when
+#'   \code{raw=FALSE}
+#' @examples
+#' \dontrun{
+#' orn13a=catmaid_query_by_neuronname("13a ORN left")$skeleton_ids
+#' catmaid_query_connected(orn13a)
+#' }
+catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ...){
+  path=paste0("/",pid,"/skeleton/connectivity")
+  connectivity_post = list('source[0]'=skid, threshold=minimum_synapses, boolean_op='logic_OR')
+  res=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
+  if(raw) return(res)
+  
+  res$outgoing=list2df(res$outgoing, 
+                       cols=c("union_reviewed", "skids", "name", "num_nodes"),
+                       use.col.names = T)
+  res$incoming=list2df(res$incoming, 
+                       cols=c("union_reviewed", "skids", "name", "num_nodes"),
+                       use.col.names = T)
+  res
+}
