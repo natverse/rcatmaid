@@ -63,6 +63,7 @@ catmaid_get_annotationlist<-function(pid, conn=NULL, raw=FALSE, ...){
 #' @param maxresults The maximum number of results to return
 #' @return a data.frame containing the results with an attribute "annotations" 
 #'   containing the annotations as a raw list
+#' @export
 #' @examples
 #' \dontrun{
 #' catmaid_query_by_neuronname("ORN")

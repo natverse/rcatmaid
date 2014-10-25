@@ -30,7 +30,10 @@ Get list of neurons/annotations querying by neuron/annotation name
 \examples{
 \dontrun{
 catmaid_query_by_neuronname("ORN")
+# using regex functionality
 catmaid_query_by_neuronname("ORN (left|right)")
+# fancier regex
+catmaid_query_by_neuronname("^[0-9a-f &]+ PN (left|right)")
 }
 }
 
