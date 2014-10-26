@@ -85,6 +85,7 @@ read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
 #' open3d()
 #' # colour by side of brain
 #' plot3d(orns, col=side)
+#' clear3d()
 #' # colour by Odorant Receptor
 #' # note similar position of axon terminals for same ORN class on left and right
 #' plot3d(orns, col=Or)
