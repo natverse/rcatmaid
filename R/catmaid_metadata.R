@@ -99,12 +99,27 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
   connectivity_post = list('source[0]'=skid, threshold=minimum_synapses, boolean_op='logic_OR')
   res=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
   if(raw) return(res)
-  
+    
   res$outgoing=list2df(res$outgoing, 
                        cols=c("union_reviewed", "skids", "name", "num_nodes"),
-                       use.col.names = T)
+                       use.col.names = T, stringsAsFactors=FALSE)
   res$incoming=list2df(res$incoming, 
                        cols=c("union_reviewed", "skids", "name", "num_nodes"),
-                       use.col.names = T)
-  res
+                       use.col.names = T, stringsAsFactors=FALSE)
+  
+  # pretty up the output data.frames
+  fixresdf<-function(df, minimum_synapses) {
+    if(is.null(df)) return(NULL)
+    # not sure why this element ends up named like this in the json
+    names(df)[names(df)=='skids']='syn.count'
+    # actual skeleton ids come back as rownames
+    df$skid=as.integer(rownames(df))
+    rownames(df)=NULL
+    colsforleft<-c('skid','name','syn.count')
+    df=df[c(colsforleft,setdiff(names(df), colsforleft))]
+    df=subset(df, syn.count>=minimum_synapses)
+    df[order(df$syn.count, decreasing = TRUE),]
+  }
+
+  lapply(res, fixresdf, minimum_synapses)
 }
