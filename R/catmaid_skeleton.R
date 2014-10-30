@@ -41,7 +41,7 @@ catmaid_get_compact_skeleton<-function(pid, skid, conn=NULL, connectors = TRUE, 
   skel
 }
 
-list2df<-function(x, cols, use.col.names=F) {
+list2df<-function(x, cols, use.col.names=F, ...) {
   if(!length(x)) return(NULL)
   l=list()
   for(i in seq_along(cols)) {
@@ -53,5 +53,5 @@ list2df<-function(x, cols, use.col.names=F) {
     }
     l[[cols[i]]]=raw_col
   }
-  as.data.frame(l)
+  as.data.frame(l, ...)
 }
