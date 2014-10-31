@@ -68,10 +68,16 @@
 #' @export
 catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   if(is.null(conn)) conn=catmaid_connection(...)
-  else if(!is.null(conn$authresponse) && !Force) {
-    # Bail if we have already logged in (and don't want to login afresh)
-    return(conn)
+  
+  # check if we can use this connection already or reuse a cached one
+  if(!Force) {
+    # already open if authresponse exists
+    if(!is.null(conn$authresponse)) return(conn)
+    cached_conn=catmaid_cached_connection(conn)
+    if(!is.null(cached_conn)) return(cached_conn)
   }
+
+  # otherwise login from scratch
   conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
                            body=list(name=conn$username,pwd=conn$password),
                            config = conn$config)
