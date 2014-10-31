@@ -4,7 +4,7 @@
 \alias{catmaid_login}
 \title{Connect/authenticate to a CATMAID server, returning a connection object}
 \usage{
-catmaid_login(conn = NULL, ..., Force = FALSE)
+catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
 catmaid_connection(server = getOption("catmaid.server"),
   username = getOption("catmaid.username"),
@@ -17,6 +17,9 @@ catmaid_connection(server = getOption("catmaid.server"),
 \item{conn}{An optional \code{catmaid_connection} connection object.}
 
 \item{...}{Additional arguemnts passed to catmaid_connection}
+
+\item{Cache}{Whether to cache open connections at login so that they can be
+reused automatically.}
 
 \item{Force}{Whether to force a new login to the CATMAID server (default
   \code{FALSE})}
@@ -33,8 +36,8 @@ secures the CATMAID server.}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make
-  authenticated http requests to a CATMAID server, specifically by making
-  use of the \code{$config} field.
+  authenticated http requests to a CATMAID server, specifically by making use
+  of the \code{$config} field.
 }
 \description{
 \code{catmaid_login} allows you to login to a CATMAID server
