@@ -53,4 +53,7 @@ test_that("can fetch cached connection", {
     server="https://wurgle.com", user='rhubarb')), conn1)
   expect_null(catmaid_cached_connection(conn = catmaid_connection(
     server="https://wurgle.com", user='apple')))
+  
+  # remove fake cached connection
+  .package_statevars$connections[['wurgle_cookie']]=NULL
 })

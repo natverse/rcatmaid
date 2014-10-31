@@ -69,7 +69,14 @@
 #' }
 #' @export
 catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
-  if(is.null(conn)) conn=catmaid_connection(...)
+  if(is.null(conn)) {
+    if(!length(pairlist(...))) {
+      # try and get the last cached connection
+      conn=catmaid_last_connection()
+    }
+    if(is.null(conn))
+      conn=catmaid_connection(...)
+  }
   
   # check if we can use this connection already or reuse a cached one
   if(!Force) {
