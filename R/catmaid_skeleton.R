@@ -55,3 +55,37 @@ list2df<-function(x, cols, use.col.names=F, ...) {
   }
   as.data.frame(l, ...)
 }
+
+#' Return skeleton ids for pre/postsynaptic partners of a set of connector_ids
+#' 
+#' @param connector_ids Numeric ids for each connection
+#' @inheritParams catmaid_get_compact_skeleton
+#' @return A data.frame with columns \itemize{
+#'   
+#'   \item connector_id
+#'   
+#'   \item pre
+#'   
+#'   \item post
+#'   
+#'   }
+#' @export
+catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...) {
+  path=paste("", pid, "connector","skeletons",sep="/")
+  post_data=as.list(connector_ids)
+  names(post_data)=sprintf("connector_ids[%d]", seq_along(connector_ids))
+  conns=catmaid_fetch(path, body=post_data, conn=conn, ...)
+  
+  if(raw) return(conns)
+  # else process the connector information
+  if(!length(conns)) return(NULL)
+
+  # connector_ids
+  ids=as.integer(sapply(conns, "[[", 1))
+  # make indiviudal data.frames of synapse info in long form
+  syns=lapply(conns, function(y) expand.grid(pre=unlist(y[[2]]['presynaptic_to'], use.names = F),
+                                             post=unlist(y[[2]]['postsynaptic_to'], use.names = F)))
+  # now assemble that all together
+  df=data.frame(connector_id=rep(ids, sapply(syns, nrow)))
+  cbind(df, do.call(rbind, syns))
+}
