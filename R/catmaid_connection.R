@@ -177,3 +177,23 @@ catmaid_parse_json <- function(req) {
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
   jsonlite::fromJSON(text, simplifyVector = FALSE)
 }
+
+# return the open cached connection object for an (unopened) connection
+# returns NULL when passed NULL
+# returns incoming connection if already opened
+catmaid_cached_connection<-function(conn) {
+  if(is.null(conn)) return(NULL)
+  
+  open_connections=ls(.connections)
+  if(!length(open_connections)) return(NULL)
+  
+  for(thisconn in open_connections) {
+    thisconn=.connections[[thisconn]]
+    checkfields=c("server","username","authname", "authtype")
+    # drop any fields where the incoming connection does not contain info
+    checkfields=checkfields[!sapply(conn[checkfields], is.null)]
+    if(isTRUE(all.equal(thisconn[checkfields], conn[checkfields])))
+      return(thisconn)
+  }
+  return(NULL)
+}
