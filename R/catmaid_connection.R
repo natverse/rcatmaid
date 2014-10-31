@@ -79,7 +79,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   conn$cookies=unlist(cookies(conn$authresponse))
   conn$config=c(conn$config, set_cookies(conn$cookies))
   if(Cache)
-    .connections[[conn$server]]=conn
+    .connections[[conn$config$cookie]]=conn
   conn
 }
 
