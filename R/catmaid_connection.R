@@ -8,13 +8,15 @@
 #'   The connection object returned by \code{catmaid_login} will then be used 
 #'   for future requests to the CATMAID server.
 #'   
-#' @details After successful login, the \code{catmaid_connection} will contain a
-#'   \code{cookie} field that includes a sessionid that is required for 
-#'   subsequent GET/POST operations.
+#' @details After successful login, the \code{catmaid_connection} object will 
+#'   contain a \code{cookie} field that includes a sessionid that is required 
+#'   for subsequent GET/POST operations.  When \code{Cache=TRUE} the open 
+#'   connection object is cached and will be used whenever catmaid_login is 
+#'   called with enough information to identify the server in question.
 #'   
 #' @param conn An optional \code{catmaid_connection} connection object.
 #' @param ... Additional arguemnts passed to catmaid_connection
-#' @param Cache Whether to cache open connections at login so that they can be
+#' @param Cache Whether to cache open connections at login so that they can be 
 #'   reused automatically.
 #' @param Force Whether to force a new login to the CATMAID server (default 
 #'   \code{FALSE})

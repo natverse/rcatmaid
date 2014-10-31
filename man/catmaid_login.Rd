@@ -6,11 +6,8 @@
 \usage{
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
-catmaid_connection(server = getOption("catmaid.server"),
-  username = getOption("catmaid.username"),
-  password = getOption("catmaid.password"),
-  authname = getOption("catmaid.authname"),
-  authpassword = getOption("catmaid.authpassword"),
+catmaid_connection(server, username = NULL, password = NULL,
+  authname = NULL, authpassword = NULL,
   authtype = getOption("catmaid.authtype", default = "basic"))
 }
 \arguments{
@@ -49,9 +46,11 @@ a \code{catmaid_connection} object that can be used to make
   for future requests to the CATMAID server.
 }
 \details{
-After successful login, the \code{catmaid_connection} will contain a
-  \code{cookie} field that includes a sessionid that is required for
-  subsequent GET/POST operations.
+After successful login, the \code{catmaid_connection} object will
+  contain a \code{cookie} field that includes a sessionid that is required
+  for subsequent GET/POST operations.  When \code{Cache=TRUE} the open
+  connection object is cached and will be used whenever catmaid_login is
+  called with enough information to identify the server in question.
 }
 \section{Package options}{
 
