@@ -11,8 +11,6 @@ op=options(as.list(catmaid_ops[nzchar(catmaid_ops)]))
 
 # we can only run real tests if we can log in with default parameters
 conn=try(catmaid_login(), silent = TRUE)
-# store this in options so that we can access elsewhere
-options(catmaid_temp_conn=conn)
 
 test_that("can make a connection", {
   

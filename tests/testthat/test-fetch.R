@@ -1,7 +1,7 @@
 context("catmaid metadata queries")
 
-# login is handled by test-connections
-conn=getOption('catmaid_temp_conn')
+# nb will reuse cached connection made earlier
+conn=try(catmaid_login(), silent = TRUE)
 
 test_that("get neuron names", {
   if(!inherits(conn, 'try-error')){
