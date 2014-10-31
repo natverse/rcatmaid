@@ -44,7 +44,7 @@ test_that("can fetch cached connection", {
   conn1=catmaid_connection(server = "https://wurgle.com", user='rhubarb', password='crumble')
   
   # store connection manually
-  .connections[['wurgle_cookie']]=conn1
+  .package_statevars$connections[['wurgle_cookie']]=conn1
   
   expect_equal(catmaid_cached_connection(conn = conn1), conn1)
   expect_equal(catmaid_cached_connection(conn = catmaid_connection(

@@ -87,7 +87,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   conn$cookies=unlist(cookies(conn$authresponse))
   conn$config=c(conn$config, set_cookies(conn$cookies))
   if(Cache)
-    .connections[[conn$config$cookie]]=conn
+    catmaid_cache_connection(conn)
   conn
 }
 
@@ -205,11 +205,11 @@ catmaid_parse_json <- function(req) {
 catmaid_cached_connection<-function(conn) {
   if(is.null(conn)) return(NULL)
   
-  open_connections=ls(.connections)
+  open_connections=names(.package_statevars$connections)
   if(!length(open_connections)) return(NULL)
   
   for(thisconn in open_connections) {
-    thisconn=.connections[[thisconn]]
+    thisconn=.package_statevars$connections[[thisconn]]
     checkfields=c("server","username","authname", "authtype")
     # drop any fields where the incoming connection does not contain info
     checkfields=checkfields[!sapply(conn[checkfields], is.null)]
@@ -217,4 +217,8 @@ catmaid_cached_connection<-function(conn) {
       return(thisconn)
   }
   return(NULL)
+}
+
+catmaid_cache_connection<-function(conn) {
+  .package_statevars$connections[[conn$config$cookie]]=conn
 }
