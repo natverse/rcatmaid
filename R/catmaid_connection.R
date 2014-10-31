@@ -91,13 +91,26 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #' @param authtype The http authentication scheme, see
 #'   \code{\link[httr]{authenticate}} for details.
 #' @export
-catmaid_connection<-function(server=getOption("catmaid.server"), 
-                             username=getOption("catmaid.username"),
-                             password=getOption("catmaid.password"),
-                             authname=getOption("catmaid.authname"), 
-                             authpassword=getOption("catmaid.authpassword"),
+catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
+                             authpassword=NULL, 
                              authtype=getOption("catmaid.authtype", default = "basic")) {
-  if(is.null(server) || !grepl("^https", server)) stop("Must provide a valid https server")
+  
+  defaultServer=getOption("catmaid.server")
+  if(missing(server)) {
+    server=defaultServer
+  }
+  if(is.null(server) || !grepl("^https", server))
+    stop("Must provide a valid https server")
+  
+  if(isTRUE(server==defaultServer)){
+    # we're using the default server specified by options
+    # fill in the other options
+    if(is.null(username)) username=getOption("catmaid.username")
+    if(is.null(password)) password=getOption("catmaid.password")
+    if(is.null(authname)) authname=getOption("catmaid.authname")
+    if(is.null(authpassword)) authpassword=getOption("catmaid.authpassword")
+  }
+  
   conn=list(server=server, username=username, password=password, 
             authtype=authtype, authname=authname, authpassword=authpassword)
   # make a custom curl config that includes authentication information if necessary
