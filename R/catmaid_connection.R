@@ -222,3 +222,9 @@ catmaid_cached_connection<-function(conn) {
 catmaid_cache_connection<-function(conn) {
   .package_statevars$connections[[conn$config$cookie]]=conn
 }
+
+catmaid_last_connection<-function() {
+  conns=.package_statevars$connections
+  num_conns=length(conns)
+  if(num_conns) conns[[num_conns]] else NULL
+}
