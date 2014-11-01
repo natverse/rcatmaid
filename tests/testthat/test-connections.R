@@ -1,16 +1,7 @@
 context("catmaid login and get/post")
 
-# set any catmaid options from environment vars
-# they could have been exported as follows:
-# do.call(Sys.setenv, options()[grep('catmaid',names(options()))])
-catmaid_opnames=paste("catmaid", c("server", "username", "password", "authname", 
-                                   "authpassword", "authtype"),
-                      sep=".")
-catmaid_ops=Sys.getenv(catmaid_opnames)
-op=options(as.list(catmaid_ops[nzchar(catmaid_ops)]))
-
 # we can only run real tests if we can log in with default parameters
-conn=try(catmaid_login(), silent = TRUE)
+conn=try(catmaid_connection_getenv(), silent = F)
 
 test_that("can make a connection", {
   
