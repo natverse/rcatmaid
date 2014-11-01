@@ -17,7 +17,7 @@ implies that the most recent cached open connection will be used.}
 \value{
 \code{catmaid_connection_setenv} returns TRUE or FALSE depending on
   whether variables were set successfully. \code{catmaid_connection_getenv}
-  returns a connection object created basde on environment variables.
+  returns a connection object created based on environment variables.
 }
 \description{
 \code{catmaid_connection_setenv} sets environment variables based on a

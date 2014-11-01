@@ -257,7 +257,7 @@ catmaid_last_connection<-function() {
 #'   not already been done
 #' @return \code{catmaid_connection_setenv} returns TRUE or FALSE depending on 
 #'   whether variables were set successfully. \code{catmaid_connection_getenv} 
-#'   returns a connection object created basde on environment variables.
+#'   returns a connection object created based on environment variables.
 #' @seealso \code{\link{catmaid_login}}
 catmaid_connection_setenv<-function(conn=NULL, ...) {
   conn=catmaid_login(conn, ...)
