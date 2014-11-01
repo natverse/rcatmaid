@@ -20,8 +20,8 @@
 #'   
 #' @section Unit tests: Unit tests can be run as per the examples section below.
 #'   In order to do live tests you will need to set environment variables with 
-#'   your catmaid login credentials. See \code{\link{catmaid_connection_setenv}}
-#'   or details in file \code{testthat/test-connections.R}.
+#'   your catmaid login credentials using the function
+#'   \code{\link{catmaid_connection_setenv}}.
 #' @name catmaid-package
 #' @aliases catmaid
 #' @docType package
