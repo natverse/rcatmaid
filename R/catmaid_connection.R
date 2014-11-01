@@ -239,3 +239,43 @@ catmaid_last_connection<-function() {
   num_conns=length(conns)
   if(num_conns) conns[[num_conns]] else NULL
 }
+
+#' Import/Export catmaid connection details to system variables (e.g. for tests)
+#' 
+#' @description
+#' 
+#' \code{catmaid_connection_setenv} sets environment variables based on a 
+#' \code{catmaid_connection} object.
+#' 
+#' \code{catmaid_connection_getenv} fetches appropriately named environment 
+#' variables and uses them to open a catmaid connection.
+#' 
+#' @param conn A \code{catmaid_connection} object. The default value of NULL 
+#'   implies that the most recent cached open connection will be used.
+#' @param ... additional arguments passed to \code{catmaid_login}
+#' @details \code{catmaid_connection_setenv} will attempt to login if this has 
+#'   not already been done
+#' @return \code{catmaid_connection_setenv} returns TRUE or FALSE depending on 
+#'   whether variables were set successfully. \code{catmaid_connection_getenv} 
+#'   returns a connection object created basde on environment variables.
+#' @seealso \code{\link{catmaid_login}}
+catmaid_connection_setenv<-function(conn=NULL, ...) {
+  conn=catmaid_login(conn, ...)
+  poss_vars_to_export=c("server", "username", "password", "authname", "authpassword", "authtype")
+  vars_to_export=intersect(poss_vars_to_export, names(conn))
+  export_vector=unlist(conn[vars_to_export])
+  names(export_vector)=paste0("catmaid.", vars_to_export)
+  all(do.call(Sys.setenv, as.list(export_vector)))
+}
+
+#' Fetch connection details from appropriate environment variables
+#' @rdname catmaid_connection_setenv
+catmaid_connection_getenv<-function(...) {
+  varnames=c("server", "username", "password", "authname", "authpassword", "authtype")
+  catmaid_envnames=paste0("catmaid.", varnames)
+  catmaid_envs=Sys.getenv(catmaid_envnames, unset = NA_character_)
+  names(catmaid_envs)=varnames
+  # drop any empty vars
+  catmaid_envs=na.omit(catmaid_envs)
+  do.call(catmaid_login, as.list(catmaid_envs, ...))
+}

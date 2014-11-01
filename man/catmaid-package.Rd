@@ -5,7 +5,7 @@
 \alias{catmaid-package}
 \title{Programmatic access to the CATMAID API}
 \description{
-To use first call \code{\link{catmaid_login}} to authenticate to a catmaid
+To use, first call \code{\link{catmaid_login}} to authenticate to a catmaid
 server. You can then use functions such as
 \code{\link{catmaid_get_neuronnames}} or
 \code{\link{catmaid_get_compact_skeleton}} to query the server. You can also
