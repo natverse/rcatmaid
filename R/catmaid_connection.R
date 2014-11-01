@@ -2,28 +2,36 @@
 #' 
 #' @description \code{catmaid_login} allows you to login to a CATMAID server 
 #'   specified by a \code{catmaid_connection} object. If such an object is not 
-#'   specified, then one is created, by default using \code{options} of the form
-#'   "catmaid.*".
+#'   specified, then the last succesful connection in this R session is reused 
+#'   if possible otherwise a new connection object is created using 
+#'   \code{options} of the form "catmaid.*" (see details).
 #'   
-#'   The connection object returned by \code{catmaid_login} will then be used 
-#'   for future requests to the CATMAID server.
+#'   The connection object returned by \code{catmaid_login} (or cached when 
+#'   \code{Cache=TRUE}, the default) can then be used for future requests to the
+#'   CATMAID server by get/query/fetch functions.
 #'   
-#' @details After successful login, the \code{catmaid_connection} will contain a
-#'   \code{cookie} field that includes a sessionid that is required for 
-#'   subsequent GET/POST operations.
+#' @details After successful login, the \code{catmaid_connection} object will 
+#'   contain a \code{cookie} field that includes a sessionid that is required 
+#'   for subsequent GET/POST operations.  When \code{Cache=TRUE} (the default) 
+#'   the open connection object is cached and will be used when EITHER 
+#'   catmaid_login is called with enough information to indicate that the same
+#'   server is desired question OR (when no information about the server is
+#'   passed to catmaid_login) the last opened connection will be used.
 #'   
 #' @param conn An optional \code{catmaid_connection} connection object.
 #' @param ... Additional arguemnts passed to catmaid_connection
+#' @param Cache Whether to cache open connections at login so that they can be 
+#'   reused automatically.
 #' @param Force Whether to force a new login to the CATMAID server (default 
 #'   \code{FALSE})
 #'   
 #' @return a \code{catmaid_connection} object that can be used to make 
-#'   authenticated http requests to a CATMAID server, specifically by making
-#'   use of the \code{$config} field.
+#'   authenticated http requests to a CATMAID server, specifically by making use
+#'   of the \code{$config} field.
 #'   
 #' @section Package options:
 #'   
-#'   You will very likely want to set some of the following package options in
+#'   You will very likely want to set some of the following package options in 
 #'   your .Rprofile file (see \code{\link{Startup}} for details)
 #'   
 #'   \itemize{
@@ -40,8 +48,8 @@
 #'   
 #'   } using code along these lines:
 #'   
-#'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
-#'   catmaid.authname="Calvin",catmaid.authpassword="hobbes",
+#'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
+#'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", 
 #'   catmaid.username="calvin", catmaid.password="hobbesagain")}
 #'   
 #' @seealso \code{\link{options}}, \code{\link{Startup}}
@@ -64,18 +72,33 @@
 #'   config=conn$config)
 #' }
 #' @export
-catmaid_login<-function(conn=NULL, ..., Force=FALSE){
-  if(is.null(conn)) conn=catmaid_connection(...)
-  else if(!is.null(conn$authresponse) && !Force) {
-    # Bail if we have already logged in (and don't want to login afresh)
-    return(conn)
+catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
+  if(is.null(conn)) {
+    if(!length(pairlist(...))) {
+      # try and get the last cached connection
+      conn=catmaid_last_connection()
+    }
+    if(is.null(conn))
+      conn=catmaid_connection(...)
   }
+  
+  # check if we can use this connection already or reuse a cached one
+  if(!Force) {
+    # already open if authresponse exists
+    if(!is.null(conn$authresponse)) return(conn)
+    cached_conn=catmaid_cached_connection(conn)
+    if(!is.null(cached_conn)) return(cached_conn)
+  }
+
+  # otherwise login from scratch
   conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
                            body=list(name=conn$username,pwd=conn$password),
                            config = conn$config)
   # store the returned cookies for future use
   conn$cookies=unlist(cookies(conn$authresponse))
   conn$config=c(conn$config, set_cookies(conn$cookies))
+  if(Cache)
+    catmaid_cache_connection(conn)
   conn
 }
 
@@ -87,13 +110,26 @@ catmaid_login<-function(conn=NULL, ..., Force=FALSE){
 #' @param authtype The http authentication scheme, see
 #'   \code{\link[httr]{authenticate}} for details.
 #' @export
-catmaid_connection<-function(server=getOption("catmaid.server"), 
-                             username=getOption("catmaid.username"),
-                             password=getOption("catmaid.password"),
-                             authname=getOption("catmaid.authname"), 
-                             authpassword=getOption("catmaid.authpassword"),
+catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
+                             authpassword=NULL, 
                              authtype=getOption("catmaid.authtype", default = "basic")) {
-  if(is.null(server) || !grepl("^https", server)) stop("Must provide a valid https server")
+  
+  defaultServer=getOption("catmaid.server")
+  if(missing(server)) {
+    server=defaultServer
+  }
+  if(is.null(server) || !grepl("^https", server))
+    stop("Must provide a valid https server")
+  
+  if(isTRUE(server==defaultServer)){
+    # we're using the default server specified by options
+    # fill in the other options
+    if(is.null(username)) username=getOption("catmaid.username")
+    if(is.null(password)) password=getOption("catmaid.password")
+    if(is.null(authname)) authname=getOption("catmaid.authname")
+    if(is.null(authpassword)) authpassword=getOption("catmaid.authpassword")
+  }
+  
   conn=list(server=server, username=username, password=password, 
             authtype=authtype, authname=authname, authpassword=authpassword)
   # make a custom curl config that includes authentication information if necessary
@@ -172,4 +208,74 @@ catmaid_parse_json <- function(req) {
   text <- content(req, as = "text")
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
   jsonlite::fromJSON(text, simplifyVector = FALSE)
+}
+
+# return the open cached connection object for an (unopened) connection
+# returns NULL when passed NULL
+# returns incoming connection if already opened
+catmaid_cached_connection<-function(conn) {
+  if(is.null(conn)) return(NULL)
+  
+  open_connections=names(.package_statevars$connections)
+  if(!length(open_connections)) return(NULL)
+  
+  for(thisconn in open_connections) {
+    thisconn=.package_statevars$connections[[thisconn]]
+    checkfields=c("server","username","authname", "authtype")
+    # drop any fields where the incoming connection does not contain info
+    checkfields=checkfields[!sapply(conn[checkfields], is.null)]
+    if(isTRUE(all.equal(thisconn[checkfields], conn[checkfields])))
+      return(thisconn)
+  }
+  return(NULL)
+}
+
+catmaid_cache_connection<-function(conn) {
+  .package_statevars$connections[[conn$config$cookie]]=conn
+}
+
+catmaid_last_connection<-function() {
+  conns=.package_statevars$connections
+  num_conns=length(conns)
+  if(num_conns) conns[[num_conns]] else NULL
+}
+
+#' Import/Export catmaid connection details to system variables (e.g. for tests)
+#' 
+#' @description
+#' 
+#' \code{catmaid_connection_setenv} sets environment variables based on a 
+#' \code{catmaid_connection} object.
+#' 
+#' \code{catmaid_connection_getenv} fetches appropriately named environment 
+#' variables and uses them to open a catmaid connection.
+#' 
+#' @param conn A \code{catmaid_connection} object. The default value of NULL 
+#'   implies that the most recent cached open connection will be used.
+#' @param ... additional arguments passed to \code{catmaid_login}
+#' @details \code{catmaid_connection_setenv} will attempt to login if this has 
+#'   not already been done
+#' @return \code{catmaid_connection_setenv} returns TRUE or FALSE depending on 
+#'   whether variables were set successfully. \code{catmaid_connection_getenv} 
+#'   returns a connection object created based on environment variables.
+#' @seealso \code{\link{catmaid_login}}
+catmaid_connection_setenv<-function(conn=NULL, ...) {
+  conn=catmaid_login(conn, ...)
+  poss_vars_to_export=c("server", "username", "password", "authname", "authpassword", "authtype")
+  vars_to_export=intersect(poss_vars_to_export, names(conn))
+  export_vector=unlist(conn[vars_to_export])
+  names(export_vector)=paste0("catmaid.", vars_to_export)
+  all(do.call(Sys.setenv, as.list(export_vector)))
+}
+
+#' Fetch connection details from appropriate environment variables
+#' @rdname catmaid_connection_setenv
+catmaid_connection_getenv<-function(...) {
+  varnames=c("server", "username", "password", "authname", "authpassword", "authtype")
+  catmaid_envnames=paste0("catmaid.", varnames)
+  catmaid_envs=Sys.getenv(catmaid_envnames, unset = NA_character_)
+  names(catmaid_envs)=varnames
+  # drop any empty vars
+  catmaid_envs=na.omit(catmaid_envs)
+  do.call(catmaid_login, as.list(catmaid_envs, ...))
 }

@@ -4,19 +4,19 @@
 \alias{catmaid_login}
 \title{Connect/authenticate to a CATMAID server, returning a connection object}
 \usage{
-catmaid_login(conn = NULL, ..., Force = FALSE)
+catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
-catmaid_connection(server = getOption("catmaid.server"),
-  username = getOption("catmaid.username"),
-  password = getOption("catmaid.password"),
-  authname = getOption("catmaid.authname"),
-  authpassword = getOption("catmaid.authpassword"),
+catmaid_connection(server, username = NULL, password = NULL,
+  authname = NULL, authpassword = NULL,
   authtype = getOption("catmaid.authtype", default = "basic"))
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
 
 \item{...}{Additional arguemnts passed to catmaid_connection}
+
+\item{Cache}{Whether to cache open connections at login so that they can be
+reused automatically.}
 
 \item{Force}{Whether to force a new login to the CATMAID server (default
   \code{FALSE})}
@@ -33,22 +33,28 @@ secures the CATMAID server.}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make
-  authenticated http requests to a CATMAID server, specifically by making
-  use of the \code{$config} field.
+  authenticated http requests to a CATMAID server, specifically by making use
+  of the \code{$config} field.
 }
 \description{
 \code{catmaid_login} allows you to login to a CATMAID server
   specified by a \code{catmaid_connection} object. If such an object is not
-  specified, then one is created, by default using \code{options} of the form
-  "catmaid.*".
+  specified, then the last succesful connection in this R session is reused
+  if possible otherwise a new connection object is created using
+  \code{options} of the form "catmaid.*" (see details).
 
-  The connection object returned by \code{catmaid_login} will then be used
-  for future requests to the CATMAID server.
+  The connection object returned by \code{catmaid_login} (or cached when
+  \code{Cache=TRUE}, the default) can then be used for future requests to the
+  CATMAID server by get/query/fetch functions.
 }
 \details{
-After successful login, the \code{catmaid_connection} will contain a
-  \code{cookie} field that includes a sessionid that is required for
-  subsequent GET/POST operations.
+After successful login, the \code{catmaid_connection} object will
+  contain a \code{cookie} field that includes a sessionid that is required
+  for subsequent GET/POST operations.  When \code{Cache=TRUE} (the default)
+  the open connection object is cached and will be used when EITHER
+  catmaid_login is called with enough information to indicate that the same
+  server is desired question OR (when no information about the server is
+  passed to catmaid_login) the last opened connection will be used.
 }
 \section{Package options}{
 

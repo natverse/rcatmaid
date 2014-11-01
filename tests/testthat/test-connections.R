@@ -1,18 +1,7 @@
 context("catmaid login and get/post")
 
-# set any catmaid options from environment vars
-# they could have been exported as follows:
-# do.call(Sys.setenv, options()[grep('catmaid',names(options()))])
-catmaid_opnames=paste("catmaid", c("server", "username", "password", "authname", 
-                                   "authpassword", "authtype"),
-                      sep=".")
-catmaid_ops=Sys.getenv(catmaid_opnames)
-op=options(as.list(catmaid_ops[nzchar(catmaid_ops)]))
-
 # we can only run real tests if we can log in with default parameters
-conn=try(catmaid_login(), silent = TRUE)
-# store this in options so that we can access elsewhere
-options(catmaid_temp_conn=conn)
+conn=try(catmaid_connection_getenv(), silent = F)
 
 test_that("can make a connection", {
   
@@ -40,4 +29,22 @@ test_that("can get and post data", {
                       list(`10418394` = "IPC10", `4453485` = "IPC1"))
     expect_equal(names(attributes(neuronnames)), c("names", "url", "headers"))
   }  
+})
+
+test_that("can fetch cached connection", {
+  conn1=catmaid_connection(server = "https://wurgle.com", user='rhubarb', password='crumble')
+  
+  # store connection manually
+  .package_statevars$connections[['wurgle_cookie']]=conn1
+  
+  expect_equal(catmaid_cached_connection(conn = conn1), conn1)
+  expect_equal(catmaid_cached_connection(conn = catmaid_connection(
+    server="https://wurgle.com")), conn1)
+  expect_equal(catmaid_cached_connection(conn = catmaid_connection(
+    server="https://wurgle.com", user='rhubarb')), conn1)
+  expect_null(catmaid_cached_connection(conn = catmaid_connection(
+    server="https://wurgle.com", user='apple')))
+  
+  # remove fake cached connection
+  .package_statevars$connections[['wurgle_cookie']]=NULL
 })
