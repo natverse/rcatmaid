@@ -117,7 +117,7 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
     rownames(df)=NULL
     colsforleft<-c('skid','name','syn.count')
     df=df[c(colsforleft,setdiff(names(df), colsforleft))]
-    df=df[, df$syn.count>=minimum_synapses]
+    df=df[df$syn.count>=minimum_synapses, ]
     df[order(df$syn.count, decreasing = TRUE),]
   }
 
