@@ -6,7 +6,7 @@
 catmaid_get_annotationlist(pid, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
-\item{pid}{project and skeleton ids}
+\item{pid}{project id (default 1)}
 
 \item{conn}{the \code{\link{catmaid_connection}} object}
 

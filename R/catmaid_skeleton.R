@@ -1,6 +1,7 @@
 #' return the raw data for a CATMAID neuronal skeleton
 #' 
-#' @param pid,skid project and skeleton ids
+#' @param skid skeleton ids
+#' @param pid project id (default 1)
 #' @param conn the \code{\link{catmaid_connection}} object
 #' @param connectors Whether to fetch connector information
 #' @param tags Whether to fetch tag information
@@ -15,14 +16,14 @@
 #' \dontrun{
 #' ## using an existing connection object
 #' conn=catmaid_login()
-#' skel=catmaid_get_compact_skeleton(1, 10418394, conn)
+#' skel=catmaid_get_compact_skeleton(10418394, conn)
 #' # no connector (i.e. synapse) information
-#' skel=catmaid_get_compact_skeleton(1, 10418394, conn, connectors = FALSE)
+#' skel=catmaid_get_compact_skeleton(10418394, conn, connectors = FALSE)
 #' 
 #' ## using throwaway connection object
-#' skel=catmaid_get_compact_skeleton(1, 10418394)
+#' skel=catmaid_get_compact_skeleton(10418394)
 #' }
-catmaid_get_compact_skeleton<-function(pid, skid, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
+catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
   path=file.path("", pid, skid, ifelse(connectors, 1L, 0L), ifelse(tags, 1L, 0L), "compact-skeleton")
   skel=catmaid_fetch(path, conn=conn, ...)
   names(skel)=c("nodes", "connectors", "tags")

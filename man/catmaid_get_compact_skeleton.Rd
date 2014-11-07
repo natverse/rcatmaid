@@ -3,11 +3,13 @@
 \alias{catmaid_get_compact_skeleton}
 \title{return the raw data for a CATMAID neuronal skeleton}
 \usage{
-catmaid_get_compact_skeleton(pid, skid, conn = NULL, connectors = TRUE,
-  tags = TRUE, raw = FALSE, ...)
+catmaid_get_compact_skeleton(skid, pid = 1L, conn = NULL,
+  connectors = TRUE, tags = TRUE, raw = FALSE, ...)
 }
 \arguments{
-\item{pid,skid}{project and skeleton ids}
+\item{skid}{skeleton ids}
+
+\item{pid}{project id (default 1)}
 
 \item{conn}{the \code{\link{catmaid_connection}} object}
 
@@ -29,12 +31,12 @@ return the raw data for a CATMAID neuronal skeleton
 \dontrun{
 ## using an existing connection object
 conn=catmaid_login()
-skel=catmaid_get_compact_skeleton(1, 10418394, conn)
+skel=catmaid_get_compact_skeleton(10418394, conn)
 # no connector (i.e. synapse) information
-skel=catmaid_get_compact_skeleton(1, 10418394, conn, connectors = FALSE)
+skel=catmaid_get_compact_skeleton(10418394, conn, connectors = FALSE)
 
 ## using throwaway connection object
-skel=catmaid_get_compact_skeleton(1, 10418394)
+skel=catmaid_get_compact_skeleton(10418394)
 }
 }
 \seealso{

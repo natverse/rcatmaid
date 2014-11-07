@@ -7,12 +7,12 @@ catmaid_query_connected(skid, minimum_synapses = 1, pid = 1, raw = FALSE,
   ...)
 }
 \arguments{
-\item{skid}{project and skeleton ids}
+\item{skid}{skeleton ids}
 
 \item{minimum_synapses}{Must be at least this number of synapses between
 starter neuron and returned partners}
 
-\item{pid}{project and skeleton ids}
+\item{pid}{project id (default 1)}
 
 \item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
 or to convert the nodes and connectors lists into processed data.frames

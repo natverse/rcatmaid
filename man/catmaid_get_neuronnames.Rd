@@ -3,12 +3,12 @@
 \alias{catmaid_get_neuronnames}
 \title{Get names of neurons from CATMAID}
 \usage{
-catmaid_get_neuronnames(pid, skids, ...)
+catmaid_get_neuronnames(skids, pid = 1, ...)
 }
 \arguments{
-\item{pid}{Project id}
-
 \item{skids}{One or more skeleton ids}
+
+\item{pid}{Project id (default 1)}
 
 \item{...}{Additional arguments passed to the catmaid_fetch function}
 }
@@ -21,7 +21,7 @@ Get names of neurons from CATMAID
 }
 \examples{
 \dontrun{
-catmaid_get_neuronnames(pid=1, skids=c(10418394,4453485))
+catmaid_get_neuronnames(skids=c(10418394,4453485))
 }
 }
 \seealso{

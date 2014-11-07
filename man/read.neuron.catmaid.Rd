@@ -4,15 +4,15 @@
 \alias{read.neurons.catmaid}
 \title{Read one more neurons in the NeuroAnatomy Toolbox (nat) format}
 \usage{
-read.neuron.catmaid(skid, pid, conn = NULL, ...)
+read.neuron.catmaid(skid, pid = 1L, conn = NULL, ...)
 
-read.neurons.catmaid(skids, pid, conn = NULL, OmitFailures = NA,
+read.neurons.catmaid(skids, pid = 1L, conn = NULL, OmitFailures = NA,
   df = NULL, ...)
 }
 \arguments{
 \item{skid,skids}{One or more skeleton ids}
 
-\item{pid}{Project id}
+\item{pid}{Project id (default 1)}
 
 \item{conn}{A \code{catmaid_connection} objection returned by
 \code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection

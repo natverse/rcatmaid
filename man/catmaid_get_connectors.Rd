@@ -9,7 +9,7 @@ catmaid_get_connectors(connector_ids, pid = 1, conn = NULL, raw = FALSE,
 \arguments{
 \item{connector_ids}{Numeric ids for each connection}
 
-\item{pid}{project and skeleton ids}
+\item{pid}{project id (default 1)}
 
 \item{conn}{the \code{\link{catmaid_connection}} object}
 

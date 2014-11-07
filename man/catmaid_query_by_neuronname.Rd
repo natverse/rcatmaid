@@ -9,7 +9,7 @@ catmaid_query_by_neuronname(query, pid = 1, maxresults = 500, raw = FALSE,
 \arguments{
 \item{query}{A query string (NB this can be a regular expression)}
 
-\item{pid}{project and skeleton ids}
+\item{pid}{project id (default 1)}
 
 \item{maxresults}{The maximum number of results to return}
 

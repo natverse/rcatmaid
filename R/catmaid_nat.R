@@ -9,12 +9,12 @@
 #'   which provides extensive functionality for analysing and plotting neurons
 #'   within the context of temaplate brains.
 #' @param skid,skids One or more skeleton ids
-#' @param pid Project id
+#' @param pid Project id (default 1)
 #' @param ... Additional arguments passed to the catmaid_fetch function
 #' @inheritParams catmaid_fetch
 #' @seealso \code{\link{catmaid_fetch}}
 #' @export
-read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
+read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   res=catmaid_get_compact_skeleton(pid=pid, skid=skid, conn=conn, ...)
   if(!length(res$nodes)) stop("no valid nodes for skid:", skid)
   swc=with(res$nodes, 
@@ -90,7 +90,7 @@ read.neuron.catmaid<-function(skid, pid, conn=NULL, ...) {
 #' # note similar position of axon terminals for same ORN class on left and right
 #' plot3d(orns, col=Or)
 #' }
-read.neurons.catmaid<-function(skids, pid, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
+read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
   if(is.null(df)) {
     names(skids)=as.character(skids)
     df=data.frame(pid=pid, skid=skids)
