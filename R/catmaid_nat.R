@@ -1,12 +1,12 @@
-#' Read one more neurons in the NeuroAnatomy Toolbox (nat) format
+#' Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format
 #' 
 #' \code{read.neuron.catmaid} reads a single neuron, while 
-#' \code{read.neurons.catmaid} generates a neuronlist object including some 
-#' metadata information.
+#' \code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object
+#' including some metadata information.
 #' 
 #' @details These functions provide a bridge between CATMAID and the 
 #'   neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
-#'   which provides extensive functionality for analysing and plotting neurons
+#'   which provides extensive functionality for analysing and plotting neurons 
 #'   within the context of temaplate brains.
 #' @param skid,skids One or more skeleton ids
 #' @param pid Project id (default 1)
