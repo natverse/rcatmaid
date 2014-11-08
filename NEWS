@@ -1,0 +1,6 @@
+catmaid 0.3
+===========
+* cache login credentials for automatic reuse
+* option to set/get environment variables for passwords etc
+* Add catmaid_query_connected, catmaid_get_annotationlist, catmaid_query_by_neuronname
+* low level catmaid_fetch function covers GET and POST requests
