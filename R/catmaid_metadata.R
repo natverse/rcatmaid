@@ -95,6 +95,7 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, .
 #' orn13a=catmaid_query_by_neuronname("13a ORN left")$skeleton_ids
 #' catmaid_query_connected(orn13a)
 #' }
+#' @export
 catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ...){
   path=paste0("/",pid,"/skeleton/connectivity")
   connectivity_post = list('source[0]'=skid, threshold=minimum_synapses, boolean_op='logic_OR')
