@@ -35,8 +35,9 @@ catmaid_get_neuronnames<-function(skids, pid=1, ...) {
 #' # table of the number of users who have contributed to each annotation
 #' table(al$neurons$num_users_annotation)
 #' }
-catmaid_get_annotationlist<-function(pid, conn=NULL, raw=FALSE, ...){
-  res=catmaid_fetch("/1/annotations/list", conn=conn, parse.json = TRUE, ...)
+catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
+  res=catmaid_fetch(paste0("/",pid,"/annotations/list"), conn=conn, 
+                    parse.json = TRUE, ...)
   if(raw) return(res)
   # reformat annotation information
   ni=sapply(res[[1]],function(y) unlist(y[c('id','name')]))

@@ -3,7 +3,7 @@
 \alias{catmaid_get_annotationlist}
 \title{Get list of annotations (including user information) from CATMAID}
 \usage{
-catmaid_get_annotationlist(pid, conn = NULL, raw = FALSE, ...)
+catmaid_get_annotationlist(pid = 1, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
 \item{pid}{project id (default 1)}
