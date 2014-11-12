@@ -2,7 +2,7 @@
 \name{read.neuron.catmaid}
 \alias{read.neuron.catmaid}
 \alias{read.neurons.catmaid}
-\title{Read one more neurons in the NeuroAnatomy Toolbox (nat) format}
+\title{Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format}
 \usage{
 read.neuron.catmaid(skid, pid = 1L, conn = NULL, ...)
 
@@ -30,8 +30,8 @@ details.}
 }
 \description{
 \code{read.neuron.catmaid} reads a single neuron, while
-\code{read.neurons.catmaid} generates a neuronlist object including some
-metadata information.
+\code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object
+including some metadata information.
 }
 \details{
 These functions provide a bridge between CATMAID and the
