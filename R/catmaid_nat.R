@@ -1,13 +1,17 @@
 #' Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format
 #' 
 #' \code{read.neuron.catmaid} reads a single neuron, while 
-#' \code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object
+#' \code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object 
 #' including some metadata information.
 #' 
 #' @details These functions provide a bridge between CATMAID and the 
 #'   neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
 #'   which provides extensive functionality for analysing and plotting neurons 
 #'   within the context of temaplate brains.
+#'   
+#'   Note that the soma is set by inspecting CATMAID tags that 
+#'   (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1
+#'   tag exists the one that tags an endpoint is preferred.
 #' @param skid,skids One or more skeleton ids
 #' @param pid Project id (default 1)
 #' @param ... Additional arguments passed to the catmaid_fetch function
@@ -21,7 +25,26 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
            data.frame(PointNo=id, Label=0, X=location.x, Y=location.y, Z=location.z, W=radius*2, Parent=parent_id)
   )
   swc$Parent[is.na(swc$Parent)]=-1L
-  n=nat::as.neuron(swc)
+  
+  # Find soma position, based on plausible tags
+  soma_tags<-grep("(cell body|soma)", ignore.case = T, names(res$tags), value = T)
+  soma_id=unlist(unique(res$tags[soma_tags]))
+  soma_id_in_neuron=intersect(soma_id, swc$PointNo)
+  if(length(soma_id_in_neuron)>1) {
+    soma_d=swc[match(soma_id_in_neuron,swc$PointNo),]
+    if(sum(soma_d$Parent<0) == 1 ) {
+      # just one end point is tagged as soma, so go with that
+      soma_id_in_neuron=soma_d$PointNo[soma_d$Parent<0]
+    } else {
+      warning("Ambiguous points tagged as soma in neuron: ",skid,". Using first")
+      soma_id_in_neuron=soma_id_in_neuron[1]
+    }
+  } else {
+    soma_id_in_neuron=NULL
+  }
+  n=nat::as.neuron(swc, origin=soma_id_in_neuron)
+  
+  # add all fields from input list except for nodes themselves
   n[names(res[-1])]=res[-1]
   fields_to_include=c("url", "headers")
   n[fields_to_include]=attributes(res)[fields_to_include]

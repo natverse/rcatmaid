@@ -39,6 +39,10 @@ These functions provide a bridge between CATMAID and the
   which provides extensive functionality for analysing and plotting neurons
   within the context of temaplate brains.
 
+  Note that the soma is set by inspecting CATMAID tags that
+  (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1
+  tag exists the one that tags an endpoint is preferred.
+
 When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
   wrapped in a call to \code{try} to ensure that failure for any single
   neuron does not abort the nlapply/nmapply call. When
