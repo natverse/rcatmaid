@@ -29,14 +29,13 @@ return the raw data for a CATMAID neuronal skeleton
 }
 \examples{
 \dontrun{
-## using an existing connection object
-conn=catmaid_login()
-skel=catmaid_get_compact_skeleton(10418394, conn)
-# no connector (i.e. synapse) information
-skel=catmaid_get_compact_skeleton(10418394, conn, connectors = FALSE)
-
-## using throwaway connection object
+## ensure that you have done something like
+# conn=catmaid_login()
+# at least once this session to connect to the server
 skel=catmaid_get_compact_skeleton(10418394)
+# no connector (i.e. synapse) information
+skel=catmaid_get_compact_skeleton(10418394, connectors = FALSE)
+
 }
 }
 \seealso{
