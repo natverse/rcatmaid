@@ -16,6 +16,9 @@ devtools::install_github("jefferis/rcatmaid")
 # use 
 library(catmaid)
 
+# general help starting point
+?catmaid
+
 # examples
 example(catmaid_login)
 example(catmaid_POST)
@@ -38,6 +41,11 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
   catmaid.authname="Calvin",catmaid.authpassword="hobbes",
   catmaid.username="calvin", catmaid.password="hobbesagain")
 ```
+
+Once you have logged in at least once in the current R session using catmaid_login
+or friends, the access credentials will be cached and you should no longer need
+to authenticate explicitly.
+
 
 ## Installation
 Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
