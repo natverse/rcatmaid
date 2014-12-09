@@ -21,7 +21,7 @@ library(catmaid)
 
 # examples
 example(catmaid_login)
-example(catmaid_POST)
+example(catmaid_fetch)
 example(catmaid_get_compact_skeleton)
 
 # use with nat
@@ -34,7 +34,9 @@ sapply(nl, function(n) points3d(n$connectors[4:6], col=n$connectors$prepost+3) )
 ```
 
 ## Authentication
-You will obviously need to have the details of a valid CATMAID instance to try this out.  It is recommended that you set these details by including code like this in in your .Rprofile file:
+You will obviously need to have the details of a valid CATMAID instance to try 
+this out.  It is recommended that you set these details by including code like 
+this in in your .Rprofile file:
 
 ```r
 options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
@@ -58,7 +60,8 @@ if (!require("devtools")) install.packages("devtools")
 devtools::install_github("jefferis/rcatmaid")
 ```
 
-Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and [devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and
+[devtools](http://CRAN.R-project.org/package=devtools) to install this way.
 
 ## Acknowledgements
 
