@@ -29,7 +29,7 @@ Get list of annotations (including user information) from CATMAID
 \dontrun{
 al=catmaid_get_annotationlist(pid=1)
 # table of the number of users who have contributed to each annotation
-table(al$neurons$num_users_annotation)
+table(al$annotations$num_users_annotation)
 }
 }
 

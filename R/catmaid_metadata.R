@@ -33,7 +33,7 @@ catmaid_get_neuronnames<-function(skids, pid=1, ...) {
 #' \dontrun{
 #' al=catmaid_get_annotationlist(pid=1)
 #' # table of the number of users who have contributed to each annotation
-#' table(al$neurons$num_users_annotation)
+#' table(al$annotations$num_users_annotation)
 #' }
 catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
   res=catmaid_fetch(paste0("/",pid,"/annotations/list"), conn=conn, 
