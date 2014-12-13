@@ -75,7 +75,7 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' }
 catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, ...){
   res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
-                body=list(neuron_query_by_name=query, display_start=0, display_length=maxresults))
+                body=list(neuron_query_by_name=query, display_start=0, display_length=sprintf("%d",maxresults)))
   if(raw) return(res)
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
