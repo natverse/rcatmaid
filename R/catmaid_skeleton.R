@@ -135,15 +135,20 @@ catmaid_get_connector_table<-function(skid, direction=c("incoming", "outgoing"),
   
   if(raw) return(ctl)
   # else process the connector information
-  if(ctl$iTotalRecords==0) return(NULL)
+  
+  dfcolnames=c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
+    "tags", "nodes_in_partner", "username", "partner_treenode_id", 
+    "last_modified")
+  if(ctl$iTotalRecords==0) {
+    emptydf=read.table(text = "", col.names=dfcolnames)
+    return(emptydf)
+  }
   # expect 12 fields
   # problem could be tags!
   stopifnot(all(sapply(ctl[[1]], length)==12))
   #df=do.call(rbind, ctl[[1]])
   ll=lapply(1:12, function(i) sapply(ctl[[1]], "[[", i))
-  names(ll) = c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
-    "tags", "nodes_in_partner", "username", "partner_treenode_id", 
-    "last_modified")
+  names(ll) = dfcolnames
   df=as.data.frame(ll, stringsAsFactors=FALSE)
   df$username=factor(df$username)
   df
