@@ -4,8 +4,8 @@
 \alias{catmaid_query_by_neuronname}
 \title{Get list of neurons/annotations querying by neuron/annotation name}
 \usage{
-catmaid_query_by_neuronname(query, pid = 1, maxresults = 500, raw = FALSE,
-  ...)
+catmaid_query_by_neuronname(query, pid = 1, maxresults = 500,
+  type = c("neuron", "annotation"), raw = FALSE, ...)
 }
 \arguments{
 \item{query}{A query string (NB this can be a regular expression)}
@@ -13,6 +13,9 @@ catmaid_query_by_neuronname(query, pid = 1, maxresults = 500, raw = FALSE,
 \item{pid}{project id (default 1)}
 
 \item{maxresults}{The maximum number of results to return}
+
+\item{type}{Type of results to return. Defaults to \code{c("neuron",
+"annotation")}. Only relevant when \code{raw=FALSE}.}
 
 \item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
 or to convert the nodes and connectors lists into processed data.frames

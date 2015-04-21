@@ -62,6 +62,8 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' @param query A query string (NB this can be a regular expression)
 #' @inheritParams catmaid_get_compact_skeleton
 #' @param maxresults The maximum number of results to return
+#' @param type Type of results to return. Defaults to \code{c("neuron", 
+#'   "annotation")}. Only relevant when \code{raw=FALSE}.
 #' @return a data.frame containing the results with an attribute "annotations" 
 #'   containing the annotations as a raw list
 #' @export
@@ -73,14 +75,17 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' # fancier regex
 #' catmaid_query_by_neuronname("^[0-9a-f &]+ PN (left|right)")
 #' }
-catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, raw=FALSE, ...){
+catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, 
+                                      type=c("neuron","annotation"), raw=FALSE, 
+                                      ...){
+  return_type=match.arg(type, several.ok = T)
   res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
                 body=list(neuron_query_by_name=query, display_start=0, display_length=sprintf("%d",maxresults)))
   if(raw) return(res)
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
   attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
-  res2
+  subset(res2, type%in%return_type)
 }
 
 #' Find neurons connected to a starting neuron
