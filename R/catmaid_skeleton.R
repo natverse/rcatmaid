@@ -89,3 +89,63 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
   df=data.frame(connector_id=rep(ids, sapply(syns, nrow)))
   cbind(df, do.call(rbind, syns))
 }
+
+
+#' Return connector table for a given neuron
+#' 
+#' @param skid Numeric skeleton id
+#' @param direction whether to find incoming or outgoing connections
+#' @inheritParams catmaid_get_compact_skeleton
+#' @return A data.frame with columns \itemize{
+#'   
+#'   \item connector_id
+#'   
+#'   \item partner_skid
+#'   
+#'   \item x
+#'   
+#'   \item y
+#'   
+#'   \item z
+#'   
+#'   \item s
+#'   
+#'   \item confidence
+#'   
+#'   \item tags
+#'   
+#'   \item nodes_in_partner
+#'   
+#'   \item username
+#'   
+#'   \item partner_treenode_id
+#'   
+#'   \item last_modified
+#'   
+#'   }
+#' @export
+catmaid_get_connector_table<-function(skid, direction=c("incoming", "outgoing"),
+                                      pid=1, conn=NULL, raw=FALSE, ...) {
+  direction=match.arg(direction)
+  # relation_type 0 => incoming
+  ctl=catmaid_fetch(path=paste0("/", pid, "/connector/table/list"),
+                   body=list(skeleton_id=skid, 
+                             relation_type=ifelse(direction=="incoming",0,1)), 
+                   conn=conn, ...)
+  
+  if(raw) return(ctl)
+  # else process the connector information
+  if(ctl$iTotalRecords==0) return(NULL)
+  # expect 12 fields
+  # problem could be tags!
+  stopifnot(all(sapply(ctl[[1]], length)==12))
+  #df=do.call(rbind, ctl[[1]])
+  ll=lapply(1:12, function(i) sapply(ctl[[1]], "[[", i))
+  names(ll) = c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
+    "tags", "nodes_in_partner", "username", "partner_treenode_id", 
+    "last_modified")
+  df=as.data.frame(ll, stringsAsFactors=FALSE)
+  df$username=factor(df$username)
+  df
+}
+
