@@ -88,6 +88,32 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500,
   subset(res2, type%in%return_type)
 }
 
+#' @rdname catmaid_query_by_neuronname
+#' @export
+catmaid_query_by_annotation<-function(query, pid=1, maxresults=500, 
+                                      type=c("neuron","annotation"), raw=FALSE, 
+                                      ...){
+  return_type=match.arg(type, several.ok = T)
+  if(is.character(query)) {
+    al=catmaid_get_annotationlist()
+    matches=grepl(query, al$annotations$name)
+    nmatches=sum(matches)
+    if(nmatches==0) stop("No matching annotation!")
+    query=al$annotations$id[matches]
+    if(nmatches>1) {
+      warning(nmatches," matching annotations!")
+      return(lapply(query, catmaid_query_by_annotation))
+    }
+  }
+  res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
+                    body=list(neuron_query_by_annotation=query, display_start=0, display_length=sprintf("%d",maxresults)))
+  if(raw) return(res)
+  # key fields name type, id
+  res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
+  attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
+  subset(res2, type%in%return_type)
+}
+
 #' Find neurons connected to a starting neuron
 #' 
 #' @param minimum_synapses Must be at least this number of synapses between 
