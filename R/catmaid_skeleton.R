@@ -12,8 +12,8 @@
 #'   (when \code{FALSE}, the default)
 #' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
 #'   function.
-#' @seealso \code{link{read.neuron.catmaid}} to read as neuroanatomy toolbox
-#'   neuron that can be plotted directly. \code{link{catmaid_fetch}}.
+#' @seealso \code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox
+#'   neuron that can be plotted directly. \code{\link{catmaid_fetch}}.
 #' @export
 #' @examples
 #' \dontrun{
