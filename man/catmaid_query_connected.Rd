@@ -8,7 +8,7 @@ catmaid_query_connected(skid, minimum_synapses = 1, pid = 1, raw = FALSE,
   ...)
 }
 \arguments{
-\item{skid}{skeleton ids}
+\item{skid}{single skeleton id}
 
 \item{minimum_synapses}{Must be at least this number of synapses between
 starter neuron and returned partners}

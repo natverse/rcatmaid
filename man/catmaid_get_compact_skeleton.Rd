@@ -2,13 +2,13 @@
 % Please edit documentation in R/catmaid_skeleton.R
 \name{catmaid_get_compact_skeleton}
 \alias{catmaid_get_compact_skeleton}
-\title{return the raw data for a CATMAID neuronal skeleton}
+\title{Return the raw data for a CATMAID neuronal skeleton}
 \usage{
 catmaid_get_compact_skeleton(skid, pid = 1L, conn = NULL,
   connectors = TRUE, tags = TRUE, raw = FALSE, ...)
 }
 \arguments{
-\item{skid}{skeleton ids}
+\item{skid}{single skeleton id}
 
 \item{pid}{project id (default 1)}
 
@@ -26,7 +26,11 @@ or to convert the nodes and connectors lists into processed data.frames
 function.}
 }
 \description{
-return the raw data for a CATMAID neuronal skeleton
+Return the raw data for a CATMAID neuronal skeleton
+}
+\details{
+Note that by default this fetches both skeleton and connector
+  (synapse) information.
 }
 \examples{
 \dontrun{
@@ -40,6 +44,7 @@ skel=catmaid_get_compact_skeleton(10418394, connectors = FALSE)
 }
 }
 \seealso{
-\code{link{catmaid_fetch}}
+\code{link{read.neuron.catmaid}} to read as neuroanatomy toolbox
+  neuron that can be plotted directly. \code{link{catmaid_fetch}}.
 }
 

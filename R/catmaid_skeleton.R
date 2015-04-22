@@ -1,6 +1,8 @@
-#' return the raw data for a CATMAID neuronal skeleton
+#' Return the raw data for a CATMAID neuronal skeleton
 #' 
-#' @param skid skeleton ids
+#' @details Note that by default this fetches both skeleton and connector 
+#'   (synapse) information.
+#' @param skid single skeleton id
 #' @param pid project id (default 1)
 #' @param conn the \code{\link{catmaid_connection}} object
 #' @param connectors Whether to fetch connector information
@@ -10,7 +12,8 @@
 #'   (when \code{FALSE}, the default)
 #' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
 #'   function.
-#' @seealso \code{link{catmaid_fetch}}
+#' @seealso \code{link{read.neuron.catmaid}} to read as neuroanatomy toolbox
+#'   neuron that can be plotted directly. \code{link{catmaid_fetch}}.
 #' @export
 #' @examples
 #' \dontrun{

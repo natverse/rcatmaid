@@ -156,3 +156,4 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
 
   lapply(res, fixresdf, minimum_synapses)
 }
+
