@@ -30,8 +30,9 @@ function.}
 }
 \value{
 For \code{catmaid_query_by_neuronname} a data.frame containing the
-  results with an attribute "annotations" containing the annotations as a raw
-  list. For both functions the data.frame has columns \itemize{
+  results with an attribute "annotations" containing the annotations as a
+  separate data.frame. For both functions the main data.frame has the
+  following columns \itemize{
 
   \item id
 

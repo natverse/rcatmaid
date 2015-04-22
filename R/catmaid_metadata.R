@@ -66,8 +66,9 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' @param type Type of results to return. Defaults to \code{c("neuron", 
 #'   "annotation")}. Only relevant when \code{raw=FALSE}.
 #' @return For \code{catmaid_query_by_neuronname} a data.frame containing the 
-#'   results with an attribute "annotations" containing the annotations as a raw
-#'   list. For both functions the data.frame has columns \itemize{
+#'   results with an attribute "annotations" containing the annotations as a 
+#'   separate data.frame. For both functions the main data.frame has the
+#'   following columns \itemize{
 #'   
 #'   \item id
 #'   
@@ -98,8 +99,18 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500,
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
   names(res2)[names(res2)=="skeleton_ids"]="skid"
-  attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
-  subset(res2, type%in%return_type)
+  al=lapply(res$entities, "[[", "annotations")
+  ldf=lapply(al, list2df, c("uid","id", "name"), use.col.names=T, return_empty_df=T)
+  adf=jsonlite::rbind.pages(ldf)
+  names(adf)[names(adf)=='id']='annotation_id'
+  adf$id=rep(res2$id, sapply(ldf, nrow))
+  if(length(return_type)>1) {
+    # subset
+    res2=subset(res2, type%in%return_type)
+    adf=subset(adf, id%in%res2$id)
+  }
+  attr(res2,'annotations')=adf
+  res2
 }
 
 #' @rdname catmaid_query_by_neuronname
