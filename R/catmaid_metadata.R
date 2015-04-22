@@ -19,7 +19,8 @@ catmaid_get_neuronnames<-function(skids, pid=1, ...) {
   missing_names=setdiff(as.character(skids), names(res))
   if(length(missing_names))
     res[missing_names]=NA_character_
-  res
+  # ensure that return values are in order that was passed in
+  res[as.character(skids)]
 }
 
 #' Get list of annotations (including user information) from CATMAID
