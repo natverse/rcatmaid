@@ -44,8 +44,12 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
   skel
 }
 
-list2df<-function(x, cols, use.col.names=F, ...) {
-  if(!length(x)) return(NULL)
+list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
+  if(!length(x)) {
+    return(if(return_empty_df){
+      as.data.frame(structure(replicate(length(cols), logical(0)), .Names=cols))
+    } else NULL)
+  }
   l=list()
   for(i in seq_along(cols)) {
     colidx=if(use.col.names) cols[i] else i
