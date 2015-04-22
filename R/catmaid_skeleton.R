@@ -34,13 +34,11 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
   # else process the skeleton
   if(length(skel$nodes))
     skel$nodes=list2df(skel$nodes, 
-                     cols=c("id", "parent_id", "user_id", "location.x",
-                            "location.y", "location.z", "radius", "confidence"))
+                     cols=c("id", "parent_id", "user_id", "x","y", "z", "radius", "confidence"))
   
   if(length(skel$connectors))
     skel$connectors=list2df(skel$connectors, 
-                            cols=c("XXX", "connector_id", "prepost", "location.x",
-                                   "location.y", "location.z"))
+                            cols=c("XXX", "connector_id", "prepost", "x", "y", "z"))
   skel
 }
 

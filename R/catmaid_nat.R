@@ -22,7 +22,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   res=catmaid_get_compact_skeleton(pid=pid, skid=skid, conn=conn, ...)
   if(!length(res$nodes)) stop("no valid nodes for skid:", skid)
   swc=with(res$nodes, 
-           data.frame(PointNo=id, Label=0, X=location.x, Y=location.y, Z=location.z, W=radius*2, Parent=parent_id)
+           data.frame(PointNo=id, Label=0, X=x, Y=y, Z=z, W=radius*2, Parent=parent_id)
   )
   swc$Parent[is.na(swc$Parent)]=-1L
   
