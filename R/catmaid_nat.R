@@ -86,7 +86,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 #' # Find ORNs
 #' conn=catmaid_login()
 #' # note use of regex in query
-#' orn_query=catmaid_query_by_neuronname("ORN (left|right)", conn=conn)
+#' orn_query=catmaid_query_by_name("ORN (left|right)", conn=conn)
 #' 
 #' # Tidy up result data.frame keeping only neurons
 #' orn_query=subset(orn_query, type=='neuron')

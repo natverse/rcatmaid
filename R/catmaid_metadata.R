@@ -61,7 +61,7 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' Get list of neurons/annotations querying by neuron/annotation name
 #' 
 #' @description These functions try to match a \code{query} against the 
-#'   \code{name} of a neuron or annotation (\code{catmaid_query_by_neuronname}) 
+#'   \code{name} of a neuron or annotation (\code{catmaid_query_by_name}) 
 #'   \emph{or} against an annotation (tag) that has been applied to a neuron or 
 #'   annotation (\code{catmaid_query_by_annotation}). Note that 1) objects can
 #'   be tagged with multiple annotations and 2) annotation tags are recursive so
@@ -76,7 +76,7 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' @param maxresults The maximum number of results to return
 #' @param type Type of results to return. Defaults to \code{c("neuron", 
 #'   "annotation")}. Only relevant when \code{raw=FALSE}.
-#' @return For \code{catmaid_query_by_neuronname} a data.frame containing the 
+#' @return For \code{catmaid_query_by_name} a data.frame containing the 
 #'   results with an attribute "annotations" containing the annotations as a 
 #'   separate data.frame. For both functions the main data.frame has the 
 #'   following columns \itemize{
@@ -94,13 +94,13 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' @export
 #' @examples
 #' \dontrun{
-#' catmaid_query_by_neuronname("ORN")
+#' catmaid_query_by_name("ORN")
 #' # using regex functionality
-#' catmaid_query_by_neuronname("ORN (left|right)")
+#' catmaid_query_by_name("ORN (left|right)")
 #' # fancier regex
-#' catmaid_query_by_neuronname("^[0-9a-f &]+ PN (left|right)")
+#' catmaid_query_by_name("^[0-9a-f &]+ PN (left|right)")
 #' }
-catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, 
+catmaid_query_by_name<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
                                       ...){
   query_by_neuron_or_annotation(path='1/neuron/query-by-annotations',
@@ -135,7 +135,7 @@ query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500,
 }
 
 
-#' @rdname catmaid_query_by_neuronname
+#' @rdname catmaid_query_by_name
 #' @return For \code{catmaid_query_by_annotation} a data.frame containing the 
 #'   results.
 #' @seealso \code{\link{catmaid_get_annotationlist}}
@@ -184,7 +184,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #'   \code{raw=FALSE}
 #' @examples
 #' \dontrun{
-#' orn13a=catmaid_query_by_neuronname("13a ORN left")$skid
+#' orn13a=catmaid_query_by_name("13a ORN left")$skid
 #' catmaid_query_connected(orn13a)
 #' }
 #' @export
