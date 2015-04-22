@@ -104,7 +104,7 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500,
   adf=jsonlite::rbind.pages(ldf)
   names(adf)[names(adf)=='id']='annotation_id'
   adf$id=rep(res2$id, sapply(ldf, nrow))
-  if(length(return_type)>1) {
+  if(length(return_type)==1) {
     # subset
     res2=subset(res2, type%in%return_type)
     adf=subset(adf, id%in%res2$id)
