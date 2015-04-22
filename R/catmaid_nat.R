@@ -116,7 +116,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
   if(is.null(df)) {
     names(skids)=as.character(skids)
-    df=data.frame(pid=pid, skid=skids)
+    df=data.frame(pid=pid, skid=skids, name=catmaid_get_neuronnames(skids, pid, conn=conn))
     rownames(df)=names(skids)
   } else {
     names(skids)=rownames(df)
