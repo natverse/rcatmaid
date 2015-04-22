@@ -4,8 +4,8 @@
 \alias{catmaid_get_connector_table}
 \title{Return connector table for a given neuron}
 \usage{
-catmaid_get_connector_table(skid, direction = c("incoming", "outgoing"),
-  pid = 1, conn = NULL, raw = FALSE, ...)
+catmaid_get_connector_table(skid, direction = c("both", "incoming",
+  "outgoing"), pid = 1, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
 \item{skid}{Numeric skeleton id}

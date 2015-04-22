@@ -124,9 +124,19 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   
 #'   }
 #' @export
-catmaid_get_connector_table<-function(skid, direction=c("incoming", "outgoing"),
+catmaid_get_connector_table<-function(skid, 
+                                      direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {
   direction=match.arg(direction)
+  if(direction[1]=='both') {
+    dfin =catmaid_get_connector_table(skid, direction='incoming', pid=pid, conn=conn, raw=raw, ...)
+    dfout=catmaid_get_connector_table(skid, direction='outgoing', pid=pid, conn=conn, raw=raw, ...)
+    dfin$direction="incoming"
+    dfout$direction="outgoing"
+    df=rbind(dfin,dfout)
+    df$direction=factor(df$direction)
+    return(df)
+  }
   # relation_type 0 => incoming
   ctl=catmaid_fetch(path=paste0("/", pid, "/connector/table/list"),
                    body=list(skeleton_id=skid, 
