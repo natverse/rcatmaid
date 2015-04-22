@@ -29,7 +29,7 @@ or to convert the nodes and connectors lists into processed data.frames
 function.}
 }
 \value{
-for \code{catmaid_query_by_neuronname} a data.frame containing the
+For \code{catmaid_query_by_neuronname} a data.frame containing the
   results with an attribute "annotations" containing the annotations as a raw
   list. For both functions the data.frame has columns \itemize{
 
@@ -39,7 +39,8 @@ for \code{catmaid_query_by_neuronname} a data.frame containing the
 
   \item type (neuron or annotation)
 
-  \item skeleton_ids (the main identfier for the neuron skeleton)
+  \item skid (the main identfier for the neuron skeleton, catmaid often calls
+  this skeleton_id)
 
   }
 

@@ -31,7 +31,7 @@ Find neurons connected to a starting neuron
 }
 \examples{
 \dontrun{
-orn13a=catmaid_query_by_neuronname("13a ORN left")$skeleton_ids
+orn13a=catmaid_query_by_neuronname("13a ORN left")$skid
 catmaid_query_connected(orn13a)
 }
 }

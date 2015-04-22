@@ -98,10 +98,10 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 #' ftable(side~Or,data=orn_query)
 #' 
 #' # set rownames for data.frame so that we can plot neurons by skeleton id
-#' rownames(orn_query)=orn_query$skeleton_ids
+#' rownames(orn_query)=orn_query$skid
 #' 
 #' # now fetch those neurons with progress bar, dropping any failures
-#' orns=read.neurons.catmaid(orn_query$skeleton_ids, pid=1, df=orn_query,
+#' orns=read.neurons.catmaid(orn_query$skid, pid=1, df=orn_query,
 #'   OmitFailures = T, .progress='text', conn=conn)
 #'   
 #' # now some plots

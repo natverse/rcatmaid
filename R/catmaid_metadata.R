@@ -65,7 +65,7 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' @param maxresults The maximum number of results to return
 #' @param type Type of results to return. Defaults to \code{c("neuron", 
 #'   "annotation")}. Only relevant when \code{raw=FALSE}.
-#' @return For \code{catmaid_query_by_neuronname} a data.frame containing the
+#' @return For \code{catmaid_query_by_neuronname} a data.frame containing the 
 #'   results with an attribute "annotations" containing the annotations as a raw
 #'   list. For both functions the data.frame has columns \itemize{
 #'   
@@ -75,7 +75,8 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #'   
 #'   \item type (neuron or annotation)
 #'   
-#'   \item skeleton_ids (the main identfier for the neuron skeleton)
+#'   \item skid (the main identfier for the neuron skeleton, catmaid often calls
+#'   this skeleton_id)
 #'   
 #'   }
 #' @export
@@ -96,6 +97,7 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500,
   if(raw) return(res)
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
+  names(res2)[names(res2)=="skeleton_ids"]="skid"
   attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
   subset(res2, type%in%return_type)
 }
@@ -137,6 +139,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
   if(raw) return(res)
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
+  names(res2)[names(res2)=="skeleton_ids"]="skid"
   attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
   subset(res2, type%in%return_type)
 }
@@ -150,7 +153,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #'   \code{raw=FALSE}
 #' @examples
 #' \dontrun{
-#' orn13a=catmaid_query_by_neuronname("13a ORN left")$skeleton_ids
+#' orn13a=catmaid_query_by_neuronname("13a ORN left")$skid
 #' catmaid_query_connected(orn13a)
 #' }
 #' @export
