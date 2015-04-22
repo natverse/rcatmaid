@@ -137,6 +137,37 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   }
 #' @export
 #' @seealso \code{\link{catmaid_get_connectors}}
+#' @examples
+#' \dontrun{
+#' # fetch connector table for neuron 10418394
+#' ct=catmaid_get_connector_table(10418394)
+#' # compare number of incoming and outgoing synapses
+#' table(ct$direction)
+#' 
+#' ## Look at synapse location in 3d
+#' # plot the neuron skeleton in grey for context
+#' library(nat)
+#' nopen3d()
+#' plot3d(read.neurons.catmaid(10418394), col='grey')
+#' # note use of nat::xyzmatrix to get xyz positions from the ct data.frame
+#' # colour synapses by direction
+#' points3d(xyzmatrix(ct), col=as.integer(ct$direction))
+#' 
+#' ## plot connected neurons in context of brain
+#' nopen3d()
+#' # fetch and plot brain model
+#' models=catmaid_fetch("1/stack/5/models")
+#' vs=matrix(as.numeric(models$cns$vertices), ncol=3, byrow = TRUE)
+#' points3d(vs, col='grey', size=1.5)
+#' 
+#' # fetch and plot neurons
+#' plot3d(read.neurons.catmaid(10418394), col='black', lwd=3)
+#' points3d(xyzmatrix(ct), col=as.integer(ct$direction))
+#' 
+#' partner_neuron_ids=unique(na.omit(as.integer(ct$partner_skid)))
+#' partner_neurons=read.neurons.catmaid(partner_neuron_ids, .progress='text', OmitFailures = TRUE)
+#' plot3d(partner_neurons)
+#' }
 catmaid_get_connector_table<-function(skid, 
                                       direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {
