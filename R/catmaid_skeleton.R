@@ -166,3 +166,62 @@ catmaid_get_connector_table<-function(skid,
   df
 }
 
+#' Return tree node table for a given neuron
+#' 
+#' @param skid Numeric skeleton id
+#' @inheritParams catmaid_get_compact_skeleton
+#' @return A data.frame with columns \itemize{
+#'   
+#'   \item id
+#'   
+#'   \item type
+#'   
+#'   \item tags
+#'   
+#'   \item confidence
+#'   
+#'   \item x
+#'   
+#'   \item y
+#'   
+#'   \item z
+#'   
+#'   \item s
+#'   
+#'   \item r
+#'   
+#'   \item user
+#'   
+#'   \item last_modified
+#'   
+#'   \item reviewer
+#'   
+#'   }
+#' @export
+#' @examples 
+#' \dontrun{
+#' # get tree node table for neuron 10418394
+#' tnt=catmaid_get_treenode_table(10418394)
+#' # show all leaf nodes
+#' subset(tnt, type=="L")
+#' # table of node types
+#' table(tnt$type)
+#' }
+#' @seealso \code{\link{catmaid_get_compact_skeleton}}. \code{\link{read.neuron.catmaid}}
+catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
+  # relation_type 0 => incoming
+  tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/list"),
+                    body=list(skeleton_0=skid, skeleton_nr=1),
+                    conn=conn, ...)
+  
+  if(raw) return(tnl)
+  # else process the tree node information
+  
+  dfcolnames=c("id", "type", "tags", "confidence", "x", "y", "z", "s", "r", 
+               "user", "last_modified", "reviewer")
+  df=list2df(tnl[[1]], cols = dfcolnames, return_empty_df = T, stringsAsFactors=FALSE)
+  df$user=factor(df$user)
+  df
+  
+}
+
