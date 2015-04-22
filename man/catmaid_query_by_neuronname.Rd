@@ -12,7 +12,7 @@ catmaid_query_by_annotation(query, pid = 1, maxresults = 500,
   type = c("neuron", "annotation"), raw = FALSE, ...)
 }
 \arguments{
-\item{query}{A query string (NB this can be a regular expression)}
+\item{query}{A query string (NB this is a regular expression)}
 
 \item{pid}{project id (default 1)}
 
@@ -49,7 +49,16 @@ For \code{catmaid_query_by_annotation} a data.frame containing the
   results.
 }
 \description{
-Get list of neurons/annotations querying by neuron/annotation name
+These functions try to match a \code{query} against the
+  \code{name} of a neuron or annotation (\code{catmaid_query_by_neuronname})
+  \emph{or} against an annotation (tag) that has been applied to a neuron or
+  annotation (\code{catmaid_query_by_annotation}). Note that 1) objects can
+  be tagged with multiple annotations and 2) annotation tags are recursive so
+  one annotation can be tagged with a second annotation.
+
+  The most common use will be to get a data.frames of neurons when you should
+  use \code{type="neuron"}. You can also return both neurons and annotations
+  (the default) and just annotations. See \code{type} argument for details.
 }
 \examples{
 \dontrun{

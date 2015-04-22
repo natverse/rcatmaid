@@ -60,14 +60,25 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 
 #' Get list of neurons/annotations querying by neuron/annotation name
 #' 
-#' @param query A query string (NB this can be a regular expression)
+#' @description These functions try to match a \code{query} against the 
+#'   \code{name} of a neuron or annotation (\code{catmaid_query_by_neuronname}) 
+#'   \emph{or} against an annotation (tag) that has been applied to a neuron or 
+#'   annotation (\code{catmaid_query_by_annotation}). Note that 1) objects can
+#'   be tagged with multiple annotations and 2) annotation tags are recursive so
+#'   one annotation can be tagged with a second annotation.
+#'   
+#'   The most common use will be to get a data.frames of neurons when you should
+#'   use \code{type="neuron"}. You can also return both neurons and annotations 
+#'   (the default) and just annotations. See \code{type} argument for details.
+#'   
+#' @param query A query string (NB this is a regular expression)
 #' @inheritParams catmaid_get_compact_skeleton
 #' @param maxresults The maximum number of results to return
 #' @param type Type of results to return. Defaults to \code{c("neuron", 
 #'   "annotation")}. Only relevant when \code{raw=FALSE}.
 #' @return For \code{catmaid_query_by_neuronname} a data.frame containing the 
 #'   results with an attribute "annotations" containing the annotations as a 
-#'   separate data.frame. For both functions the main data.frame has the
+#'   separate data.frame. For both functions the main data.frame has the 
 #'   following columns \itemize{
 #'   
 #'   \item id
@@ -92,9 +103,19 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
                                       ...){
-  return_type=match.arg(type, several.ok = T)
-  res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
-                body=list(neuron_query_by_name=query, display_start=0, display_length=sprintf("%d",maxresults)))
+  query_by_neuron_or_annotation(path='1/neuron/query-by-annotations',
+                                body=list(neuron_query_by_name=query,
+                                          display_start=0,
+                                          display_length=sprintf("%d",maxresults)),
+                                pid=pid, maxresults=maxresults, type=type, 
+                                raw=raw, ...=...)
+}
+
+query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500, 
+                                        type=c("neuron","annotation"), 
+                                        raw=FALSE, ...){
+  return_type=match.arg(type, c("neuron","annotation"), several.ok = T)
+  res=catmaid_fetch(path=path, body=body, ..., include_headers = F)
   if(raw) return(res)
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
@@ -112,6 +133,7 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500,
   attr(res2,'annotations')=adf
   res2
 }
+
 
 #' @rdname catmaid_query_by_neuronname
 #' @return For \code{catmaid_query_by_annotation} a data.frame containing the 
@@ -145,14 +167,12 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
       return(lapply(query, catmaid_query_by_annotation))
     }
   }
-  res=catmaid_fetch('1/neuron/query-by-annotations', ..., include_headers = F,
-                    body=list(neuron_query_by_annotation=query, display_start=0, display_length=sprintf("%d",maxresults)))
-  if(raw) return(res)
-  # key fields name type, id
-  res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
-  names(res2)[names(res2)=="skeleton_ids"]="skid"
-  attr(res2,'annotations')=lapply(res$entities, "[[", "annotations")
-  subset(res2, type%in%return_type)
+  query_by_neuron_or_annotation('1/neuron/query-by-annotations',
+                                body=list(neuron_query_by_annotation=query, 
+                                          display_start=0, 
+                                          display_length=sprintf("%d",maxresults)),
+                                pid=pid, maxresults=maxresults, type=type, 
+                                raw=raw, ...=...)
 }
 
 #' Find neurons connected to a starting neuron
