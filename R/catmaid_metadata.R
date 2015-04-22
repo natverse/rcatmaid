@@ -65,8 +65,19 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #' @param maxresults The maximum number of results to return
 #' @param type Type of results to return. Defaults to \code{c("neuron", 
 #'   "annotation")}. Only relevant when \code{raw=FALSE}.
-#' @return a data.frame containing the results with an attribute "annotations" 
-#'   containing the annotations as a raw list
+#' @return For \code{catmaid_query_by_neuronname} a data.frame containing the
+#'   results with an attribute "annotations" containing the annotations as a raw
+#'   list. For both functions the data.frame has columns \itemize{
+#'   
+#'   \item id
+#'   
+#'   \item name
+#'   
+#'   \item type (neuron or annotation)
+#'   
+#'   \item skeleton_ids (the main identfier for the neuron skeleton)
+#'   
+#'   }
 #' @export
 #' @examples
 #' \dontrun{
@@ -90,7 +101,22 @@ catmaid_query_by_neuronname<-function(query, pid=1, maxresults=500,
 }
 
 #' @rdname catmaid_query_by_neuronname
+#' @return For \code{catmaid_query_by_annotation} a data.frame containing the 
+#'   results.
+#' @seealso \code{\link{catmaid_get_annotationlist}}
 #' @export
+#' @examples 
+#' \dontrun{
+#' # query matches 3 specific annotations
+#' catmaid_query_by_annotation("ORN PNs")
+#' 
+#' # what are those 3 annotations?
+#' al=catmaid_get_annotationlist()
+#' subset(al$annotations, grepl("ORN PNs", name))
+#' 
+#' # Insist on specific annotation by using regex start/finish symbols
+#' catmaid_query_by_annotation("^ORN PNs$")
+#' }
 catmaid_query_by_annotation<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
                                       ...){

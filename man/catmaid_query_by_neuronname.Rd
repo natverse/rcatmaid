@@ -29,8 +29,22 @@ or to convert the nodes and connectors lists into processed data.frames
 function.}
 }
 \value{
-a data.frame containing the results with an attribute "annotations"
-  containing the annotations as a raw list
+for \code{catmaid_query_by_neuronname} a data.frame containing the
+  results with an attribute "annotations" containing the annotations as a raw
+  list. For both functions the data.frame has columns \itemize{
+
+  \item id
+
+  \item name
+
+  \item type (neuron or annotation)
+
+  \item skeleton_ids (the main identfier for the neuron skeleton)
+
+  }
+
+For \code{catmaid_query_by_annotation} a data.frame containing the
+  results.
 }
 \description{
 Get list of neurons/annotations querying by neuron/annotation name
@@ -43,5 +57,19 @@ catmaid_query_by_neuronname("ORN (left|right)")
 # fancier regex
 catmaid_query_by_neuronname("^[0-9a-f &]+ PN (left|right)")
 }
+\dontrun{
+# query matches 3 specific annotations
+catmaid_query_by_annotation("ORN PNs")
+
+# what are those 3 annotations?
+al=catmaid_get_annotationlist()
+subset(al$annotations, grepl("ORN PNs", name))
+
+# Insist on specific annotation by using regex start/finish symbols
+catmaid_query_by_annotation("^ORN PNs$")
+}
+}
+\seealso{
+\code{\link{catmaid_get_annotationlist}}
 }
 
