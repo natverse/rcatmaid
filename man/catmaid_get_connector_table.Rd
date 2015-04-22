@@ -55,4 +55,7 @@ A data.frame with columns \itemize{
 \description{
 Return connector table for a given neuron
 }
+\seealso{
+\code{\link{catmaid_get_connectors}}
+}
 

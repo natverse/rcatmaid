@@ -41,4 +41,7 @@ Note that this returns pairwise connections between neurons. A
   commonly a single presynaptic cell connects to multiple post-synaptic
   cells but many variations are possible
 }
+\seealso{
+\code{\link{catmaid_get_connector_table}}
+}
 

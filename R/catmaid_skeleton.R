@@ -74,6 +74,7 @@ list2df<-function(x, cols, use.col.names=F, ...) {
 #'   
 #'   }
 #' @export
+#' @seealso \code{\link{catmaid_get_connector_table}}
 catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...) {
   path=paste("", pid, "connector","skeletons",sep="/")
   post_data=as.list(connector_ids)
@@ -128,6 +129,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   
 #'   }
 #' @export
+#' @seealso \code{\link{catmaid_get_connectors}}
 catmaid_get_connector_table<-function(skid, 
                                       direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {
