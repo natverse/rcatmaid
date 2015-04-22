@@ -8,7 +8,7 @@ catmaid_get_connectors(connector_ids, pid = 1, conn = NULL, raw = FALSE,
   ...)
 }
 \arguments{
-\item{connector_ids}{Numeric ids for each connection}
+\item{connector_ids}{Numeric ids for each connector (synapse).}
 
 \item{pid}{project id (default 1)}
 
@@ -34,5 +34,11 @@ A data.frame with columns \itemize{
 }
 \description{
 Return skeleton ids for pre/postsynaptic partners of a set of connector_ids
+}
+\details{
+Note that this returns pairwise connections between neurons. A
+  single synapse (i.e. connector) may have multiple connections; most
+  commonly a single presynaptic cell connects to multiple post-synaptic
+  cells but many variations are possible
 }
 

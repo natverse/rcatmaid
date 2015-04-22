@@ -58,7 +58,11 @@ list2df<-function(x, cols, use.col.names=F, ...) {
 
 #' Return skeleton ids for pre/postsynaptic partners of a set of connector_ids
 #' 
-#' @param connector_ids Numeric ids for each connection
+#' @details Note that this returns pairwise connections between neurons. A 
+#'   single synapse (i.e. connector) may have multiple connections; most 
+#'   commonly a single presynaptic cell connects to multiple post-synaptic
+#'   cells but many variations are possible
+#' @param connector_ids Numeric ids for each connector (synapse).
 #' @inheritParams catmaid_get_compact_skeleton
 #' @return A data.frame with columns \itemize{
 #'   
