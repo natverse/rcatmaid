@@ -72,14 +72,19 @@ plot3d(read.neurons.catmaid(10418394), col='grey')
 points3d(xyzmatrix(ct), col=as.integer(ct$direction))
 
 ## plot connected neurons in context of brain
-# fetch brain model
+nopen3d()
+# fetch and plot brain model
 models=catmaid_fetch("1/stack/5/models")
-vs=matrix(as.numeric(models$cns$vertices), ncol=3, byrow = T)
+vs=matrix(as.numeric(models$cns$vertices), ncol=3, byrow = TRUE)
 points3d(vs, col='grey', size=1.5)
 
 # fetch and plot neurons
+plot3d(read.neurons.catmaid(10418394), col='black', lwd=3)
+points3d(xyzmatrix(ct), col=as.integer(ct$direction))
+
 partner_neuron_ids=unique(na.omit(as.integer(ct$partner_skid)))
-partner_neurons=read.neurons.catmaid(, .progress='text', OmitFailures = T)
+partner_neurons=read.neurons.catmaid(partner_neuron_ids, .progress='text', OmitFailures = TRUE)
+plot3d(partner_neurons)
 }
 }
 \seealso{
