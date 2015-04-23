@@ -127,8 +127,8 @@ query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500,
   adf$id=rep(res2$id, sapply(ldf, nrow))
   if(length(return_type)==1) {
     # subset
-    res2=subset(res2, type%in%return_type)
-    adf=subset(adf, id%in%res2$id)
+    res2=res2[res2$type%in%return_type,]
+    adf=adf[adf$id%in%res2$id,]
   }
   attr(res2,'annotations')=adf
   res2
