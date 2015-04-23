@@ -119,6 +119,7 @@ query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500,
   if(raw) return(res)
   # key fields name type, id
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
+  if(is.null(res2)) return(res2)
   names(res2)[names(res2)=="skeleton_ids"]="skid"
   al=lapply(res$entities, "[[", "annotations")
   ldf=lapply(al, list2df, c("uid","id", "name"), use.col.names=T, return_empty_df=T)
@@ -160,7 +161,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
     al=catmaid_get_annotationlist()
     matches=grepl(query, al$annotations$name)
     nmatches=sum(matches)
-    if(nmatches==0) stop("No matching annotation!")
+    if(nmatches==0) return(NULL)
     query=al$annotations$id[matches]
     if(nmatches>1) {
       warning(nmatches," matching annotations!")
