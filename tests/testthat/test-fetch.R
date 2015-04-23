@@ -10,6 +10,24 @@ test_that("catmaid_get_neuronnames", {
   }
 })
 
+test_that("catmaid_query_by_name", {
+  if(!inherits(conn, 'try-error')){
+    expect_null(catmaid_query_by_name("wurgle"))
+    expect_is(rdf<-catmaid_query_by_name("ORN"), 'data.frame')
+    expect_equal(names(rdf), c("id", "name", "type", "skid"))
+    expect_is(attr(rdf,'annotations'),'data.frame')
+  }
+})
+
+test_that("catmaid_query_by_annotation", {
+  if(!inherits(conn, 'try-error')){
+    expect_null(catmaid_query_by_annotation("wurgle"))
+    expect_is(rdf<-catmaid_query_by_annotation("^ORN$"), "data.frame")
+    expect_is(ornid<-catmaid_query_by_name("^ORN$")$id, 'integer')
+    expect_equal(catmaid_query_by_annotation(ornid), rdf)
+  }
+})
+
 context("catmaid neuron queries")
 
 test_that("get neuron", {
