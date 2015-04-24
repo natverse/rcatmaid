@@ -1,15 +1,12 @@
 #' Find skeleton ids for various inputs including text query
 catmaid_skids<-function(x, several.ok=TRUE) {
-  if(is.numeric(x)) return(as.integer(x))
-  
   if(is.factor(x)) {
     x=as.character(x)
   }
-  skids=NULL
-  if(length(x) > 1) {
-    if(!several.ok)
-      stop("Only expecting one skid but I have: ", length(x), "!")
-    
+  skids=integer()
+  if(is.numeric(x)) {
+    skids= as.integer(x)
+  } else if(length(x) > 1) {
     intx=as.integer(x)
     if(all(is.finite(intx))) {
       skids=intx
