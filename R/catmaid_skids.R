@@ -7,9 +7,11 @@
 #'   \code{\link{catmaid_query_by_annotation}}, respectively.
 #' @param x one or more skids or a query expression (see details)
 #' @param several.ok Logical 
+#' @param ... additional parameters passed to \code{catmaid_query_by_annotation}
 #' @return \code{integer} vector of skids (of length 0 on failure).
 #' @export
 catmaid_skids<-function(x, several.ok=TRUE) {
+catmaid_skids<-function(x, several.ok=TRUE, ...) {
   if(is.factor(x)) {
     x=as.character(x)
   }
@@ -28,10 +30,10 @@ catmaid_skids<-function(x, several.ok=TRUE) {
       return(intx)
     } else if(substr(x,1,5)=="name:") {
       # query by name
-      df=catmaid_query_by_name(substr(x, 6, nchar(x)), type = 'neuron')
+      df=catmaid_query_by_name(substr(x, 6, nchar(x)), type = 'neuron', ...)
     } else if(substr(x,1,11)=="annotation:") {
       # query by annotation
-      df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron')
+      df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron', ...)
     } else {
       stop("Unrecognised skid specification!")
     }
