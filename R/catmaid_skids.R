@@ -1,16 +1,32 @@
 #' Find skeleton ids (skids) for various inputs including textual queries
 #' 
+#' An efficient way to find neuron skeleton ids interactively or in any function
+#' that can take skids as an input.
+#' 
 #' @details If the inputs are numeric or have length > 1 they are assumed 
 #'   already to be skids and are simply converted to integers. If the the input 
 #'   is a string starting with "name:" or "annotation:" they are used for a 
-#'   query by \code{\link{catmaid_query_by_name}} or
+#'   query by catmaid_query_by_annotation or 
 #'   \code{\link{catmaid_query_by_annotation}}, respectively.
+#'   
 #' @param x one or more skids or a query expression (see details)
-#' @param several.ok Logical 
+#' @param several.ok Logical indicating whether we can allow multiple skids.
 #' @param ... additional parameters passed to \code{catmaid_query_by_annotation}
 #' @return \code{integer} vector of skids (of length 0 on failure).
 #' @export
-catmaid_skids<-function(x, several.ok=TRUE) {
+#' @examples 
+#' \dontrun{
+#' # these are just passed through
+#' catmaid_skids(1:10)
+#' 
+#' # nb these are all regex matches
+#' catmaid_skids("name:ORN")
+#' catmaid_skids("name:PN")
+#' # there will be multiple annotations that match this
+#' catmaid_skids("annotation:ORN")
+#' # but only one that matches this (see regex for details)
+#' catmaid_skids("annotation:^ORN$")
+#' }
 catmaid_skids<-function(x, several.ok=TRUE, ...) {
   if(is.factor(x)) {
     x=as.character(x)
