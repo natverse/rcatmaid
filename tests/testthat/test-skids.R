@@ -16,5 +16,6 @@ test_that("process skid queries", {
   if(!inherits(conn, 'try-error')){
     expect_is(catmaid_skids("name:ORN"), "integer")
     expect_is(catmaid_skids("annotation:^ORN PNs$"), "integer")
+    expect_error(catmaid_skids("annotation:ORN", several.ok = FALSE))
   }
 })

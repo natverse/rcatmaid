@@ -32,6 +32,7 @@ catmaid_skids<-function(x, several.ok=TRUE) {
       if(!is.null(df)) skids = df$skid
     } else if(substr(x,1,11)=="annotation:") {
       df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron')
+      if(!is.data.frame(df)) df=jsonlite::rbind.pages(df)
       if(!is.null(df)) skids = df$skid
     } else {
       stop("Unrecognised skid specification!")
