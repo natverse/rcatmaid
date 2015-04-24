@@ -8,3 +8,13 @@ test_that("process numeric skids", {
   expect_error(catmaid_skids(1:3, several.ok = F))
   expect_error(catmaid_skids(as.character(1:3), several.ok = F))
 })
+
+# nb will reuse cached connection made earlier
+conn=try(catmaid_login(), silent = TRUE)
+
+test_that("process skid queries", {
+  if(!inherits(conn, 'try-error')){
+    expect_is(catmaid_skids("name:ORN"), "integer")
+    expect_is(catmaid_skids("annotation:^ORN PNs$"), "integer")
+  }
+})

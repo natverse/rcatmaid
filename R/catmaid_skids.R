@@ -26,11 +26,11 @@ catmaid_skids<-function(x, several.ok=TRUE) {
     intx=as.integer(x)
     if(is.finite(intx)) {
       return(intx)
-    } else if(nchar(x,1,5)=="name:") {
+    } else if(substr(x,1,5)=="name:") {
       # query by name
       df=catmaid_query_by_name(substr(x, 6, nchar(x)), type = 'neuron')
       if(!is.null(df)) skids = df$skid
-    } else if(nchar(x,1,11)=="annotation:") {
+    } else if(substr(x,1,11)=="annotation:") {
       df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron')
       if(!is.null(df)) skids = df$skid
     } else {
