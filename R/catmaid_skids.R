@@ -23,7 +23,7 @@ catmaid_skids<-function(x, several.ok=TRUE) {
     } else stop("Multiple values provided but they do not look like skids!")
   } else {
     # just one value provided
-    intx=as.integer(x)
+    intx=suppressWarnings(as.integer(x))
     if(is.finite(intx)) {
       return(intx)
     } else if(substr(x,1,5)=="name:") {
