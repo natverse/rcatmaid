@@ -1,4 +1,14 @@
-#' Find skeleton ids for various inputs including text query
+#' Find skeleton ids (skids) for various inputs including textual queries
+#' 
+#' @details If the inputs are numeric or have length > 1 they are assumed 
+#'   already to be skids and are simply converted to integers. If the the input 
+#'   is a string starting with "name:" or "annotation:" they are used for a 
+#'   query by \code{\link{catmaid_query_by_name}} or
+#'   \code{\link{catmaid_query_by_annotation}}, respectively.
+#' @param x one or more skids or a query expression (see details)
+#' @param several.ok Logical 
+#' @return \code{integer} vector of skids (of length 0 on failure).
+#' @export
 catmaid_skids<-function(x, several.ok=TRUE) {
   if(is.factor(x)) {
     x=as.character(x)
@@ -10,7 +20,7 @@ catmaid_skids<-function(x, several.ok=TRUE) {
     intx=as.integer(x)
     if(all(is.finite(intx))) {
       skids=intx
-    } else stop("multiple values provided but they do not look like skids!")
+    } else stop("Multiple values provided but they do not look like skids!")
   } else {
     # just one value provided
     intx=as.integer(x)
@@ -24,7 +34,7 @@ catmaid_skids<-function(x, several.ok=TRUE) {
       df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron')
       if(!is.null(df)) skids = df$skid
     } else {
-      stop("unrecognised skid specification!")
+      stop("Unrecognised skid specification!")
     }
   }
   if(!several.ok && length(skids)>1) 
