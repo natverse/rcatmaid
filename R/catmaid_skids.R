@@ -29,11 +29,17 @@ catmaid_skids<-function(x, several.ok=TRUE) {
     } else if(substr(x,1,5)=="name:") {
       # query by name
       df=catmaid_query_by_name(substr(x, 6, nchar(x)), type = 'neuron')
-      if(!is.null(df)) skids = df$skid
+      if(is.null(df)) warning("No matches for query ",x,"!")
+      else skids = df$skid
     } else if(substr(x,1,11)=="annotation:") {
+      # query by annotation
       df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron')
-      if(!is.data.frame(df)) df=jsonlite::rbind.pages(df)
-      if(!is.null(df)) skids = df$skid
+      if(is.null(df)) warning("No matches for query ",x,"!")
+      else {
+        # handle multiple returned data.frames
+        if(!is.data.frame(df)) df=jsonlite::rbind.pages(df)
+        skids = df$skid
+      }
     } else {
       stop("Unrecognised skid specification!")
     }
