@@ -72,7 +72,7 @@ plot3d(nl)
 # Find ORNs
 conn=catmaid_login()
 # note use of regex in query
-orn_query=catmaid_query_by_name("ORN (left|right)", conn=conn)
+orn_query=catmaid_query_by_name("ORN (left|right)")
 
 # Tidy up result data.frame keeping only neurons
 orn_query=subset(orn_query, type=='neuron')
@@ -88,7 +88,7 @@ rownames(orn_query)=orn_query$skid
 
 # now fetch those neurons with progress bar, dropping any failures
 orns=read.neurons.catmaid(orn_query$skid, pid=1, df=orn_query,
-  OmitFailures = T, .progress='text', conn=conn)
+  OmitFailures = T, .progress='text')
 
 # now some plots
 open3d()
