@@ -65,30 +65,24 @@ When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
 \examples{
 \dontrun{
 library(nat)
-nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
+nl=read.neurons.catmaid(c(10418394,4453485))
 plot3d(nl)
 
 ## Full worked example looking at Olfactory Receptor Neurons
-# Find ORNs
-conn=catmaid_login()
-# note use of regex in query
-orn_query=catmaid_query_by_name("ORN (left|right)")
+# read in ORNs (using a regex to match their name)
+# note that use a progress bar drop any failures
+orns=read.neurons.catmaid("name:ORN (left|right)", OmitFailures = T, .progress='text')
 
-# Tidy up result data.frame keeping only neurons
-orn_query=subset(orn_query, type=='neuron')
-# find the Odorant receptor genes and the side of brain
-orn_query=transform(orn_query,
+# Add some extra columns to the attached data.frame
+# including the Odorant receptor genes and the side of brain
+attr(orns, 'df')=transform(attr(orns, 'df'),
    side=factor(ifelse(grepl("left",name), "L", "R")),
    Or= factor(sub(" ORN.*", "", name)))
-# a table of odorant receptor / side of brain
-ftable(side~Or,data=orn_query)
 
-# set rownames for data.frame so that we can plot neurons by skeleton id
-rownames(orn_query)=orn_query$skid
-
-# now fetch those neurons with progress bar, dropping any failures
-orns=read.neurons.catmaid(orn_query$skid, pid=1, df=orn_query,
-  OmitFailures = T, .progress='text')
+# check what we have
+# see ?head.neuronlist and ?with.neuronlist for details of how this works
+head(orns)
+with(orns, ftable(side~Or))
 
 # now some plots
 open3d()
