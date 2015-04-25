@@ -7,7 +7,8 @@
 catmaid_get_neuronnames(skids, pid = 1, ...)
 }
 \arguments{
-\item{skids}{One or more skeleton ids}
+\item{skids}{One or more numeric skeleton ids or a character vector defining
+a query (see examples or \code{\link{catmaid_skids}} for they syntax)}
 
 \item{pid}{Project id (default 1)}
 

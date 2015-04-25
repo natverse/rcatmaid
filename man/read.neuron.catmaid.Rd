@@ -11,7 +11,7 @@ read.neurons.catmaid(skids, pid = 1L, conn = NULL, OmitFailures = NA,
   df = NULL, ...)
 }
 \arguments{
-\item{skid,skids}{One or more skeleton ids}
+\item{skid}{A numeric skeleton id}
 
 \item{pid}{Project id (default 1)}
 
@@ -21,6 +21,9 @@ object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the catmaid_fetch function}
+
+\item{skids}{One or more numeric skeleton ids or a character vector defining
+a query (see examples or \code{\link{catmaid_skids}} for they syntax)}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
 error. The default value (\code{NA}) will result in nlapply stopping with
@@ -96,5 +99,7 @@ plot3d(orns, col=Or)
 }
 \seealso{
 \code{\link{catmaid_fetch}}
+
+\code{\link{catmaid_skids}}
 }
 
