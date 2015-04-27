@@ -48,6 +48,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   n[names(res[-1])]=res[-1]
   fields_to_include=c("url", "headers")
   n[fields_to_include]=attributes(res)[fields_to_include]
+  class(n)=c('catmaidneuron', 'neuron')
   n
 }
 
