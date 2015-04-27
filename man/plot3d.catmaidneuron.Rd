@@ -4,12 +4,16 @@
 \alias{plot3d.catmaidneuron}
 \title{Plot skeleton and connectors for neuron retrieved from CATMAID}
 \usage{
-\method{plot3d}{catmaidneuron}(x, WithConnectors = TRUE, ...)
+\method{plot3d}{catmaidneuron}(x, WithConnectors = TRUE, WithNodes = FALSE,
+  ...)
 }
 \arguments{
 \item{x}{A neuron to plot}
 
 \item{WithConnectors}{logical indicating whether or not to plot connectors}
+
+\item{WithNodes}{logical indicating whether to plot branch/end points
+(default to \code{FALSE} since they will obscure the synapses).}
 
 \item{...}{additional arguments passed to \code{\link[nat]{plot3d.neuron}}
 (synapses). Default: \code{TRUE}.}

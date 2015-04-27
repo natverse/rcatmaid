@@ -202,11 +202,18 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' @method plot3d catmaidneuron
 #' @param x A neuron to plot
 #' @param WithConnectors logical indicating whether or not to plot connectors
-#' @param ... additional arguments passed to \code{\link[nat]{plot3d.neuron}}
+#' @param WithNodes logical indicating whether to plot branch/end points 
+#'   (default to \code{FALSE} since they will obscure the synapses).
+#' @param ... additional arguments passed to \code{\link[nat]{plot3d.neuron}} 
 #'   (synapses). Default: \code{TRUE}.
 #' @seealso \code{\link[nat]{plot3d.neuron}}
 #' @importFrom rgl plot3d points3d
-plot3d.catmaidneuron<-function(x, WithConnectors=TRUE, ...) {
+#' @examples 
+#' \dontrun{
+#' nl=read.neurons.catmaid(c(10418394,4453485))
+#' plot3d(nl)
+#' }
+plot3d.catmaidneuron<-function(x, WithConnectors=TRUE, WithNodes=FALSE, ...) {
   if(WithConnectors) {
     conndf=connectors(x)
     points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])
