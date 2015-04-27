@@ -1,8 +1,7 @@
 Package: catmaid
 Type: Package
 Title: R access to the API for the CATMAID web image annotation tool
-Version: 0.3
-Date: 2014-11-08
+Version: 0.4
 Author: Gregory Jefferis
 Maintainer: Gregory Jefferis <jefferis@gmail.com>
 Description: This package provide access to the API exposed by the CATMAID (C

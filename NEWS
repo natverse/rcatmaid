@@ -1,3 +1,29 @@
+catmaid 0.4
+===========
+This release significantly enhances functionality for querying for neurons by
+annotation or name, while also simplifying a number of plotting/analysis tasks
+involving connectors (synapses).
+
+* catmaid_query_by_neuronname was renamed to catmaid_query_by_name (since it can
+  query by both neuron or annotation name as well as returning both annotations 
+  and neurons)
+* read.catmaid.neurons has richer attached metadata 
+  (see https://github.com/jefferis/rcatmaid/issues/9)
+* read.catmaid.neurons can make simple queries 
+  (see https://github.com/jefferis/rcatmaid/issues/9)
+* add catmaid_query_by_annotation to fetch objects tagged with a matching 
+  annotation (rather than searching by object name).
+* add connectors to get connector (synapse) information from a neuron
+* add catmaid_catmaid_get_connector_table to see a list of incoming/outgoing
+  connections for a given neuron.
+* add plot3d.catmaidneuron to enable convenient plotting of synapses
+* fix catmaid_get_neuronnames should return names in the same order as passed 
+  skids (see https://github.com/jefferis/rcatmaid/issues/6)
+* the catmaid skeleton_id is consistently referred to as skid in argument names
+  and return values
+* depend on nat (and therefore rgl). Import rather than depend on jsonlite.
+* minor doc fixes
+
 catmaid 0.3
 ===========
 * cache login credentials for automatic reuse
