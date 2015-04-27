@@ -36,8 +36,11 @@ test_that("get neuron", {
   }
 })
 
-test_that("read.neuron.catmaid", {
+test_that("read.neuron(s).catmaid", {
   if(!inherits(conn, 'try-error')){
     expect_is(n<-read.neuron.catmaid(pid=1, skid=10418394, conn=conn), 'neuron')
+    expect_is(nl<-read.neurons.catmaid(c(4453485,10418394), conn=conn), 'neuronlist')
+    expect_is(df<-as.data.frame(nl), 'data.frame')
+    expect_is(df$name, "character")
   }
 })
