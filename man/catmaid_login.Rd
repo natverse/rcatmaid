@@ -54,7 +54,7 @@ After successful login, the \code{catmaid_connection} object will
   for subsequent GET/POST operations.  When \code{Cache=TRUE} (the default)
   the open connection object is cached and will be used when EITHER
   catmaid_login is called with enough information to indicate that the same
-  server is desired question OR (when no information about the server is
+  server is desired OR (when no information about the server is
   passed to catmaid_login) the last opened connection will be used.
 }
 \section{Package options}{
