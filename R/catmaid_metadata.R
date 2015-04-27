@@ -123,7 +123,7 @@ query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500,
   names(res2)[names(res2)=="skeleton_ids"]="skid"
   al=lapply(res$entities, "[[", "annotations")
   ldf=lapply(al, list2df, c("uid","id", "name"), use.col.names=T, return_empty_df=T)
-  adf=jsonlite::rbind.pages(ldf)
+  adf=rbind.pages(ldf)
   names(adf)[names(adf)=='id']='annotation_id'
   adf$id=rep(res2$id, sapply(ldf, nrow))
   if(length(return_type)==1) {

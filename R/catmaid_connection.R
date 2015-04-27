@@ -167,6 +167,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
 #' @export
 #' @seealso \code{\link{catmaid_login}}, \code{\link[httr]{GET}}, 
 #'   \code{\link[httr]{POST}}
+#' @importFrom jsonlite fromJSON
 #' @examples
 #' \dontrun{
 #' ## Make a catmaid_connection object to use for these requests
@@ -207,7 +208,7 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
 catmaid_parse_json <- function(req) {
   text <- content(req, as = "text")
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
-  jsonlite::fromJSON(text, simplifyVector = FALSE)
+  fromJSON(text, simplifyVector = FALSE)
 }
 
 # return the open cached connection object for an (unopened) connection

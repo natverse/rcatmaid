@@ -13,8 +13,9 @@ License: GPL-3
 URL: http://catmaid.org/ https://github.com/jefferis/rcatmaid
 BugReports: https://github.com/jefferis/rcatmaid/issues
 Depends:
-    httr,
-    jsonlite
+    httr
+Imports:
+    jsonlite,
 Suggests:
     nat,
     testthat

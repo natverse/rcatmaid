@@ -26,7 +26,7 @@
 #' @aliases catmaid
 #' @docType package
 #' @keywords package
-#' @import httr jsonlite
+#' @import httr
 #' @examples
 #' \dontrun{
 #' ## test package

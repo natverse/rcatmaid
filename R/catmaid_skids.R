@@ -14,6 +14,7 @@
 #' @param ... additional parameters passed to \code{catmaid_query_by_annotation}
 #' @return \code{integer} vector of skids (of length 0 on failure).
 #' @export
+#' @importFrom jsonlite rbind.pages
 #' @examples 
 #' \dontrun{
 #' # these are just passed through
@@ -56,7 +57,7 @@ catmaid_skids<-function(x, several.ok=TRUE, ...) {
     if(is.null(df)) warning("No matches for query ",x,"!")
     else {
       # handle multiple returned data.frames
-      if(!is.data.frame(df)) df=jsonlite::rbind.pages(df)
+      if(!is.data.frame(df)) df=rbind.pages(df)
       skids = df$skid
     }
   }
