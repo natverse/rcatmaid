@@ -125,3 +125,72 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
   fakenl=nat::as.neuronlist(as.list(skids), df=df)
   nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
 }
+
+#' Get data.frame of connector (synapse) information from a neuron or neuronlist
+#' 
+#' In contrast to \code{\link{catmaid_get_connector_table}} this assumes that
+#' you have already read the neurons into an R structure of class 
+#' \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}}.
+#' 
+#' @param x Neuron or neuronlist
+#' @param ... Additional arguments passed to methods (and to \code{nlapply} in 
+#'   the case of connectors)
+#' @seealso \code{\link{catmaid_get_connector_table}}, 
+#'   \code{\link{catmaid_get_connectors}}
+#' @return A data.frame with columns \itemize{
+#'   
+#'   \item XXX (unknown identifier)
+#'   
+#'   \item connector_skid
+#'   
+#'   \item prepost integer indicating whether connection is pre-(\code{0}) or 
+#'   post(\code{1})-synaptic with respect to the current neuron. In other words 
+#'   this field will be \code{0} (pre) for the output synapses of this neuron.
+#'   
+#'   \item x Spatial Location
+#'   
+#'   \item y
+#'   
+#'   \item z
+#'   
+#'   \item skid For \code{connectors.neuronlist}, the skid of the skeleton from
+#'   which connector information was retrieved.
+#'   
+#'   }
+#'   
+#' @export
+#' @examples
+#' \dontrun{
+#' ornsl=read.neurons.catmaid("name:ORN left", OmitFailures = T, .progress='text')
+#' conndf=connectors(ornsl)
+#' summary(connectors(ornsl))
+#' 
+#' # plot points in 3d
+#' library(nat)
+#' nopen3d()
+#' points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])
+#' }
+connectors<-function(x, ...) UseMethod('connectors')
+
+#' @rdname connectors
+#' @export
+connectors.catmaidneuron<-function(x, ...) {
+  x[['connectors']]
+}
+
+connectors.neuron<-function(x, ...) {
+  stop("This neuron does not have class 'catmaid.neuronlist' and therefore does",
+       " not have connector information!")
+}
+
+#' @rdname connectors
+#' @param subset, optional subset of neurons to keep (see 
+#'   \code{\link[nat]{nlapply}} for details)
+#' @export
+#' @seealso \code{\link[nat]{nlapply}}
+connectors.neuronlist<-function(x, subset=NULL, ...) {
+  dfs=nat::nlapply(x, FUN=connectors, ..., subset=subset)
+  df=plyr::rbind.fill(dfs)
+  df$skid=as.integer(rep(names(dfs), sapply(dfs, nrow)))
+  df
+}
