@@ -16,6 +16,7 @@ Depends:
     httr
 Imports:
     jsonlite,
+    plyr,
 Suggests:
     nat,
     testthat

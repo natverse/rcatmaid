@@ -188,9 +188,10 @@ connectors.neuron<-function(x, ...) {
 #'   \code{\link[nat]{nlapply}} for details)
 #' @export
 #' @seealso \code{\link[nat]{nlapply}}
+#' @importFrom plyr rbind.fill
 connectors.neuronlist<-function(x, subset=NULL, ...) {
   dfs=nat::nlapply(x, FUN=connectors, ..., subset=subset)
-  df=plyr::rbind.fill(dfs)
+  df=rbind.fill(dfs)
   df$skid=as.integer(rep(names(dfs), sapply(dfs, nrow)))
   df
 }
