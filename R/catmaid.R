@@ -26,7 +26,7 @@
 #' @aliases catmaid
 #' @docType package
 #' @keywords package
-#' @import httr
+#' @import httr nat
 #' @examples
 #' \dontrun{
 #' ## test package
