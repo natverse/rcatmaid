@@ -21,6 +21,12 @@
 \description{
 Plot skeleton and connectors for neuron retrieved from CATMAID
 }
+\examples{
+\dontrun{
+nl=read.neurons.catmaid(c(10418394,4453485))
+plot3d(nl)
+}
+}
 \seealso{
 \code{\link[nat]{plot3d.neuron}}
 }
