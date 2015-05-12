@@ -3,11 +3,14 @@
 \name{catmaid_connection_setenv}
 \alias{catmaid_connection_getenv}
 \alias{catmaid_connection_setenv}
+\alias{catmaid_connection_unsetenv}
 \title{Import/Export catmaid connection details to system variables (e.g. for tests)}
 \usage{
 catmaid_connection_setenv(conn = NULL, ...)
 
 catmaid_connection_getenv(...)
+
+catmaid_connection_unsetenv()
 }
 \arguments{
 \item{conn}{A \code{catmaid_connection} object. The default value of NULL
@@ -27,7 +30,11 @@ implies that the most recent cached open connection will be used.}
 \code{catmaid_connection_getenv} fetches appropriately named environment
 variables and uses them to open a catmaid connection.
 
+\code{catmaid_connection_unsetenv} unsets the environment variables.
+
 Fetch connection details from appropriate environment variables
+
+Unset catmaid connection environment variables
 }
 \details{
 \code{catmaid_connection_setenv} will attempt to login if this has

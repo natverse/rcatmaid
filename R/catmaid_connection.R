@@ -260,6 +260,8 @@ catmaid_last_connection<-function() {
 #' \code{catmaid_connection_getenv} fetches appropriately named environment 
 #' variables and uses them to open a catmaid connection.
 #' 
+#' \code{catmaid_connection_unsetenv} unsets the environment variables.
+
 #' @param conn A \code{catmaid_connection} object. The default value of NULL 
 #'   implies that the most recent cached open connection will be used.
 #' @param ... additional arguments passed to \code{catmaid_login}
@@ -290,4 +292,14 @@ catmaid_connection_getenv<-function(...) {
   # drop any empty vars
   catmaid_envs=na.omit(catmaid_envs)
   do.call(catmaid_login, as.list(catmaid_envs, ...))
+}
+
+#' Unset catmaid connection environment variables
+#' @rdname catmaid_connection_setenv
+#' @export
+catmaid_connection_unsetenv<-function(){
+  vars=paste0("catmaid.",
+              c("server", "username", "password", "authname", 
+                "authpassword", "authtype"))
+  Sys.unsetenv(vars)
 }
