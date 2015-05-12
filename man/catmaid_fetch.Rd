@@ -36,7 +36,8 @@ When \code{parse.json=FALSE} an object of class \code{response}
 }
 \description{
 \code{catmaid_fetch} carries out a GET operation when
-  \code{body=NULL}, POST otherwise.
+  \code{body=NULL}, POST otherwise. The http status code of the response will
+  be checked - if invalid an error will be thrown.
 }
 \examples{
 \dontrun{
@@ -54,6 +55,9 @@ skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)
 # they are not valid R names.
 catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
   body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485))
+
+## demonstrate that bad urls will result in an error
+catmaid_fetch("/1/rhubarb/crumble")
 }
 }
 \seealso{
