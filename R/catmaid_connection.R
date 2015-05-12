@@ -269,6 +269,7 @@ catmaid_last_connection<-function() {
 #'   whether variables were set successfully. \code{catmaid_connection_getenv} 
 #'   returns a connection object created based on environment variables.
 #' @seealso \code{\link{catmaid_login}}
+#' @export
 catmaid_connection_setenv<-function(conn=NULL, ...) {
   conn=catmaid_login(conn, ...)
   poss_vars_to_export=c("server", "username", "password", "authname", "authpassword", "authtype")
@@ -280,6 +281,7 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 
 #' Fetch connection details from appropriate environment variables
 #' @rdname catmaid_connection_setenv
+#' @export
 catmaid_connection_getenv<-function(...) {
   varnames=c("server", "username", "password", "authname", "authpassword", "authtype")
   catmaid_envnames=paste0("catmaid.", varnames)
