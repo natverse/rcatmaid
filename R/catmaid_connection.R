@@ -203,6 +203,9 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   stop_for_status(req)
   if(parse.json) {
     parsed=catmaid_parse_json(req)
+    if(length(parsed)==2 && isTRUE(names(parsed)[2]=='error')) {
+      stop("catmaid error: " , parsed$error)
+    }
     if(include_headers) {
       fields_to_include=c("url", "headers")
       attributes(parsed) = c(attributes(parsed), req[fields_to_include])
