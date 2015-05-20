@@ -1,3 +1,12 @@
+catmaid 0.5
+===========
+This release 
+* check for http status errors in catmaid (in case there is trouble connecting
+  to site, bad URL etc)
+* ... and errors in returned JSON when request is invalid
+* export funcs to get/set login details as environment variables
+* ... and clear those env vars (all useful for testing)
+
 catmaid 0.4
 ===========
 This release significantly enhances functionality for querying for neurons by
