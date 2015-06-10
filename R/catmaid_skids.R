@@ -12,6 +12,7 @@
 #' @param x one or more skids or a query expression (see details)
 #' @param several.ok Logical indicating whether we can allow multiple skids.
 #' @param ... additional parameters passed to \code{catmaid_query_by_annotation}
+#' @inheritParams catmaid_fetch
 #' @return \code{integer} vector of skids (of length 0 on failure).
 #' @export
 #' @importFrom jsonlite rbind.pages
@@ -28,7 +29,7 @@
 #' # but only one that matches this (see regex for details)
 #' catmaid_skids("annotation:^ORN$")
 #' }
-catmaid_skids<-function(x, several.ok=TRUE, ...) {
+catmaid_skids<-function(x, several.ok=TRUE, conn=NULL, ...) {
   if(is.factor(x)) {
     x=as.character(x)
   }
@@ -47,10 +48,10 @@ catmaid_skids<-function(x, several.ok=TRUE, ...) {
       return(intx)
     } else if(substr(x,1,5)=="name:") {
       # query by name
-      df=catmaid_query_by_name(substr(x, 6, nchar(x)), type = 'neuron', ...)
+      df=catmaid_query_by_name(substr(x, 6, nchar(x)), type = 'neuron', conn=conn, ...)
     } else if(substr(x,1,11)=="annotation:") {
       # query by annotation
-      df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron', ...)
+      df=catmaid_query_by_annotation(substr(x, 12, nchar(x)), type = 'neuron', conn=conn, ...)
     } else {
       stop("Unrecognised skid specification!")
     }

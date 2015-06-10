@@ -112,7 +112,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 #' plot3d(orns, col=Or)
 #' }
 read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
-  skids=catmaid_skids(skids)
+  skids=catmaid_skids(skids, conn = conn)
   if(is.null(df)) {
     names(skids)=as.character(skids)
     df=data.frame(pid=pid, skid=skids, 

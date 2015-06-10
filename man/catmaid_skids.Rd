@@ -4,12 +4,17 @@
 \alias{catmaid_skids}
 \title{Find skeleton ids (skids) for various inputs including textual queries}
 \usage{
-catmaid_skids(x, several.ok = TRUE, ...)
+catmaid_skids(x, several.ok = TRUE, conn = NULL, ...)
 }
 \arguments{
 \item{x}{one or more skids or a query expression (see details)}
 
 \item{several.ok}{Logical indicating whether we can allow multiple skids.}
+
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
+options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{additional parameters passed to \code{catmaid_query_by_annotation}}
 }

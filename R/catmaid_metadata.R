@@ -173,7 +173,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                           display_start=0, 
                                           display_length=sprintf("%d",maxresults)),
                                 pid=pid, maxresults=maxresults, type=type, 
-                                raw=raw, ...=...)
+                                raw=raw, conn=conn, ...=...)
 }
 
 #' Find neurons connected to a starting neuron
