@@ -118,7 +118,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   if(missing(server)) {
     server=defaultServer
   }
-  if(is.null(server) || !grepl("^https", server))
+  if(is.null(server) || !grepl("^http[s]{0,1}", server))
     stop("Must provide a valid https server")
   
   if(isTRUE(server==defaultServer)){
