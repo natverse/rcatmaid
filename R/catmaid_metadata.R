@@ -165,14 +165,16 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
     query=al$annotations$id[matches]
     if(nmatches>1) {
       warning(nmatches," matching annotations!")
-      return(lapply(query, catmaid_query_by_annotation))
+      return(lapply(query, catmaid_query_by_annotation, conn=conn, 
+                    type=return_type, raw=raw, pid=pid, maxresults=maxresults, 
+                    ...))
     }
   }
   query_by_neuron_or_annotation('1/neuron/query-by-annotations',
                                 body=list(neuron_query_by_annotation=query, 
                                           display_start=0, 
                                           display_length=sprintf("%d",maxresults)),
-                                pid=pid, maxresults=maxresults, type=type, 
+                                pid=pid, maxresults=maxresults, type=return_type, 
                                 raw=raw, conn=conn, ...=...)
 }
 
