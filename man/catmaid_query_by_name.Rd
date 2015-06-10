@@ -9,7 +9,7 @@ catmaid_query_by_name(query, pid = 1, maxresults = 500, type = c("neuron",
   "annotation"), raw = FALSE, ...)
 
 catmaid_query_by_annotation(query, pid = 1, maxresults = 500,
-  type = c("neuron", "annotation"), raw = FALSE, ...)
+  type = c("neuron", "annotation"), raw = FALSE, conn = NULL, ...)
 }
 \arguments{
 \item{query}{A query string (NB this is a regular expression)}
@@ -27,6 +27,8 @@ or to convert the nodes and connectors lists into processed data.frames
 
 \item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function.}
+
+\item{conn}{the \code{\link{catmaid_connection}} object}
 }
 \value{
 For \code{catmaid_query_by_name} a data.frame containing the

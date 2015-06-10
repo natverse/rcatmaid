@@ -155,10 +155,10 @@ query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500,
 #' }
 catmaid_query_by_annotation<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
-                                      ...){
+                                      conn=NULL, ...){
   return_type=match.arg(type, several.ok = T)
   if(is.character(query)) {
-    al=catmaid_get_annotationlist()
+    al=catmaid_get_annotationlist(conn=conn)
     matches=grepl(query, al$annotations$name)
     nmatches=sum(matches)
     if(nmatches==0) return(NULL)
