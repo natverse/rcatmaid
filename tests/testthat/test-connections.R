@@ -5,7 +5,7 @@ conn=try(catmaid_connection_getenv(), silent = F)
 
 test_that("can make a connection", {
   
-  expect_error(catmaid_connection(server="http://somewhere.org"))
+  expect_is(catmaid_connection(server="http://somewhere.org"), 'catmaid_connection')
   conn<-catmaid_connection(server="https://somewhere.org", username = 'calvin', password = 'hobbes')
   expect_is(conn, "catmaid_connection")
   expect_is(conn$config, "config")
