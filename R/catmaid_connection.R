@@ -194,9 +194,9 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   conn=catmaid_login(conn)
   req<-with_config(conn$config, {
     if(is.null(body)) {
-      GET(url=paste0(conn$server, path), ...)
+      GET(url=file.path(conn$server, path, fsep="/"), ...)
     } else {
-      POST(url=paste0(conn$server, path), body=body, ...)
+      POST(url=file.path(conn$server, path, fsep="/"), body=body, ...)
     }
   } )
   # error out if there was a problem
