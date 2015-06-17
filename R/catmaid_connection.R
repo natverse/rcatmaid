@@ -241,13 +241,18 @@ catmaid_cached_connection<-function(conn) {
 }
 
 catmaid_cache_connection<-function(conn) {
-  .package_statevars$connections[[conn$config$cookie]]=conn
+  .package_statevars$connections[[catmaid_connection_fingerprint(conn)]]=conn
 }
 
 catmaid_last_connection<-function() {
   conns=.package_statevars$connections
   num_conns=length(conns)
   if(num_conns) conns[[num_conns]] else NULL
+}
+
+# fingerprint of a connection consisting of server, username and cookies
+catmaid_connection_fingerprint<-function(conn) {
+  paste(c(conn$server, conn$username, cookies(conn$authresponse)), collapse = "")
 }
 
 #' Import/Export catmaid connection details to system variables (e.g. for tests)
