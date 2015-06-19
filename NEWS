@@ -1,3 +1,14 @@
+catmaid 0.6
+===========
+* support for upcoming httr 1.0 release
+* fix: ensure catmaid connection objects are passed to all downstream functions
+  e.g. so that you can you use different servers in the same session.
+* fix queries that match multiple annotations when using a defined connection
+  object
+* fix: ensure that catmaid_fetch works even if server does not have a terminal /
+  and remote path is also missing a slash
+* fix: servers don't have to be https
+
 catmaid 0.5
 ===========
 This release 
