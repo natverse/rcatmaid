@@ -99,7 +99,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   conn$config=c(conn$config, set_cookies(conn$cookies))
   if(Cache)
     catmaid_cache_connection(conn)
-  conn
+  invisible(conn)
 }
 
 #' @name catmaid_login
