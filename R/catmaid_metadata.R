@@ -194,9 +194,9 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ...){
   path=paste0("/",pid,"/skeleton/connectivity")
   connectivity_post = list('source[0]'=skid, threshold=minimum_synapses, boolean_op='logic_OR')
-  res=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
-  if(raw) return(res)
-    
+  rawres=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
+  if(raw) return(rawres)
+  res=list()
   res$outgoing=list2df(res$outgoing, 
                        cols=c("union_reviewed", "skids", "name", "num_nodes"),
                        use.col.names = T, stringsAsFactors=FALSE)
