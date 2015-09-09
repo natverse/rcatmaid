@@ -197,10 +197,10 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
   rawres=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
   if(raw) return(rawres)
   res=list()
-  res$outgoing=list2df(res$outgoing, 
+  res$outgoing=list2df(rawres$outgoing, 
                        cols=c("union_reviewed", "skids", "name", "num_nodes"),
                        use.col.names = T, stringsAsFactors=FALSE)
-  res$incoming=list2df(res$incoming, 
+  res$incoming=list2df(rawres$incoming, 
                        cols=c("union_reviewed", "skids", "name", "num_nodes"),
                        use.col.names = T, stringsAsFactors=FALSE)
   
