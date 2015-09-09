@@ -213,6 +213,7 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' nl=read.neurons.catmaid(c(10418394,4453485))
 #' plot3d(nl)
 #' }
+#' @aliases plot3d
 plot3d.catmaidneuron<-function(x, WithConnectors=TRUE, WithNodes=FALSE, ...) {
   if(WithConnectors) {
     conndf=connectors(x)
