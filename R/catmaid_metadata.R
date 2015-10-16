@@ -221,3 +221,30 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
   lapply(res, fixresdf, minimum_synapses)
 }
 
+#' Get review status of neurons from CATMAID
+#' 
+#' @inheritParams read.neurons.catmaid
+#' @return a data.frame consisting of total number of nodes and number of
+#'   reviewed nodes. Note that should any neurons be invalid a warning will be
+#'   generated and a row with NA values will be returned.
+#' @export
+#' @examples
+#' \dontrun{
+#' catmaid_get_review_status(skids=c(10418394,4453485))
+#' }
+#' @seealso \code{\link{catmaid_fetch}}
+catmaid_get_review_status<-function(skids, pid=1, ...) {
+  post_data=list()
+  post_data[sprintf("skeleton_ids[%d]", seq_along(skids)-1)]=as.list(skids)
+  path=sprintf("/%d/skeleton/review-status", pid)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
+  res=list2df(res, cols=c('total','reviewed'))
+  # handle any missing return values
+  missing_names=setdiff(as.character(skids), rownames(res))
+  if(length(missing_names)){
+    warning("unable to identify ", length(missing_names), " neuron(s).")
+    res[missing_names,]=NA
+  }
+  # ensure that return values are in order that was passed in
+  res[as.character(skids),]
+}
