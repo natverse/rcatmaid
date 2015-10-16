@@ -50,6 +50,6 @@ test_that("read.neuron(s).catmaid and connectors", {
     expect_is(connectors(n), "data.frame")
     expect_is(connectors(nl), "data.frame")
     
-    expect_equal((((nl*1)+2)-2), nl)
+    expect_equal((nl*2+0)/2, nl)
   }
 })
