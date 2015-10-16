@@ -8,7 +8,7 @@ test_that("can make a connection", {
   expect_is(catmaid_connection(server="http://somewhere.org"), 'catmaid_connection')
   conn<-catmaid_connection(server="https://somewhere.org", username = 'calvin', password = 'hobbes')
   expect_is(conn, "catmaid_connection")
-  expect_is(conn$config, "config")
+  expect_is(conn$config, class(config()))
 })
 
 test_that("can login", {
