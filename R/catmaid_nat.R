@@ -223,3 +223,35 @@ plot3d.catmaidneuron<-function(x, WithConnectors=TRUE, WithNodes=FALSE, ...) {
   }
   rglreturnlist
 }
+
+#' @export
+`*.catmaidneuron` <- function(n,x) {
+  n2=NextMethod()
+  conndf=connectors(n)
+  if(!is.null(conndf)) {
+    # multiply connectors as well
+    lx=length(x)
+    if(lx==1) xyzmatrix(conndf)=xyzmatrix(conndf)*x
+    else {
+      xyzmatrix(conndf)=t(t(xyzmatrix(conndf)*x[1:3]))
+    }
+    n2[['connectors']]=conndf
+  }
+  n2
+}
+
+#' @export
+`+.catmaidneuron` <- function(n,x) {
+  n2=NextMethod()
+  conndf=connectors(n)
+  if(!is.null(conndf)) {
+    # multiply connectors as well
+    lx=length(x)
+    if(lx==1) xyzmatrix(conndf)=xyzmatrix(conndf)+x
+    else {
+      xyzmatrix(conndf)=t(t(xyzmatrix(conndf)+x[1:3]))
+    }
+    n2[['connectors']]=conndf
+  }
+  n2
+}
