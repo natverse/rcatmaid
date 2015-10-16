@@ -212,9 +212,12 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' \dontrun{
 #' nl=read.neurons.catmaid(c(10418394,4453485))
 #' plot3d(nl)
+#' 
+#' # now with connectors (i.e. synapses)
+#' plot3d(nl, WithConnectors=TRUE)
 #' }
 #' @aliases plot3d
-plot3d.catmaidneuron<-function(x, WithConnectors=TRUE, WithNodes=FALSE, ...) {
+plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
   rglreturnlist=NextMethod()
   if(WithConnectors) {
     conndf=connectors(x)

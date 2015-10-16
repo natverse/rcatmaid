@@ -5,7 +5,7 @@
 \alias{plot3d.catmaidneuron}
 \title{Plot skeleton and connectors for neuron retrieved from CATMAID}
 \usage{
-\method{plot3d}{catmaidneuron}(x, WithConnectors = TRUE, WithNodes = FALSE,
+\method{plot3d}{catmaidneuron}(x, WithConnectors = FALSE, WithNodes = FALSE,
   ...)
 }
 \arguments{
@@ -26,6 +26,9 @@ Plot skeleton and connectors for neuron retrieved from CATMAID
 \dontrun{
 nl=read.neurons.catmaid(c(10418394,4453485))
 plot3d(nl)
+
+# now with connectors (i.e. synapses)
+plot3d(nl, WithConnectors=TRUE)
 }
 }
 \seealso{
