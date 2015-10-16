@@ -32,7 +32,8 @@ test_that("can get and post data", {
 })
 
 test_that("can fetch cached connection", {
-  conn1=catmaid_connection(server = "https://wurgle.com", user='rhubarb', password='crumble')
+  conn1=catmaid_connection(server = "https://wurgle.com", 
+                           username = 'rhubarb', password='crumble')
   
   # store connection manually
   .package_statevars$connections[['wurgle_cookie']]=conn1
@@ -41,9 +42,9 @@ test_that("can fetch cached connection", {
   expect_equal(catmaid_cached_connection(conn = catmaid_connection(
     server="https://wurgle.com")), conn1)
   expect_equal(catmaid_cached_connection(conn = catmaid_connection(
-    server="https://wurgle.com", user='rhubarb')), conn1)
+    server="https://wurgle.com", username = "rhubarb")), conn1)
   expect_null(catmaid_cached_connection(conn = catmaid_connection(
-    server="https://wurgle.com", user='apple')))
+    server="https://wurgle.com", username = "apple")))
   
   # remove fake cached connection
   .package_statevars$connections[['wurgle_cookie']]=NULL
