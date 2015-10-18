@@ -46,4 +46,8 @@ orn13a=catmaid_query_by_name("13a ORN left")$skid
 catmaid_query_connected(orn13a)
 }
 }
+\seealso{
+\code{\link{catmaid_get_review_status}} to get information about the
+review status of partners (as shown in the equivalent CATMAID report).
+}
 

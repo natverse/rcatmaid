@@ -202,6 +202,8 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #' catmaid_query_connected(orn13a)
 #' }
 #' @export
+#' @seealso \code{\link{catmaid_get_review_status}} to get information about the
+#' review status of partners (as shown in the equivalent CATMAID report).
 catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ...){
   path=paste0("/",pid,"/skeleton/connectivity")
   connectivity_post = list('source[0]'=skid, threshold=minimum_synapses, boolean_op='logic_OR')
