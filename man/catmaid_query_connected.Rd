@@ -23,8 +23,19 @@ or to convert the nodes and connectors lists into processed data.frames
 function.}
 }
 \value{
-A list containing two data.frames (incoming, outgoing) when
-  \code{raw=FALSE}
+A list containing two data.frames (incoming, outgoing), each
+  data.frame having one row for each partner neuron and the following columns
+  \itemize{
+
+  \item skid skeleton id of the query neuron
+
+  \item partner the skeleton id of the partner neuron
+
+  \item syn.count the number of synapses made with partner
+
+  \item num_nodes number of nodes in the partner neuron
+
+  }
 }
 \description{
 Find neurons connected to a starting neuron

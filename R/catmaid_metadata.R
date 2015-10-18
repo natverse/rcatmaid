@@ -183,8 +183,19 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #' @param minimum_synapses Must be at least this number of synapses between 
 #'   starter neuron and returned partners
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return A list containing two data.frames (incoming, outgoing) when
-#'   \code{raw=FALSE}
+#' @return A list containing two data.frames (incoming, outgoing), each
+#'   data.frame having one row for each partner neuron and the following columns
+#'   \itemize{
+#'   
+#'   \item skid skeleton id of the query neuron
+#'   
+#'   \item partner the skeleton id of the partner neuron
+#'   
+#'   \item syn.count the number of synapses made with partner
+#'   
+#'   \item num_nodes number of nodes in the partner neuron
+#'   
+#'   }
 #' @examples
 #' \dontrun{
 #' orn13a=catmaid_query_by_name("13a ORN left")$skid
@@ -196,29 +207,24 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
   connectivity_post = list('source[0]'=skid, threshold=minimum_synapses, boolean_op='logic_OR')
   rawres=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
   if(raw) return(rawres)
-  res=list()
-  res$outgoing=list2df(rawres$outgoing, 
-                       cols=c("union_reviewed", "skids", "name", "num_nodes"),
-                       use.col.names = T, stringsAsFactors=FALSE)
-  res$incoming=list2df(rawres$incoming, 
-                       cols=c("union_reviewed", "skids", "name", "num_nodes"),
-                       use.col.names = T, stringsAsFactors=FALSE)
   
   # pretty up the output data.frames
-  fixresdf<-function(df, minimum_synapses) {
-    if(is.null(df)) return(NULL)
-    # not sure why this element ends up named like this in the json
-    names(df)[names(df)=='skids']='syn.count'
-    # actual skeleton ids come back as rownames
-    df$skid=as.integer(rownames(df))
+  makeresdf<-function(x, minimum_synapses) {
+    if(is.null(x)) return(NULL)
+    skids=sapply(x,function(x) names(x$skids))
+    # nb I do not know what the first 4 elements alongside the 5th element
+    df=data.frame(skid=as.integer(skids),
+                  partner=as.integer(names(skids)),
+                  syn.count=sapply(x, function(x) x$skids[[1]][[5]]),
+                  num_nodes=sapply(x,"[[", "num_nodes"),
+                  stringsAsFactors = FALSE)
     rownames(df)=NULL
     colsforleft<-c('skid','name','syn.count')
-    df=df[c(colsforleft,setdiff(names(df), colsforleft))]
     df=df[df$syn.count>=minimum_synapses, ]
     df[order(df$syn.count, decreasing = TRUE),]
   }
-
-  lapply(res, fixresdf, minimum_synapses)
+  
+  lapply(rawres[c("outgoing","incoming")], makeresdf, minimum_synapses)
 }
 
 #' Get review status of neurons from CATMAID
