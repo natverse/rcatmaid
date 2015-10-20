@@ -64,9 +64,11 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
   catmaid.username="calvin", catmaid.password="hobbesagain")
 ```
 
-Once you have logged in at least once in the current R session using catmaid_login
-or friends, the access credentials will be cached and you should no longer need
-to authenticate explicitly.
+In this way authentication will happen transparently as required by all functions
+that interact with the specified CATMAID server. Alternativaly, once you have logged
+in at least once in the current R session using the `catmaid_login`
+function (or its friends), the access credentials will be cached and you should no longer need
+to authenticate explicitly unless you wish to change to a different CATMAID server.
 
 
 ## Installation
