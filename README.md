@@ -28,9 +28,9 @@ example(catmaid_get_compact_skeleton)
 library(nat)
 nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
 open3d()
-plot3d(nl)
-# plot the connectors - no built-in functionality yet for this in nat
-sapply(nl, function(n) points3d(n$connectors[4:6], col=n$connectors$prepost+3) )
+# nb this also plots the connectors (i.e. synapses) 
+# red = presynapses, cyan = postsynapses
+plot3d(nl, WithConnectors=TRUE)
 ```
 
 ## Authentication
