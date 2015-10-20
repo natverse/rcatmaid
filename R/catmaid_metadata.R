@@ -37,7 +37,7 @@ catmaid_get_neuronnames<-function(skids, pid=1, ...) {
 #' table(al$annotations$num_users_annotation)
 #' }
 catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
-  res=catmaid_fetch(paste0("/",pid,"/annotations/list"), conn=conn, 
+  res=catmaid_fetch(paste0("/",pid,"/annotations/"), conn=conn, 
                     parse.json = TRUE, ...)
   if(raw) return(res)
   # reformat annotation information
