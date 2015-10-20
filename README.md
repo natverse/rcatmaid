@@ -38,7 +38,7 @@ plot3d(nl, WithConnectors=TRUE)
 ## Fancier example
 This produces a 3D plot of the first and second order olfactory neurons
 coloured according to the peripheral odorant receptor.
-```
+```r
 # fetch olfactory receptor neurons
 orns=read.neurons.catmaid("name:ORN (left|right)", .progress='text')
 # calculate some useful metadata
