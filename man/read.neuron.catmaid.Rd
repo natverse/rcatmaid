@@ -76,11 +76,10 @@ plot3d(nl)
 # note that use a progress bar drop any failures
 orns=read.neurons.catmaid("name:ORN (left|right)", OmitFailures = T, .progress='text')
 
-# Add some extra columns to the attached data.frame
-# including the Odorant receptor genes and the side of brain
-attr(orns, 'df')=transform(attr(orns, 'df'),
-   side=factor(ifelse(grepl("left",name), "L", "R")),
-   Or= factor(sub(" ORN.*", "", name)))
+# Add two extra columns to the attached data.frame
+# for the Odorant receptor genes and the side of brain
+orns[,'side']=factor(ifelse(grepl("left", orns[,'name']), "L", "R"))
+orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
 
 # check what we have
 # see ?head.neuronlist and ?with.neuronlist for details of how this works
@@ -95,6 +94,19 @@ clear3d()
 # colour by Odorant Receptor
 # note similar position of axon terminals for same ORN class on left and right
 plot3d(orns, col=Or)
+
+## Additional example using Olfactory Projection Neurons
+pns=read.neurons.catmaid("annotation:ORN PNs$", .progress='text')
+pns[,'side']=factor(ifelse(grepl("left", pns[,'name']), "L", "R"))
+pns[,'Or']= factor(sub(" PN.*", "", pns[,'name']))
+
+# check that we have the same levels for the Odorant Receptor (Or) factor
+# for ORNs and PNs
+stopifnot(levels(pns[,'Or'])==levels(orns[,'Or']))
+
+# Ok, let's plot the PNs - they will be in matching colours
+plot3d(pns, col=Or)
+
 }
 }
 \seealso{
