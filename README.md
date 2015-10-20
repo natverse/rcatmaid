@@ -26,6 +26,7 @@ library(catmaid)
 example(catmaid_login)
 example(catmaid_fetch)
 example(catmaid_get_compact_skeleton)
+example(catmaid_get_neuronnames)
 
 # use with nat
 library(nat)
@@ -35,9 +36,26 @@ open3d()
 # red = presynapses, cyan = postsynapses
 plot3d(nl, WithConnectors=TRUE)
 ```
+## Fancier example
+This produces a 3D plot of the first and second order olfactory neurons
+coloured according to the peripheral odorant receptor.
+```r
+# fetch olfactory receptor neurons
+orns=read.neurons.catmaid("name:ORN (left|right)", .progress='text')
+# calculate some useful metadata
+orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
+
+# repeat for their PN partners, note use of search by annotation
+pns=read.neurons.catmaid("annotation:ORN PNs$", .progress='text')
+pns[,'Or']= factor(sub(" PN.*", "", pns[,'name']))
+# plot, colouring by odorant receptor
+plot3d(orns, col=Or)
+# note that we plot somata with a radius of 1500 nm
+plot3d(pns, col=Or, soma=1500)
+```
 
 ## Authentication
-You will obviously need to have the details of a valid CATMAID instance to try 
+You will obviously need to have the login details of a valid CATMAID instance to try 
 this out.  It is recommended that you set these details by including code like 
 this in in your .Rprofile file:
 
@@ -47,10 +65,13 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
   catmaid.username="calvin", catmaid.password="hobbesagain")
 ```
 
-Once you have logged in at least once in the current R session using catmaid_login
-or friends, the access credentials will be cached and you should no longer need
-to authenticate explicitly.
-
+In this way authentication will happen transparently as required by all functions
+that interact with the specified CATMAID server. Once you have logged
+in at least once in the current R session either implicitly using these settings 
+ro explicitly by calling the `catmaid_login`
+function (or its friends), the access credentials will be cached for the rest of
+the session. You can still authenticate explicitly to a different CATMAID server
+(using `catmaid_login`) if you wish.
 
 ## Installation
 Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
