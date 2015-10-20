@@ -26,6 +26,7 @@ library(catmaid)
 example(catmaid_login)
 example(catmaid_fetch)
 example(catmaid_get_compact_skeleton)
+example(catmaid_get_neuronnames)
 
 # use with nat
 library(nat)
