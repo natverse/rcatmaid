@@ -1,15 +1,19 @@
 #' Get names of neurons from CATMAID
 #' 
-#' @inheritParams read.neurons.catmaid
-#' @return a named character vector of neuron names. Missing values will be
-#'   represented by a \code{NA_character} value.
+#' @inheritParams read.neuron.catmaid
+#' @return a character vector of neuron names, with a names attribute specifying
+#'   the skeleton ids (skids). Missing values will be represented by a
+#'   \code{NA_character} value.
 #' @export
 #' @examples
 #' \dontrun{
 #' catmaid_get_neuronnames(skids=c(10418394,4453485))
+#' catmaid_get_neuronnames("name:ORN (left|right)")
+#' catmaid_get_neuronnames("annotation:ORN PNs$")
 #' }
-#' @seealso \code{\link{catmaid_fetch}}
-catmaid_get_neuronnames<-function(skids, pid=1, ...) {
+#' @seealso \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
+catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn)
   post_data=list(pid=pid)
   post_data[sprintf("skids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/skeleton/neuronnames", pid)
@@ -231,7 +235,7 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
 
 #' Get review status of neurons from CATMAID
 #' 
-#' @inheritParams read.neurons.catmaid
+#' @inheritParams read.neuron.catmaid
 #' @return a data.frame consisting of total number of nodes and number of
 #'   reviewed nodes. Note that should any neurons be invalid a warning will be
 #'   generated and a row with NA values will be returned.
@@ -241,7 +245,8 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
 #' catmaid_get_review_status(skids=c(10418394,4453485))
 #' }
 #' @seealso \code{\link{catmaid_fetch}}
-catmaid_get_review_status<-function(skids, pid=1, ...) {
+catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn)
   post_data=list()
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids)-1)]=as.list(skids)
   path=sprintf("/%d/skeleton/review-status", pid)

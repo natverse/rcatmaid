@@ -23,7 +23,7 @@ options as described in the help for \code{\link{catmaid_login}}.}
 \item{...}{Additional arguments passed to the catmaid_fetch function}
 
 \item{skids}{One or more numeric skeleton ids or a character vector defining
-a query (see examples or \code{\link{catmaid_skids}} for they syntax)}
+a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
 error. The default value (\code{NA}) will result in nlapply stopping with

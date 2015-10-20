@@ -14,8 +14,11 @@
 #'   tag exists the one that tags an endpoint is preferred.
 #' @param skid A numeric skeleton id
 #' @param pid Project id (default 1)
+#' @param conn A \code{catmaid_connection} objection returned by 
+#'   \code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
+#'   object will be generated using the values of the \bold{catmaid.*} package 
+#'   options as described in the help for \code{\link{catmaid_login}}.
 #' @param ... Additional arguments passed to the catmaid_fetch function
-#' @inheritParams catmaid_fetch
 #' @seealso \code{\link{catmaid_fetch}}
 #' @export
 read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
@@ -54,7 +57,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 
 #' @rdname read.neuron.catmaid
 #' @param skids One or more numeric skeleton ids or a character vector defining
-#'   a query (see examples or \code{\link{catmaid_skids}} for they syntax)
+#'   a query (see \code{\link{catmaid_skids}} or examples for the syntax).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an 
 #'   error. The default value (\code{NA}) will result in nlapply stopping with 
 #'   an error message the moment there is an eror. For other values, see 
