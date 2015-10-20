@@ -34,8 +34,11 @@ open3d()
 # nb this also plots the connectors (i.e. synapses) 
 # red = presynapses, cyan = postsynapses
 plot3d(nl, WithConnectors=TRUE)
-
-## fancier example looking at olfactory neurons
+```
+## Fancier example
+This produces a 3D plot of the first and second order olfactory neurons
+coloured according to the peripheral odorant receptor.
+```
 # fetch olfactory receptor neurons
 orns=read.neurons.catmaid("name:ORN (left|right)", .progress='text')
 # calculate some useful metadata
