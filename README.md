@@ -54,7 +54,7 @@ plot3d(pns, col=Or, soma=1500)
 ```
 
 ## Authentication
-You will obviously need to have the details of a valid CATMAID instance to try 
+You will obviously need to have the login details of a valid CATMAID instance to try 
 this out.  It is recommended that you set these details by including code like 
 this in in your .Rprofile file:
 
