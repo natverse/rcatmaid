@@ -3,14 +3,17 @@
 This package provides access to the [CATMAID](http://catmaid.org/) API for 
 [R](http://r-project.org/) users.  At present it provides low level functions 
 for appropriately authenticated GET/POST requests, optionally parsing JSON responses.
-There is also an intermediate level function to retrieve skeleton (i.e. neuron) 
-information and a high level function to convert it to the representation of the
-[nat](https://github.com/jefferis/nat) (NeuroAnatomy Toolbox) R package.
+There are also intermediate level functions to retrieve skeleton (i.e. neuron) 
+information and connectivity information for one or more neurons. Finally, there is
+a high level function to convert neurons to the representation of the
+[nat](https://github.com/jefferis/nat) (NeuroAnatomy Toolbox) R package, enabling
+a wide variety of analyses.
 
 ## Quick start
 ```r
 # install
 if (!require("devtools")) install.packages("devtools")
+# nb repo is rcatmaid, but R package name is catmaid
 devtools::install_github("jefferis/rcatmaid")
 
 # use 
