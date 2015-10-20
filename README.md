@@ -65,11 +65,12 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
 ```
 
 In this way authentication will happen transparently as required by all functions
-that interact with the specified CATMAID server. Alternativaly, once you have logged
-in at least once in the current R session using the `catmaid_login`
-function (or its friends), the access credentials will be cached and you should no longer need
-to authenticate explicitly unless you wish to change to a different CATMAID server.
-
+that interact with the specified CATMAID server. Once you have logged
+in at least once in the current R session either implicitly using these settings 
+ro explicitly by calling the `catmaid_login`
+function (or its friends), the access credentials will be cached for the rest of
+the session. You can still authenticate explicitly to a different CATMAID server
+(using `catmaid_login`) if you wish.
 
 ## Installation
 Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
