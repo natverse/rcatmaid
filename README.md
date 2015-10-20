@@ -34,6 +34,20 @@ open3d()
 # nb this also plots the connectors (i.e. synapses) 
 # red = presynapses, cyan = postsynapses
 plot3d(nl, WithConnectors=TRUE)
+
+## fancier example looking at olfactory neurons
+# fetch olfactory receptor neurons
+orns=read.neurons.catmaid("name:ORN (left|right)", .progress='text')
+# calculate some useful metadata
+orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
+
+# repeat for their PN partners, note use of search by annotation
+pns=read.neurons.catmaid("annotation:ORN PNs$", .progress='text')
+pns[,'Or']= factor(sub(" PN.*", "", pns[,'name']))
+# plot, colouring by odorant receptor
+plot3d(orns, col=Or)
+# note that we plot somata with a radius of 1500 nm
+plot3d(pns, col=Or, soma=1500)
 ```
 
 ## Authentication
