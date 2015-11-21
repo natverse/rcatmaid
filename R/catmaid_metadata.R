@@ -107,15 +107,15 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 catmaid_query_by_name<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
                                       ...){
-  query_by_neuron_or_annotation(path='1/neuron/query-by-annotations',
+  query_by_neuron_or_annotation(path=paste0(pid, '/neuron/query-by-annotations'),
                                 body=list(neuron_query_by_name=query,
                                           display_start=0,
                                           display_length=sprintf("%d",maxresults)),
-                                pid=pid, maxresults=maxresults, type=type, 
+                                maxresults=maxresults, type=type, 
                                 raw=raw, ...=...)
 }
 
-query_by_neuron_or_annotation<-function(path, body, pid=1, maxresults=500, 
+query_by_neuron_or_annotation<-function(path, body, maxresults=500, 
                                         type=c("neuron","annotation"), 
                                         raw=FALSE, ...){
   return_type=match.arg(type, c("neuron","annotation"), several.ok = T)
@@ -174,11 +174,11 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                     ...))
     }
   }
-  query_by_neuron_or_annotation('1/neuron/query-by-annotations',
+  query_by_neuron_or_annotation(paste0(pid, '/neuron/query-by-annotations'),
                                 body=list(neuron_query_by_annotation=query, 
                                           display_start=0, 
                                           display_length=sprintf("%d",maxresults)),
-                                pid=pid, maxresults=maxresults, type=return_type, 
+                                maxresults=maxresults, type=return_type, 
                                 raw=raw, conn=conn, ...=...)
 }
 
