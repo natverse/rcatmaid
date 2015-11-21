@@ -107,10 +107,8 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 catmaid_query_by_name<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
                                       ...){
-  query_by_neuron_or_annotation(path=paste0(pid, '/neuron/query-by-annotations'),
-                                body=list(neuron_query_by_name=query,
-                                          display_start=0,
-                                          display_length=sprintf("%d",maxresults)),
+  query_by_neuron_or_annotation(path=paste0(pid, '/annotations/query-targets'),
+                                body=list(name=query),
                                 maxresults=maxresults, type=type, 
                                 raw=raw, ...=...)
 }
@@ -119,6 +117,8 @@ query_by_neuron_or_annotation<-function(path, body, maxresults=500,
                                         type=c("neuron","annotation"), 
                                         raw=FALSE, ...){
   return_type=match.arg(type, c("neuron","annotation"), several.ok = T)
+  body$rangey_start=0
+  body$range_length=sprintf("%d",maxresults)
   res=catmaid_fetch(path=path, body=body, ..., include_headers = F)
   if(raw) return(res)
   # key fields name type, id
@@ -174,10 +174,8 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                     ...))
     }
   }
-  query_by_neuron_or_annotation(paste0(pid, '/neuron/query-by-annotations'),
-                                body=list(neuron_query_by_annotation=query, 
-                                          display_start=0, 
-                                          display_length=sprintf("%d",maxresults)),
+  query_by_neuron_or_annotation(paste0(pid, '/annotations/query-targets'),
+                                body=list(annotated_with=query),
                                 maxresults=maxresults, type=return_type, 
                                 raw=raw, conn=conn, ...=...)
 }
