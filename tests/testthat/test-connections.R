@@ -24,11 +24,12 @@ test_that("can get and post data", {
   if(!inherits(conn, 'try-error')){
     expect_is(skel<-catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn, parse.json = FALSE),
               'response')
-    expect_equivalent(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
+    expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
                                     body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
-                      list(`10418394` = "IPC10", `4453485` = "IPC1"))
+              'list')
+    expect_equal(names(neuronnames), c('10418394','4453485'))
     expect_equal(names(attributes(neuronnames)), c("names", "url", "headers"))
-  }  
+  }
 })
 
 test_that("can fetch cached connection", {

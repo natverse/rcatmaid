@@ -5,7 +5,7 @@ conn=try(catmaid_login(), silent = TRUE)
 
 test_that("catmaid_get_neuronnames", {
   if(!inherits(conn, 'try-error')){
-    baseline=c(`4453485`="IPC1", `10418394`="IPC10")
+    baseline=c(`4453485`="IPC 4 left", `10418394`="DH44 1 left")
     expect_equal(catmaid_get_neuronnames(skids=c(4453485,10418394)), baseline)
   }
 })
