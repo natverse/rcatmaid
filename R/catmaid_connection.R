@@ -190,7 +190,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
 #' catmaid_fetch("/1/rhubarb/crumble")
 #' }
 catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE, 
-                        include_headers=TRUE, ...) {
+                        include_headers=TRUE, simplifyVector=FALSE, ...) {
   conn=catmaid_login(conn)
   req<-with_config(conn$config, {
     if(is.null(body)) {
@@ -202,7 +202,7 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   # error out if there was a problem
   stop_for_status(req)
   if(parse.json) {
-    parsed=catmaid_parse_json(req)
+    parsed=catmaid_parse_json(req, simplifyVector=simplifyVector)
     if(length(parsed)==2 && isTRUE(names(parsed)[2]=='error')) {
       stop("catmaid error: " , parsed$error)
     }
@@ -214,10 +214,10 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   } else req
 }
 
-catmaid_parse_json <- function(req) {
+catmaid_parse_json <- function(req, simplifyVector = FALSE, ...) {
   text <- content(req, as = "text")
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
-  fromJSON(text, simplifyVector = FALSE)
+  fromJSON(text, simplifyVector = simplifyVector, ...)
 }
 
 # return the open cached connection object for an (unopened) connection
