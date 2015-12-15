@@ -184,8 +184,12 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #' 
 #' @param minimum_synapses Must be at least this number of synapses between 
 #'   starter neuron and returned partners
+#' @param boolean_op Whether returned neurons can be connected to \emph{any} 
+#'   character vector (\code{boolean_op="OR"}, the default) or must be connected
+#'   to all the specified neurons (\code{boolean_op="AND"}).
+#' @inheritParams read.neuron.catmaid
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return A list containing two data.frames (incoming, outgoing), each
+#' @return A list containing two data.frames (incoming, outgoing), each 
 #'   data.frame having one row for each partner neuron and the following columns
 #'   \itemize{
 #'   
@@ -202,15 +206,25 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #' \dontrun{
 #' orn13a=catmaid_query_by_name("13a ORN left")$skid
 #' catmaid_query_connected(orn13a)
+#' 
+#' # connected to either left OR right 13a ORNs
+#' orn13as=catmaid_query_by_name("13a ORN")
+#' catmaid_query_connected(orn13as)
+#' # connected to both left AND right 13a ORNs
+#' catmaid_query_connected(orn13as, boolean_op = 'AND')
 #' }
 #' @export
-#' @seealso \code{\link{catmaid_get_review_status}} to get information about the
-#' review status of partners (as shown in the equivalent CATMAID report).
-catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ...){
+#' @seealso \code{\link{catmaid_skids}}. See
+#'   \code{\link{catmaid_get_review_status}} to get information about the review
+#'   status of partners (as shown in the equivalent CATMAID report).
+catmaid_query_connected<-function(skids, minimum_synapses=1, 
+                                  boolean_op=c("OR","AND"), 
+                                  pid=1, raw=FALSE, conn=NULL, ...){
+  boolean_op=match.arg(boolean_op)
   skids=catmaid_skids(skids, conn = conn)
   names(skids)=sprintf('source_skeleton_ids[%d]',seq_along(skids))
   connectivity_post = c(as.list(skids), threshold=minimum_synapses, 
-                        boolean_op="OR")
+                        boolean_op=boolean_op)
   path=paste0("/",pid,"/skeletons/connectivity")
   rawres=catmaid_fetch(path, connectivity_post, include_headers = F, 
                        simplifyVector = TRUE)
@@ -224,7 +238,7 @@ catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ..
     npartners=sapply(skids, length)
     df=data.frame(skid=as.integer(unlist(skids, use.names = FALSE)),
                   partner=rep(as.integer(names(x)), npartners),
-                  syn.count=unlist(sapply(x, function(x) sapply(x$skids,"[",5)), use.names = FALSE),
+                  syn.count=unlist(lapply(x, function(x) lapply(x$skids,"[",5)), use.names = FALSE),
                   num_nodes=rep(sapply(x,"[[", "num_nodes", USE.NAMES = F), npartners),
                   stringsAsFactors = FALSE)
     rownames(df)=NULL

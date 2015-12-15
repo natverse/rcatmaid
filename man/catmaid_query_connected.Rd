@@ -4,23 +4,32 @@
 \alias{catmaid_query_connected}
 \title{Find neurons connected to a starting neuron}
 \usage{
-catmaid_query_connected(skid, minimum_synapses = 1, pid = 1, raw = FALSE,
-  ...)
+catmaid_query_connected(skids, minimum_synapses = 1, boolean_op = c("OR",
+  "AND"), pid = 1, raw = FALSE, conn = NULL, ...)
 }
 \arguments{
-\item{skid}{single skeleton id}
+\item{skids}{One or more numeric skeleton ids or a character vector defining
+a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
 \item{minimum_synapses}{Must be at least this number of synapses between
 starter neuron and returned partners}
 
-\item{pid}{project id (default 1)}
+\item{boolean_op}{Whether returned neurons can be connected to \emph{any}
+character vector (\code{boolean_op="OR"}, the default) or must be connected
+to all the specified neurons (\code{boolean_op="AND"}).}
+
+\item{pid}{Project id (default 1)}
 
 \item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
 or to convert the nodes and connectors lists into processed data.frames
 (when \code{FALSE}, the default)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
-function.}
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
+options as described in the help for \code{\link{catmaid_login}}.}
+
+\item{...}{Additional arguments passed to the catmaid_fetch function}
 }
 \value{
 A list containing two data.frames (incoming, outgoing), each
@@ -44,10 +53,17 @@ Find neurons connected to a starting neuron
 \dontrun{
 orn13a=catmaid_query_by_name("13a ORN left")$skid
 catmaid_query_connected(orn13a)
+
+# connected to either left OR right 13a ORNs
+orn13as=catmaid_query_by_name("13a ORN")
+catmaid_query_connected(orn13as)
+# connected to both left AND right 13a ORNs
+catmaid_query_connected(orn13as, boolean_op = 'AND')
 }
 }
 \seealso{
-\code{\link{catmaid_get_review_status}} to get information about the
-review status of partners (as shown in the equivalent CATMAID report).
+\code{\link{catmaid_skids}}. See
+  \code{\link{catmaid_get_review_status}} to get information about the review
+  status of partners (as shown in the equivalent CATMAID report).
 }
 
