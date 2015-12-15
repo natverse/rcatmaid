@@ -91,7 +91,8 @@ Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and
 
 Based on python code presently visible at:
 
-* https://github.com/acardona/CATMAID/blob/master/scripts/remote/access.py
+* https://github.com/catmaid/CATMAID/blob/master/scripts/remote/access.py
+* https://github.com/catmaid/CATMAID/blob/master/django/applications/catmaid/urls.py
 * https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py
 
 by Albert Cardona and Philipp Schlegel. Released under the GPL-3 license.
