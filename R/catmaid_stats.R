@@ -33,7 +33,7 @@ catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
   # convert lists to data.frames
   fix_list<-function(l) {
     if(!is.list(l)) return(l)
-    df=data.frame(id=names(l), n=unlist(l, use.names = FALSE))
+    df=data.frame(id=as.integer(names(l)), n=unlist(l, use.names = FALSE))
   }
   lapply(res, fix_list)
 }
