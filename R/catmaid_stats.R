@@ -21,7 +21,15 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' catmaid_get_contributor_stats(skids=c(10418394,4453485))
+#' cs=catmaid_get_contributor_stats(skids=c(10418394,4453485))
+#' # fetch user list
+#' ul=catmaid_get_user_list()
+#' # merge with list of node contributors and sort in descending order of
+#' # contributions
+#' library(dplyr)
+#' left_join(cs$node_contributors, ul) %>%
+#'   select(id,n, full_name) %>%
+#'   arrange(desc(n))
 #' }
 #' @seealso \code{\link{catmaid_get_review_status}}
 catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
