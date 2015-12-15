@@ -206,6 +206,8 @@ connectors.neuron<-function(x, ...) {
 #' @importFrom plyr rbind.fill
 connectors.neuronlist<-function(x, subset=NULL, ...) {
   dfs=nat::nlapply(x, FUN=connectors, ..., subset=subset)
+  # drop any null return values
+  dfs=dfs[!sapply(dfs,is.null)]
   df=rbind.fill(dfs)
   df$skid=as.integer(rep(names(dfs), sapply(dfs, nrow)))
   df
