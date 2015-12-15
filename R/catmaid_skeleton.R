@@ -239,18 +239,31 @@ catmaid_get_connector_table<-function(skid,
 #' @seealso \code{\link{catmaid_get_compact_skeleton}}. \code{\link{read.neuron.catmaid}}
 catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # relation_type 0 => incoming
-  tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/list"),
-                    body=list(skeleton_0=skid, skeleton_nr=1),
-                    conn=conn, ...)
+  tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/",skid,"/content"),
+                    conn=conn, simplifyVector = TRUE, ...)
   
   if(raw) return(tnl)
   # else process the tree node information
+  # this comes in 3 separate structures:
+  # treenodes, reviews, tags
+  if(length(tnl)!=3)
+    stop("I don't understand the raw treenode structure returned by catmaid")
+  names(tnl)=c("treenodes", "reviews", "tags")
+  tnl=lapply(tnl, as.data.frame, stringsAsFactors=FALSE)
   
-  dfcolnames=c("id", "type", "tags", "confidence", "x", "y", "z", "s", "r", 
-               "user", "last_modified", "reviewer")
-  df=list2df(tnl[[1]], cols = dfcolnames, return_empty_df = T, stringsAsFactors=FALSE)
-  df$user=factor(df$user)
-  df
+  colnames(tnl$treenodes)=c("id", "parent_id", "confidence", "x", "y", "z", "r",
+                            "user_id")
+  idcols=grepl("id", colnames(tnl$treenodes), fixed = TRUE)
+  tnl$treenodes[idcols]=lapply(tnl$treenodes[idcols], as.integer)
   
+  colnames(tnl$reviews)=c("id", "reviewer_id")
+  
+  colnames(tnl$tags)=c("id", "tag")
+  tnl$tags=as.data.frame(tnl$tags, stringsAsFactors = FALSE)
+  tnl$tags$id=as.integer(tnl$tags$id)
+  
+  tndf=merge(tnl$treenodes, tnl$reviews, by='id')
+  attr(tndf, 'tags')=tnl$tags
+  tndf
 }
 
