@@ -160,6 +160,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
 #' @param include_headers Whether to include basic headers from the http request
 #'   as attributes on the parsed JSON object (default \code{TRUE}) when 
 #'   \code{parse.json=TRUE}.
+#' @param simplifyVector Wheter to use jsonlite::simplifyVector 
 #' @param ... Additional arguments passed to the \code{httr::GET} or 
 #'   \code{httr::POST} function
 #' @return When \code{parse.json=FALSE} an object of class \code{response} 

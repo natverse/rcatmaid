@@ -26,6 +26,8 @@ options as described in the help for \code{\link{catmaid_login}}.}
 as attributes on the parsed JSON object (default \code{TRUE}) when
 \code{parse.json=TRUE}.}
 
+\item{simplifyVector}{Wheter to use jsonlite::simplifyVector}
+
 \item{...}{Additional arguments passed to the \code{httr::GET} or
 \code{httr::POST} function}
 }
