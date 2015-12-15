@@ -37,3 +37,17 @@ catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
   }
   lapply(res, fix_list)
 }
+
+#' Fetch list of catmaid users for current/specified connection/project
+#' 
+#' @inheritParams read.neuron.catmaid
+#' @export
+#' @examples 
+#' \dontrun{
+#' catmaid_get_user_list()
+#' }
+#' @seealso \code{\link{catmaid_get_review_status}, 
+#'   \link{catmaid_get_contributor_stats}}
+catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
+  catmaid_fetch('user-list', simplifyVector = T, pid=pid, conn=conn, ...)
+}
