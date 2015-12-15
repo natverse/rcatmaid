@@ -207,20 +207,25 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #' @seealso \code{\link{catmaid_get_review_status}} to get information about the
 #' review status of partners (as shown in the equivalent CATMAID report).
 catmaid_query_connected<-function(skid, minimum_synapses=1, pid=1, raw=FALSE, ...){
+  skids=catmaid_skids(skids, conn = conn)
+  names(skids)=sprintf('source_skeleton_ids[%d]',seq_along(skids))
+  connectivity_post = c(as.list(skids), threshold=minimum_synapses, 
+                        boolean_op="OR")
   path=paste0("/",pid,"/skeletons/connectivity")
-  connectivity_post = list('source_skeleton_ids[0]'=skid, threshold=minimum_synapses, boolean_op='OR')
-  rawres=catmaid_fetch(path, connectivity_post, include_headers = F, ...)
+  rawres=catmaid_fetch(path, connectivity_post, include_headers = F, 
+                       simplifyVector = TRUE)
   if(raw) return(rawres)
   
   # pretty up the output data.frames
   makeresdf<-function(x, minimum_synapses) {
     if(is.null(x)) return(NULL)
-    skids=sapply(x,function(x) names(x$skids))
     # nb I do not know what the first 4 elements alongside the 5th element
-    df=data.frame(skid=as.integer(skids),
-                  partner=as.integer(names(skids)),
-                  syn.count=sapply(x, function(x) x$skids[[1]][[5]]),
-                  num_nodes=sapply(x,"[[", "num_nodes"),
+    skids=sapply(x,function(x) names(x$skids), simplify = FALSE)
+    npartners=sapply(skids, length)
+    df=data.frame(skid=as.integer(unlist(skids, use.names = FALSE)),
+                  partner=rep(as.integer(names(x)), npartners),
+                  syn.count=unlist(sapply(x, function(x) sapply(x$skids,"[",5)), use.names = FALSE),
+                  num_nodes=rep(sapply(x,"[[", "num_nodes", USE.NAMES = F), npartners),
                   stringsAsFactors = FALSE)
     rownames(df)=NULL
     colsforleft<-c('skid','name','syn.count')
