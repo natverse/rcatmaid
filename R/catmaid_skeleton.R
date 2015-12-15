@@ -252,7 +252,7 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   tnl=lapply(tnl, as.data.frame, stringsAsFactors=FALSE)
   
   colnames(tnl$treenodes)=c("id", "parent_id", "confidence", "x", "y", "z", "r",
-                            "user_id")
+                            "user_id", "last_modified")
   idcols=grepl("id", colnames(tnl$treenodes), fixed = TRUE)
   tnl$treenodes[idcols]=lapply(tnl$treenodes[idcols], as.integer)
   
