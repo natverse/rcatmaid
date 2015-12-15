@@ -21,7 +21,21 @@ options as described in the help for \code{\link{catmaid_login}}.}
 }
 \value{
 a list containing different statistics including construction and
-  review times (aggregated across all the specified input neurons).
+  review times (aggregated across all the specified input neurons). There
+  will also be 3 data.frames containing statistics for number of nodes and
+  pre/post-synaptic connectors broken down per user.
+
+  \itemize{
+
+  \item pre_contributors number of pre-synaptic connectors contributed per
+  user.
+
+  \item node_contributors number of skeleton nodes contributed per user.
+
+  \item post_contributors number of post-synaptic connectors contributed per
+  user.
+
+  }
 }
 \description{
 Get contributor statistics for neurons from CATMAID

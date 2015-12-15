@@ -1,10 +1,23 @@
-
-
 #' Get contributor statistics for neurons from CATMAID
 #' 
 #' @inheritParams read.neuron.catmaid
 #' @return a list containing different statistics including construction and 
-#'   review times (aggregated across all the specified input neurons).
+#'   review times (aggregated across all the specified input neurons). There 
+#'   will also be 3 data.frames containing statistics for number of nodes and 
+#'   pre/post-synaptic connectors broken down per user.
+#'   
+#'   \itemize{
+#'   
+#'   \item pre_contributors number of pre-synaptic connectors contributed per
+#'   user.
+#'   
+#'   \item node_contributors number of skeleton nodes contributed per user.
+#'   
+#'   \item post_contributors number of post-synaptic connectors contributed per
+#'   user.
+#'   
+#'   }
+#'   
 #' @export
 #' @examples
 #' \dontrun{
@@ -17,39 +30,10 @@ catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
   post_data[sprintf("skids[%d]", seq_along(skids)-1)]=as.list(skids)
   path=sprintf("/%d/skeleton/contributor_statistics_multiple", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
-  res
+  # convert lists to data.frames
+  fix_list<-function(l) {
+    if(!is.list(l)) return(l)
+    df=data.frame(id=names(l), n=unlist(l, use.names = FALSE))
+  }
+  lapply(res, fix_list)
 }
-
-
-# Neuron name:	42a PN left
-# Node count:	2536
-# Nodes contributed by:	
-#   matt	1606
-# larderet	456
-# ingrid	256
-# avinash	117
-# claus	98
-# lif	2
-# larisa	1
-# Number of presynaptic sites:	96
-# Presynapses contributed by:	
-#   claus	36
-# matt	27
-# larderet	14
-# ingrid	11
-# kathi	3
-# avinash	2
-# javier	2
-# andreas	1
-# Number of postsynaptic sites:	258
-# Postsynapses contributed by:	
-#   matt	153
-# avinash	71
-# claus	27
-# ingrid	3
-# larderet	2
-# javier	1
-# kathi	1
-# Construction time:	3 hours 14 minutes
-# Minimal review time (min):	52 minutes
-# Multiuser review time (min):	2 hours 25 minutes
