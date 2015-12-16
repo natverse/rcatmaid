@@ -275,3 +275,10 @@ plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
   }
   n2
 }
+
+#' @export
+summary.catmaidneuron<-function(x) {
+  nc=nrow(connectors(x))
+  if(is.null(nc)) nc=0L
+  data.frame(nodes=nrow(x$d), cable.length=sum(seglengths(x)), connectors=nc)
+}
