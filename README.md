@@ -99,6 +99,25 @@ the access credentials will be cached for the rest of
 the session. You can still authenticate explicitly to a different CATMAID server
 (using `catmaid_login`) if you wish.
 
+### Multiple servers
+If you need to talk to more than 1 catmaid server in a single session then you 
+must use `catmaid_login` to login into each server
+
+```r
+# log in to default server specified in .Rprofile
+conn1=catmaid_login()
+conn2=catmaid_login(server='https://my.otherserver.com', ...)
+
+and then use the returned connection objects with any calls you make e.g.
+
+```r
+# fetch neuron from server 1
+n1=read.neuron(123, conn=conn1)
+# fetch neuron from server 2
+n2=read.neuron(123, conn=conn2)
+```
+as a way to talk to multiple differnt catmaid servers in a in.
+
 ## Installation
 Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
 
