@@ -36,6 +36,10 @@
 #' 
 #' ## same but use appropriate login info
 #' conn=catmaid_login(server="https://myserver.com", user="calvin", password='hobbes')
+#' ## alternatively, login using an API token
+#' # see http://catmaid.github.io/dev/api.html#api-token for how to get one
+#' conn=catmaid_login(server="https://myserver.com", 
+#'                    token = "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
 #' catmaid_connection_setenv(conn)
 #' test_package("catmaid")
 #' }
