@@ -305,7 +305,8 @@ catmaid_connection_fingerprint<-function(conn) {
 #' @export
 catmaid_connection_setenv<-function(conn=NULL, ...) {
   conn=catmaid_login(conn, ...)
-  poss_vars_to_export=c("server", "username", "password", "authname", "authpassword", "authtype")
+  poss_vars_to_export=c("server", "username", "password", 
+                        "authname", "authpassword", "authtype", "token")
   vars_to_export=intersect(poss_vars_to_export, names(conn))
   export_vector=unlist(conn[vars_to_export])
   names(export_vector)=paste0("catmaid.", vars_to_export)
@@ -316,7 +317,8 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 #' @rdname catmaid_connection_setenv
 #' @export
 catmaid_connection_getenv<-function(...) {
-  varnames=c("server", "username", "password", "authname", "authpassword", "authtype")
+  varnames=c("server", "username", "password", 
+             "authname", "authpassword", "authtype", "token")
   catmaid_envnames=paste0("catmaid.", varnames)
   catmaid_envs=Sys.getenv(catmaid_envnames, unset = NA_character_)
   names(catmaid_envs)=varnames
@@ -331,6 +333,7 @@ catmaid_connection_getenv<-function(...) {
 catmaid_connection_unsetenv<-function(){
   vars=paste0("catmaid.",
               c("server", "username", "password", "authname", 
-                "authpassword", "authtype"))
+                "authpassword", "authtype", "token"))
   Sys.unsetenv(vars)
 }
+
