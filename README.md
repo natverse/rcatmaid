@@ -56,7 +56,10 @@ plot3d(pns, col=Or, soma=1500)
 
 ## Authentication
 You will obviously need to have the login details of a valid CATMAID instance to try 
-this out.  It is recommended that you set these details by including code like 
+this out. 
+
+### Setting package authentication options in your .Rprofile
+It is recommended that you set these details by including code like 
 this in in your .Rprofile file:
 
 ```r
@@ -66,10 +69,33 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
 ```
 
 In this way authentication will happen transparently as required by all functions
-that interact with the specified CATMAID server. Once you have logged
-in at least once in the current R session either implicitly using these settings 
-ro explicitly by calling the `catmaid_login`
-function (or its friends), the access credentials will be cached for the rest of
+that interact with the specified CATMAID server.
+
+### Token based authentication
+As of December 2015 CATMAID is moving to token based authentication. For this
+you will need to get an API token when you are logged into the CATMAID web 
+client in your browser. See http://catmaid.github.io/dev/api.html#api-token for
+details. 
+
+You would then set your `.Rprofile` like this:
+
+```r
+options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
+  catmaid.authname="Calvin",catmaid.authpassword="hobbes",
+  catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
+```
+
+### Cached authentication 
+Whether you use options in your `.Rprofile` as described above or you login 
+explicitly at the start of a session by doing something like:
+
+```r
+catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
+              authname="Calvin",authpassword="hobbes",
+              token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
+```
+
+the access credentials will be cached for the rest of
 the session. You can still authenticate explicitly to a different CATMAID server
 (using `catmaid_login`) if you wish.
 
