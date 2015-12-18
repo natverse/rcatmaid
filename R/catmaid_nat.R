@@ -49,6 +49,8 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   
   # add all fields from input list except for nodes themselves
   n[names(res[-1])]=res[-1]
+  # we expect connectors field to be null when there are no connectors
+  if(length(n$connectors)<1) n$connectors=NULL
   fields_to_include=c("url", "headers")
   n[fields_to_include]=attributes(res)[fields_to_include]
   class(n)=c('catmaidneuron', 'neuron')
