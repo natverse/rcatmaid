@@ -14,9 +14,16 @@
 #'   contain a \code{cookie} field that includes a sessionid that is required 
 #'   for subsequent GET/POST operations.  When \code{Cache=TRUE} (the default) 
 #'   the open connection object is cached and will be used when EITHER 
-#'   catmaid_login is called with enough information to indicate that the same
-#'   server is desired OR (when no information about the server is
-#'   passed to catmaid_login) the last opened connection will be used.
+#'   catmaid_login is called with enough information to indicate that the same 
+#'   server is desired OR (when no information about the server is passed to 
+#'   catmaid_login) the last opened connection will be used.
+#'   
+#' @section Token based authentication: CATMAID now offers token based 
+#'   authentication as an alternative to specifying you CATMAID username and 
+#'   password. See \url{http://catmaid.github.io/dev/api.html#api-token} for how
+#'   to get an API token. You can then set the catmaid.token package option. 
+#'   Note that you must \bold{NOT} reveal this token e.g. by checking it into a 
+#'   version control script.
 #'   
 #' @param conn An optional \code{catmaid_connection} connection object.
 #' @param ... Additional arguemnts passed to catmaid_connection
@@ -42,6 +49,8 @@
 #'   
 #'   \item{catmaid.password}
 #'   
+#'   \item{catmaid.token} An alternative to using catmaid.username/password
+#'   
 #'   \item{catmaid.authname}
 #'   
 #'   \item{catmaid.authpassword}
@@ -52,6 +61,11 @@
 #'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", 
 #'   catmaid.username="calvin", catmaid.password="hobbesagain")}
 #'   
+#'   # or if you are using an API token # see 
+#'   http://catmaid.github.io/dev/api.html#api-token 
+#'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
+#'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token = 
+#'   "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")}
 #' @seealso \code{\link{options}}, \code{\link{Startup}}
 #' @examples
 #' \dontrun{
@@ -91,9 +105,17 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   }
 
   # otherwise login from scratch
-  conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
-                           body=list(name=conn$username,pwd=conn$password),
-                           config = conn$config)
+  if(is.null(conn$token)){
+    conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
+                             body=list(name=conn$username,pwd=conn$password),
+                             config = conn$config)
+  } else {
+    conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"),
+                             config = conn$config)
+  }
+  
+  stop_for_status(conn$authresponse)
+  
   # store the returned cookies for future use
   conn$cookies=unlist(cookies(conn$authresponse))
   conn$config=c(conn$config, set_cookies(conn$cookies))
@@ -105,13 +127,14 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #' @name catmaid_login
 #' @param server url of CATMAID server
 #' @param username,password Your CATMAID username and password.
+#' @param token An API token (A modern alternative to provifing your CATMAID username and password). See \bold{Token based authentication} for details.
 #' @param authname,authpassword The http username/password that optionally
 #'   secures the CATMAID server.
 #' @param authtype The http authentication scheme, see
 #'   \code{\link[httr]{authenticate}} for details.
 #' @export
 catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
-                             authpassword=NULL, 
+                             authpassword=NULL, token=NULL,
                              authtype=getOption("catmaid.authtype", default = "basic")) {
   
   defaultServer=getOption("catmaid.server")
@@ -128,14 +151,18 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     if(is.null(password)) password=getOption("catmaid.password")
     if(is.null(authname)) authname=getOption("catmaid.authname")
     if(is.null(authpassword)) authpassword=getOption("catmaid.authpassword")
+    if(is.null(token)) token=getOption("catmaid.token")
   }
   
   conn=list(server=server, username=username, password=password, 
-            authtype=authtype, authname=authname, authpassword=authpassword)
+            authtype=authtype, authname=authname, authpassword=authpassword, token=token)
   # make a custom curl config that includes authentication information if necessary
   conn$config = if(is.null(authname)) config() else {
     authenticate(authname, authpassword, type = authtype)
   }
+  if(!is.null(token))
+    conn$config=c(conn$config, 
+                  add_headers(`X-Authorization`=paste("Token", token)))
 
   class(conn)="catmaid_connection"
   conn
@@ -280,7 +307,8 @@ catmaid_connection_fingerprint<-function(conn) {
 #' @export
 catmaid_connection_setenv<-function(conn=NULL, ...) {
   conn=catmaid_login(conn, ...)
-  poss_vars_to_export=c("server", "username", "password", "authname", "authpassword", "authtype")
+  poss_vars_to_export=c("server", "username", "password", 
+                        "authname", "authpassword", "authtype", "token")
   vars_to_export=intersect(poss_vars_to_export, names(conn))
   export_vector=unlist(conn[vars_to_export])
   names(export_vector)=paste0("catmaid.", vars_to_export)
@@ -291,7 +319,8 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 #' @rdname catmaid_connection_setenv
 #' @export
 catmaid_connection_getenv<-function(...) {
-  varnames=c("server", "username", "password", "authname", "authpassword", "authtype")
+  varnames=c("server", "username", "password", 
+             "authname", "authpassword", "authtype", "token")
   catmaid_envnames=paste0("catmaid.", varnames)
   catmaid_envs=Sys.getenv(catmaid_envnames, unset = NA_character_)
   names(catmaid_envs)=varnames
@@ -306,6 +335,7 @@ catmaid_connection_getenv<-function(...) {
 catmaid_connection_unsetenv<-function(){
   vars=paste0("catmaid.",
               c("server", "username", "password", "authname", 
-                "authpassword", "authtype"))
+                "authpassword", "authtype", "token"))
   Sys.unsetenv(vars)
 }
+

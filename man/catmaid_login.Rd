@@ -8,7 +8,7 @@
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
 catmaid_connection(server, username = NULL, password = NULL,
-  authname = NULL, authpassword = NULL,
+  authname = NULL, authpassword = NULL, token = NULL,
   authtype = getOption("catmaid.authtype", default = "basic"))
 }
 \arguments{
@@ -28,6 +28,8 @@ reused automatically.}
 
 \item{authname,authpassword}{The http username/password that optionally
 secures the CATMAID server.}
+
+\item{token}{An API token (A modern alternative to provifing your CATMAID username and password). See \bold{Token based authentication} for details.}
 
 \item{authtype}{The http authentication scheme, see
 \code{\link[httr]{authenticate}} for details.}
@@ -54,9 +56,18 @@ After successful login, the \code{catmaid_connection} object will
   for subsequent GET/POST operations.  When \code{Cache=TRUE} (the default)
   the open connection object is cached and will be used when EITHER
   catmaid_login is called with enough information to indicate that the same
-  server is desired OR (when no information about the server is
-  passed to catmaid_login) the last opened connection will be used.
+  server is desired OR (when no information about the server is passed to
+  catmaid_login) the last opened connection will be used.
 }
+\section{Token based authentication}{
+ CATMAID now offers token based
+  authentication as an alternative to specifying you CATMAID username and
+  password. See \url{http://catmaid.github.io/dev/api.html#api-token} for how
+  to get an API token. You can then set the catmaid.token package option.
+  Note that you must \bold{NOT} reveal this token e.g. by checking it into a
+  version control script.
+}
+
 \section{Package options}{
 
 
@@ -71,6 +82,8 @@ After successful login, the \code{catmaid_connection} object will
 
   \item{catmaid.password}
 
+  \item{catmaid.token} An alternative to using catmaid.username/password
+
   \item{catmaid.authname}
 
   \item{catmaid.authpassword}
@@ -80,6 +93,12 @@ After successful login, the \code{catmaid_connection} object will
   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
   catmaid.authname="Calvin",catmaid.authpassword="hobbes",
   catmaid.username="calvin", catmaid.password="hobbesagain")}
+
+  # or if you are using an API token # see
+  http://catmaid.github.io/dev/api.html#api-token
+  \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
+  catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token =
+  "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")}
 }
 \examples{
 \dontrun{
