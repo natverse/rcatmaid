@@ -114,6 +114,8 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
                              config = conn$config)
   }
   
+  stop_for_status(conn$authresponse)
+  
   # store the returned cookies for future use
   conn$cookies=unlist(cookies(conn$authresponse))
   conn$config=c(conn$config, set_cookies(conn$cookies))
