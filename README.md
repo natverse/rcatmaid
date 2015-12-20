@@ -69,7 +69,10 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
 ```
 
 In this way authentication will happen transparently as required by all functions
-that interact with the specified CATMAID server.
+that interact with the specified CATMAID server. Note that the CATMAID servers 
+that I am aware of require two layers of password
+protection, an outer HTTP auth type user/password combination as well as an inner
+CATMAID-specific password.
 
 ### Token based authentication
 As of December 2015 CATMAID is moving to token based authentication. For this
@@ -84,6 +87,8 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
   catmaid.authname="Calvin",catmaid.authpassword="hobbes",
   catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
 ```
+Note that you will probably still need to specify you http username/password combination
+even if you are using an API token to authenticate to the CATMAID server.
 
 ### Cached authentication 
 Whether you use options in your `.Rprofile` as described above or you login 
@@ -100,13 +105,15 @@ the session. You can still authenticate explicitly to a different CATMAID server
 (using `catmaid_login`) if you wish.
 
 ### Multiple servers
-If you need to talk to more than 1 catmaid server in a single session then you 
+If you need to talk to more than one catmaid server in a single session then you 
 must use `catmaid_login` to login into each server
 
 ```r
 # log in to default server specified in .Rprofile
 conn1=catmaid_login()
+# log into another server, presumably with different credentials
 conn2=catmaid_login(server='https://my.otherserver.com', ...)
+```
 
 and then use the returned connection objects with any calls you make e.g.
 
