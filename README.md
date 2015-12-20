@@ -52,7 +52,14 @@ pns[,'Or']= factor(sub(" PN.*", "", pns[,'name']))
 plot3d(orns, col=Or)
 # note that we plot somata with a radius of 1500 nm
 plot3d(pns, col=Or, soma=1500)
+```
+## Even fancier example
+This follows on from the previous example. It identifies downstream partner
+neurons of the ORNs and plots them in 3d coloured by their synaptic strength.
+It then carries out morphological clustering with [NBLAST](http://bit.ly/nblast)
+and plots the partner neurons according to those clusters.
 
+```r
 # find all the ORN downstream partners with at least 2 synapses
 orn_partners=catmaid_query_connected(orns[,'skid'], minimum_synapses = 2)
 # keep the ones not already in our set of PNs
