@@ -33,6 +33,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   soma_tags<-grep("(cell body|soma)", ignore.case = T, names(res$tags), value = T)
   soma_id=unlist(unique(res$tags[soma_tags]))
   soma_id_in_neuron=intersect(soma_id, swc$PointNo)
+  
   if(length(soma_id_in_neuron)>1) {
     soma_d=swc[match(soma_id_in_neuron,swc$PointNo),]
     if(sum(soma_d$Parent<0) == 1 ) {
@@ -42,7 +43,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
       warning("Ambiguous points tagged as soma in neuron: ",skid,". Using first")
       soma_id_in_neuron=soma_id_in_neuron[1]
     }
-  } else {
+  } else if(length(soma_id_in_neuron)==0) {
     soma_id_in_neuron=NULL
   }
   n=nat::as.neuron(swc, origin=soma_id_in_neuron)
