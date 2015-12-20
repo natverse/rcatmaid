@@ -16,9 +16,10 @@ test_that("process skid queries", {
   if(!inherits(conn, 'try-error')){
     expect_is(catmaid_skids("name:ORN"), "integer")
     # although neuron names can get pretty unusual ...
-    expect_equal(catmaid_skids("name:rhubarb crumble"), integer())
+    expect_equal(suppressWarnings(catmaid_skids("name:rhubarb crumble")), integer())
     expect_is(catmaid_skids("annotation:^ORN PNs$"), "integer")
     expect_error(suppressWarnings(catmaid_skids("annotation:ORN", several.ok = FALSE)))
-    expect_equal(catmaid_skids("annotation:rhubarb crumble"), integer())
+    expect_equal(suppressWarnings(catmaid_skids("annotation:rhubarb crumble")), 
+                 integer())
   }
 })
