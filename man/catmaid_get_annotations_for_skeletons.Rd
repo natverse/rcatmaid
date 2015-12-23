@@ -44,7 +44,13 @@ For \code{catmaid_get_annotations_for_skeletons} a data.frame
   information about the annotations that have just been added.
 }
 \description{
-Get or set annotations for neurons from CATMAID
+Pretty obviously: \code{catmaid_get_annotations_for_skeletons}
+  gets annotations from one or more neurons.
+
+Pretty obviously: \code{catmaid_set_annotations_for_skeletons}
+  sets annotations for one or more neurons. Although adding annotations is
+  non-destructive, \bold{please use carefully} since this will be making
+  changes on the server!
 }
 \details{
 Note that annotations will be created on the catmaid server if they

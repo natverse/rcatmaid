@@ -1,5 +1,8 @@
 #' Get or set annotations for neurons from CATMAID
 #' 
+#' @description Pretty obviously: \code{catmaid_get_annotations_for_skeletons}
+#'   gets annotations from one or more neurons.
+#'   
 #' @inheritParams read.neuron.catmaid
 #' @return For \code{catmaid_get_annotations_for_skeletons} a data.frame 
 #'   containing the following columns \itemize{
@@ -46,6 +49,10 @@ catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
 }
 
 #' @export
+#' @description Pretty obviously: \code{catmaid_set_annotations_for_skeletons} 
+#'   sets annotations for one or more neurons. Although adding annotations is 
+#'   non-destructive, \bold{please use carefully} since this will be making
+#'   changes on the server!
 #' @param annotations Character vector of one or more named annotations to add 
 #'   to the specified neurons.
 #' @details Note that annotations will be created on the catmaid server if they 
