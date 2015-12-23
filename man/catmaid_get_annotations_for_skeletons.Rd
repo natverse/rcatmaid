@@ -2,9 +2,13 @@
 % Please edit documentation in R/catmaid_annotations.R
 \name{catmaid_get_annotations_for_skeletons}
 \alias{catmaid_get_annotations_for_skeletons}
-\title{Get annotations for neurons from CATMAID}
+\alias{catmaid_set_annotations_for_skeletons}
+\title{Get or set annotations for neurons from CATMAID}
 \usage{
 catmaid_get_annotations_for_skeletons(skids, pid = 1, conn = NULL, ...)
+
+catmaid_set_annotations_for_skeletons(skids, annotations, pid = 1,
+  conn = NULL, ...)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -18,9 +22,13 @@ object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the catmaid_fetch function}
+
+\item{annotations}{Character vector of one or more named annotations to add
+to the specified neurons.}
 }
 \value{
-a data.frame containing the following columns \itemize{
+For \code{catmaid_get_annotations_for_skeletons} a data.frame
+  containing the following columns \itemize{
 
   \item skid The skeleton id
 
@@ -31,15 +39,26 @@ a data.frame containing the following columns \itemize{
   \item uid The user id for the annotation
 
   }
+
+  For \code{catmaid_set_annotations_for_skeletons} a list containing
+  information about the annotations that have just been added.
 }
 \description{
-Get annotations for neurons from CATMAID
+Get or set annotations for neurons from CATMAID
+}
+\details{
+Note that annotations will be created on the catmaid server if they
+  do not already exist (and will not be re-created if they do already exist.)
 }
 \examples{
 \dontrun{
 catmaid_get_annotations_for_skeletons(skids=c(10418394,4453485))
 catmaid_get_annotations_for_skeletons("name:ORN (left|right)")
 catmaid_get_annotations_for_skeletons("annotation:ORN PNs$")
+}
+\dontrun{
+catmaid_set_annotations_for_skeletons(skids=c(10418394,4453485), 'myselection')
+catmaid_set_annotations_for_skeletons(skids="annotation:ORN PNs$", 'my pns')
 }
 }
 \seealso{
