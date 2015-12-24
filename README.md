@@ -181,7 +181,8 @@ n1=read.neuron(123, conn=conn1)
 # fetch neuron from server 2
 n2=read.neuron(123, conn=conn2)
 ```
-as a way to talk to multiple differnt catmaid servers in a in.
+nb you must use connection objects to talk to both servers because if no 
+connection object is specified, the last connection will be re-used.
 
 ## Installation
 Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
