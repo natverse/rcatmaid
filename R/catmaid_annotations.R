@@ -44,8 +44,10 @@ catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
   # nb handle situation where neuron has no annotations
   nrows=sapply(res$skeletons, function(x) {nr=nrow(x); if(is.null(nr)) 0 else nr})
   skdf$skid=rep(as.integer(names(res$skeletons)), nrows)
+  # add in annotation names
   skdf=merge(skdf, aldf, by='id')
-  skdf=skdf[c("skid", "annotation", "id", "uid")]
+  # reorder columns
+  skdf[c("skid", "annotation", "id", "uid")]
 }
 
 #' @export
