@@ -1,3 +1,10 @@
+catmaid 0.7
+===========
+This release includes several bug fixes, changes to match the API defined by the
+2015.11.16 CATMAID release and support for token-based authentication (see .
+* support for CATMAID token-based authentication (#35)
+* 
+
 catmaid 0.6
 ===========
 * support for upcoming httr 1.0 release

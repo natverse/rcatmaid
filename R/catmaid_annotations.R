@@ -40,7 +40,7 @@ catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
   aldf=data.frame(id=as.integer(names(al)), annotation=al)
   
   # rbind all the per skelenton data.frames into a single data.frame
-  skdf=do.call(rbind, res$skeletons)
+  skdf=do.call(rbind, res$skeletons[as.character(skids)])
   # nb handle situation where neuron has no annotations
   nrows=sapply(res$skeletons, function(x) {nr=nrow(x); if(is.null(nr)) 0 else nr})
   skdf$skid=rep(as.integer(names(res$skeletons)), nrows)
