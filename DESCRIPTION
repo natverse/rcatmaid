@@ -20,3 +20,4 @@ Imports:
     rgl
 Suggests:
     testthat
+RoxygenNote: 5.0.1.9000
