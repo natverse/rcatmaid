@@ -4,9 +4,8 @@ context("treenode queries")
 conn=try(catmaid_login(), silent = TRUE)
 
 test_that("read.neuron(s).catmaid and connectors", {
-  if(!inherits(conn, 'try-error')){
-    expect_is(tnt<-catmaid_get_treenode_table(10418394), 'data.frame')
-    # check that we have appropriate columns
-    expect_true(all(c("x","y","z") %in% colnames(tnt)))
-  }
+  if(inherits(conn, 'try-error')) skip('No catmaid connection')
+  expect_is(tnt<-catmaid_get_treenode_table(10418394), 'data.frame')
+  # check that we have appropriate columns
+  expect_true(all(c("x","y","z") %in% colnames(tnt)))
 })
