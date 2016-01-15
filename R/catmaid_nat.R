@@ -133,8 +133,12 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
   skids=catmaid_skids(skids, conn = conn)
   if(is.null(df)) {
     names(skids)=as.character(skids)
+    tagdf=catmaid_get_annotations_for_skeletons(skids, pid=pid, conn=conn)
+    taglist=unclass(by(tagdf$annotation, tagdf$skid, as.character))
+    
     df=data.frame(pid=pid, skid=skids, 
-                  name=catmaid_get_neuronnames(skids, pid, conn=conn),
+                  name=catmaid_get_neuronnames(skids, pid=pid, conn=conn),
+                  tags=taglist[names(skids)],
                   stringsAsFactors = F)
     rownames(df)=names(skids)
   } else {
