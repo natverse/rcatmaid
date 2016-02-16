@@ -38,7 +38,7 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
   
   if(length(skel$connectors))
     skel$connectors=list2df(skel$connectors, 
-                            cols=c("XXX", "connector_id", "prepost", "x", "y", "z"))
+                            cols=c("treenode_id", "connector_id", "prepost", "x", "y", "z"))
   skel
 }
 

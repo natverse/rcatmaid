@@ -161,7 +161,7 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
 #'   \code{\link{catmaid_get_connectors}}
 #' @return A data.frame with columns \itemize{
 #'   
-#'   \item XXX (unknown identifier)
+#'   \item treenode_id (NB this is the treenode id for the \emph{current} skeleton)
 #'   
 #'   \item connector_skid
 #'   

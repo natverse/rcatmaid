@@ -24,7 +24,7 @@ the case of connectors)}
 \value{
 A data.frame with columns \itemize{
   
-  \item XXX (unknown identifier)
+  \item treenode_id (NB this is the treenode id for the \emph{current} skeleton)
   
   \item connector_skid
   
