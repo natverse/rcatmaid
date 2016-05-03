@@ -162,14 +162,10 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                       conn=NULL, ...){
   return_type=match.arg(type, several.ok = T)
   if(is.character(query)) {
-    al=catmaid_get_annotationlist(conn=conn)
-    matches=grepl(query, al$annotations$name)
-    nmatches=sum(matches)
-    if(nmatches==0) return(NULL)
-    query=al$annotations$id[matches]
-    if(nmatches>1) {
-      warning(nmatches," matching annotations!")
-      return(lapply(query, catmaid_query_by_annotation, conn=conn, 
+    query=catmaid_aids(query)
+    if(length(query)>1) {
+      warning(length(query)," matching annotations!")
+    return(lapply(query, catmaid_query_by_annotation, conn=conn, 
                     type=return_type, raw=raw, pid=pid, maxresults=maxresults, 
                     ...))
     }
@@ -178,6 +174,23 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                 body=list(annotated_with=query),
                                 maxresults=maxresults, type=return_type, 
                                 raw=raw, conn=conn, ...=...)
+}
+
+catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, ...) {
+  if(is.numeric(x)) return(x)
+  al=catmaid_get_annotationlist(conn=conn)
+  
+  process_match <- function(x, al, several.ok) {
+    matches=grepl(x, al$annotations$name)
+    nmatches=sum(matches)
+    if(nmatches==0) return(NULL)
+    ids=al$annotations$id[matches]
+    if(!several.ok && nmatches>1) 
+      stop("There are ", nmatches, " matches but only one is allowed!")
+    ids
+  }
+  
+  unlist(lapply(x, process_match, al=al, several.ok=several.ok))
 }
 
 #' Find neurons connected to a starting neuron
