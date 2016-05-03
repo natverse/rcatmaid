@@ -266,7 +266,7 @@ catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn)
   post_data=list()
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids)-1)]=as.list(skids)
-  path=sprintf("/%d/skeleton/review-status", pid)
+  path=sprintf("/%d/skeletons/review-status", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
   res=list2df(res, cols=c('total','reviewed'))
   # handle any missing return values
