@@ -162,7 +162,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                       conn=NULL, ...){
   return_type=match.arg(type, several.ok = T)
   if(is.character(query)) {
-    query=catmaid_aids(query)
+    query=catmaid_aids(query, conn=conn)
     if(length(query)>1) {
       warning(length(query)," matching annotations!")
     return(lapply(query, catmaid_query_by_annotation, conn=conn, 
@@ -170,15 +170,16 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                     ...))
     }
   }
+  if(!length(query)) return(NULL)
   query_by_neuron_or_annotation(paste0(pid, '/annotations/query-targets'),
                                 body=list(annotated_with=query),
                                 maxresults=maxresults, type=return_type, 
                                 raw=raw, conn=conn, ...=...)
 }
 
-catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, ...) {
+catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, pid=1, ...) {
   if(is.numeric(x)) return(x)
-  al=catmaid_get_annotationlist(conn=conn)
+  al=catmaid_get_annotationlist(conn=conn, pid = pid)
   
   process_match <- function(x, al, several.ok) {
     matches=grepl(x, al$annotations$name)
