@@ -2,6 +2,7 @@
 % Please edit documentation in R/catmaid_annotations.R
 \name{catmaid_get_annotations_for_skeletons}
 \alias{catmaid_get_annotations_for_skeletons}
+\alias{catmaid_remove_annotations_for_skeletons}
 \alias{catmaid_set_annotations_for_skeletons}
 \title{Get or set annotations for neurons from CATMAID}
 \usage{
@@ -9,6 +10,9 @@ catmaid_get_annotations_for_skeletons(skids, pid = 1, conn = NULL, ...)
 
 catmaid_set_annotations_for_skeletons(skids, annotations, pid = 1,
   conn = NULL, ...)
+
+catmaid_remove_annotations_for_skeletons(skids, annotations, force = FALSE,
+  pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -25,6 +29,10 @@ options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{annotations}{Character vector of one or more named annotations to add 
 to the specified neurons.}
+
+\item{force}{Whether to force the catmaid server to remove multiple 
+annotations (default \code{FALSE}) to provide some protection against 
+accidents.}
 }
 \value{
 For \code{catmaid_get_annotations_for_skeletons} a data.frame 

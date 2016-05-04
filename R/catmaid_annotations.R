@@ -77,3 +77,25 @@ catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1,
                     simplifyVector = T, ...)
   invisible(res)
 }
+
+#' @rdname catmaid_get_annotations_for_skeletons
+#' @export
+#' @param force Whether to force the catmaid server to remove multiple 
+#'   annotations (default \code{FALSE}) to provide some protection against 
+#'   accidents.
+catmaid_remove_annotations_for_skeletons<-function(skids, annotations, force=FALSE,
+                                                   pid=1, 
+                                                conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn)
+  post_data=list()
+  post_data[sprintf("entity_ids[%d]", seq_along(skids))]=as.list(skids)
+  annotations=catmaid_aids(annotations)
+  if(length(annotations)>1 && !force)
+    stop("You must set force=TRUE when removing multiple annotations")
+  post_data[sprintf("annotation_ids[%d]", seq_along(annotations))]=as.list(annotations)
+  path=sprintf("/%d/annotations/add", pid)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, 
+                    simplifyVector = T, ...)
+  invisible(res)
+}
+
