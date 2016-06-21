@@ -318,6 +318,7 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 #' Fetch connection details from appropriate environment variables
 #' @rdname catmaid_connection_setenv
 #' @export
+#' @importFrom stats na.omit
 catmaid_connection_getenv<-function(...) {
   varnames=c("server", "username", "password", 
              "authname", "authpassword", "authtype", "token")
