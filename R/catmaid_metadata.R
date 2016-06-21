@@ -177,12 +177,12 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                 raw=raw, conn=conn, ...=...)
 }
 
-catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, pid=1, ...) {
+catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, pid=1, fixed=FALSE, ...) {
   if(is.numeric(x)) return(x)
   al=catmaid_get_annotationlist(conn=conn, pid = pid)
   
-  process_match <- function(x, al, several.ok) {
-    matches=grepl(x, al$annotations$name)
+  process_match <- function(x, al, several.ok, fixed) {
+    matches=grepl(x, al$annotations$name, fixed = fixed)
     nmatches=sum(matches)
     if(nmatches==0) return(NULL)
     ids=al$annotations$id[matches]
@@ -191,7 +191,7 @@ catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, pid=1, ...) {
     ids
   }
   
-  unlist(lapply(x, process_match, al=al, several.ok=several.ok))
+  unlist(lapply(x, process_match, al=al, several.ok=several.ok, fixed=fixed))
 }
 
 #' Find neurons connected to a starting neuron
