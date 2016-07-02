@@ -197,7 +197,7 @@ connectors.catmaidneuron<-function(x, ...) {
 }
 
 connectors.neuron<-function(x, ...) {
-  stop("This neuron does not have class 'catmaid.neuronlist' and therefore does",
+  stop("This neuron does not have class 'catmaid.neuron' and therefore does",
        " not have connector information!")
 }
 
