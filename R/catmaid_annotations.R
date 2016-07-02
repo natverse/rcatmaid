@@ -93,7 +93,7 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
   if(length(annotations)>1 && !force)
     stop("You must set force=TRUE when removing multiple annotations")
   post_data[sprintf("annotation_ids[%d]", seq_along(annotations))]=as.list(annotations)
-  path=sprintf("/%d/annotations/add", pid)
+  path=sprintf("/%d/annotations/remove", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, 
                     simplifyVector = T, ...)
   invisible(res)
