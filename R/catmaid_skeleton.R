@@ -105,8 +105,9 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 
 #' Return connector table for a given neuron
 #' 
-#' @param skid Numeric skeleton id
+#' @param skids Numeric skeleton ids
 #' @param direction whether to find incoming or outgoing connections
+#' @inheritParams read.neuron.catmaid
 #' @inheritParams catmaid_get_compact_skeleton
 #' @return A data.frame with columns \itemize{
 #'   
@@ -168,13 +169,14 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' partner_neurons=read.neurons.catmaid(partner_neuron_ids, .progress='text', OmitFailures = TRUE)
 #' plot3d(partner_neurons)
 #' }
-catmaid_get_connector_table<-function(skid, 
+catmaid_get_connector_table<-function(skids, 
                                       direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {
   direction=match.arg(direction)
+  skids=catmaid_skids(skids, conn = conn)
   if(direction[1]=='both') {
-    dfin =catmaid_get_connector_table(skid, direction='incoming', pid=pid, conn=conn, raw=raw, ...)
-    dfout=catmaid_get_connector_table(skid, direction='outgoing', pid=pid, conn=conn, raw=raw, ...)
+    dfin =catmaid_get_connector_table(skids, direction='incoming', pid=pid, conn=conn, raw=raw, ...)
+    dfout=catmaid_get_connector_table(skids, direction='outgoing', pid=pid, conn=conn, raw=raw, ...)
     dfin$direction="incoming"
     dfout$direction="outgoing"
     df=rbind(dfin,dfout)
@@ -183,7 +185,7 @@ catmaid_get_connector_table<-function(skid,
   }
   # relation_type 0 => incoming
   ctl=catmaid_fetch(path=paste0("/", pid, "/connector/table/list"),
-                   body=list(skeleton_id=skid, 
+                   body=list(skeleton_id=skids, 
                              relation_type=ifelse(direction=="incoming",0,1)), 
                    conn=conn, ...)
   

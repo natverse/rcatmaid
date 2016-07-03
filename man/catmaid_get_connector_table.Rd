@@ -4,24 +4,26 @@
 \alias{catmaid_get_connector_table}
 \title{Return connector table for a given neuron}
 \usage{
-catmaid_get_connector_table(skid, direction = c("both", "incoming",
+catmaid_get_connector_table(skids, direction = c("both", "incoming",
   "outgoing"), pid = 1, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
-\item{skid}{Numeric skeleton id}
+\item{skids}{Numeric skeleton ids}
 
 \item{direction}{whether to find incoming or outgoing connections}
 
-\item{pid}{project id (default 1)}
+\item{pid}{Project id (default 1)}
 
-\item{conn}{the \code{\link{catmaid_connection}} object}
+\item{conn}{A \code{catmaid_connection} objection returned by 
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
+object will be generated using the values of the \bold{catmaid.*} package 
+options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
 or to convert the nodes and connectors lists into processed data.frames 
 (when \code{FALSE}, the default)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
-function.}
+\item{...}{Additional arguments passed to the catmaid_fetch function}
 }
 \value{
 A data.frame with columns \itemize{
