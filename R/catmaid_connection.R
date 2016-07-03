@@ -311,7 +311,7 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
                         "authname", "authpassword", "authtype", "token")
   vars_to_export=intersect(poss_vars_to_export, names(conn))
   export_vector=unlist(conn[vars_to_export])
-  names(export_vector)=paste0("catmaid.", vars_to_export)
+  names(export_vector)=paste0("catmaid.",  names(export_vector))
   all(do.call(Sys.setenv, as.list(export_vector)))
 }
 
