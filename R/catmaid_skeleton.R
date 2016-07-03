@@ -196,6 +196,8 @@ catmaid_get_connector_table<-function(skids,
     "last_modified")
   df=list2df(ctl[[1]], cols = dfcolnames, return_empty_df = T, stringsAsFactors=FALSE)
   df$username=factor(df$username)
+  if(is.character(df$partner_skid))
+    df$partner_skid=as.integer(df$partner_skid)
   df
 }
 
