@@ -55,8 +55,9 @@ Return connector info for pre/postsynaptic skids
 }
 \details{
 Each row is a unique set of pre_synaptic node, post_synaptic node, 
-  connector_id. A rare (and often erroneous) scenario is same pre_node and 
-  post_node with two different connector_ids would create two rows.
+  connector_id. A rare (and usually erroneous) scenario is if the same
+  pre_node and post_node are present with two different connector_ids - this
+  would create two rows.
 }
 \seealso{
 \code{\link{catmaid_get_connectors}}.
