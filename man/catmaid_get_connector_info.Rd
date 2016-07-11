@@ -29,12 +29,12 @@ A data.frame with columns \itemize{
   \item connector_xyz
   
   \item pre_node_id
-
+  
   \item pre_skid
-     
+  
   \item pre_confidence
-           
-  \item pre_user            
+  
+  \item pre_user
   
   \item pre_node_xyz
   
@@ -47,7 +47,7 @@ A data.frame with columns \itemize{
   \item post_user
   
   \item post_node_xyz
-                    
+  
   }
 }
 \description{
@@ -59,6 +59,7 @@ Each row is a unique set of pre_synaptic node, post_synaptic node,
   post_node with two different connector_ids would create two rows.
 }
 \seealso{
-\code{\link{catmaid_get_connectors}}. \code{\link{catmaid_get_connector_table}}
+\code{\link{catmaid_get_connectors}}.
+  \code{\link{catmaid_get_connector_table}}
 }
 

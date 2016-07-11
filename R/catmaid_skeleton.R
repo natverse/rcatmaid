@@ -287,12 +287,12 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #'   \item connector_xyz
 #'   
 #'   \item pre_node_id
-#'
+#'   
 #'   \item pre_skid
-#'      
+#'   
 #'   \item pre_confidence
-#'            
-#'   \item pre_user            
+#'   
+#'   \item pre_user
 #'   
 #'   \item pre_node_xyz
 #'   
@@ -305,10 +305,11 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #'   \item post_user
 #'   
 #'   \item post_node_xyz
-#'                     
+#'   
 #'   }
 #' @export
-#' @seealso \code{\link{catmaid_get_connectors}}. \code{\link{catmaid_get_connector_table}}
+#' @seealso \code{\link{catmaid_get_connectors}}.
+#'   \code{\link{catmaid_get_connector_table}}
 catmaid_get_connector_info <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
   pre_skids=catmaid_skids(pre_skids, conn = conn)
   post_skids=catmaid_skids(post_skids, conn = conn)
