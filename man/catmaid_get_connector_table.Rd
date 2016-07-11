@@ -90,6 +90,6 @@ plot3d(partner_neurons)
 }
 }
 \seealso{
-\code{\link{catmaid_get_connectors}}
+\code{\link{catmaid_get_connectors}}. \code{\link{catmaid_get_connector_info}}
 }
 
