@@ -137,7 +137,6 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   
 #'   }
 #' @export
-#' @seealso \code{\link{catmaid_get_connectors}}. \code{\link{catmaid_get_connector_info}}
 #' @examples
 #' \dontrun{
 #' # fetch connector table for neuron 10418394
@@ -169,6 +168,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' partner_neurons=read.neurons.catmaid(partner_neuron_ids, .progress='text', OmitFailures = TRUE)
 #' plot3d(partner_neurons)
 #' }
+#' @family connectors
 catmaid_get_connector_table<-function(skids, 
                                       direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {

@@ -67,6 +67,7 @@ catmaid_query_connected(orn13as, boolean_op = 'AND')
   status of partners (as shown in the equivalent CATMAID report).
 
 Other connectors: \code{\link{catmaid_get_connector_info}},
+  \code{\link{catmaid_get_connector_table}},
   \code{\link{catmaid_get_connectors}},
   \code{\link{connectors}}
 }

@@ -43,6 +43,7 @@ Note that this returns pairwise connections between neurons. A
 }
 \seealso{
 Other connectors: \code{\link{catmaid_get_connector_info}},
+  \code{\link{catmaid_get_connector_table}},
   \code{\link{catmaid_query_connected}},
   \code{\link{connectors}}
 }
