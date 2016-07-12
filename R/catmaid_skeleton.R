@@ -283,29 +283,41 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #'   \code{\link{catmaid_skids}}.
 #' @return A data.frame with columns \itemize{
 #'   
-#'   \item connector_id
+#'   \item pre_skid
 #'   
-#'   \item connector_xyz
+#'   \item post_skid
+#'   
+#'   \item connector_id
 #'   
 #'   \item pre_node_id
 #'   
-#'   \item pre_skid
+#'   \item post_node_id
+#'   
+#'   \item connector_x
+#'   
+#'   \item connector_y
+#'   
+#'   \item connector_z
+#'   
+#'   \item pre_node_x
+#'   
+#'   \item pre_node_y
+#'   
+#'   \item pre_node_z
+#'   
+#'   \item post_node_x
+#'   
+#'   \item post_node_y
+#'   
+#'   \item post_node_z
 #'   
 #'   \item pre_confidence
 #'   
 #'   \item pre_user
 #'   
-#'   \item pre_node_xyz
-#'   
-#'   \item post_node_id
-#'   
-#'   \item post_skid
-#'   
 #'   \item post_confidence
 #'   
 #'   \item post_user
-#'   
-#'   \item post_node_xyz
 #'   
 #'   }
 #' @export
@@ -328,5 +340,16 @@ catmaid_get_connectors_between <- function(pre_skids, post_skids, pid=1, conn=NU
   df=do.call(rbind, conns)
   colnames(df)=c("connector_id", "connector_xyz", "pre_node_id", "pre_skid", "pre_confidence", "pre_user", "pre_node_xyz", 
                  "post_node_id", "post_skid", "post_confidence", "post_user", "post_node_xyz")
-  df
+  ddf=as.data.frame(df)
+   xyzcols=grep("xyz",colnames(ddf), value = T)
+  for(col in rev(xyzcols)){
+    xyz=data.frame(t(sapply(ddf[[col]], as.numeric)))
+    colnames(xyz)=paste0(sub("xyz","",col), c("x","y","z"))
+    ddf=cbind(xyz, ddf)
+  }
+  # drop those columns
+  ddf=ddf[!colnames(ddf)%in%xyzcols]
+  # move some columns to front
+  first_cols=c("pre_skid", "post_skid", "connector_id", "pre_node_id", "post_node_id")
+  ddf[c(first_cols, setdiff(colnames(ddf), first_cols))]
 }

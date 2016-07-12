@@ -25,29 +25,41 @@ function.}
 \value{
 A data.frame with columns \itemize{
   
-  \item connector_id
+  \item pre_skid
   
-  \item connector_xyz
+  \item post_skid
+  
+  \item connector_id
   
   \item pre_node_id
   
-  \item pre_skid
+  \item post_node_id
+  
+  \item connector_x
+  
+  \item connector_y
+  
+  \item connector_z
+  
+  \item pre_node_x
+  
+  \item pre_node_y
+  
+  \item pre_node_z
+  
+  \item post_node_x
+  
+  \item post_node_y
+  
+  \item post_node_z
   
   \item pre_confidence
   
   \item pre_user
   
-  \item pre_node_xyz
-  
-  \item post_node_id
-  
-  \item post_skid
-  
   \item post_confidence
   
   \item post_user
-  
-  \item post_node_xyz
   
   }
 }
