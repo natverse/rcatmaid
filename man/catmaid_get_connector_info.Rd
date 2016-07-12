@@ -10,6 +10,17 @@ catmaid_get_connector_info(pre_skids, post_skids, pid = 1, conn = NULL,
 \arguments{
 \item{pre_skids, post_skids}{Skeleton ids in any form understood by
 \code{\link{catmaid_skids}}.}
+
+\item{pid}{project id (default 1)}
+
+\item{conn}{the \code{\link{catmaid_connection}} object}
+
+\item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
+or to convert the nodes and connectors lists into processed data.frames 
+(when \code{FALSE}, the default)}
+
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function.}
 }
 \value{
 A data.frame with columns \itemize{

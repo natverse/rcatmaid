@@ -309,6 +309,7 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #'   
 #'   }
 #' @export
+#' @inheritParams catmaid_get_compact_skeleton
 #' @seealso \code{\link{catmaid_get_connectors}}. 
 #'   \code{\link{catmaid_get_connector_table}}
 catmaid_get_connector_info <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
