@@ -188,6 +188,7 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
 #' nopen3d()
 #' points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])
 #' }
+#' @family connectors
 connectors<-function(x, ...) UseMethod('connectors')
 
 #' @rdname connectors

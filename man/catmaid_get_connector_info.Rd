@@ -61,7 +61,8 @@ Each row is a unique set of pre_synaptic node, post_synaptic node,
   would create two rows.
 }
 \seealso{
-\code{\link{catmaid_get_connectors}}. 
-  \code{\link{catmaid_get_connector_table}}
+Other connectors: \code{\link{catmaid_get_connectors}},
+  \code{\link{catmaid_query_connected}},
+  \code{\link{connectors}}
 }
 

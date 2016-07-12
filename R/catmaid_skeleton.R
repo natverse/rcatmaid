@@ -81,7 +81,7 @@ list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
 #'   
 #'   }
 #' @export
-#' @seealso \code{\link{catmaid_get_connector_table}}. \code{\link{catmaid_get_connector_info}}
+#' @family connectors
 catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...) {
   path=paste("", pid, "connector","skeletons",sep="/")
   post_data=as.list(connector_ids)
@@ -310,8 +310,7 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #'   }
 #' @export
 #' @inheritParams catmaid_get_compact_skeleton
-#' @seealso \code{\link{catmaid_get_connectors}}. 
-#'   \code{\link{catmaid_get_connector_table}}
+#' @family connectors
 catmaid_get_connector_info <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
   pre_skids=catmaid_skids(pre_skids, conn = conn)
   post_skids=catmaid_skids(post_skids, conn = conn)

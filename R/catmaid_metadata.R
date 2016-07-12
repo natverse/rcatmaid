@@ -214,9 +214,10 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
 #' catmaid_query_connected(orn13as, boolean_op = 'AND')
 #' }
 #' @export
-#' @seealso \code{\link{catmaid_skids}}. See
+#' @seealso \code{\link{catmaid_skids}}. See 
 #'   \code{\link{catmaid_get_review_status}} to get information about the review
 #'   status of partners (as shown in the equivalent CATMAID report).
+#' @family connectors
 catmaid_query_connected<-function(skids, minimum_synapses=1, 
                                   boolean_op=c("OR","AND"), 
                                   pid=1, raw=FALSE, conn=NULL, ...){
