@@ -273,14 +273,14 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   tndf
 }
 
-#' Return connector info for pre/postsynaptic skids
+#' Return information about connectors joining sets of pre/postsynaptic skids
 #' 
 #' @details Each row is a unique set of pre_synaptic node, post_synaptic node, 
-#'   connector_id. A rare (and usually erroneous) scenario is if the same
-#'   pre_node and post_node are present with two different connector_ids - this
+#'   connector_id. A rare (and usually erroneous) scenario is if the same 
+#'   pre_node and post_node are present with two different connector_ids - this 
 #'   would create two rows.
-#' @param pre_skids,post_skids Numeric skeleton ids
-#' @inheritParams catmaid_get_compact_skeleton
+#' @param pre_skids,post_skids Skeleton ids in any form understood by
+#'   \code{\link{catmaid_skids}}.
 #' @return A data.frame with columns \itemize{
 #'   
 #'   \item connector_id
@@ -309,7 +309,7 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #'   
 #'   }
 #' @export
-#' @seealso \code{\link{catmaid_get_connectors}}.
+#' @seealso \code{\link{catmaid_get_connectors}}. 
 #'   \code{\link{catmaid_get_connector_table}}
 catmaid_get_connector_info <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
   pre_skids=catmaid_skids(pre_skids, conn = conn)

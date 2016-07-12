@@ -2,24 +2,14 @@
 % Please edit documentation in R/catmaid_skeleton.R
 \name{catmaid_get_connector_info}
 \alias{catmaid_get_connector_info}
-\title{Return connector info for pre/postsynaptic skids}
+\title{Return information about connectors joining sets of pre/postsynaptic skids}
 \usage{
 catmaid_get_connector_info(pre_skids, post_skids, pid = 1, conn = NULL,
   raw = FALSE, ...)
 }
 \arguments{
-\item{pre_skids, post_skids}{Numeric skeleton ids}
-
-\item{pid}{project id (default 1)}
-
-\item{conn}{the \code{\link{catmaid_connection}} object}
-
-\item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
-or to convert the nodes and connectors lists into processed data.frames 
-(when \code{FALSE}, the default)}
-
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
-function.}
+\item{pre_skids, post_skids}{Skeleton ids in any form understood by
+\code{\link{catmaid_skids}}.}
 }
 \value{
 A data.frame with columns \itemize{
@@ -51,16 +41,16 @@ A data.frame with columns \itemize{
   }
 }
 \description{
-Return connector info for pre/postsynaptic skids
+Return information about connectors joining sets of pre/postsynaptic skids
 }
 \details{
 Each row is a unique set of pre_synaptic node, post_synaptic node, 
-  connector_id. A rare (and usually erroneous) scenario is if the same
-  pre_node and post_node are present with two different connector_ids - this
+  connector_id. A rare (and usually erroneous) scenario is if the same 
+  pre_node and post_node are present with two different connector_ids - this 
   would create two rows.
 }
 \seealso{
-\code{\link{catmaid_get_connectors}}.
+\code{\link{catmaid_get_connectors}}. 
   \code{\link{catmaid_get_connector_table}}
 }
 
