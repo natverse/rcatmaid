@@ -81,7 +81,7 @@ list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
 #'   
 #'   }
 #' @export
-#' @seealso \code{\link{catmaid_get_connector_table}}
+#' @family connectors
 catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...) {
   path=paste("", pid, "connector","skeletons",sep="/")
   post_data=as.list(connector_ids)
@@ -137,7 +137,6 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   
 #'   }
 #' @export
-#' @seealso \code{\link{catmaid_get_connectors}}
 #' @examples
 #' \dontrun{
 #' # fetch connector table for neuron 10418394
@@ -169,6 +168,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' partner_neurons=read.neurons.catmaid(partner_neuron_ids, .progress='text', OmitFailures = TRUE)
 #' plot3d(partner_neurons)
 #' }
+#' @family connectors
 catmaid_get_connector_table<-function(skids, 
                                       direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {
@@ -273,3 +273,60 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   tndf
 }
 
+#' Return information about connectors joining sets of pre/postsynaptic skids
+#' 
+#' @details Each row is a unique set of pre_synaptic node, post_synaptic node, 
+#'   connector_id. A rare (and usually erroneous) scenario is if the same 
+#'   pre_node and post_node are present with two different connector_ids - this 
+#'   would create two rows.
+#' @param pre_skids,post_skids Skeleton ids in any form understood by
+#'   \code{\link{catmaid_skids}}.
+#' @return A data.frame with columns \itemize{
+#'   
+#'   \item connector_id
+#'   
+#'   \item connector_xyz
+#'   
+#'   \item pre_node_id
+#'   
+#'   \item pre_skid
+#'   
+#'   \item pre_confidence
+#'   
+#'   \item pre_user
+#'   
+#'   \item pre_node_xyz
+#'   
+#'   \item post_node_id
+#'   
+#'   \item post_skid
+#'   
+#'   \item post_confidence
+#'   
+#'   \item post_user
+#'   
+#'   \item post_node_xyz
+#'   
+#'   }
+#' @export
+#' @inheritParams catmaid_get_compact_skeleton
+#' @family connectors
+catmaid_get_connectors_between <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
+  pre_skids=catmaid_skids(pre_skids, conn = conn)
+  post_skids=catmaid_skids(post_skids, conn = conn)
+  
+  post_data=list()
+  post_data[sprintf("pre[%d]", seq(from=0, along.with=pre_skids))]=as.list(pre_skids)
+  post_data[sprintf("post[%d]", seq(from=0, along.with=post_skids))]=as.list(post_skids)
+  path=paste("", pid, "connector", "pre-post-info", sep="/")
+  conns=catmaid_fetch(path, body=post_data, conn=conn, ...)
+  
+  if(raw) return(conns)
+  # else process the connector information
+  if(!length(conns)) return(NULL)
+  
+  df=do.call(rbind, conns)
+  colnames(df)=c("connector_id", "connector_xyz", "pre_node_id", "pre_skid", "pre_confidence", "pre_user", "pre_node_xyz", 
+                 "post_node_id", "post_skid", "post_confidence", "post_user", "post_node_xyz")
+  df
+}

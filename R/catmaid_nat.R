@@ -153,8 +153,6 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
 #' @param x Neuron or neuronlist
 #' @param ... Additional arguments passed to methods (and to \code{nlapply} in 
 #'   the case of connectors)
-#' @seealso \code{\link{catmaid_get_connector_table}}, 
-#'   \code{\link{catmaid_get_connectors}}
 #' @return A data.frame with columns \itemize{
 #'   
 #'   \item treenode_id (NB this is the treenode id for the \emph{current} skeleton)
@@ -188,6 +186,7 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
 #' nopen3d()
 #' points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])
 #' }
+#' @family connectors
 connectors<-function(x, ...) UseMethod('connectors')
 
 #' @rdname connectors
