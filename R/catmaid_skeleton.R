@@ -311,7 +311,7 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #' @export
 #' @inheritParams catmaid_get_compact_skeleton
 #' @family connectors
-catmaid_get_connector_info <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
+catmaid_get_connectors_between <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
   pre_skids=catmaid_skids(pre_skids, conn = conn)
   post_skids=catmaid_skids(post_skids, conn = conn)
   

@@ -63,8 +63,8 @@ points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])
 \seealso{
 \code{\link[nat]{nlapply}}
 
-Other connectors: \code{\link{catmaid_get_connector_info}},
-  \code{\link{catmaid_get_connector_table}},
+Other connectors: \code{\link{catmaid_get_connector_table}},
+  \code{\link{catmaid_get_connectors_between}},
   \code{\link{catmaid_get_connectors}},
   \code{\link{catmaid_query_connected}}
 }

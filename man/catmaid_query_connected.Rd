@@ -66,8 +66,8 @@ catmaid_query_connected(orn13as, boolean_op = 'AND')
   \code{\link{catmaid_get_review_status}} to get information about the review
   status of partners (as shown in the equivalent CATMAID report).
 
-Other connectors: \code{\link{catmaid_get_connector_info}},
-  \code{\link{catmaid_get_connector_table}},
+Other connectors: \code{\link{catmaid_get_connector_table}},
+  \code{\link{catmaid_get_connectors_between}},
   \code{\link{catmaid_get_connectors}},
   \code{\link{connectors}}
 }
