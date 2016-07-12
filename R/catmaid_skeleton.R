@@ -349,6 +349,11 @@ catmaid_get_connectors_between <- function(pre_skids, post_skids, pid=1, conn=NU
   }
   # drop those columns
   ddf=ddf[!colnames(ddf)%in%xyzcols]
+  
+  # fix any columns that are still lists
+  list_cols=sapply(ddf, is.list)
+  ddf[list_cols]=lapply(ddf[list_cols], unlist, use.names=F)
+  
   # move some columns to front
   first_cols=c("pre_skid", "post_skid", "connector_id", "pre_node_id", "post_node_id")
   ddf[c(first_cols, setdiff(colnames(ddf), first_cols))]
