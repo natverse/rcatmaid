@@ -1,3 +1,4 @@
+[![Travis-CI Build Status](https://travis-ci.org/jefferis/rcatmaid.svg?branch=master)](https://travis-ci.org/jefferis/rcatmaid)
 # catmaid
 
 This package provides access to the [CATMAID](http://catmaid.org/) API for 
