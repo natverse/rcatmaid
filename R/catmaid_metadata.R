@@ -27,6 +27,64 @@ catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
   res[as.character(skids)]
 }
 
+
+#' Rename (presently) a single neuron or other entity (e.g. annotation)
+#' 
+#' @details Each neuron consists of both a generic entity and an associated 
+#'   skeleton (\code{skid}). If you supply the \code{skid} the function will 
+#'   internally look up the corresponding neuron entity id. Note that you 
+#'   actually wished to change the name of the skeleton you could pass the skid 
+#'   into the \code{entityids} argument.
+#' @inheritParams read.neuron.catmaid
+#' @param entityids Generic entity ids
+#' @param names New names
+#'   
+#' @return \code{logical} value indicating success or failure with attributes 
+#'   indicating the previous name.
+#' @export
+#' 
+#' @examples
+#' \dontrun{
+#' # Warning this will change data!
+#' n=get_neuron_name(27296)
+#' catmaid_rename_neuron(skids=27296, names=n)
+#' }
+catmaid_rename_neuron <- function(skids=NULL, entityids=NULL, names, pid=1, conn=NULL, ...) {
+  if(!is.null(skids)){
+    if(!is.null(entityids))
+      stop("You can only supply one of neuronids or entityids!")
+    skids=catmaid_skids(skids, conn = conn)
+    if(length(skids)>1) stop("I can only work with one neuron at the moment!")
+    # now find entityids
+    entityids=c(get_neuronid_for_skid(skids))
+  }
+  if(length(entityids)>1) stop("I can only work with one name at the moment!")
+  post_data=list(pid=pid)
+  if(length(names)!=length(entityids)) 
+    stop("Must supply same number of new names as ids")
+  post_data['name']=names
+  path=sprintf("/%d/neurons/%d/rename", pid, entityids)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
+  if(!is.list(res) || length(res)<3) invisible(FALSE)
+  restf=res$success
+  attributes(restf)=res[names(res)!="success"]
+  invisible(restf)
+}
+
+get_neuronid_for_skid <- function(skid, pid=1, conn=NULL, ...){
+  path=sprintf("/%d/skeleton/%d/neuronname", pid, skid)
+  res=catmaid_fetch(path, include_headers = F, ...)
+  if(!is.null(res$error)) {
+    rval=NA_integer_
+    attr(rval,"error")=res$error
+  } else {
+    rval=res$neuronid
+    attr(rval,"neuronname")=res$neuronname
+  }
+  rval
+}
+
+
 #' Get list of annotations (including user information) from CATMAID
 #' 
 #' @inheritParams catmaid_get_compact_skeleton
