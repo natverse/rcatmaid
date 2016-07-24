@@ -243,7 +243,7 @@ plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
     rglreturnlist[['synapses']]=points3d(
       xyzmatrix(conndf),col=c(pre='red', post='cyan')[conndf$prepost+1])
   }
-  rglreturnlist
+  invisible(rglreturnlist)
 }
 
 #' @export
