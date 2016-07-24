@@ -8,8 +8,17 @@
 #' @export
 #' 
 #' @examples
-#' u="https://neuropil.janelia.org/tracing/fafb/v12/?pid=1&zp=177100&yp=166068&xp=373086&tool=tracingtool&sid0=7&s0=1.000000"
+#' u=paste0("https://neuropil.janelia.org/tracing/fafb/v12/?pid=1&zp=177100&",
+#'   "yp=166068&xp=373086&tool=tracingtool&sid0=7&s0=1.000000")
 #' catmaid_parse_url(u)
+#' 
+#' \dontrun{
+#' cpu=catmaid_parse_url(u)
+#' n=read.neuron.catmaid(cpu$active_skeleton_id)
+#' plot3d(n)
+#' spheres3d(xyzmatrix(cpu), r=1000, col='magenta')
+#' }
+#' @importFrom utils read.table
 catmaid_parse_url <- function(x) {
   if(length(x)>1) {
     l=lapply(x, catmaid_parse_url)
