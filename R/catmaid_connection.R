@@ -213,7 +213,10 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
 #' # they are not valid R names.
 #' catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
 #'   body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485))
-#'   
+#' 
+#' ## get all skeletons with more than 1000 nodes
+#' skids=as.integer(catmaid_fetch("/1/skeletons/?nodecount_gt=1000"))
+#' 
 #' ## demonstrate that bad urls will result in an error
 #' catmaid_fetch("/1/rhubarb/crumble")
 #' }
