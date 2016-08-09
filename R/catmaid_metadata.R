@@ -188,6 +188,7 @@ query_by_neuron_or_annotation<-function(path, body, maxresults=500,
   adf=rbind.pages(ldf)
   names(adf)[names(adf)=='id']='annotation_id'
   adf$id=rep(res2$id, sapply(ldf, nrow))
+  adf$name=as.character(adf$name)
   if(length(return_type)==1) {
     # subset
     res2=res2[res2$type%in%return_type,]
