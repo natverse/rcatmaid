@@ -59,7 +59,7 @@ catmaid_skids<-function(x, several.ok=TRUE, conn=NULL, ...) {
     else {
       # handle multiple returned data.frames
       if(!is.data.frame(df)) df=rbind.pages(df)
-      skids = df$skid
+      skids = unique(df$skid)
     }
   }
   if(!several.ok && length(skids)>1) 
