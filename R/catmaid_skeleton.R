@@ -275,12 +275,16 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 
 #' Return information about connectors joining sets of pre/postsynaptic skids
 #' 
-#' @details Each row is a unique set of pre_synaptic node, post_synaptic node, 
+#' @details If either the \code{pre_skids} or \code{post_skids} arguments are 
+#'   not specified (taking the default \code{NULL} value) then this implies
+#'   there is no restriction on the pre- (or post-) synaptic partners.
+#'   
+#'   Each row is a unique set of pre_synaptic node, post_synaptic node, 
 #'   connector_id. A rare (and usually erroneous) scenario is if the same 
 #'   pre_node and post_node are present with two different connector_ids - this 
 #'   would create two rows.
-#' @param pre_skids,post_skids Skeleton ids in any form understood by
-#'   \code{\link{catmaid_skids}}.
+#' @param pre_skids,post_skids Skeleton ids in any form understood by 
+#'   \code{\link{catmaid_skids}} or \code{NULL} meaning no restriction.
 #' @return A data.frame with columns \itemize{
 #'   
 #'   \item pre_skid
@@ -323,14 +327,18 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 #' @export
 #' @inheritParams catmaid_get_compact_skeleton
 #' @family connectors
-catmaid_get_connectors_between <- function(pre_skids, post_skids, pid=1, conn=NULL, raw=FALSE, ...) {
-  pre_skids=catmaid_skids(pre_skids, conn = conn)
-  post_skids=catmaid_skids(post_skids, conn = conn)
-  
+catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL, 
+                                           pid=1, conn=NULL, raw=FALSE, ...) {
   post_data=list()
-  post_data[sprintf("pre[%d]", seq(from=0, along.with=pre_skids))]=as.list(pre_skids)
-  post_data[sprintf("post[%d]", seq(from=0, along.with=post_skids))]=as.list(post_skids)
-  path=paste("", pid, "connector", "pre-post-info", sep="/")
+  if(!is.null(pre_skids)){
+    pre_skids=catmaid_skids(pre_skids, conn = conn)
+    post_data[sprintf("pre[%d]", seq(from=0, along.with=pre_skids))]=as.list(pre_skids)
+  }
+  if(!is.null(post_skids)){
+    post_skids=catmaid_skids(post_skids, conn = conn)
+    post_data[sprintf("post[%d]", seq(from=0, along.with=post_skids))]=as.list(post_skids)
+  }
+  path=paste("", pid, "connector", "info", sep="/")
   conns=catmaid_fetch(path, body=post_data, conn=conn, ...)
   
   if(raw) return(conns)

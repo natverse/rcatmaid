@@ -4,12 +4,12 @@
 \alias{catmaid_get_connectors_between}
 \title{Return information about connectors joining sets of pre/postsynaptic skids}
 \usage{
-catmaid_get_connectors_between(pre_skids, post_skids, pid = 1, conn = NULL,
-  raw = FALSE, ...)
+catmaid_get_connectors_between(pre_skids = NULL, post_skids = NULL,
+  pid = 1, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
-\item{pre_skids, post_skids}{Skeleton ids in any form understood by
-\code{\link{catmaid_skids}}.}
+\item{pre_skids, post_skids}{Skeleton ids in any form understood by 
+\code{\link{catmaid_skids}} or \code{NULL} meaning no restriction.}
 
 \item{pid}{project id (default 1)}
 
@@ -67,7 +67,11 @@ A data.frame with columns \itemize{
 Return information about connectors joining sets of pre/postsynaptic skids
 }
 \details{
-Each row is a unique set of pre_synaptic node, post_synaptic node, 
+If either the \code{pre_skids} or \code{post_skids} arguments are 
+  not specified (taking the default \code{NULL} value) then this implies
+  there is no restriction on the pre- (or post-) synaptic partners.
+  
+  Each row is a unique set of pre_synaptic node, post_synaptic node, 
   connector_id. A rare (and usually erroneous) scenario is if the same 
   pre_node and post_node are present with two different connector_ids - this 
   would create two rows.
