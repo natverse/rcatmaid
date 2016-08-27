@@ -33,7 +33,7 @@ catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/annotations/forskeletons", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, 
-                    simplifyVector = T, ...)
+                    simplifyVector = T, conn=conn, ...)
   
   # make a simple character vector with the annotation names
   al=unlist(res$annotations)
@@ -74,6 +74,6 @@ catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1,
   post_data[sprintf("annotations[%d]", seq_along(annotations))]=as.list(annotations)
   path=sprintf("/%d/annotations/add", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, 
-                    simplifyVector = T, ...)
+                    simplifyVector = T, conn=conn, ...)
   invisible(res)
 }

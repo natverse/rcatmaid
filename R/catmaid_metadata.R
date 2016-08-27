@@ -17,7 +17,7 @@ catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
   post_data=list(pid=pid)
   post_data[sprintf("skids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/skeleton/neuronnames", pid)
-  res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, conn=conn, ...)
   res=unlist(res)
   # handle any missing return values
   missing_names=setdiff(as.character(skids), names(res))
@@ -64,7 +64,7 @@ catmaid_rename_neuron <- function(skids=NULL, entityids=NULL, names, pid=1, conn
     stop("Must supply same number of new names as ids")
   post_data['name']=names
   path=sprintf("/%d/neurons/%d/rename", pid, entityids)
-  res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, conn=conn, ...)
   if(!is.list(res) || length(res)<3) invisible(FALSE)
   restf=res$success
   attributes(restf)=res[names(res)!="success"]
@@ -73,7 +73,7 @@ catmaid_rename_neuron <- function(skids=NULL, entityids=NULL, names, pid=1, conn
 
 get_neuronid_for_skid <- function(skid, pid=1, conn=NULL, ...){
   path=sprintf("/%d/skeleton/%d/neuronname", pid, skid)
-  res=catmaid_fetch(path, include_headers = F, ...)
+  res=catmaid_fetch(path, include_headers = F, conn=conn, ...)
   if(!is.null(res$error)) {
     rval=NA_integer_
     attr(rval,"error")=res$error
@@ -287,7 +287,7 @@ catmaid_query_connected<-function(skids, minimum_synapses=1,
                         boolean_op=boolean_op)
   path=paste0("/",pid,"/skeletons/connectivity")
   rawres=catmaid_fetch(path, connectivity_post, include_headers = F, 
-                       simplifyVector = TRUE)
+                       simplifyVector = TRUE, conn=conn)
   if(raw) return(rawres)
   
   # pretty up the output data.frames
@@ -327,7 +327,7 @@ catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
   post_data=list()
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids)-1)]=as.list(skids)
   path=sprintf("/%d/skeletons/review-status", pid)
-  res=catmaid_fetch(path, body=post_data, include_headers = F, ...)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, conn=conn, ...)
   res=list2df(res, cols=c('total','reviewed'))
   # handle any missing return values
   missing_names=setdiff(as.character(skids), rownames(res))
