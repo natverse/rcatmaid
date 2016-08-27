@@ -343,3 +343,38 @@ catmaid_connection_unsetenv<-function(){
   Sys.unsetenv(vars)
 }
 
+
+#' Return the CATMAID version running on the server
+#' 
+#' @details By default the version number for the current 
+#'   \code{\link{catmaid_connection}} is stored on the first request after a new
+#'   login and then the cached version number is reused. Setting 
+#'   \code{cached=FALSE} will always force a request to the server. CATMAID 
+#'   versions now appear to be named as YYYY.MM.DD and can therefore be 
+#'   interpreted as a date or a tripartite version number (see examples).
+#' @param conn A \code{catmaid_connection} object. The default value of NULL 
+#'   implies that the most recent cached open connection will be used.
+#' @param cached Whether to use the cached version number for this connection 
+#'   (see details)
+#' @param ... Additional arguments passed to \code{\link{catmaid_fetch}}
+#' @export
+#' @return A character vector containing the version
+#' @examples
+#' \dontrun{
+#' # example of checking if server version is newer than required version
+#' current_v=numeric_version(catmaid_version())
+#' current_v
+#' required_v=numeric_version("2016.1.1")
+#' current_v >= required_v
+#' }
+catmaid_version <- function(conn=NULL, cached=TRUE, ...) {
+  conn=catmaid_login(conn = conn)
+  if(!isTRUE(cached) || is.null(conn$version)) {
+    res=catmaid_fetch("/version", include_headers = F, simplifyVector = T, 
+                      conn=conn, ...)
+    # we just need the first return value
+    conn$catmaid.version=res[[1]]
+    catmaid_cache_connection(conn)
+  }
+  conn$catmaid.version
+}
