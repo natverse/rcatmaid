@@ -27,6 +27,8 @@ A data.frame
 Fetch user contribution history
 }
 \examples{
+\dontrun{
 catmaid_user_history(from="2016-01-01")
+}
 }
 

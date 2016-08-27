@@ -70,7 +70,9 @@ catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
 #' @export
 #' @importFrom dplyr bind_rows right_join
 #' @examples
+#' \dontrun{
 #' catmaid_user_history(from="2016-01-01")
+#' }
 catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
   fromd=as.Date(from)
   if(fromd<as.Date("2001-01-01")) 
