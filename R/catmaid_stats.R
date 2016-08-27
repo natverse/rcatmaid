@@ -59,3 +59,45 @@ catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
 catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
   catmaid_fetch('user-list', simplifyVector = T, pid=pid, conn=conn, ...)
 }
+
+#' Fetch user contribution history
+#'
+#' @param from Starting date for history
+#' @param to End date for history (defaults to today's date)
+#' @inheritParams read.neuron.catmaid
+#' 
+#' @return A data.frame
+#' @export
+#' @importFrom dplyr bind_rows right_join
+#' @examples
+#' catmaid_user_history(from="2016-01-01")
+catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
+  fromd=as.Date(from)
+  if(fromd<as.Date("2001-01-01")) 
+    stop("Invalid date: ",from, ". See ?Date for valid formats")
+  tod=as.Date(to)
+  if(tod<as.Date("2001-01-01")) 
+    stop("Invalid date: ",to, ". See ?Date for valid formats")
+  u=sprintf("%d/stats/user-history?pid=1&start_date=%s&end_date=%s", pid, fromd, tod)
+  cf=catmaid_fetch(u, conn=conn, simplifyVector = T, ...)
+  
+  ul=catmaid_get_user_list(pid=pid, conn=conn, ...)
+  ll=lapply(cf$stats_table, process_one_user_history)
+  df=bind_rows(ll)
+  df$uid=rep(as.integer(names(cf$stats_table)), sapply(ll, nrow))
+  right_join(ul[c("full_name","login","id")], df, by=c(id="uid"))
+}
+
+
+process_one_user_history <- function(x) {
+  slx=sum(sapply(x, length))
+  if(slx<1) {
+    empytydf=dplyr::tibble(new_treenodes = numeric(0), new_connectors = integer(0), 
+           new_reviewed_nodes = integer(0), date = structure(numeric(0), class = "Date"))
+    return(empytydf)
+  }
+  df=dplyr::bind_rows(x)
+  dates=as.Date(names(x), format="%Y%m%d")
+  df$date=rep(dates, sapply(x, function(x) length(x)>0))
+  df
+}

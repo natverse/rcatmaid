@@ -17,7 +17,8 @@ Depends:
 Imports:
     jsonlite,
     plyr,
-    rgl
+    rgl,
+    dplyr
 Suggests:
     testthat
 RoxygenNote: 5.0.1
