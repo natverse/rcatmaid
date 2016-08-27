@@ -246,7 +246,7 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
 }
 
 catmaid_parse_json <- function(req, simplifyVector = FALSE, ...) {
-  text <- content(req, as = "text")
+  text <- content(req, as = "text", encoding = "UTF-8")
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
   fromJSON(text, simplifyVector = simplifyVector, ...)
 }
