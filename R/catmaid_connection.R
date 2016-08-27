@@ -26,7 +26,7 @@
 #'   version control script.
 #'   
 #' @param conn An optional \code{catmaid_connection} connection object.
-#' @param ... Additional arguemnts passed to catmaid_connection
+#' @param ... Additional arguments passed to catmaid_connection
 #' @param Cache Whether to cache open connections at login so that they can be 
 #'   reused automatically.
 #' @param Force Whether to force a new login to the CATMAID server (default 
@@ -297,7 +297,6 @@ catmaid_connection_fingerprint<-function(conn) {
 #' variables and uses them to open a catmaid connection.
 #' 
 #' \code{catmaid_connection_unsetenv} unsets the environment variables.
-
 #' @param conn A \code{catmaid_connection} object. The default value of NULL 
 #'   implies that the most recent cached open connection will be used.
 #' @param ... additional arguments passed to \code{catmaid_login}

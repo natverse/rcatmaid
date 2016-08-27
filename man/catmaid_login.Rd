@@ -14,7 +14,7 @@ catmaid_connection(server, username = NULL, password = NULL,
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
 
-\item{...}{Additional arguemnts passed to catmaid_connection}
+\item{...}{Additional arguments passed to catmaid_connection}
 
 \item{Cache}{Whether to cache open connections at login so that they can be 
 reused automatically.}
