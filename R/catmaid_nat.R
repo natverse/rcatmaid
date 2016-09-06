@@ -245,8 +245,14 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' plot3d(nl, WithConnectors=TRUE)
 #' }
 #' @aliases plot3d
-plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
-  rglreturnlist=NextMethod()
+plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, soma=FALSE, ...) {
+  if(isTRUE(soma)) {
+    # check if this neuron has a soma and whether it has a sensible radius
+    sp=somapos.catmaidneuron(x)
+    if(nrow(sp)==0) soma=FALSE
+    else if(sp[,'W']<=0) soma=TRUE else soma=sp[,'W']/2
+  }
+  rglreturnlist=NextMethod(soma=soma)
   if(WithConnectors) {
     conndf=connectors(x)
     rglreturnlist[['synapses']]=points3d(
