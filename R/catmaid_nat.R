@@ -35,25 +35,9 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
            data.frame(PointNo=id, Label=0, X=x, Y=y, Z=z, W=radius*2, Parent=parent_id)
   )
   swc$Parent[is.na(swc$Parent)]=-1L
-  
-  # Find soma position, based on plausible tags
-  soma_tags<-grep("(cell body|soma)", ignore.case = T, names(res$tags), value = T)
-  soma_id=unlist(unique(res$tags[soma_tags]))
-  soma_id_in_neuron=intersect(soma_id, swc$PointNo)
-  
-  if(length(soma_id_in_neuron)>1) {
-    soma_d=swc[match(soma_id_in_neuron,swc$PointNo),]
-    if(sum(soma_d$Parent<0) == 1 ) {
-      # just one end point is tagged as soma, so go with that
-      soma_id_in_neuron=soma_d$PointNo[soma_d$Parent<0]
-    } else {
-      warning("Ambiguous points tagged as soma in neuron: ",skid,". Using first")
-      soma_id_in_neuron=soma_id_in_neuron[1]
-    }
-  } else if(length(soma_id_in_neuron)==0) {
-    soma_id_in_neuron=NULL
-  }
-  n=nat::as.neuron(swc, origin=soma_id_in_neuron)
+  sp=somapos.catmaidneuron(swc=swc, tags=res$tags)
+  soma_id_in_neuron = if(nrow(sp)==0) NULL else sp$PointNo
+  n=nat::as.neuron(swc, origin=soma_id_in_neuron, skid=skid)
   
   # add all fields from input list except for nodes themselves
   n[names(res[-1])]=res[-1]
@@ -63,6 +47,24 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   n[fields_to_include]=attributes(res)[fields_to_include]
   class(n)=c('catmaidneuron', 'neuron')
   n
+}
+
+somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
+  # Find soma position, based on plausible tags
+  soma_tags<-grep("(cell body|soma)", ignore.case = T, names(tags), value = T)
+  soma_id=unlist(unique(tags[soma_tags]))
+  soma_id_in_neuron=intersect(soma_id, swc$PointNo)
+  
+  soma_d=swc[match(soma_id_in_neuron,swc$PointNo),,drop=FALSE]
+  if(length(soma_id_in_neuron)>1) {
+    if(sum(soma_d$Parent<0) == 1 ) {
+      # just one end point is tagged as soma, so go with that
+      soma_d[soma_d$Parent<0,, drop=FALSE]
+    } else {
+      warning("Ambiguous points tagged as soma in neuron: ",skid,". Using first")
+      soma_d[1,, drop=FALSE]
+    }
+  } else soma_d
 }
 
 #' @rdname read.neuron.catmaid
