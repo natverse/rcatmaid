@@ -26,12 +26,13 @@ reused automatically.}
 
 \item{username, password}{Your CATMAID username and password.}
 
-\item{authname, authpassword}{The http username/password that optionally
+\item{authname, authpassword}{The http username/password that optionally 
 secures the CATMAID server.}
 
-\item{token}{An API token (A modern alternative to provifing your CATMAID username and password). See \bold{Token based authentication} for details.}
+\item{token}{An API token (A modern alternative to providing your CATMAID 
+username and password). See \bold{Token based authentication} for details.}
 
-\item{authtype}{The http authentication scheme, see
+\item{authtype}{The http authentication scheme, see 
 \code{\link[httr]{authenticate}} for details.}
 }
 \value{
@@ -49,23 +50,40 @@ a \code{catmaid_connection} object that can be used to make
   The connection object returned by \code{catmaid_login} (or cached when 
   \code{Cache=TRUE}, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.
+
+\code{catmaid_connection} is a lower level function used by 
+  \code{catmaid_login} to create a connection object. End users should not 
+  need to call this directly, but it does document the arguments that can be 
+  used to specify a connection to a CATMAID server.
 }
 \details{
 After successful login, the \code{catmaid_connection} object will 
   contain a \code{cookie} field that includes a sessionid that is required 
   for subsequent GET/POST operations.  When \code{Cache=TRUE} (the default) 
   the open connection object is cached and will be used when EITHER 
-  catmaid_login is called with enough information to indicate that the same 
-  server is desired OR (when no information about the server is passed to 
-  catmaid_login) the last opened connection will be used.
+  \code{catmaid_login} is called with enough information to indicate that the
+  same server is desired OR (when no information about the server is passed 
+  to \code{catmaid_login}) the last opened connection will be used.
+
+Note the difference between \code{authname}/\code{authpassword} and 
+  \code{username}/\code{password}. The former are for generic web 
+  authentication, which is sometimes used to protect a privae catmaid site 
+  from being accessible to general web traffic. The latter are used to 
+  authenticate to the CATMAID web application itself - for example the
+  \code{username} is the one that will be associated with any tracing carried
+  out by you in CATMAID.
 }
 \section{Token based authentication}{
  CATMAID now offers token based 
   authentication as an alternative to specifying you CATMAID username and 
   password. See \url{http://catmaid.github.io/dev/api.html#api-token} for how
-  to get an API token. You can then set the catmaid.token package option. 
+  to get an API token. You can then set the \code{catmaid.token} package 
+  option, but no longer need to set the \code{catmaid.username} and 
+  \code{catmaid.password} options.
+  
   Note that you must \bold{NOT} reveal this token e.g. by checking it into a 
-  version control script.
+  version controlled script as it gives complete access to your CATMAID 
+  account.
 }
 
 \section{Package options}{
@@ -103,6 +121,12 @@ After successful login, the \code{catmaid_connection} object will
 \examples{
 \dontrun{
 ## example explicitly specifying connection options
+# using modern token based authentication
+conn = catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
+  authname="Calvin",authpassword="hobbes", 
+  token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
+  
+# ... or using the old fashioned approach specifiy username/password
 conn = catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
   authname="Calvin",authpassword="hobbes", 
   username="calvin", password="hobbesagain")
