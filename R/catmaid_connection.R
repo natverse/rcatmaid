@@ -99,9 +99,11 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   # check if we can use this connection already or reuse a cached one
   if(!Force) {
     # already open if authresponse exists
-    if(!is.null(conn$authresponse)) return(conn)
+    if(!is.null(conn$authresponse)) 
+      return(invisible(conn))
     cached_conn=catmaid_cached_connection(conn)
-    if(!is.null(cached_conn)) return(cached_conn)
+    if(!is.null(cached_conn))
+      return(invisible(cached_conn))
   }
 
   # otherwise login from scratch
@@ -165,7 +167,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
                   add_headers(`X-Authorization`=paste("Token", token)))
 
   class(conn)="catmaid_connection"
-  conn
+  invisible(conn)
 }
 
 #' Send http GET or POST request to a CATMAID server
