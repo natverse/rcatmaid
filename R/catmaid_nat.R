@@ -246,12 +246,7 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' }
 #' @aliases plot3d
 plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, soma=FALSE, ...) {
-  if(isTRUE(soma)) {
-    # check if this neuron has a soma and whether it has a sensible radius
-    sp=somapos.catmaidneuron(x)
-    if(nrow(sp)==0) soma=FALSE
-    else if(sp[,'W']<=0) soma=TRUE else soma=sp[,'W']/2
-  }
+  soma=plot3d_somarad(x, soma)
   rglreturnlist=NextMethod(soma=soma)
   if(WithConnectors) {
     conndf=connectors(x)
@@ -259,6 +254,30 @@ plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, soma=FA
       xyzmatrix(conndf),col=c(pre='red', post='cyan')[conndf$prepost+1])
   }
   invisible(rglreturnlist)
+}
+
+# private function to choose plotting radius for a neuron
+plot3d_somarad <- function(x, soma=FALSE){
+  if(is.logical(soma) && !soma) {
+    # do nothing, soma is FALSE
+  } else if(is.numeric(soma) && soma<=0){
+    # this signals that we really want to plot a sphere at the origin
+    # regardless of whether it is tagged as a soma or not
+    soma=-soma
+  } else {
+    # check if this neuron has a soma and whether it has a sensible radius
+    sp=somapos.catmaidneuron(x)
+    # no soma defined so we don't want to plot
+    if(nrow(sp)==0) soma=FALSE
+    else if(is.numeric(soma) && is.finite(soma)) {
+      # if we got passed a numeric value for soma then accept that
+    } else {
+      # we didn't get passed a numeric value for soma, so let's 
+      # see if we can come up with a sensible number
+      if(sp[,'W']<=0) soma=TRUE else soma=sp[,'W']/2
+    }
+  }
+  soma
 }
 
 #' @export
