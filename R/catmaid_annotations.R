@@ -75,7 +75,7 @@ catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1,
   path=sprintf("/%d/annotations/add", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, 
                     simplifyVector = T, ...)
-  invisible(res)
+  invisible(catmaid_error_check(res))
 }
 
 #' @rdname catmaid_get_annotations_for_skeletons
@@ -88,6 +88,8 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
                                                    conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn)
   eids=catmaid_entities_from_models(skids, conn=conn)
+  if(!length(eids))
+    stop("No entity ids founds from skids!")
   post_data=list()
   post_data[sprintf("entity_ids[%d]", seq_along(eids))]=as.list(eids)
   annotations=catmaid_aids(annotations)
@@ -97,7 +99,7 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
   path=sprintf("/%d/annotations/remove", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, 
                     simplifyVector = T, ...)
-  invisible(res)
+  invisible(catmaid_error_check(res))
 }
 
 # internal function to check for error state in return values
