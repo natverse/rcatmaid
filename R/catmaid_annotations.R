@@ -87,8 +87,9 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
                                                    force=FALSE, pid=1,
                                                    conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn)
+  eids=catmaid_entities_from_models(skids, conn=conn)
   post_data=list()
-  post_data[sprintf("entity_ids[%d]", seq_along(skids))]=as.list(skids)
+  post_data[sprintf("entity_ids[%d]", seq_along(eids))]=as.list(eids)
   annotations=catmaid_aids(annotations)
   if(length(annotations)>1 && !force)
     stop("You must set force=TRUE when removing multiple annotations")
@@ -99,3 +100,22 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
   invisible(res)
 }
 
+
+#' Return the entity ids for one or more model ids
+#' @details This will normally be used to turn skeleton ids into neuron ids 
+#'   which are used e.g. for annotation purposes. This is probably not something
+#'   that many end users will need but is required e.g. by 
+#'   \code{catmaid_remove_annotations_for_skeletons}.
+#' @inheritParams read.neuron.catmaid
+#' @export
+#' @return An integer vector of \bold{entity ids} each named by the 
+#'   corresponding \bold{model id} (usually a skeleton id).
+#' @seealso Used by \code{\link{catmaid_remove_annotations_for_skeletons}}
+catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn)
+  post_data=list()
+  post_data[sprintf("model_ids[%d]", seq_along(skids))]=as.list(skids)
+  path=sprintf("/%d/neurons/from-models", pid)
+  unlist(catmaid_fetch(path, body=post_data, include_headers = F, 
+                    simplifyVector = T, ...))
+}
