@@ -183,6 +183,8 @@ query_by_neuron_or_annotation<-function(path, body, maxresults=500,
   res2=list2df(res$entities, c("id", "name", "type", "skeleton_ids"), use.col.names = T)
   if(is.null(res2)) return(res2)
   names(res2)[names(res2)=="skeleton_ids"]="skid"
+  # this column makes no sense as a factor since names should be unique
+  res2$name=as.character(res2$name)
   al=lapply(res$entities, "[[", "annotations")
   ldf=lapply(al, list2df, c("uid","id", "name"), use.col.names=T, return_empty_df=T)
   adf=rbind.pages(ldf)
@@ -221,22 +223,37 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                       conn=NULL, ...){
   return_type=match.arg(type, several.ok = T)
   if(is.character(query)) {
-    al=catmaid_get_annotationlist(conn=conn)
-    matches=grepl(query, al$annotations$name)
-    nmatches=sum(matches)
-    if(nmatches==0) return(NULL)
-    query=al$annotations$id[matches]
-    if(nmatches>1) {
-      warning(nmatches," matching annotations!")
-      return(lapply(query, catmaid_query_by_annotation, conn=conn, 
-                    type=return_type, raw=raw, pid=pid, maxresults=maxresults, 
-                    ...))
+    query=catmaid_aids(query, conn=conn)
+    if(length(query)>1) {
+      warning(length(query)," matching annotations!")
+      res=lapply(query, catmaid_query_by_annotation, conn=conn, 
+                 type=return_type, raw=raw, pid=pid, maxresults=maxresults, ...)
+      names(res)=query
+      return(res)
     }
   }
+  if(!length(query)) return(NULL)
   query_by_neuron_or_annotation(paste0(pid, '/annotations/query-targets'),
                                 body=list(annotated_with=query),
                                 maxresults=maxresults, type=return_type, 
                                 raw=raw, conn=conn, ...=...)
+}
+
+catmaid_aids<-function(x, several.ok=TRUE, conn=NULL, pid=1, fixed=FALSE, ...) {
+  if(is.numeric(x)) return(x)
+  al=catmaid_get_annotationlist(conn=conn, pid = pid)
+  
+  process_match <- function(x, al, several.ok, fixed) {
+    matches=grepl(x, al$annotations$name, fixed = fixed)
+    nmatches=sum(matches)
+    if(nmatches==0) return(NULL)
+    ids=al$annotations$id[matches]
+    if(!several.ok && nmatches>1) 
+      stop("There are ", nmatches, " matches but only one is allowed!")
+    ids
+  }
+  
+  unlist(lapply(x, process_match, al=al, several.ok=several.ok, fixed=fixed))
 }
 
 #' Find neurons connected to a starting neuron

@@ -1,9 +1,38 @@
 catmaid 0.7
 ===========
-This release includes several bug fixes, changes to match the API defined by the
-2015.11.16 CATMAID release and support for token-based authentication (see .
+This is a substantial release with many new functions/enhancements, changes to
+match the API defined by the 2015.11.16 CATMAID release, support for token-based
+authentication and numerous bug fixes.
+
 * support for CATMAID token-based authentication (#35)
-* 
+* Add catmaid_get_connectors_between to return connections between (multiple) 
+  pre and postsynaptic partners - thanks to Zhihao Zheng (#53, #56)
+* Add function to parse CATMAID urls e.g. to extract xyz position (#55)
+* Add rename_neuron function (#54)
+* Add catmaid_version function (#58)
+* Add catmaid_user_history function (#57)
+* Add catmaid_get_annotations_for_skeletons function (#38)
+* Add catmaid_remove_annotations_for_skeletons function (#43)
+
+* catmaid_get_connector_table can now accept multi skid specifications (#49)
+* catmaid_get_connectors_between returns more informative errors (#51)
+
+* fix "No encoding supplied: defaulting to UTF-8." warning (#59)
+* stop catmaid_skids returning duplicates when there are multiple matching 
+  annotations (#44)
+* ensure that connectors are also scaled when xforming neurons (#47)
+* catmaid_query_by_annotation returns neuron column as character vector (#46)
+* catmaid_get_connector_table returns partner_skid columns as an integer (#48)
+* fix bug in url for catmaid_get_review_status function (#45)
+* Give sensible name to 1st column of connector data.frame (#42)
+* ensure neurons without connectors scale properly (#41)
+* fix bug in catmaid_connection_setenv() when some elements are null (#50)
+* catmaid_get_annotations_for_skeletons - fix bug in skid order (#39)
+* ensure catmaid_get_contributor_stats passes on connection (#37)
+* ensure all functions pass on connection to catmaid_fetch (#60)
+* connectors.neuronlist should handle neurons without connectors (#29)
+
+see https://github.com/jefferis/rcatmaid/issues?q=is%3Aissue+is%3Aclosed+closed%3A%3E2015-06-19+sort%3Aupdated-asc
 
 catmaid 0.6
 ===========

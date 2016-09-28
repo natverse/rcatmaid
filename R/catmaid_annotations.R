@@ -19,6 +19,9 @@
 #'   
 #'   For \code{catmaid_set_annotations_for_skeletons} a list containing 
 #'   information about the annotations that have just been added.
+
+#'   For \code{catmaid_remove_annotations_for_skeletons} a list containing 
+#'   information about the annotations that have just been removed.
 #' @export
 #' @examples
 #' \dontrun{
@@ -75,5 +78,65 @@ catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1,
   path=sprintf("/%d/annotations/add", pid)
   res=catmaid_fetch(path, body=post_data, include_headers = F, 
                     simplifyVector = T, conn=conn, ...)
-  invisible(res)
+  invisible(catmaid_error_check(res))
+}
+
+#' @rdname catmaid_get_annotations_for_skeletons
+#' @export
+#' @param force Whether to force the catmaid server to remove multiple 
+#'   annotations (default \code{FALSE}) to provide some protection against 
+#'   accidents.
+#' @examples 
+#' \dontrun{
+#' nn=c(10418394,4453485)
+#' catmaid_set_annotations_for_skeletons(skids=nn, 'mytest')
+#' catmaid_remove_annotations_for_skeletons(nn, 'mytest')
+#' }
+catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
+                                                   force=FALSE, pid=1,
+                                                   conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn)
+  eids=catmaid_entities_from_models(skids, conn=conn)
+  if(!length(eids))
+    stop("No entity ids founds from skids!")
+  post_data=list()
+  post_data[sprintf("entity_ids[%d]", seq_along(eids))]=as.list(eids)
+  annotations=catmaid_aids(annotations)
+  if(length(annotations)>1 && !force)
+    stop("You must set force=TRUE when removing multiple annotations")
+  post_data[sprintf("annotation_ids[%d]", seq_along(annotations))]=as.list(annotations)
+  path=sprintf("/%d/annotations/remove", pid)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, 
+                    simplifyVector = T, ...)
+  invisible(catmaid_error_check(res))
+}
+
+# internal function to check for error state in return values
+# stops on error, otherwise returns input
+catmaid_error_check <- function(x){
+  err_fields=c("error","type", "detail")
+  if(length(x)==3 & all(names(x)%in%err_fields)){
+    # looks like an error response
+    stop(x$error, "\ttype: ", x$type)
+  }
+  x
+}
+
+#' Return the entity ids for one or more model ids
+#' @details This will normally be used to turn skeleton ids into neuron ids 
+#'   which are used e.g. for annotation purposes. This is probably not something
+#'   that many end users will need but is required e.g. by 
+#'   \code{catmaid_remove_annotations_for_skeletons}.
+#' @inheritParams read.neuron.catmaid
+#' @export
+#' @return An integer vector of \bold{entity ids} each named by the 
+#'   corresponding \bold{model id} (usually a skeleton id).
+#' @seealso Used by \code{\link{catmaid_remove_annotations_for_skeletons}}
+catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn)
+  post_data=list()
+  post_data[sprintf("model_ids[%d]", seq_along(skids))]=as.list(skids)
+  path=sprintf("/%d/neurons/from-models", pid)
+  unlist(catmaid_fetch(path, body=post_data, include_headers = F, 
+                    simplifyVector = T, ...))
 }
