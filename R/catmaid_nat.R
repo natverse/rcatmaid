@@ -130,7 +130,7 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 #' 
 #' }
 read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   if(is.null(df)) {
     names(skids)=as.character(skids)
     df=data.frame(pid=pid, skid=skids, 

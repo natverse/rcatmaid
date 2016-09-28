@@ -33,7 +33,7 @@
 #' }
 #' @seealso \code{\link{catmaid_get_review_status}}
 catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list()
   post_data[sprintf("skids[%d]", seq_along(skids)-1)]=as.list(skids)
   path=sprintf("/%d/skeleton/contributor_statistics_multiple", pid)

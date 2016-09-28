@@ -173,7 +173,7 @@ catmaid_get_connector_table<-function(skids,
                                       direction=c("both", "incoming", "outgoing"),
                                       pid=1, conn=NULL, raw=FALSE, ...) {
   direction=match.arg(direction)
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   if(direction[1]=='both') {
     dfin =catmaid_get_connector_table(skids, direction='incoming', pid=pid, conn=conn, raw=raw, ...)
     dfout=catmaid_get_connector_table(skids, direction='outgoing', pid=pid, conn=conn, raw=raw, ...)
@@ -331,11 +331,11 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
                                            pid=1, conn=NULL, raw=FALSE, ...) {
   post_data=list()
   if(!is.null(pre_skids)){
-    pre_skids=catmaid_skids(pre_skids, conn = conn)
+    pre_skids=catmaid_skids(pre_skids, conn = conn, pid=pid)
     post_data[sprintf("pre[%d]", seq(from=0, along.with=pre_skids))]=as.list(pre_skids)
   }
   if(!is.null(post_skids)){
-    post_skids=catmaid_skids(post_skids, conn = conn)
+    post_skids=catmaid_skids(post_skids, conn = conn, pid=pid)
     post_data[sprintf("post[%d]", seq(from=0, along.with=post_skids))]=as.list(post_skids)
   }
   path=paste("", pid, "connector", "info", sep="/")

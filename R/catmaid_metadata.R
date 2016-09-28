@@ -13,7 +13,7 @@
 #' }
 #' @seealso \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
 catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list(pid=pid)
   post_data[sprintf("skids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/skeleton/neuronnames", pid)
@@ -53,7 +53,7 @@ catmaid_rename_neuron <- function(skids=NULL, entityids=NULL, names, pid=1, conn
   if(!is.null(skids)){
     if(!is.null(entityids))
       stop("You can only supply one of neuronids or entityids!")
-    skids=catmaid_skids(skids, conn = conn)
+    skids=catmaid_skids(skids, conn = conn, pid=pid)
     if(length(skids)>1) stop("I can only work with one neuron at the moment!")
     # now find entityids
     entityids=c(get_neuronid_for_skid(skids))
@@ -298,7 +298,7 @@ catmaid_query_connected<-function(skids, minimum_synapses=1,
                                   boolean_op=c("OR","AND"), 
                                   pid=1, raw=FALSE, conn=NULL, ...){
   boolean_op=match.arg(boolean_op)
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   names(skids)=sprintf('source_skeleton_ids[%d]',seq_along(skids))
   connectivity_post = c(as.list(skids), threshold=minimum_synapses, 
                         boolean_op=boolean_op)
@@ -340,7 +340,7 @@ catmaid_query_connected<-function(skids, minimum_synapses=1,
 #' }
 #' @seealso \code{\link{catmaid_fetch}}
 catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list()
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids)-1)]=as.list(skids)
   path=sprintf("/%d/skeletons/review-status", pid)

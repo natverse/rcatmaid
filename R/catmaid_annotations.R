@@ -31,7 +31,7 @@
 #' }
 #' @seealso \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
 catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list()
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/annotations/forskeletons", pid)
@@ -71,7 +71,7 @@ catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
 #' @rdname catmaid_get_annotations_for_skeletons
 catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1, 
                                                 conn=NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list()
   post_data[sprintf("skeleton_ids[%d]", seq_along(skids))]=as.list(skids)
   post_data[sprintf("annotations[%d]", seq_along(annotations))]=as.list(annotations)
@@ -95,7 +95,7 @@ catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1,
 catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
                                                    force=FALSE, pid=1,
                                                    conn=NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   eids=catmaid_entities_from_models(skids, conn=conn)
   if(!length(eids))
     stop("No entity ids founds from skids!")
@@ -133,7 +133,7 @@ catmaid_error_check <- function(x){
 #'   corresponding \bold{model id} (usually a skeleton id).
 #' @seealso Used by \code{\link{catmaid_remove_annotations_for_skeletons}}
 catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
-  skids=catmaid_skids(skids, conn = conn)
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list()
   post_data[sprintf("model_ids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/neurons/from-models", pid)
