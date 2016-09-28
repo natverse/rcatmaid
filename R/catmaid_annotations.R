@@ -19,6 +19,9 @@
 #'   
 #'   For \code{catmaid_set_annotations_for_skeletons} a list containing 
 #'   information about the annotations that have just been added.
+
+#'   For \code{catmaid_remove_annotations_for_skeletons} a list containing 
+#'   information about the annotations that have just been removed.
 #' @export
 #' @examples
 #' \dontrun{
@@ -83,6 +86,12 @@ catmaid_set_annotations_for_skeletons<-function(skids, annotations, pid=1,
 #' @param force Whether to force the catmaid server to remove multiple 
 #'   annotations (default \code{FALSE}) to provide some protection against 
 #'   accidents.
+#' @examples 
+#' \dontrun{
+#' nn=c(10418394,4453485)
+#' catmaid_set_annotations_for_skeletons(skids=nn, 'mytest')
+#' catmaid_remove_annotations_for_skeletons(nn, 'mytest')
+#' }
 catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
                                                    force=FALSE, pid=1,
                                                    conn=NULL, ...) {

@@ -50,6 +50,8 @@ For \code{catmaid_get_annotations_for_skeletons} a data.frame
   
   For \code{catmaid_set_annotations_for_skeletons} a list containing 
   information about the annotations that have just been added.
+  For \code{catmaid_remove_annotations_for_skeletons} a list containing 
+  information about the annotations that have just been removed.
 }
 \description{
 Pretty obviously: \code{catmaid_get_annotations_for_skeletons}
@@ -73,6 +75,11 @@ catmaid_get_annotations_for_skeletons("annotation:ORN PNs$")
 \dontrun{
 catmaid_set_annotations_for_skeletons(skids=c(10418394,4453485), 'myselection')
 catmaid_set_annotations_for_skeletons(skids="annotation:ORN PNs$", 'my pns')
+}
+\dontrun{
+nn=c(10418394,4453485)
+catmaid_set_annotations_for_skeletons(skids=nn, 'mytest')
+catmaid_remove_annotations_for_skeletons(nn, 'mytest')
 }
 }
 \seealso{
