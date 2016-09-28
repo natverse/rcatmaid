@@ -100,6 +100,16 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
   invisible(res)
 }
 
+# internal function to check for error state in return values
+# stops on error, otherwise returns input
+catmaid_error_check <- function(x){
+  err_fields=c("error","type", "detail")
+  if(length(x)==3 & all(names(x)%in%err_fields)){
+    # looks like an error response
+    stop(x$error, "\ttype: ", x$type)
+  }
+  x
+}
 
 #' Return the entity ids for one or more model ids
 #' @details This will normally be used to turn skeleton ids into neuron ids 
