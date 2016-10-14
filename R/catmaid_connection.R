@@ -392,7 +392,7 @@ catmaid_connection_unsetenv<-function(){
 #' }
 catmaid_version <- function(conn=NULL, cached=TRUE, ...) {
   conn=catmaid_login(conn = conn)
-  if(!isTRUE(cached) || is.null(conn$version)) {
+  if(!isTRUE(cached) || is.null(conn$catmaid.version)) {
     res=catmaid_fetch("/version", include_headers = F, simplifyVector = T, 
                       conn=conn, ...)
     # we just need the first return value
