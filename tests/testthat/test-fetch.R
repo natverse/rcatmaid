@@ -41,7 +41,7 @@ test_that("read.neuron(s).catmaid and connectors", {
   expect_is(df<-as.data.frame(nl), 'data.frame')
   expect_is(df$name, "character")
   
-  expect_error(read.neurons.catmaid(1), "catmaid error:.*Skeleton")
+  expect_error(read.neurons.catmaid(1))
   
   expect_is(connectors(n), "data.frame")
   expect_is(connectors(nl), "data.frame")
