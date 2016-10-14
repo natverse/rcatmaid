@@ -183,12 +183,16 @@ catmaid_get_connector_table<-function(skids,
     df$direction=factor(df$direction)
     return(df)
   }
+  body=list(skeleton_id=skids)
   # relation_type 0 => incoming
-  ctl=catmaid_fetch(path=paste0("/", pid, "/connector/table/list"),
-                   body=list(skeleton_id=skids, 
-                             relation_type=ifelse(direction=="incoming",0,1)), 
-                   conn=conn, ...)
-  
+  if(catmaid_version(numeric = TRUE)>="2016.09.01-65"){
+    body$relation_type=ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")
+  } else {
+    body$relation_type=ifelse(direction=="incoming",0L, 1L)
+  }
+  ctl=catmaid_fetch(path=paste0("/", pid, "/connector/table/list"), body=body, 
+                    conn=conn, ...)
+  catmaid_error_check(ctl)
   if(raw) return(ctl)
   # else process the connector information
   dfcolnames=c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
