@@ -4,7 +4,7 @@
 \alias{catmaid_version}
 \title{Return the CATMAID version running on the server}
 \usage{
-catmaid_version(conn = NULL, cached = TRUE, ...)
+catmaid_version(conn = NULL, cached = TRUE, numeric = FALSE, ...)
 }
 \arguments{
 \item{conn}{A \code{catmaid_connection} object. The default value of NULL 
