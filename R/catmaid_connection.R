@@ -372,23 +372,27 @@ catmaid_connection_unsetenv<-function(){
 #' @details By default the version number for the current 
 #'   \code{\link{catmaid_connection}} is stored on the first request after a new
 #'   login and then the cached version number is reused. Setting 
-#'   \code{cached=FALSE} will always force a request to the server. CATMAID 
-#'   versions now appear to be named as YYYY.MM.DD and can therefore be 
-#'   interpreted as a date or a tripartite version number (see examples).
+#'   \code{cached=FALSE} will always force a request to the server.
+#'   
+#'   CATMAID versions are now prduced by \bold{git describe} and look like 
+#'   YYYY.MM.DD-XX-gaaaaaaa where aaaaaaa is a short SHA1 hash and XX is an 
+#'   integer number of revisions since the last base version. Setting
+#'   \code{numeric=TRUE} trims of the SHA1 hash leaving a string that can be
+#'   interpreted as four part version number (see examples).
 #' @param conn A \code{catmaid_connection} object. The default value of NULL 
 #'   implies that the most recent cached open connection will be used.
 #' @param cached Whether to use the cached version number for this connection 
 #'   (see details)
+#' @param numeric Whether to parse the version string into an R 
+#'   \code{numeric_version} object that can be used for comparisons.
 #' @param ... Additional arguments passed to \code{\link{catmaid_fetch}}
 #' @export
 #' @return A character vector containing the version
+#' @seealso \code{\link{numeric_version}}
 #' @examples
 #' \dontrun{
 #' # example of checking if server version is newer than required version
-#' current_v=numeric_version(catmaid_version())
-#' current_v
-#' required_v=numeric_version("2016.1.1")
-#' current_v >= required_v
+#' catmaid_version(numeric=TRUE)>="2016.1.1-65"
 #' }
 catmaid_version <- function(conn=NULL, cached=TRUE, numeric=FALSE, ...) {
   conn=catmaid_login(conn = conn)
