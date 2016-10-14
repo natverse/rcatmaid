@@ -390,7 +390,7 @@ catmaid_connection_unsetenv<-function(){
 #' required_v=numeric_version("2016.1.1")
 #' current_v >= required_v
 #' }
-catmaid_version <- function(conn=NULL, cached=TRUE, ...) {
+catmaid_version <- function(conn=NULL, cached=TRUE, numeric=FALSE, ...) {
   conn=catmaid_login(conn = conn)
   if(!isTRUE(cached) || is.null(conn$catmaid.version)) {
     res=catmaid_fetch("/version", include_headers = F, simplifyVector = T, 
@@ -399,5 +399,10 @@ catmaid_version <- function(conn=NULL, cached=TRUE, ...) {
     conn$catmaid.version=res[[1]]
     catmaid_cache_connection(conn)
   }
-  conn$catmaid.version
+  if(!numeric){
+    conn$catmaid.version
+  } else {
+    numeric_version(sub("-g[a-f0-9]{6,}$", "", conn$catmaid.version))
+  }
 }
+
