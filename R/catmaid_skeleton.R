@@ -109,7 +109,30 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' @param direction whether to find incoming or outgoing connections
 #' @inheritParams read.neuron.catmaid
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return A data.frame with columns \itemize{
+#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns
+#'   \itemize{
+#'   
+#'   \item partner_skid
+#'   
+#'   \item connector_id
+#'   
+#'   \item x
+#'   
+#'   \item y
+#'   
+#'   \item z
+#'   
+#'   \item confidence
+#'   
+#'   \item user_id
+#'   
+#'   \item partner_treenode_id
+#'   
+#'   \item last_modified
+#'   
+#'   }
+#'   
+#'   Prior to this it returned a data.frame with columns \itemize{
 #'   
 #'   \item connector_id
 #'   
@@ -183,23 +206,37 @@ catmaid_get_connector_table<-function(skids,
     df$direction=factor(df$direction)
     return(df)
   }
-  body=list(skeleton_id=skids)
-  # relation_type 0 => incoming
-  if(catmaid_version(numeric = TRUE)>="2016.09.01-65"){
-    body$relation_type=ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")
+  if(catmaid_version(numeric = TRUE)>="2016.10.18"){
+    body=NULL
+    paramsv=sprintf("skeleton_ids[%s]=%d",seq_len(length(skids)), skids)
+    paramsv=c(paramsv, paste0("relation_type=", ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")))
+    params=paste(paramsv, collapse = "&")
+    relpath=paste0("/", pid, "/connectors/?",params)
   } else {
-    body$relation_type=ifelse(direction=="incoming",0L, 1L)
+    relpath=paste0("/", pid, "/connector/table/list")
+    body=list(skeleton_id=skids)
+    # relation_type 0 => incoming
+    if(catmaid_version(numeric = TRUE)>="2016.09.01-65"){
+      body$relation_type=ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")
+    } else {
+      body$relation_type=ifelse(direction=="incoming",0L, 1L)
+    }
   }
-  ctl=catmaid_fetch(path=paste0("/", pid, "/connector/table/list"), body=body, 
-                    conn=conn, ...)
+  ctl=catmaid_fetch(path=relpath, body=body, conn=conn, ...)
   catmaid_error_check(ctl)
   if(raw) return(ctl)
   # else process the connector information
-  dfcolnames=c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
-    "tags", "nodes_in_partner", "username", "partner_treenode_id", 
-    "last_modified")
+  dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.10.18") {
+    c("partner_skid", "connector_id", "x", "y", "z", "confidence", 
+      "user_id", "partner_treenode_id", "last_modified")
+  } else {
+    c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
+      "tags", "nodes_in_partner", "username", "partner_treenode_id", 
+      "last_modified")
+  }
   df=list2df(ctl[[1]], cols = dfcolnames, return_empty_df = T, stringsAsFactors=FALSE)
-  df$username=factor(df$username)
+  if("username"%in%names(df))
+    df$username=factor(df$username)
   if(is.character(df$partner_skid))
     df$partner_skid=as.integer(df$partner_skid)
   df

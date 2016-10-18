@@ -26,7 +26,30 @@ or to convert the nodes and connectors lists into processed data.frames
 \item{...}{Additional arguments passed to the catmaid_fetch function}
 }
 \value{
-A data.frame with columns \itemize{
+As of CATMAID v2016.10.18 this returns a data.frame with columns
+  \itemize{
+  
+  \item partner_skid
+  
+  \item connector_id
+  
+  \item x
+  
+  \item y
+  
+  \item z
+  
+  \item confidence
+  
+  \item user_id
+  
+  \item partner_treenode_id
+  
+  \item last_modified
+  
+  }
+  
+  Prior to this it returned a data.frame with columns \itemize{
   
   \item connector_id
   
