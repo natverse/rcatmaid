@@ -31,6 +31,8 @@ authentication and numerous bug fixes.
 * ensure catmaid_get_contributor_stats passes on connection (#37)
 * ensure all functions pass on connection to catmaid_fetch (#60)
 * connectors.neuronlist should handle neurons without connectors (#29)
+* catmaid_skids should pass on pid (#64)
+* fix catmaid_get_connector_table to reflect 2016.09.01-65 API change (#65)
 
 see https://github.com/jefferis/rcatmaid/issues?q=is%3Aissue+is%3Aclosed+closed%3A%3E2015-06-19+sort%3Aupdated-asc
 
