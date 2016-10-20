@@ -226,7 +226,7 @@ catmaid_get_connector_table<-function(skids,
   catmaid_error_check(ctl)
   if(raw) return(ctl)
   # else process the connector information
-  dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.10.18") {
+  dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.09.01-77") {
     c("partner_skid", "connector_id", "x", "y", "z", "confidence", 
       "user_id", "partner_treenode_id", "last_modified")
   } else {
