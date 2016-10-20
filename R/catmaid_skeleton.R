@@ -206,7 +206,7 @@ catmaid_get_connector_table<-function(skids,
     df$direction=factor(df$direction)
     return(df)
   }
-  if(catmaid_version(numeric = TRUE)>="2016.10.18"){
+  if(catmaid_version(numeric = TRUE)>="2016.09.01-77"){
     body=NULL
     paramsv=sprintf("skeleton_ids[%s]=%d",seq_len(length(skids)), skids)
     paramsv=c(paramsv, paste0("relation_type=", ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")))
