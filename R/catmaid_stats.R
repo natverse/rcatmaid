@@ -86,6 +86,8 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
   ul=catmaid_get_user_list(pid=pid, conn=conn, ...)
   ll=lapply(cf$stats_table, process_one_user_history)
   df=bind_rows(ll)
+  # comes in with name new_treenodes but this is not correct
+  names(df)[1]="new_cable"
   df$uid=rep(as.integer(names(cf$stats_table)), sapply(ll, nrow))
   right_join(ul[c("full_name","login","id")], df, by=c(id="uid"))
 }
