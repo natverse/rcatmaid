@@ -307,6 +307,8 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # treenodes, reviews, tags
   if(length(tnl)!=3)
     stop("I don't understand the raw treenode structure returned by catmaid")
+  if(!length(tnl[[1]]))
+    stop("There are no tree nodes for this skeleton id")
   names(tnl)=c("treenodes", "reviews", "tags")
   tnl=lapply(tnl, as.data.frame, stringsAsFactors=FALSE)
   
@@ -315,13 +317,21 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   idcols=grepl("id", colnames(tnl$treenodes), fixed = TRUE)
   tnl$treenodes[idcols]=lapply(tnl$treenodes[idcols], as.integer)
   
-  colnames(tnl$reviews)=c("id", "reviewer_id")
+  if(length(tnl$reviews)) {
+    colnames(tnl$reviews)=c("id", "reviewer_id")
+    b=by(tnl$reviews$reviewer_id,tnl$reviews$id,paste,collapse=",")
+    tnl$reviews=data.frame(id=as.integer(names(b)), 
+                           reviewer_id=unname(sapply(b,c)), 
+                           stringsAsFactors = F)
+  } else {
+    tnl$reviews=data.frame(id=integer(),reviewer_id=integer())
+  }
   
   colnames(tnl$tags)=c("id", "tag")
   tnl$tags=as.data.frame(tnl$tags, stringsAsFactors = FALSE)
   tnl$tags$id=as.integer(tnl$tags$id)
   
-  tndf=merge(tnl$treenodes, tnl$reviews, by='id')
+  tndf=merge(tnl$treenodes, tnl$reviews, by='id', all.x=TRUE)
   attr(tndf, 'tags')=tnl$tags
   tndf
 }
