@@ -107,14 +107,18 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' 
 #' @param skids Numeric skeleton ids
 #' @param direction whether to find incoming or outgoing connections
+#' @param partner.skids Whether to include information about the skid of each
+#'   partner neuron (NB there may be multiple partners per connector)
 #' @inheritParams read.neuron.catmaid
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns
+#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns 
 #'   \itemize{
 #'   
-#'   \item partner_skid
+#'   \item skid
 #'   
 #'   \item connector_id
+#'   
+#'   \item partner_skid
 #'   
 #'   \item x
 #'   
@@ -194,6 +198,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' @family connectors
 catmaid_get_connector_table<-function(skids, 
                                       direction=c("both", "incoming", "outgoing"),
+                                      partner.skids=TRUE,
                                       pid=1, conn=NULL, raw=FALSE, ...) {
   direction=match.arg(direction)
   skids=catmaid_skids(skids, conn = conn, pid=pid)
@@ -227,7 +232,7 @@ catmaid_get_connector_table<-function(skids,
   if(raw) return(ctl)
   # else process the connector information
   dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.09.01-77") {
-    c("partner_skid", "connector_id", "x", "y", "z", "confidence", 
+    c("skid", "connector_id", "x", "y", "z", "confidence", 
       "user_id", "partner_treenode_id", "last_modified")
   } else {
     c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
@@ -239,6 +244,13 @@ catmaid_get_connector_table<-function(skids,
     df$username=factor(df$username)
   if(is.character(df$partner_skid))
     df$partner_skid=as.integer(df$partner_skid)
+  if(partner.skids && !"partner_skid"%in%names(df)){
+    # find the skids for the partners
+    cdf=catmaid_get_connectors(df$connector_id, pid = pid, conn=conn, ...)
+    cdf2=cdf[, 1, drop=FALSE]
+    cdf2$partner_skid <- if(direction=="outgoing") cdf$post else cdf$pre
+    df=merge(df, cdf2, by='connector_id', all.x=TRUE)
+  }
   df
 }
 
