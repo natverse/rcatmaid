@@ -118,8 +118,6 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   
 #'   \item connector_id
 #'   
-#'   \item partner_skid
-#'   
 #'   \item x
 #'   
 #'   \item y
@@ -133,6 +131,8 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   \item partner_treenode_id
 #'   
 #'   \item last_modified
+#'   
+#'   \item partner_skid
 #'   
 #'   }
 #'   

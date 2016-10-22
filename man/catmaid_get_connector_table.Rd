@@ -37,8 +37,6 @@ As of CATMAID v2016.10.18 this returns a data.frame with columns
   
   \item connector_id
   
-  \item partner_skid
-  
   \item x
   
   \item y
@@ -52,6 +50,8 @@ As of CATMAID v2016.10.18 this returns a data.frame with columns
   \item partner_treenode_id
   
   \item last_modified
+  
+  \item partner_skid
   
   }
   
