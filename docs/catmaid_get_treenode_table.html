@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid_get_treenode_table. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Return tree node table for a given neuron</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='catmaid_get_treenode_table.html'>catmaid_get_treenode_table</a></span><span class="keyword">(</span><span class="symbol">skid</span><span class="keyword">,</span> <span class="argument">pid</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1</span><span class="keyword">,</span> <span class="argument">conn</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">raw</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>skid</dt>
+      <dd>Numeric skeleton id</dd>
+      <dt>pid</dt>
+      <dd>project id (default 1)</dd>
+      <dt>conn</dt>
+      <dd>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</dd>
+      <dt>raw</dt>
+      <dd>Whether to return completely unprocessed data (when <code>TRUE</code>) 
+or to convert the nodes and connectors lists into processed data.frames 
+(when <code>FALSE</code>, the default)</dd>
+      <dt>...</dt>
+      <dd>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+function.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+A data.frame with columns <ul>
+<li> id</p>
+
+      <p></li>
+<li> type</p>
+
+      <p></li>
+<li> tags</p>
+
+      <p></li>
+<li> confidence</p>
+
+      <p></li>
+<li> x</p>
+
+      <p></li>
+<li> y</p>
+
+      <p></li>
+<li> z</p>
+
+      <p></li>
+<li> s</p>
+
+      <p></li>
+<li> r</p>
+
+      <p></li>
+<li> user</p>
+
+      <p></li>
+<li> last_modified</p>
+
+      <p></li>
+<li> reviewer (character vector with comma separated reviewer ids)</p>
+
+      <p></li>
+</ul></p>
+
+      <p>In addition two data.frames will be included as attributes: <code>reviews</code>,
+  <code>tags</code>.
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Return tree node table for a given neuron</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># # get tree node table for neuron 10418394</span>
+<span class="comment"># tnt=catmaid_get_treenode_table(10418394)</span>
+<span class="comment"># # show all leaf nodes</span>
+<span class="comment"># subset(tnt, type=="L")</span>
+<span class="comment"># # table of node types</span>
+<span class="comment"># table(tnt$type)</span>
+<span class="comment"># </span>
+<span class="comment"># # look at tags data</span>
+<span class="comment"># str(attr(tnt, 'tags'))</span>
+<span class="comment"># # merge with main node table to get xyz position</span>
+<span class="comment"># tags=merge(attr(tnt, 'tags'), tnt, by='id')</span>
+<span class="comment"># # label up a 3d neuron plot</span>
+<span class="comment"># n=read.neuron.catmaid(10418394)</span>
+<span class="comment"># plot3d(n, WithNodes=F)</span>
+<span class="comment"># text3d(xyzmatrix(tags), texts = tags$tag, cex=.7)</span>
+<span class="comment">## ---------------------------------------------</span></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid_get_treenode_table</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code>, 
+  <code><a href='read.neuron.catmaid.html'>read.neuron.catmaid</a></code> and <code><a href='catmaid_get_user_list.html'>catmaid_get_user_list</a></code> 
+  to translate user ids into names.</p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

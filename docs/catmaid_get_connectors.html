@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid_get_connectors. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Return skeleton ids for pre/postsynaptic partners of a set of connector_ids</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='catmaid_get_connectors.html'>catmaid_get_connectors</a></span><span class="keyword">(</span><span class="symbol">connector_ids</span><span class="keyword">,</span> <span class="argument">pid</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1</span><span class="keyword">,</span> <span class="argument">conn</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">raw</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span>
+  <span class="symbol">...</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>connector_ids</dt>
+      <dd>Numeric ids for each connector (synapse).</dd>
+      <dt>pid</dt>
+      <dd>project id (default 1)</dd>
+      <dt>conn</dt>
+      <dd>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</dd>
+      <dt>raw</dt>
+      <dd>Whether to return completely unprocessed data (when <code>TRUE</code>) 
+or to convert the nodes and connectors lists into processed data.frames 
+(when <code>FALSE</code>, the default)</dd>
+      <dt>...</dt>
+      <dd>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+function.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+A data.frame with columns <ul>
+<li> connector_id</p>
+
+      <p></li>
+<li> pre</p>
+
+      <p></li>
+<li> post</p>
+
+      <p></li>
+</ul></p>
+
+      <p></dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Return skeleton ids for pre/postsynaptic partners of a set of connector_ids</p>
+
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>Note that this returns pairwise connections between neurons. A 
+  single synapse (i.e. connector) may have multiple connections; most 
+  commonly a single presynaptic cell connects to multiple post-synaptic
+  cells but many variations are possible</p>
+
+    </div>
+      </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid_get_connectors</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
+  <code><a href='catmaid_get_connectors_between.html'>catmaid_get_connectors_between</a></code>,
+  <code><a href='catmaid_query_connected.html'>catmaid_query_connected</a></code>,
+  <code><a href='connectors.html'>connectors</a></code></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

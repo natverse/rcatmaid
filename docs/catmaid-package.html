@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid-package. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Programmatic access to the CATMAID API</h1>
+
+<div class="row">
+  <div class="span8">
+        
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>To use, first call <code><a href='catmaid_login.html'>catmaid_login</a></code> to authenticate to a catmaid 
+server. You can then use functions such as 
+<code><a href='catmaid_get_neuronnames.html'>catmaid_get_neuronnames</a></code> or 
+<code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code> to query the server. You can also 
+roll your own server queries using the low-level <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+command.</p>
+
+    </div>
+
+    <div class="Connections">
+      <h2>Connections</h2>
+
+      <p>By default all query functions will use the 
+  server/authentication details specified by the last successful call to 
+  <code><a href='catmaid_login.html'>catmaid_login</a></code> unless a <code><a href='catmaid_login.html'>catmaid_connection</a></code> 
+  object is provided as an argument.</p>
+
+    </div>
+
+    <div class="Package Options">
+      <h2>Package Options</h2>
+
+      <p>See <code><a href='catmaid_login.html'>catmaid_login</a></code> for details of the 
+  options that can be set to specify default login values. It may make sense 
+  to set these in your <code>.Rprofile</code> if you regularly use a specific 
+  CATMAID server. Beware however that your R workspace will then include a 
+  plain text version of your passwords.</p>
+
+    </div>
+
+    <div class="Unit tests">
+      <h2>Unit tests</h2>
+
+      <p>Unit tests can be run as per the examples section below.
+  In order to do live tests you will need to set environment variables with 
+  your catmaid login credentials using the function
+  <code><a href='catmaid_connection_setenv.html'>catmaid_connection_setenv</a></code>.</p>
+
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p>Based in large part on code visible at 
+  <a href = 'https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py'>https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py</a>
+   See <a href = 'http://catmaid.org'>http://catmaid.org</a> for further details about CATMAID and 
+  <a href = 'https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py'>https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py</a>
+   for a list of URLs that the web API accepts.</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># ## test package</span>
+<span class="comment"># library(catmaid)</span>
+<span class="comment"># library(testthat)</span>
+<span class="comment"># test_package("catmaid")</span>
+<span class="comment"># </span>
+<span class="comment"># ## same but use appropriate login info</span>
+<span class="comment"># conn=catmaid_login(server="https://myserver.com", user="calvin", password='hobbes')</span>
+<span class="comment"># ## alternatively, login using an API token</span>
+<span class="comment"># # see http://catmaid.github.io/dev/api.html#api-token for how to get one</span>
+<span class="comment"># conn=catmaid_login(server="https://myserver.com", </span>
+<span class="comment">#                    token = "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")</span>
+<span class="comment"># catmaid_connection_setenv(conn)</span>
+<span class="comment"># test_package("catmaid")</span>
+<span class="comment">## ---------------------------------------------</span></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid</li><li>catmaid-package</li>
+    </ul>
+    <ul>
+      <li>package</li>
+    </ul> -->
+
+
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

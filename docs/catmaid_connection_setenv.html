@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid_connection_setenv. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Import/Export catmaid connection details to system variables (e.g. for tests)</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='catmaid_connection_setenv.html'>catmaid_connection_setenv</a></span><span class="keyword">(</span><span class="argument">conn</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='catmaid_connection_setenv.html'>catmaid_connection_getenv</a></span><span class="keyword">(</span><span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='catmaid_connection_setenv.html'>catmaid_connection_unsetenv</a></span><span class="keyword">(</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>conn</dt>
+      <dd>A <code>catmaid_connection</code> object. The default value of NULL 
+implies that the most recent cached open connection will be used.</dd>
+      <dt>...</dt>
+      <dd>additional arguments passed to <code>catmaid_login</code></dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+<code>catmaid_connection_setenv</code> returns TRUE or FALSE depending on 
+  whether variables were set successfully. <code>catmaid_connection_getenv</code> 
+  returns a connection object created based on environment variables.
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p><code>catmaid_connection_setenv</code> sets environment variables based on a 
+<code>catmaid_connection</code> object.</p>
+
+      <p><code>catmaid_connection_getenv</code> fetches appropriately named environment 
+variables and uses them to open a catmaid connection.</p>
+
+      <p><code>catmaid_connection_unsetenv</code> unsets the environment variables.</p>
+
+      <p>Fetch connection details from appropriate environment variables</p>
+
+      <p>Unset catmaid connection environment variables</p>
+
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p><code>catmaid_connection_setenv</code> will attempt to login if this has 
+  not already been done</p>
+
+    </div>
+      </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid_connection_getenv</li><li>catmaid_connection_setenv</li><li>catmaid_connection_unsetenv</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><code><a href='catmaid_login.html'>catmaid_login</a></code></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

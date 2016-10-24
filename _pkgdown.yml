@@ -1,0 +1,54 @@
+reference:
+- title: Package Help
+  desc: Provides an overview of key functions and classes
+  contents:
+  - catmaid-package
+- title: Catmaid Login
+  desc: Functions handling connections to a catmaid server
+  contents:
+  - catmaid_login
+  - catmaid_connection_setenv
+- title: CATMAID skeleton functions
+  desc: Fetching raw skeleton information
+  contents:
+  - catmaid_get_compact_skeleton
+  - catmaid_get_treenode_table
+  - catmaid_get_review_status
+- title: Names and Annotations
+  desc: Querying, fetching and setting neuron names and annotations
+  contents:
+  - catmaid_query_by_name
+  - catmaid_get_neuronnames
+  - catmaid_rename_neuron
+  - catmaid_skids
+  - catmaid_get_annotations_for_skeletons
+  - catmaid_get_annotationlist
+- title: Synaptic Connections
+  desc: Querying and fetching neuronal connectivity information
+  contents:
+  - catmaid_query_connected
+  - catmaid_get_connector_table
+  - catmaid_get_connectors_between
+  - catmaid_get_connectors
+- title: Interfacing with Nat
+  desc: Fetching and using catmaid skeletons for use with the nat package.
+  contents:
+  - read.neuron.catmaid
+  - plot3d.catmaidneuron
+  - connectors
+- title: CATMAID statistics and users
+  desc: Neuon and user lists and statistics
+  contents:
+  - catmaid_get_contributor_stats
+  - catmaid_get_user_list
+  - catmaid_user_history
+- title: CATMAID URLs
+  desc: Working with the URLs or json files used to save and exchange CATMAID state
+  contents:
+  - catmaid_parse_url
+- title: Low level functions
+  desc: Functions primarily intended for developer use
+  contents:
+  - catmaid_fetch
+  - catmaid_entities_from_models
+  - catmaid_version

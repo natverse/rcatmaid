@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid_query_by_name. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Get list of neurons/annotations querying by neuron/annotation name</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='catmaid_query_by_name.html'>catmaid_query_by_name</a></span><span class="keyword">(</span><span class="symbol">query</span><span class="keyword">,</span> <span class="argument">pid</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1</span><span class="keyword">,</span> <span class="argument">maxresults</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">500</span><span class="keyword">,</span> <span class="argument">type</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"neuron"</span><span class="keyword">,</span>
+  <span class="string">"annotation"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">raw</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='catmaid_query_by_name.html'>catmaid_query_by_annotation</a></span><span class="keyword">(</span><span class="symbol">query</span><span class="keyword">,</span> <span class="argument">pid</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">1</span><span class="keyword">,</span> <span class="argument">maxresults</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">500</span><span class="keyword">,</span>
+  <span class="argument">type</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span><span class="keyword">(</span><span class="string">"neuron"</span><span class="keyword">,</span> <span class="string">"annotation"</span><span class="keyword">)</span><span class="keyword">,</span> <span class="argument">raw</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="argument">conn</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>query</dt>
+      <dd>A query string (NB this is a regular expression)</dd>
+      <dt>pid</dt>
+      <dd>project id (default 1)</dd>
+      <dt>maxresults</dt>
+      <dd>The maximum number of results to return</dd>
+      <dt>type</dt>
+      <dd>Type of results to return. Defaults to <code>c(&quot;neuron&quot;, 
+&quot;annotation&quot;)</code>. Only relevant when <code>raw=FALSE</code>.</dd>
+      <dt>raw</dt>
+      <dd>Whether to return completely unprocessed data (when <code>TRUE</code>) 
+or to convert the nodes and connectors lists into processed data.frames 
+(when <code>FALSE</code>, the default)</dd>
+      <dt>...</dt>
+      <dd>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+function.</dd>
+      <dt>conn</dt>
+      <dd>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+For <code>catmaid_query_by_name</code> a data.frame containing the 
+  results with an attribute &quot;annotations&quot; containing the annotations as a 
+  separate data.frame. For both functions the main data.frame has the 
+  following columns <ul>
+<li> id</p>
+
+      <p></li>
+<li> name</p>
+
+      <p></li>
+<li> type (neuron or annotation)</p>
+
+      <p></li>
+<li> skid (the main identfier for the neuron skeleton, catmaid often calls
+  this skeleton_id)</p>
+
+      <p></li>
+</ul></p>
+
+      <p>For <code>catmaid_query_by_annotation</code> a data.frame containing the 
+  results.
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>These functions try to match a <code>query</code> against the 
+  <code>name</code> of a neuron or annotation (<code>catmaid_query_by_name</code>) 
+  <em>or</em> against an annotation (tag) that has been applied to a neuron or 
+  annotation (<code>catmaid_query_by_annotation</code>). Note that 1) objects can
+  be tagged with multiple annotations and 2) annotation tags are recursive so
+  one annotation can be tagged with a second annotation.</p>
+
+      <p>The most common use will be to get a data.frames of neurons when you should
+  use <code>type=&quot;neuron&quot;</code>. You can also return both neurons and annotations 
+  (the default) and just annotations. See <code>type</code> argument for details.</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># catmaid_query_by_name("ORN")</span>
+<span class="comment"># # using regex functionality</span>
+<span class="comment"># catmaid_query_by_name("ORN (left|right)")</span>
+<span class="comment"># # fancier regex</span>
+<span class="comment"># catmaid_query_by_name("^[0-9a-f &amp;]+ PN (left|right)")</span>
+<span class="comment">## ---------------------------------------------</span>
+<span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># # query matches 3 specific annotations</span>
+<span class="comment"># catmaid_query_by_annotation("ORN PNs")</span>
+<span class="comment"># </span>
+<span class="comment"># # what are those 3 annotations?</span>
+<span class="comment"># al=catmaid_get_annotationlist()</span>
+<span class="comment"># subset(al$annotations, grepl("ORN PNs", name))</span>
+<span class="comment"># </span>
+<span class="comment"># # Insist on specific annotation by using regex start/finish symbols</span>
+<span class="comment"># catmaid_query_by_annotation("^ORN PNs$")</span>
+<span class="comment">## ---------------------------------------------</span></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid_query_by_annotation</li><li>catmaid_query_by_name</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><code><a href='catmaid_get_annotationlist.html'>catmaid_get_annotationlist</a></code></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

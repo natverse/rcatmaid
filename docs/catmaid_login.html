@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid_login. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Connect/authenticate to a CATMAID server, returning a connection object</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='catmaid_login.html'>catmaid_login</a></span><span class="keyword">(</span><span class="argument">conn</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">,</span> <span class="argument">Cache</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">Force</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">)</span>
+
+<span class="functioncall"><a href='catmaid_login.html'>catmaid_connection</a></span><span class="keyword">(</span><span class="symbol">server</span><span class="keyword">,</span> <span class="argument">username</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">password</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span>
+  <span class="argument">authname</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">authpassword</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">token</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span>
+  <span class="argument">authtype</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="functioncall"><a href='http://www.rdocumentation.org/packages/base/topics/options'>getOption</a></span><span class="keyword">(</span><span class="string">"catmaid.authtype"</span><span class="keyword">,</span> <span class="argument">default</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="string">"basic"</span><span class="keyword">)</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>conn</dt>
+      <dd>An optional <code>catmaid_connection</code> connection object.</dd>
+      <dt>...</dt>
+      <dd>Additional arguments passed to catmaid_connection</dd>
+      <dt>Cache</dt>
+      <dd>Whether to cache open connections at login so that they can be 
+reused automatically.</dd>
+      <dt>Force</dt>
+      <dd>Whether to force a new login to the CATMAID server (default 
+<code>FALSE</code>)</dd>
+      <dt>server</dt>
+      <dd>url of CATMAID server</dd>
+      <dt>username, password</dt>
+      <dd>Your CATMAID username and password.</dd>
+      <dt>authname, authpassword</dt>
+      <dd>The http username/password that optionally 
+secures the CATMAID website. These are not the same as your CATMAID login
+details.</dd>
+      <dt>token</dt>
+      <dd>An API token (A modern alternative to providing your CATMAID 
+username and password). See <b>Token based authentication</b> for details.</dd>
+      <dt>authtype</dt>
+      <dd>The http authentication scheme, see 
+<code><a href='http://www.rdocumentation.org/packages/httr/topics/authenticate'>authenticate</a></code> for details.</dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+a <code>catmaid_connection</code> object that can be used to make 
+  authenticated http requests to a CATMAID server, specifically by making use
+  of the <code>$config</code> field.
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p><code>catmaid_login</code> allows you to login to a CATMAID server 
+  specified by a <code>catmaid_connection</code> object. If such an object is not 
+  specified, then the last succesful connection in this R session is reused 
+  if possible otherwise a new connection object is created using 
+  <code>options</code> of the form &quot;catmaid.*&quot; (see details).</p>
+
+      <p>The connection object returned by <code>catmaid_login</code> (or cached when 
+  <code>Cache=TRUE</code>, the default) can then be used for future requests to the
+  CATMAID server by get/query/fetch functions.</p>
+
+      <p><code>catmaid_connection</code> is a lower level function used by 
+  <code>catmaid_login</code> to create a connection object. End users should not 
+  need to call this directly, but it does document the arguments that can be 
+  used to specify a connection to a CATMAID server.</p>
+
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>After successful login, the <code>catmaid_connection</code> object will 
+  contain a <code>cookie</code> field that includes a sessionid that is required 
+  for subsequent GET/POST operations.  When <code>Cache=TRUE</code> (the default) 
+  the open connection object is cached and will be used when EITHER 
+  <code>catmaid_login</code> is called with enough information to indicate that the
+  same server is desired OR (when no information about the server is passed 
+  to <code>catmaid_login</code>) the last opened connection will be used.</p>
+
+      <p>Note the difference between <code>authname</code>/<code>authpassword</code> and 
+  <code>username</code>/<code>password</code>. The former are for generic web 
+  authentication, which is sometimes used to protect a privae catmaid site 
+  from being accessible to general web traffic. The latter are used to 
+  authenticate to the CATMAID web application itself - for example the 
+  <code>username</code> is the one that will be associated with any tracing carried
+  out by you in CATMAID.</p>
+
+    </div>
+
+    <div class="Token based authentication">
+      <h2>Token based authentication</h2>
+
+      <p>CATMAID now offers token based 
+  authentication as an alternative to specifying you CATMAID username and 
+  password. See <a href = 'http://catmaid.github.io/dev/api.html#api-token'>http://catmaid.github.io/dev/api.html#api-token</a> for how
+  to get an API token. You can then set the <code>catmaid.token</code> package 
+  option, but no longer need to set the <code>catmaid.username</code> and 
+  <code>catmaid.password</code> options.</p>
+
+      <p>Note that you must <b>NOT</b> reveal this token e.g. by checking it into a 
+  version controlled script as it gives complete access to your CATMAID 
+  account.</p>
+
+    </div>
+
+    <div class="Package options">
+      <h2>Package options</h2>
+
+      <p></p>
+
+      <p>You will very likely want to set some of the following package options in 
+  your .Rprofile file (see <code><a href='http://www.rdocumentation.org/packages/base/topics/Startup'>Startup</a></code> for details)</p>
+
+      <p><ul>
+<li><code>catmaid.server</code></p>
+
+      <p></li>
+<li><code>catmaid.username</code> Your catmaid username (deprecated in favour 
+  of token)</p>
+
+      <p></li>
+<li><code>catmaid.password</code> Your catmaid password (deprecated in favour 
+  of token)</p>
+
+      <p></li>
+<li><code>catmaid.token</code> Preferred to using catmaid.username/password</p>
+
+      <p></li>
+<li><code>catmaid.authname</code> Optional username for basic http website 
+  authorisation</p>
+
+      <p></li>
+<li><code>catmaid.authpassword</code> Optional password for basic http website
+  authorisation</p>
+
+      <p></li>
+</ul>
+ using code along these lines:</p>
+
+      <p># see http://catmaid.github.io/dev/api.html#api-token # for details of 
+  obtaining an API token 
+  <code>options(catmaid.server=&quot;https://mycatmaidserver.org/catmaidroot&quot;, 
+  catmaid.authname=&quot;Calvin&quot;,catmaid.authpassword=&quot;hobbes&quot;, catmaid.token = 
+  &quot;9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b&quot;)</code></p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># ## example explicitly specifying connection options</span>
+<span class="comment"># # using modern token based authentication</span>
+<span class="comment"># conn = catmaid_login(server="https://mycatmaidserver.org/catmaidroot",</span>
+<span class="comment">#   authname="Calvin",authpassword="hobbes", </span>
+<span class="comment">#   token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")</span>
+<span class="comment">#   </span>
+<span class="comment"># # ... or using the old fashioned approach specifiy username/password</span>
+<span class="comment"># conn = catmaid_login(server="https://mycatmaidserver.org/catmaidroot",</span>
+<span class="comment">#   authname="Calvin",authpassword="hobbes", </span>
+<span class="comment">#   username="calvin", password="hobbesagain")</span>
+<span class="comment"># </span>
+<span class="comment"># ## examples assuming that catmaid.* options have been set</span>
+<span class="comment"># conn = catmaid_login()</span>
+<span class="comment"># conn = catmaid_login(server='https://someotherserver.org/catmaidroot')</span>
+<span class="comment"># </span>
+<span class="comment"># ## now do stuff with the connection like</span>
+<span class="comment"># skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)</span>
+<span class="comment"># </span>
+<span class="comment"># ## or for those who want to work at the lowest level</span>
+<span class="comment"># skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",</span>
+<span class="comment">#   config=conn$config)</span>
+<span class="comment">## ---------------------------------------------</span></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid_connection</li><li>catmaid_login</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><code><a href='http://www.rdocumentation.org/packages/base/topics/options'>options</a></code>, <code><a href='http://www.rdocumentation.org/packages/base/topics/Startup'>Startup</a></code></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

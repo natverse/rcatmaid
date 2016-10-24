@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>catmaid_version. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Return the CATMAID version running on the server</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><span class="functioncall"><a href='catmaid_version.html'>catmaid_version</a></span><span class="keyword">(</span><span class="argument">conn</span>&nbsp;<span class="argument">=</span>&nbsp;NULL<span class="keyword">,</span> <span class="argument">cached</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">TRUE</span><span class="keyword">,</span> <span class="argument">numeric</span>&nbsp;<span class="argument">=</span>&nbsp;<span class="number">FALSE</span><span class="keyword">,</span> <span class="symbol">...</span><span class="keyword">)</span></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>conn</dt>
+      <dd>A <code>catmaid_connection</code> object. The default value of NULL 
+implies that the most recent cached open connection will be used.</dd>
+      <dt>cached</dt>
+      <dd>Whether to use the cached version number for this connection 
+(see details)</dd>
+      <dt>numeric</dt>
+      <dd>Whether to parse the version string into an R 
+<code>numeric_version</code> object that can be used for comparisons.</dd>
+      <dt>...</dt>
+      <dd>Additional arguments passed to <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code></dd>
+    </dl>
+    
+    <div class="Value">
+      <h2>Value</h2>
+
+      <p><dl>
+A character vector containing the version
+</dl></p>
+
+    </div>
+
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Return the CATMAID version running on the server</p>
+
+    </div>
+
+    <div class="Details">
+      <h2>Details</h2>
+
+      <p>By default the version number for the current 
+  <code><a href='catmaid_login.html'>catmaid_connection</a></code> is stored on the first request after a new
+  login and then the cached version number is reused. Setting 
+  <code>cached=FALSE</code> will always force a request to the server.</p>
+
+      <p>CATMAID versions are now prduced by <b>git describe</b> and look like 
+  YYYY.MM.DD-XX-gaaaaaaa where aaaaaaa is a short SHA1 hash and XX is an 
+  integer number of revisions since the last base version. Setting
+  <code>numeric=TRUE</code> trims of the SHA1 hash leaving a string that can be
+  interpreted as four part version number (see examples).</p>
+
+    </div>
+    
+    <h2 id="examples">Examples</h2>
+    <pre class="examples"><div class='input'><span class="comment">## Not run: ------------------------------------</span>
+<span class="comment"># # example of checking if server version is newer than required version</span>
+<span class="comment"># catmaid_version(numeric=TRUE)&gt;="2016.1.1-65"</span>
+<span class="comment">## ---------------------------------------------</span></div></pre>
+  </div>
+  <div class="span4 sidebar">
+    <!-- <ul>
+      <li>catmaid_version</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+
+    <h2>See also</h2>
+      <p><code><a href='http://www.rdocumentation.org/packages/base/topics/numeric_version'>numeric_version</a></code></p>
+
+    
+
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

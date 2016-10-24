@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Home. catmaid 0.6</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="index.html">catmaid 0.6</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <p><a href="https://travis-ci.org/jefferis/rcatmaid"><img src="https://travis-ci.org/jefferis/rcatmaid.svg?branch=master" alt="Travis-CI Build Status"/></a></p>
+
+<h1>catmaid</h1>
+
+<p>This package provides access to the <a href="http://catmaid.org/">CATMAID</a> API for 
+<a href="http://r-project.org/">R</a> users.  At present it provides low level functions 
+for appropriately authenticated GET/POST requests, optionally parsing JSON responses.
+There are also intermediate level functions to retrieve skeleton (i.e. neuron) 
+information and connectivity information for one or more neurons. Finally, there is
+a high level function to convert neurons to the representation of the
+<a href="https://github.com/jefferis/nat">nat</a> (NeuroAnatomy Toolbox) R package, enabling
+a wide variety of analyses.</p>
+
+<h2>Quick start</h2>
+
+<pre><code class="r"># install
+if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+# nb repo is rcatmaid, but R package name is catmaid
+devtools::install_github(&quot;jefferis/rcatmaid&quot;)
+
+# use 
+library(catmaid)
+
+# general help starting point
+?catmaid
+
+# examples
+example(catmaid_login)
+example(catmaid_fetch)
+example(catmaid_get_compact_skeleton)
+example(catmaid_get_neuronnames)
+
+# use with nat
+library(nat)
+nl=read.neurons.catmaid(c(10418394,4453485), pid=1)
+open3d()
+# nb this also plots the connectors (i.e. synapses) 
+# red = presynapses, cyan = postsynapses
+plot3d(nl, WithConnectors=TRUE)
+</code></pre>
+
+<h2>Fancier example</h2>
+
+<p>This produces a 3D plot of the first and second order olfactory neurons
+coloured according to the peripheral odorant receptor.</p>
+
+<pre><code class="r"># fetch olfactory receptor neurons
+orns=read.neurons.catmaid(&quot;name:ORN (left|right)&quot;, .progress=&#39;text&#39;)
+# calculate some useful metadata
+orns[,&#39;Or&#39;]= factor(sub(&quot; ORN.*&quot;, &quot;&quot;, orns[,&#39;name&#39;]))
+
+# repeat for their PN partners, note use of search by annotation
+pns=read.neurons.catmaid(&quot;annotation:ORN PNs$&quot;, .progress=&#39;text&#39;)
+pns[,&#39;Or&#39;]= factor(sub(&quot; PN.*&quot;, &quot;&quot;, pns[,&#39;name&#39;]))
+# plot, colouring by odorant receptor
+plot3d(orns, col=Or)
+# note that we plot somata with a radius of 1500 nm
+plot3d(pns, col=Or, soma=1500)
+</code></pre>
+
+<h2>Even fancier example</h2>
+
+<p>This follows on from the previous example. It identifies downstream partner
+neurons of the ORNs and plots them in 3d coloured by their synaptic strength.
+It then carries out morphological clustering with <a href="http://bit.ly/nblast">NBLAST</a>
+and plots the partner neurons according to those clusters.</p>
+
+<pre><code class="r"># find all the ORN downstream partners with at least 2 synapses
+orn_partners=catmaid_query_connected(orns[,&#39;skid&#39;], minimum_synapses = 2)
+# keep the ones not already in our set of PNs
+# there are lots!
+non_pn_downstream_ids=setdiff(unique(orn_partners$outgoing$partner), pns[,&#39;skid&#39;])
+# download and plot those neurons
+non_pn_downstream=read.neurons.catmaid(non_pn_downstream_ids, .progress=&#39;text&#39;)
+plot3d(non_pn_downstream, col=&#39;grey&#39;, soma=1000)
+
+# remove the last set of plotted neurons
+npop3d()
+
+## Plot, but colouring partners by number of synapses they receive from ORNs
+# first collect those synapse numbers
+library(dplyr)
+totsyndf=orn_partners$outgoing %&gt;% 
+  group_by(partner) %&gt;% 
+  summarise(totsyn=sum(syn.count)) %&gt;% 
+  arrange(desc(totsyn))
+hist(totsyndf$totsyn)
+# now do the plot
+clear3d()
+# matlab style palette
+jet.colors &lt;-
+colorRampPalette(c(&quot;#00007F&quot;, &quot;blue&quot;, &quot;#007FFF&quot;, &quot;cyan&quot;,
+&quot;#7FFF7F&quot;, &quot;yellow&quot;, &quot;#FF7F00&quot;, &quot;red&quot;, &quot;#7F0000&quot;))
+# plot colouring by synapse number on a log scale 
+# note that it is necessary to convert totsyndf$partner to a character
+# vector to ensure that they are not treated as integer indices
+plot3d(as.character(totsyndf$partner),  db=c(pns, non_pn_downstream), 
+  col=jet.colors(10)[cut(totsyndf$totsyn, breaks = 2^(0:10))], soma=1000)
+
+# Now let&#39;s cluster these other connected neurons
+library(nat.nblast)
+# convert to nblast-compatible format
+# nb also convert from nm to um, resample to 1µm spacing and use k=5
+# nearest neighbours of each point to define tangent vector
+non_pn_downstream.dps=dotprops(non_pn_downstream/1e3, k=5, resample=1, .progress=&#39;text&#39;)
+# now compute all x all NBLAST scores and cluster
+non_pn_downstream.aba=nblast_allbyall(non_pn_downstream.dps, .progress=&#39;text&#39;)
+non_pn_downstream.hc=nhclust(scoremat = non_pn_downstream.aba)
+# plot result of clusterting as dendrogram, labelled by neuron name (rather than id)
+plot(non_pn_downstream.hc, label=non_pn_downstream[,&#39;name&#39;])
+# open new window
+nopen3d()
+# plot in 3d cutting into 2 clusters essentially left right
+plot3d(non_pn_downstream.hc,db=non_pn_downstream, k=2, soma=1000)
+clear3d() 
+# 4 clusters - note local and projection neurons, gustatory neurons
+plot3d(non_pn_downstream.hc,db=non_pn_downstream, k=4, soma=1000)
+</code></pre>
+
+<h2>Authentication</h2>
+
+<p>You will obviously need to have the login details of a valid CATMAID instance to try 
+this out. </p>
+
+<h3>Setting package authentication options in your .Rprofile</h3>
+
+<p>It is recommended that you set these details by including code like 
+this in in your .Rprofile file:</p>
+
+<pre><code class="r">options(catmaid.server=&quot;https://mycatmaidserver.org/catmaidroot&quot;,
+  catmaid.authname=&quot;Calvin&quot;,catmaid.authpassword=&quot;hobbes&quot;,
+  catmaid.username=&quot;calvin&quot;, catmaid.password=&quot;hobbesagain&quot;)
+</code></pre>
+
+<p>In this way authentication will happen transparently as required by all functions
+that interact with the specified CATMAID server. Note that the CATMAID servers 
+that I am aware of require two layers of password
+protection, an outer HTTP auth type user/password combination as well as an inner
+CATMAID-specific password.</p>
+
+<h3>Token based authentication</h3>
+
+<p>As of December 2015 CATMAID is moving to token based authentication. For this
+you will need to get an API token when you are logged into the CATMAID web 
+client in your browser. See <a href="http://catmaid.github.io/dev/api.html#api-token">http://catmaid.github.io/dev/api.html#api-token</a> for
+details. </p>
+
+<p>You would then set your <code>.Rprofile</code> like this:</p>
+
+<pre><code class="r">options(catmaid.server=&quot;https://mycatmaidserver.org/catmaidroot&quot;,
+  catmaid.authname=&quot;Calvin&quot;,catmaid.authpassword=&quot;hobbes&quot;,
+  catmaid.token=&quot;9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b&quot;)
+</code></pre>
+
+<p>Note that you will probably still need to specify you http username/password combination
+even if you are using an API token to authenticate to the CATMAID server.</p>
+
+<h3>Cached authentication</h3>
+
+<p>Whether you use options in your <code>.Rprofile</code> as described above or you login 
+explicitly at the start of a session by doing something like:</p>
+
+<pre><code class="r">catmaid_login(server=&quot;https://mycatmaidserver.org/catmaidroot&quot;,
+              authname=&quot;Calvin&quot;,authpassword=&quot;hobbes&quot;,
+              token=&quot;9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b&quot;)
+</code></pre>
+
+<p>the access credentials will be cached for the rest of
+the session. You can still authenticate explicitly to a different CATMAID server
+(using <code>catmaid_login</code>) if you wish.</p>
+
+<h3>Multiple servers</h3>
+
+<p>If you need to talk to more than one catmaid server in a single session then you 
+must use <code>catmaid_login</code> to login into each server</p>
+
+<pre><code class="r"># log in to default server specified in .Rprofile
+conn1=catmaid_login()
+# log into another server, presumably with different credentials
+conn2=catmaid_login(server=&#39;https://my.otherserver.com&#39;, ...)
+</code></pre>
+
+<p>and then use the returned connection objects with any calls you make e.g.</p>
+
+<pre><code class="r"># fetch neuron from server 1
+n1=read.neuron(123, conn=conn1)
+# fetch neuron from server 2
+n2=read.neuron(123, conn=conn2)
+</code></pre>
+
+<p>nb you must use connection objects to talk to both servers because if no 
+connection object is specified, the last connection will be re-used.</p>
+
+<h2>Installation</h2>
+
+<p>Currently there isn&#39;t a released version on <a href="http://cran.r-project.org/">CRAN</a>.</p>
+
+<h3>Bleeding Edge</h3>
+
+<p>You can use the <strong>devtools</strong> package to install the development version:</p>
+
+<pre><code class="r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;jefferis/rcatmaid&quot;)
+</code></pre>
+
+<p>Note: Windows users need <a href="http://www.murdoch-sutherland.com/Rtools/">Rtools</a> and
+<a href="http://CRAN.R-project.org/package=devtools">devtools</a> to install this way.</p>
+
+<h2>Acknowledgements</h2>
+
+<p>Based on python code presently visible at:</p>
+
+<ul>
+<li><a href="https://github.com/catmaid/CATMAID/blob/master/scripts/remote/access.py">https://github.com/catmaid/CATMAID/blob/master/scripts/remote/access.py</a></li>
+<li><a href="https://github.com/catmaid/CATMAID/blob/master/django/applications/catmaid/urls.py">https://github.com/catmaid/CATMAID/blob/master/django/applications/catmaid/urls.py</a></li>
+<li><a href="https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py">https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py</a></li>
+</ul>
+
+<p>by Albert Cardona and Philipp Schlegel. Released under the GPL-3 license.</p>
+
+  </div>
+
+  <div class="span3 offset1 sidebar">
+        <h2>Authors</h2>
+    <ul>
+      <li><a href='mailto:jefferis@gmail.com'>Gregory Jefferis</a> [aut, cre]</li>
+    </ul>
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="https://getbootstrap.com/2.0.4/">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
