@@ -282,9 +282,13 @@ catmaid_get_connector_table<-function(skids,
 #'   
 #'   \item last_modified
 #'   
-#'   \item reviewer
+#'   \item reviewer (character vector with comma separated reviewer ids)
 #'   
 #'   }
+#'   
+#'   In addition two data.frames will be included as attributes: \code{reviews},
+#'   \code{tags}.
+#'   
 #' @export
 #' @examples 
 #' \dontrun{
@@ -294,8 +298,19 @@ catmaid_get_connector_table<-function(skids,
 #' subset(tnt, type=="L")
 #' # table of node types
 #' table(tnt$type)
+#' 
+#' # look at tags data
+#' str(attr(tnt, 'tags'))
+#' # merge with main node table to get xyz position
+#' tags=merge(attr(tnt, 'tags'), tnt, by='id')
+#' # label up a 3d neuron plot
+#' n=read.neuron.catmaid(10418394)
+#' plot3d(n, WithNodes=F)
+#' text3d(xyzmatrix(tags), texts = tags$tag, cex=.7)
 #' }
-#' @seealso \code{\link{catmaid_get_compact_skeleton}}. \code{\link{read.neuron.catmaid}}
+#' @seealso \code{\link{catmaid_get_compact_skeleton}}, 
+#'   \code{\link{read.neuron.catmaid}} and \code{\link{catmaid_get_user_list}} 
+#'   to translate user ids into names.
 catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # relation_type 0 => incoming
   tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/",skid,"/content"),
@@ -319,11 +334,14 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   
   if(length(tnl$reviews)) {
     colnames(tnl$reviews)=c("id", "reviewer_id")
-    b=by(tnl$reviews$reviewer_id,tnl$reviews$id,paste,collapse=",")
-    tnl$reviews=data.frame(id=as.integer(names(b)), 
+    # collapse reviewer ids into single item so that we can add one 
+    # well-behaved column to the data.frame
+    b=by(tnl$reviews$reviewer_id, tnl$reviews$id, paste, collapse=",")
+    merged_reviews=data.frame(id=as.integer(names(b)), 
                            reviewer_id=unname(sapply(b,c)), 
                            stringsAsFactors = F)
   } else {
+    merged_reviews=data.frame(id=integer(),reviewer_id=character())
     tnl$reviews=data.frame(id=integer(),reviewer_id=integer())
   }
   
@@ -331,8 +349,9 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   tnl$tags=as.data.frame(tnl$tags, stringsAsFactors = FALSE)
   tnl$tags$id=as.integer(tnl$tags$id)
   
-  tndf=merge(tnl$treenodes, tnl$reviews, by='id', all.x=TRUE)
+  tndf=merge(tnl$treenodes, merged_reviews, by='id', all.x=TRUE)
   attr(tndf, 'tags')=tnl$tags
+  attr(tndf, 'reviews')=tnl$reviews
   tndf
 }
 

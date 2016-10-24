@@ -45,9 +45,12 @@ A data.frame with columns \itemize{
   
   \item last_modified
   
-  \item reviewer
+  \item reviewer (character vector with comma separated reviewer ids)
   
   }
+  
+  In addition two data.frames will be included as attributes: \code{reviews},
+  \code{tags}.
 }
 \description{
 Return tree node table for a given neuron
@@ -60,9 +63,20 @@ tnt=catmaid_get_treenode_table(10418394)
 subset(tnt, type=="L")
 # table of node types
 table(tnt$type)
+
+# look at tags data
+str(attr(tnt, 'tags'))
+# merge with main node table to get xyz position
+tags=merge(attr(tnt, 'tags'), tnt, by='id')
+# label up a 3d neuron plot
+n=read.neuron.catmaid(10418394)
+plot3d(n, WithNodes=F)
+text3d(xyzmatrix(tags), texts = tags$tag, cex=.7)
 }
 }
 \seealso{
-\code{\link{catmaid_get_compact_skeleton}}. \code{\link{read.neuron.catmaid}}
+\code{\link{catmaid_get_compact_skeleton}}, 
+  \code{\link{read.neuron.catmaid}} and \code{\link{catmaid_get_user_list}} 
+  to translate user ids into names.
 }
 
