@@ -5,12 +5,16 @@
 \title{Return connector table for a given neuron}
 \usage{
 catmaid_get_connector_table(skids, direction = c("both", "incoming",
-  "outgoing"), pid = 1, conn = NULL, raw = FALSE, ...)
+  "outgoing"), partner.skids = TRUE, pid = 1, conn = NULL, raw = FALSE,
+  ...)
 }
 \arguments{
 \item{skids}{Numeric skeleton ids}
 
 \item{direction}{whether to find incoming or outgoing connections}
+
+\item{partner.skids}{Whether to include information about the skid of each
+partner neuron (NB there may be multiple partners per connector)}
 
 \item{pid}{Project id (default 1)}
 
@@ -26,10 +30,10 @@ or to convert the nodes and connectors lists into processed data.frames
 \item{...}{Additional arguments passed to the catmaid_fetch function}
 }
 \value{
-As of CATMAID v2016.10.18 this returns a data.frame with columns
+As of CATMAID v2016.10.18 this returns a data.frame with columns 
   \itemize{
   
-  \item partner_skid
+  \item skid
   
   \item connector_id
   
@@ -46,6 +50,8 @@ As of CATMAID v2016.10.18 this returns a data.frame with columns
   \item partner_treenode_id
   
   \item last_modified
+  
+  \item partner_skid
   
   }
   

@@ -107,12 +107,14 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' 
 #' @param skids Numeric skeleton ids
 #' @param direction whether to find incoming or outgoing connections
+#' @param partner.skids Whether to include information about the skid of each
+#'   partner neuron (NB there may be multiple partners per connector)
 #' @inheritParams read.neuron.catmaid
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns
+#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns 
 #'   \itemize{
 #'   
-#'   \item partner_skid
+#'   \item skid
 #'   
 #'   \item connector_id
 #'   
@@ -129,6 +131,8 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'   \item partner_treenode_id
 #'   
 #'   \item last_modified
+#'   
+#'   \item partner_skid
 #'   
 #'   }
 #'   
@@ -194,6 +198,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' @family connectors
 catmaid_get_connector_table<-function(skids, 
                                       direction=c("both", "incoming", "outgoing"),
+                                      partner.skids=TRUE,
                                       pid=1, conn=NULL, raw=FALSE, ...) {
   direction=match.arg(direction)
   skids=catmaid_skids(skids, conn = conn, pid=pid)
@@ -206,7 +211,7 @@ catmaid_get_connector_table<-function(skids,
     df$direction=factor(df$direction)
     return(df)
   }
-  if(catmaid_version(numeric = TRUE)>="2016.10.18"){
+  if(catmaid_version(numeric = TRUE)>="2016.09.01-77"){
     body=NULL
     paramsv=sprintf("skeleton_ids[%s]=%d",seq_len(length(skids)), skids)
     paramsv=c(paramsv, paste0("relation_type=", ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")))
@@ -226,8 +231,8 @@ catmaid_get_connector_table<-function(skids,
   catmaid_error_check(ctl)
   if(raw) return(ctl)
   # else process the connector information
-  dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.10.18") {
-    c("partner_skid", "connector_id", "x", "y", "z", "confidence", 
+  dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.09.01-77") {
+    c("skid", "connector_id", "x", "y", "z", "confidence", 
       "user_id", "partner_treenode_id", "last_modified")
   } else {
     c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
@@ -239,6 +244,13 @@ catmaid_get_connector_table<-function(skids,
     df$username=factor(df$username)
   if(is.character(df$partner_skid))
     df$partner_skid=as.integer(df$partner_skid)
+  if(partner.skids && !"partner_skid"%in%names(df)){
+    # find the skids for the partners
+    cdf=catmaid_get_connectors(df$connector_id, pid = pid, conn=conn, ...)
+    cdf2=cdf[, 1, drop=FALSE]
+    cdf2$partner_skid <- if(direction=="outgoing") cdf$post else cdf$pre
+    df=merge(df, cdf2, by='connector_id', all.x=TRUE)
+  }
   df
 }
 
@@ -270,9 +282,13 @@ catmaid_get_connector_table<-function(skids,
 #'   
 #'   \item last_modified
 #'   
-#'   \item reviewer
+#'   \item reviewer (character vector with comma separated reviewer ids)
 #'   
 #'   }
+#'   
+#'   In addition two data.frames will be included as attributes: \code{reviews},
+#'   \code{tags}.
+#'   
 #' @export
 #' @examples 
 #' \dontrun{
@@ -282,8 +298,19 @@ catmaid_get_connector_table<-function(skids,
 #' subset(tnt, type=="L")
 #' # table of node types
 #' table(tnt$type)
+#' 
+#' # look at tags data
+#' str(attr(tnt, 'tags'))
+#' # merge with main node table to get xyz position
+#' tags=merge(attr(tnt, 'tags'), tnt, by='id')
+#' # label up a 3d neuron plot
+#' n=read.neuron.catmaid(10418394)
+#' plot3d(n, WithNodes=F)
+#' text3d(xyzmatrix(tags), texts = tags$tag, cex=.7)
 #' }
-#' @seealso \code{\link{catmaid_get_compact_skeleton}}. \code{\link{read.neuron.catmaid}}
+#' @seealso \code{\link{catmaid_get_compact_skeleton}}, 
+#'   \code{\link{read.neuron.catmaid}} and \code{\link{catmaid_get_user_list}} 
+#'   to translate user ids into names.
 catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # relation_type 0 => incoming
   tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/",skid,"/content"),
@@ -295,6 +322,8 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # treenodes, reviews, tags
   if(length(tnl)!=3)
     stop("I don't understand the raw treenode structure returned by catmaid")
+  if(!length(tnl[[1]]))
+    stop("There are no tree nodes for this skeleton id")
   names(tnl)=c("treenodes", "reviews", "tags")
   tnl=lapply(tnl, as.data.frame, stringsAsFactors=FALSE)
   
@@ -303,14 +332,26 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   idcols=grepl("id", colnames(tnl$treenodes), fixed = TRUE)
   tnl$treenodes[idcols]=lapply(tnl$treenodes[idcols], as.integer)
   
-  colnames(tnl$reviews)=c("id", "reviewer_id")
+  if(length(tnl$reviews)) {
+    colnames(tnl$reviews)=c("id", "reviewer_id")
+    # collapse reviewer ids into single item so that we can add one 
+    # well-behaved column to the data.frame
+    b=by(tnl$reviews$reviewer_id, tnl$reviews$id, paste, collapse=",")
+    merged_reviews=data.frame(id=as.integer(names(b)), 
+                           reviewer_id=unname(sapply(b,c)), 
+                           stringsAsFactors = F)
+  } else {
+    merged_reviews=data.frame(id=integer(),reviewer_id=character())
+    tnl$reviews=data.frame(id=integer(),reviewer_id=integer())
+  }
   
   colnames(tnl$tags)=c("id", "tag")
   tnl$tags=as.data.frame(tnl$tags, stringsAsFactors = FALSE)
   tnl$tags$id=as.integer(tnl$tags$id)
   
-  tndf=merge(tnl$treenodes, tnl$reviews, by='id')
+  tndf=merge(tnl$treenodes, merged_reviews, by='id', all.x=TRUE)
   attr(tndf, 'tags')=tnl$tags
+  attr(tndf, 'reviews')=tnl$reviews
   tndf
 }
 
