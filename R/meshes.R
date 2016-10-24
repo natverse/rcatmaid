@@ -17,6 +17,15 @@ as.catmaidmesh.hxsurf <- function(x, ...) {
 }
 
 #' @export
+#' @rdname as.catmaidmesh
+as.catmaidmesh.mesh3d <- function(x, ...) {
+  mesh=list(t(x$vb[1:3, ]),
+            t(x$it)-1L)
+  as.catmaidmesh(mesh, ...)
+}
+
+
+#' @export
 #' @param title The title of the object as it will appear in the catmaid volume manager
 #' @param comment An informative comment - e.g. how the mesh was generated.
 #' @rdname as.catmaidmesh
