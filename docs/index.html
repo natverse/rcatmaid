@@ -57,7 +57,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/jefferis/rcatmaid">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -71,7 +76,7 @@
 <p><a href="https://travis-ci.org/jefferis/rcatmaid"><img src="https://travis-ci.org/jefferis/rcatmaid.svg?branch=master" alt="Travis-CI Build Status"></a></p>
 <h1 id="catmaid">catmaid</h1>
 <p>This package provides access to the <a href="http://catmaid.org/">CATMAID</a> API for <a href="http://r-project.org/">R</a> users. At present it provides low level functions for appropriately authenticated GET/POST requests, optionally parsing JSON responses. There are also intermediate level functions that retrieve skeleton (i.e.&nbsp;neuron) information, connectivity information for one or more neurons as well as a number of other API endpoints. Finally, there is a high level function to convert neurons to the representation of the <a href="https://github.com/jefferis/nat">nat</a> (NeuroAnatomy Toolbox) R package, enabling a wide variety of analyses.</p>
-<p>It is strongly recommended to read through the instructions below, the <a href="http://jefferis.github.io/rcatmaid/catmaid-package.html">package overview documentation</a> and then skim the <a href="http://jefferis.github.io/rcatmaid/reference.html">reference documentation index</a> , which groups the available functions into useful categories.</p>
+<p>It is strongly recommended to read through the instructions below, the <a href="http://jefferis.github.io/rcatmaid/reference/catmaid-package.html">package overview documentation</a> and then skim the <a href="http://jefferis.github.io/rcatmaid/reference/">reference documentation index</a> , which groups the available functions into useful categories.</p>
 <h2 id="quick-start">Quick start</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install</span>
 if (!<span class="kw">require</span>(<span class="st">"devtools"</span>)) <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
@@ -216,6 +221,13 @@ devtools::<span class="kw">install_github</span>(<span class="st">"jefferis/rcat
 
   <div class="col-md-3 hidden-xs">
     <div id="sidebar">
+      <h2>License</h2>
+<p><a href='https://www.r-project.org/Licenses/GPL-3'>GPL-3</a></p>
+<h2>Links</h2><ul class='list-unstyled'>
+<li><a href='https://github.com/jefferis/rcatmaid'>Developed on GitHub</a></li>
+<li><a href='https://github.com/jefferis/rcatmaid/issues'>Report a bug</a></li>
+</ul>
+
     </div>
   </div>
 </div>

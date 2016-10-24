@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Return the raw data for a CATMAID neuronal skeleton — catmaid_get_compact_skeleton • catmaid</title>
+<title>Convert a mesh to CATMAID format — as.catmaidmesh • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -71,64 +71,68 @@
       </header>
 
       <div class="page-header">
-  <h1>Return the raw data for a CATMAID neuronal skeleton</h1>
+  <h1>Convert a mesh to CATMAID format</h1>
 </div>
 
 <div class="row">
   <div class="col-md-9">
     
-    <p>Return the raw data for a CATMAID neuronal skeleton</p>
+    <p>Convert a mesh to CATMAID format</p>
     
 
-    <pre><span class='fu'>catmaid_get_compact_skeleton</span>(<span class='no'>skid</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>connectors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for hxsurf</span>
+<span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for mesh3d</span>
+<span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
-      <dt>skid</dt>
-      <dd>single skeleton id</dd>
-      <dt>pid</dt>
-      <dd>project id (default 1)</dd>
-      <dt>conn</dt>
-      <dd>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</dd>
-      <dt>connectors</dt>
-      <dd>Whether to fetch connector information</dd>
-      <dt>tags</dt>
-      <dd>Whether to fetch tag information</dd>
-      <dt>raw</dt>
-      <dd>Whether to return completely unprocessed data (when <code>TRUE</code>) 
-or to convert the nodes and connectors lists into processed data.frames 
-(when <code>FALSE</code>, the default)</dd>
+      <dt>x</dt>
+      <dd>A mesh object such as <code><a href='http://www.rdocumentation.org/packages/read.hxsurf/topics/nat'>hxsurf</a></code> or 
+<code><a href='http://www.rdocumentation.org/packages/mesh3d/topics/rgl'>mesh3d</a></code> object <em>or</em> a list with raw vertices (Nx3) 
+and indices (Nx3).</dd>
       <dt>...</dt>
-      <dd>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
-function.</dd>
+      <dd>Additional fields for the CATMAID mesh object</dd>
+      <dt>title</dt>
+      <dd>The title of the object as it will appear in the catmaid volume manager</dd>
+      <dt>comment</dt>
+      <dd>An informative comment - e.g. how the mesh was generated.</dd>
     </dl>
     
     <div class="Details">
       <h2>Details</h2>
 
-      <p>Note that by default this fetches both skeleton and connector 
-  (synapse) information.</p>
+      <p>The CATMAID mesh format is documented in the reference below and 
+  typically consists of a json encoded object with fields <ul>
+<li> title</p>
+      <p></li>
+<li> mesh The mesh itself (a list of length 2)</p>
+      <p></li>
+<li> comments (optional)</p>
+      <p></li>
+</ul></p>
+      <p>In R we hold this list in a <code>list</code> object with class 
+  <code>catmaidmesh</code>. This can then be posted to the volume manager API.</p>
+    </div>
+
+    <div class="References">
+      <h2>References</h2>
+
+      <p><a href = 'https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst'>https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst</a></p>
     </div>
 
     <div class="See also">
       <h2>See also</h2>
 
-      <p><code><a href='read.neuron.catmaid.html'>read.neuron.catmaid</a></code> to read as neuroanatomy toolbox
-  neuron that can be plotted directly. <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code>.</p>
+      <p><code><a href='catmaid_volumes_add.html'>catmaid_volumes_add</a></code></p>
     </div>
-    
-    <h2 id="examples">Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
-<span class='co'># ## ensure that you have done something like</span>
-<span class='co'># # conn=catmaid_login()</span>
-<span class='co'># # at least once this session to connect to the server</span>
-<span class='co'># skel=catmaid_get_compact_skeleton(10418394)</span>
-<span class='co'># # no connector (i.e. synapse) information</span>
-<span class='co'># skel=catmaid_get_compact_skeleton(10418394, connectors = FALSE)</span>
-<span class='co'># </span>
-<span class='co'>## ---------------------------------------------</span></div></pre>
-  </div>
+      </div>
   <div class="col-md-3">
   </div>
 </div>
