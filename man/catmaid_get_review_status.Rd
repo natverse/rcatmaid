@@ -17,7 +17,8 @@ a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 object will be generated using the values of the \bold{catmaid.*} package 
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the catmaid_fetch function}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 }
 \value{
 a data.frame consisting of total number of nodes and number of

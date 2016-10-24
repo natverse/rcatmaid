@@ -29,7 +29,8 @@ or to convert the nodes and connectors lists into processed data.frames
 object will be generated using the values of the \bold{catmaid.*} package 
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the catmaid_fetch function}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 }
 \value{
 A list containing two data.frames (incoming, outgoing), each 

@@ -18,8 +18,15 @@
 #'   \code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
 #'   object will be generated using the values of the \bold{catmaid.*} package 
 #'   options as described in the help for \code{\link{catmaid_login}}.
-#' @param ... Additional arguments passed to the catmaid_fetch function
-#' @seealso \code{\link{catmaid_fetch}}
+#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
+#'   function
+#' @return a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object 
+#'   containing one or more neurons. These neurons will have an additional class
+#'   \code{catmaidneuron} which provides for some extra functionality in certain
+#'   methods.
+#' @seealso \code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}}, 
+#'   \code{\link[nat]{connectors}} to extract connector information from a 
+#'   \code{catmaid.neuron}
 #' @export
 read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   res=catmaid_get_compact_skeleton(pid=pid, skid=skid, conn=conn, ...)

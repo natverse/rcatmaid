@@ -95,22 +95,26 @@ Note the difference between \code{authname}/\code{authpassword} and
   
   \itemize{
   
-  \item{catmaid.server}
+  \item{\code{catmaid.server}}
   
-  \item{catmaid.username} Your catmaid username (deprecated in favour of token)
+  \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
+  of token)
   
-  \item{catmaid.password} Your catmaid password (deprecated in favour of token)
+  \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
+  of token)
   
-  \item{catmaid.token} Preferred to using catmaid.username/password
+  \item{\code{catmaid.token}} Preferred to using catmaid.username/password
   
-  \item{catmaid.authname} Optional username for basic http website authorisation
+  \item{\code{catmaid.authname}} Optional username for basic http website 
+  authorisation
   
-  \item{catmaid.authpassword} Optional password for basic http website authorisation
+  \item{\code{catmaid.authpassword}} Optional password for basic http website
+  authorisation
   
   } using code along these lines:
   
-  # see http://catmaid.github.io/dev/api.html#api-token 
-  # for details of obtaining an API token
+  # see http://catmaid.github.io/dev/api.html#api-token # for details of 
+  obtaining an API token 
   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
   catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token = 
   "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")}

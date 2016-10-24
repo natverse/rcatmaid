@@ -20,7 +20,8 @@ read.neurons.catmaid(skids, pid = 1L, conn = NULL, OmitFailures = NA,
 object will be generated using the values of the \bold{catmaid.*} package 
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the catmaid_fetch function}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 
 \item{skids}{One or more numeric skeleton ids or a character vector defining
 a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
@@ -31,6 +32,12 @@ an error message the moment there is an eror. For other values, see
 details.}
 
 \item{df}{Optional data frame containing information about each neuron}
+}
+\value{
+a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object 
+  containing one or more neurons. These neurons will have an additional class
+  \code{catmaidneuron} which provides for some extra functionality in certain
+  methods.
 }
 \description{
 \code{read.neuron.catmaid} reads a single neuron, while 
@@ -110,7 +117,9 @@ plot3d(pns, col=Or)
 }
 }
 \seealso{
-\code{\link{catmaid_fetch}}
+\code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}}, 
+  \code{\link[nat]{connectors}} to extract connector information from a 
+  \code{catmaid.neuron}
 
 \code{\link{catmaid_skids}}
 }

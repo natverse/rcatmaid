@@ -14,7 +14,8 @@ catmaid_get_user_list(pid = 1, conn = NULL, ...)
 object will be generated using the values of the \bold{catmaid.*} package 
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the catmaid_fetch function}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 }
 \description{
 Fetch list of catmaid users for current/specified connection/project

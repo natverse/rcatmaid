@@ -18,7 +18,8 @@ catmaid_user_history(from, to = Sys.Date(), pid = 1L, conn = NULL, ...)
 object will be generated using the values of the \bold{catmaid.*} package 
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the catmaid_fetch function}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 }
 \value{
 A data.frame
