@@ -9,7 +9,7 @@ Description: This package provide access to the API exposed by the CATMAID (C
     web tool. This includes a bridge to the neuroanatomy toolbox (R package
     nat), thereby allowing analysis and visualisation of neuronal skeletons.
 License: GPL-3
-URL: http://catmaid.org/ https://github.com/jefferis/rcatmaid
+URL: https://github.com/jefferis/rcatmaid
 BugReports: https://github.com/jefferis/rcatmaid/issues
 Depends:
     httr,
