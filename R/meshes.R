@@ -58,7 +58,7 @@ as.catmaidmesh.catmaidmesh <- function(x, ...){
   x
 }
 
-#' Add a 3D mesh surface to catmaid volume mananger
+#' Add a 3D mesh surface to catmaid volume manager
 #' 
 #' @param x A mesh object such as hxsurf or a list with raw vertices and indices
 #'   that will be passed to \code{\link{as.catmaidmesh}}
@@ -74,7 +74,7 @@ as.catmaidmesh.catmaidmesh <- function(x, ...){
 #' \dontrun{
 #' library(elmr)
 #' FAFBNP.surf=xform_brain(JFRC2NP.surf, sample=JFRC2, ref=FAFB12)
-#' for(r in FAFBNP.surf$RegionList[-1]){
+#' for(r in FAFBNP.surf$RegionList){
 #'   comment="Transformed from JFRC2 space onto FAFB12"
 #'   name=paste("V12", sep=".", r)
 #'   catmaid_add_volume(subset(FAFBNP.surf, r), title=name, comment=comment)

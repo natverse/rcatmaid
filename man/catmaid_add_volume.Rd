@@ -2,7 +2,7 @@
 % Please edit documentation in R/meshes.R
 \name{catmaid_add_volume}
 \alias{catmaid_add_volume}
-\title{Add a 3D mesh surface to catmaid volume mananger}
+\title{Add a 3D mesh surface to catmaid volume manager}
 \usage{
 catmaid_add_volume(x, conn = NULL, pid = 1, ...)
 }
@@ -25,13 +25,13 @@ An invisible list with the post status repsonse on success (the
   function will throw an error on failure)
 }
 \description{
-Add a 3D mesh surface to catmaid volume mananger
+Add a 3D mesh surface to catmaid volume manager
 }
 \examples{
 \dontrun{
 library(elmr)
 FAFBNP.surf=xform_brain(JFRC2NP.surf, sample=JFRC2, ref=FAFB12)
-for(r in FAFBNP.surf$RegionList[-1]){
+for(r in FAFBNP.surf$RegionList){
   comment="Transformed from JFRC2 space onto FAFB12"
   name=paste("V12", sep=".", r)
   catmaid_add_volume(subset(FAFBNP.surf, r), title=name, comment=comment)
