@@ -49,24 +49,20 @@
 #'   
 #'   \item{catmaid.server}
 #'   
-#'   \item{catmaid.username}
+#'   \item{catmaid.username} Your catmaid username (deprecated in favour of token)
 #'   
-#'   \item{catmaid.password}
+#'   \item{catmaid.password} Your catmaid password (deprecated in favour of token)
 #'   
-#'   \item{catmaid.token} An alternative to using catmaid.username/password
+#'   \item{catmaid.token} Preferred to using catmaid.username/password
 #'   
-#'   \item{catmaid.authname}
+#'   \item{catmaid.authname} Optional username for basic http website authorisation
 #'   
-#'   \item{catmaid.authpassword}
+#'   \item{catmaid.authpassword} Optional password for basic http website authorisation
 #'   
 #'   } using code along these lines:
 #'   
-#'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
-#'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", 
-#'   catmaid.username="calvin", catmaid.password="hobbesagain")}
-#'   
-#'   # or if you are using an API token # see 
-#'   http://catmaid.github.io/dev/api.html#api-token 
+#'   # see http://catmaid.github.io/dev/api.html#api-token 
+#'   # for details of obtaining an API token
 #'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
 #'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token = 
 #'   "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")}
@@ -146,14 +142,15 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #' @param token An API token (A modern alternative to providing your CATMAID 
 #'   username and password). See \bold{Token based authentication} for details.
 #' @param authname,authpassword The http username/password that optionally 
-#'   secures the CATMAID server.
+#'   secures the CATMAID website. These are not the same as your CATMAID login
+#'   details.
 #' @param authtype The http authentication scheme, see 
 #'   \code{\link[httr]{authenticate}} for details.
 #' @details Note the difference between \code{authname}/\code{authpassword} and 
 #'   \code{username}/\code{password}. The former are for generic web 
 #'   authentication, which is sometimes used to protect a privae catmaid site 
 #'   from being accessible to general web traffic. The latter are used to 
-#'   authenticate to the CATMAID web application itself - for example the
+#'   authenticate to the CATMAID web application itself - for example the 
 #'   \code{username} is the one that will be associated with any tracing carried
 #'   out by you in CATMAID.
 #' @export
