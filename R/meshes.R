@@ -11,7 +11,7 @@
 #'   
 #'   }
 #'   
-#'   In R we hold this list in a \code{list} object with class
+#'   In R we hold this list in a \code{list} object with class 
 #'   \code{catmaidmesh}. This can then be posted to the volume manager API.
 #'   
 #'   
@@ -19,7 +19,7 @@
 #' \url{https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst}
 #' 
 #' @param x A mesh object such as \code{\link[nat]{hxsurf}} or 
-#'   \code{\link[rg][mesh3d]}} object \emph{or} a list with raw vertices (Nx3) 
+#'   \code{\link[rgl]{mesh3d}} object \emph{or} a list with raw vertices (Nx3) 
 #'   and indices (Nx3).
 #' @param ... Additional fields for the CATMAID mesh object
 #' @seealso \code{\link{catmaid_volumes_add}}

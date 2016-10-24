@@ -16,6 +16,10 @@ as.catmaidmesh(x, ...)
 \method{as.catmaidmesh}{default}(x, title = NULL, comment = NULL, ...)
 }
 \arguments{
+\item{x}{A mesh object such as \code{\link[nat]{hxsurf}} or 
+\code{\link[rgl]{mesh3d}} object \emph{or} a list with raw vertices (Nx3) 
+and indices (Nx3).}
+
 \item{...}{Additional fields for the CATMAID mesh object}
 
 \item{title}{The title of the object as it will appear in the catmaid volume manager}
@@ -37,7 +41,7 @@ The CATMAID mesh format is documented in the reference below and
   
   }
   
-  In R we hold this list in a \code{list} object with class
+  In R we hold this list in a \code{list} object with class 
   \code{catmaidmesh}. This can then be posted to the volume manager API.
 }
 \references{
