@@ -79,7 +79,7 @@
     
     <p>In contrast to <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code> this assumes that
 you have already read the neurons into an R structure of class 
-<code><a href='http://www.rdocumentation.org/packages/neuron/topics/nat'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/neuronlist/topics/nat'>neuronlist</a></code>.</p>
+<code><a href='http://www.rdocumentation.org/packages/nat/topics/neuron'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code>.</p>
     
 
     <pre><span class='fu'>connectors</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -90,6 +90,7 @@ you have already read the neurons into an R structure of class
 <span class='co'># S3 method for neuronlist</span>
 <span class='fu'>connectors</span>(<span class='no'>x</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -99,10 +100,11 @@ you have already read the neurons into an R structure of class
 the case of connectors)</dd>
       <dt>subset, </dt>
       <dd>optional subset of neurons to keep (see 
-<code><a href='http://www.rdocumentation.org/packages/nlapply/topics/nat'>nlapply</a></code> for details)</dd>
+<code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code> for details)</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p>A data.frame with columns <ul>
@@ -126,16 +128,17 @@ the case of connectors)</dd>
 </ul></p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
-      <p><code><a href='http://www.rdocumentation.org/packages/nlapply/topics/nat'>nlapply</a></code></p>
+      <p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code></p>
       <p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
   <code><a href='catmaid_get_connectors_between.html'>catmaid_get_connectors_between</a></code>,
   <code><a href='catmaid_get_connectors.html'>catmaid_get_connectors</a></code>,
   <code><a href='catmaid_query_connected.html'>catmaid_query_connected</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># ornsl=read.neurons.catmaid("name:ORN left", OmitFailures = T, .progress='text')</span>
@@ -147,6 +150,7 @@ the case of connectors)</dd>
 <span class='co'># nopen3d()</span>
 <span class='co'># points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

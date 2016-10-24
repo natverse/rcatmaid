@@ -82,13 +82,15 @@
 
     <pre><span class='fu'>catmaid_parse_url</span>(<span class='no'>x</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>One or more catmaid urls</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p>A <code>data.frame</code> containing parsed parameters. The columns will be
@@ -96,6 +98,7 @@
   (named as such rather than xp, yp, zp as returned by CATMAID).</p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>u</span><span class='kw'>=</span><span class='fu'>paste0</span>(<span class='st'>"https://neuropil.janelia.org/tracing/fafb/v12/?pid=1&amp;zp=177100&amp;"</span>,
   <span class='st'>"yp=166068&amp;xp=373086&amp;tool=tracingtool&amp;sid0=7&amp;s0=1.000000"</span>)
@@ -110,6 +113,7 @@
 <span class='co'># plot3d(n)</span>
 <span class='co'># spheres3d(xyzmatrix(cpu), r=1000, col='magenta')</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

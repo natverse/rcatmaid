@@ -82,6 +82,7 @@
 
     <pre><span class='fu'>catmaid_get_review_status</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>skids</dt>
@@ -98,8 +99,9 @@ options as described in the help for <code><a href='catmaid_login.html'>catmaid_
       <dd>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
 function</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p>a data.frame consisting of total number of nodes and number of
@@ -107,16 +109,18 @@ function</dd>
   generated and a row with NA values will be returned.</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><code><a href='catmaid_fetch.html'>catmaid_fetch</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># catmaid_get_review_status(skids=c(10418394,4453485))</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

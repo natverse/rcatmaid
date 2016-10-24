@@ -94,6 +94,7 @@
 <span class='fu'>catmaid_remove_annotations_for_skeletons</span>(<span class='no'>skids</span>, <span class='no'>annotations</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>skids</dt>
@@ -117,8 +118,9 @@ to the specified neurons.</dd>
 annotations (default <code>FALSE</code>) to provide some protection against 
 accidents.</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p>For <code>catmaid_get_annotations_for_skeletons</code> a data.frame 
@@ -138,19 +140,20 @@ accidents.</dd>
   information about the annotations that have just been removed.</p>
     </div>
 
-    <div class="Details">
+    <div class="section">
       <h2>Details</h2>
 
       <p>Note that annotations will be created on the catmaid server if they 
   do not already exist (and will not be re-created if they do already exist.)</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><code><a href='catmaid_fetch.html'>catmaid_fetch</a></code>, <code><a href='catmaid_skids.html'>catmaid_skids</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># catmaid_get_annotations_for_skeletons(skids=c(10418394,4453485))</span>
@@ -166,6 +169,7 @@ accidents.</dd>
 <span class='co'># catmaid_set_annotations_for_skeletons(skids=nn, 'mytest')</span>
 <span class='co'># catmaid_remove_annotations_for_skeletons(nn, 'mytest')</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

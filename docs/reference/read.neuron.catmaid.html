@@ -78,7 +78,7 @@
   <div class="col-md-9">
     
     <p><code>read.neuron.catmaid</code> reads a single neuron, while 
-<code>read.neurons.catmaid</code> generates a <code><a href='http://www.rdocumentation.org/packages/neuronlist/topics/nat'>neuronlist</a></code> object 
+<code>read.neurons.catmaid</code> generates a <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
 including some metadata information.</p>
     
 
@@ -87,6 +87,7 @@ including some metadata information.</p>
 <span class='fu'>read.neurons.catmaid</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>skid</dt>
@@ -112,17 +113,18 @@ details.</dd>
       <dt>df</dt>
       <dd>Optional data frame containing information about each neuron</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
-      <p>a <code><a href='http://www.rdocumentation.org/packages/neuron/topics/nat'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/neuronlist/topics/nat'>neuronlist</a></code> object 
+      <p>a <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuron'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
   containing one or more neurons. These neurons will have an additional class
   <code>catmaidneuron</code> which provides for some extra functionality in certain
   methods.</p>
     </div>
 
-    <div class="Details">
+    <div class="section">
       <h2>Details</h2>
 
       <p>These functions provide a bridge between CATMAID and the 
@@ -150,15 +152,16 @@ details.</dd>
   neurons from scratch.</p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
-      <p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='http://www.rdocumentation.org/packages/read.neuron/topics/nat'>read.neuron</a></code>, 
+      <p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
   <code><a href='connectors.html'>connectors</a></code> to extract connector information from a 
   <code>catmaid.neuron</code></p>
       <p><code><a href='catmaid_skids.html'>catmaid_skids</a></code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># library(nat)</span>
@@ -202,6 +205,7 @@ details.</dd>
 <span class='co'># plot3d(pns, col=Or)</span>
 <span class='co'># </span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

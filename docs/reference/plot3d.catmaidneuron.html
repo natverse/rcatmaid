@@ -84,6 +84,7 @@
 <span class='fu'>plot3d</span>(<span class='no'>x</span>, <span class='kw'>WithConnectors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>WithNodes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
@@ -94,16 +95,18 @@
       <dd>logical indicating whether to plot branch/end points 
 (default to <code>FALSE</code> since they will obscure the synapses).</dd>
       <dt>...</dt>
-      <dd>additional arguments passed to <code><a href='http://www.rdocumentation.org/packages/plot3d.neuron/topics/nat'>plot3d.neuron</a></code> 
+      <dd>additional arguments passed to <code><a href='http://www.rdocumentation.org/packages/nat/topics/plot3d.neuron'>plot3d.neuron</a></code> 
 (synapses). Default: <code>TRUE</code>.</dd>
     </dl>
-    
-    <div class="See also">
-      <h2>See also</h2>
-
-      <p><code><a href='http://www.rdocumentation.org/packages/plot3d.neuron/topics/nat'>plot3d.neuron</a></code></p>
     </div>
     
+    <div class="section">
+      <h2>See also</h2>
+
+      <p><code><a href='http://www.rdocumentation.org/packages/nat/topics/plot3d.neuron'>plot3d.neuron</a></code></p>
+    </div>
+    
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># nl=read.neurons.catmaid(c(10418394,4453485))</span>
@@ -112,6 +115,7 @@
 <span class='co'># # now with connectors (i.e. synapses)</span>
 <span class='co'># plot3d(nl, WithConnectors=TRUE)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

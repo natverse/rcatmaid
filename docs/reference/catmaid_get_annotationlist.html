@@ -82,6 +82,7 @@
 
     <pre><span class='fu'>catmaid_get_annotationlist</span>(<span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>pid</dt>
@@ -96,8 +97,9 @@ or to convert the nodes and connectors lists into processed data.frames
       <dd>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
 function.</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p>A list containing two data.frames, annotations and users. The users
@@ -105,12 +107,14 @@ function.</dd>
   for each valid annotations/user pair.</p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># al=catmaid_get_annotationlist(pid=1)</span>
 <span class='co'># # table of the number of users who have contributed to each annotation</span>
 <span class='co'># table(al$annotations$num_users_annotation)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>

@@ -99,6 +99,7 @@
   <span class='kw'>authname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>authpassword</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>authtype</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"catmaid.authtype"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='st'>"basic"</span>))</pre>
     
+    <div class="section">
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
       <dt>conn</dt>
@@ -124,10 +125,11 @@ details.</dd>
 username and password). See <b>Token based authentication</b> for details.</dd>
       <dt>authtype</dt>
       <dd>The http authentication scheme, see 
-<code><a href='http://www.rdocumentation.org/packages/authenticate/topics/httr'>authenticate</a></code> for details.</dd>
+<code><a href='http://www.rdocumentation.org/packages/httr/topics/authenticate'>authenticate</a></code> for details.</dd>
     </dl>
+    </div>
     
-    <div class="Value">
+    <div class="section">
       <h2>Value</h2>
 
       <p>a <code>catmaid_connection</code> object that can be used to make 
@@ -135,7 +137,7 @@ username and password). See <b>Token based authentication</b> for details.</dd>
   of the <code>$config</code> field.</p>
     </div>
 
-    <div class="Details">
+    <div class="section">
       <h2>Details</h2>
 
       <p>After successful login, the <code>catmaid_connection</code> object will 
@@ -154,7 +156,7 @@ username and password). See <b>Token based authentication</b> for details.</dd>
   out by you in CATMAID.</p>
     </div>
 
-    <div class="Token based authentication">
+    <div class="section">
       <h2>Token based authentication</h2>
 
       <p>CATMAID now offers token based 
@@ -168,7 +170,7 @@ username and password). See <b>Token based authentication</b> for details.</dd>
   account.</p>
     </div>
 
-    <div class="Package options">
+    <div class="section">
       <h2>Package options</h2>
 
       <p></p>
@@ -200,12 +202,13 @@ username and password). See <b>Token based authentication</b> for details.</dd>
   &quot;9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b&quot;)</code></p>
     </div>
 
-    <div class="See also">
+    <div class="section">
       <h2>See also</h2>
 
       <p><code>options</code>, <code>Startup</code></p>
     </div>
     
+    <div class="section">
     <h2 id="examples">Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># ## example explicitly specifying connection options</span>
@@ -230,6 +233,7 @@ username and password). See <b>Token based authentication</b> for details.</dd>
 <span class='co'># skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",</span>
 <span class='co'>#   config=conn$config)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
+    </div>
   </div>
   <div class="col-md-3">
   </div>
