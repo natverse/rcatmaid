@@ -11,8 +11,8 @@ as.catmaidmesh <- function(x, ...) UseMethod("as.catmaidmesh")
 #' @export
 #' @rdname as.catmaidmesh
 as.catmaidmesh.hxsurf <- function(x, ...) {
-  mesh=list(as.matrix(x$Vertices[,1:3]),
-            as.matrix(x$Regions[[1]])-1)
+  mesh=list(unname(as.matrix(x$Vertices[, 1:3])),
+            unname(as.matrix(x$Regions[[1]])-1L))
   as.catmaidmesh(mesh, ...)
 }
 
