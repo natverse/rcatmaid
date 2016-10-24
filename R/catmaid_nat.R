@@ -25,7 +25,7 @@
 #'   \code{catmaidneuron} which provides for some extra functionality in certain
 #'   methods.
 #' @seealso \code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}}, 
-#'   \code{\link[nat]{connectors}} to extract connector information from a 
+#'   \code{\link{connectors}} to extract connector information from a 
 #'   \code{catmaid.neuron}
 #' @export
 read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {

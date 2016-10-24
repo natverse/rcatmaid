@@ -118,7 +118,7 @@ plot3d(pns, col=Or)
 }
 \seealso{
 \code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}}, 
-  \code{\link[nat]{connectors}} to extract connector information from a 
+  \code{\link{connectors}} to extract connector information from a 
   \code{catmaid.neuron}
 
 \code{\link{catmaid_skids}}
