@@ -22,7 +22,7 @@
 #'   \code{\link[rgl]{mesh3d}} object \emph{or} a list with raw vertices (Nx3) 
 #'   and indices (Nx3).
 #' @param ... Additional fields for the CATMAID mesh object
-#' @seealso \code{\link{catmaid_volumes_add}}
+#' @seealso \code{\link{catmaid_add_volume}}
 #' @export
 as.catmaidmesh <- function(x, ...) UseMethod("as.catmaidmesh")
 
@@ -77,10 +77,10 @@ as.catmaidmesh.catmaidmesh <- function(x, ...){
 #' for(r in FAFBNP.surf$RegionList[-1]){
 #'   comment="Transformed from JFRC2 space onto FAFB12"
 #'   name=paste("V12", sep=".", r)
-#'   catmaid_volumes_add(subset(FAFBNP.surf, r), title=name, comment=comment)
+#'   catmaid_add_volume(subset(FAFBNP.surf, r), title=name, comment=comment)
 #' }
 #' }
-catmaid_volumes_add <- function(x, conn=NULL, pid=1, ...) {
+catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
   l=as.catmaidmesh(x, ...)
   res=catmaid_fetch(path="1/volumes/add", body=l, encode='json')
   catmaid_error_check(res)

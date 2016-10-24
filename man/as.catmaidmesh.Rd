@@ -48,6 +48,6 @@ The CATMAID mesh format is documented in the reference below and
 \url{https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst}
 }
 \seealso{
-\code{\link{catmaid_volumes_add}}
+\code{\link{catmaid_add_volume}}
 }
 

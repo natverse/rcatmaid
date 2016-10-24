@@ -37,10 +37,10 @@ reference:
   - plot3d.catmaidneuron
   - connectors
 - title: Handling volume meshes
-  desc: Adding volume meshes to CATMAID from regular R mesh representations
+  desc: Adding / converting volume meshes to CATMAID from regular R mesh representations
   contents:
   - as.catmaidmesh
-  - catmaid_volumes_add
+  - catmaid_add_volume
 - title: CATMAID statistics and users
   desc: Neuron and user lists and statistics
   contents:

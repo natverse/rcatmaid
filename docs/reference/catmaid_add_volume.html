@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add a 3D mesh surface to catmaid volume mananger — catmaid_volumes_add • catmaid</title>
+<title>Add a 3D mesh surface to catmaid volume mananger — catmaid_add_volume • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,7 +80,7 @@
     <p>Add a 3D mesh surface to catmaid volume mananger</p>
     
 
-    <pre><span class='fu'>catmaid_volumes_add</span>(<span class='no'>x</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre><span class='fu'>catmaid_add_volume</span>(<span class='no'>x</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2>Arguments</h2>
     <dl class="dl-horizontal">
@@ -119,7 +119,7 @@ as title, comments etc.</dd>
 <span class='co'># for(r in FAFBNP.surf$RegionList[-1]){</span>
 <span class='co'>#   comment="Transformed from JFRC2 space onto FAFB12"</span>
 <span class='co'>#   name=paste("V12", sep=".", r)</span>
-<span class='co'>#   catmaid_volumes_add(subset(FAFBNP.surf, r), title=name, comment=comment)</span>
+<span class='co'>#   catmaid_add_volume(subset(FAFBNP.surf, r), title=name, comment=comment)</span>
 <span class='co'># }</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
   </div>
