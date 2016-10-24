@@ -31,13 +31,13 @@ reference:
   - catmaid_get_connectors_between
   - catmaid_get_connectors
 - title: Interfacing with Nat
-  desc: Fetching and using catmaid skeletons for use with the nat package.
+  desc: Fetching and using catmaid skeletons for use with the NeuroAnatomy Toolbox (nat) package.
   contents:
   - read.neuron.catmaid
   - plot3d.catmaidneuron
   - connectors
 - title: CATMAID statistics and users
-  desc: Neuon and user lists and statistics
+  desc: Neuron and user lists and statistics
   contents:
   - catmaid_get_contributor_stats
   - catmaid_get_user_list
