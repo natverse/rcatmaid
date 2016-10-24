@@ -1,10 +1,28 @@
-#' Convert a mesh to catmaid format
+#' Convert a mesh to CATMAID format
+#' 
+#' @details The CATMAID mesh format is documented in the reference below and 
+#'   typically consists of a json encoded object with fields \itemize{
+#'   
+#'   \item title
+#'   
+#'   \item mesh The mesh itself (a list of length 2)
+#'   
+#'   \item comments (optional)
+#'   
+#'   }
+#'   
+#'   In R we hold this list in a \code{list} object with class
+#'   \code{catmaidmesh}. This can then be posted to the volume manager API.
+#'   
+#'   
 #' @references 
 #' \url{https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst}
 #' 
-#' @param x A mesh object such as hxsurf or a list with raw vertices (Nx3) and 
-#'   indices (Nx3).
-#' @param ... Additional fields for the catmaid mesh object
+#' @param x A mesh object such as \code{\link[nat]{hxsurf}} or 
+#'   \code{\link[rg][mesh3d]}} object \emph{or} a list with raw vertices (Nx3) 
+#'   and indices (Nx3).
+#' @param ... Additional fields for the CATMAID mesh object
+#' @seealso \code{\link{catmaid_volumes_add}}
 #' @export
 as.catmaidmesh <- function(x, ...) UseMethod("as.catmaidmesh")
 
