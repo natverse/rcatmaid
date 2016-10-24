@@ -12,8 +12,8 @@ a high level function to convert neurons to the representation of the
 a wide variety of analyses.
 
 It is strongly recommended to read through the instructions below, the [package
-overview documentation](http://jefferis.github.io/rcatmaid/catmaid-package.html)
-and then skim the [reference documentation index](http://jefferis.github.io/rcatmaid/reference.html)
+overview documentation](http://jefferis.github.io/rcatmaid/reference/catmaid-package.html)
+and then skim the [reference documentation index](http://jefferis.github.io/rcatmaid/reference/)
 , which groups the available functions into useful categories.
 
 ## Quick start
