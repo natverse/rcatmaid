@@ -29,7 +29,7 @@ that can take skids as an input.
 If the inputs are numeric or have length > 1 they are assumed 
   already to be skids and are simply converted to integers. If the the input 
   is a string starting with "name:" or "annotation:" they are used for a 
-  query by catmaid_query_by_annotation or 
+  query by \code{\link{catmaid_query_by_name}} or 
   \code{\link{catmaid_query_by_annotation}}, respectively.
 }
 \examples{
