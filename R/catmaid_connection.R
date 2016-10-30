@@ -242,6 +242,25 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
 #' ## get all skeletons with more than 1000 nodes
 #' skids=as.integer(catmaid_fetch("/1/skeletons/?nodecount_gt=1000"))
 #' 
+#' ## fetch user history since 1st April 2016
+#' uh = catmaid_fetch('1/stats/history?start_date=2016-04-01', 
+#'   simplifyVector = T, include_headers = F)
+#' uh$date=as.Date(uh$date,"%Y%m%d")
+#' library(dplyr)
+#' # select top 10 users by nodes added
+#' top10=uh %>% 
+#'   group_by(name) %>% 
+#'   summarise(total=sum(count)) %>% 
+#'   arrange(desc(total)) %>%
+#'   top_n(10)
+#' # plot cumulative nodes traced
+#' library(ggplot2)
+#' uh %>% 
+#'   group_by(name) %>%
+#'   mutate(ccount = cumsum(count)) %>%
+#'   filter(name %in% top10$name) %>% 
+#'   ggplot(aes(date, ccount, col = name)) + geom_line()
+#' 
 #' ## demonstrate that bad urls will result in an error
 #' catmaid_fetch("/1/rhubarb/crumble")
 #' }
