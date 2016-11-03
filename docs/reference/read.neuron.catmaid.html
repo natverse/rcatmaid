@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -50,12 +49,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jefferis/rcatmaid">
@@ -67,15 +64,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p><code>read.neuron.catmaid</code> reads a single neuron, while 
 <code>read.neurons.catmaid</code> generates a <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
@@ -87,8 +85,7 @@ including some metadata information.</p>
 <span class='fu'>read.neurons.catmaid</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>skid</dt>
       <dd>A numeric skeleton id</dd>
@@ -113,28 +110,24 @@ details.</dd>
       <dt>df</dt>
       <dd>Optional data frame containing information about each neuron</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p>a <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuron'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
+    <p>a <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuron'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
   containing one or more neurons. These neurons will have an additional class
   <code>catmaidneuron</code> which provides for some extra functionality in certain
   methods.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class="section">
-      <h2>Details</h2>
-
-      <p>These functions provide a bridge between CATMAID and the 
+    <p>These functions provide a bridge between CATMAID and the 
   neuronanatomy toolbox R package (<a href = 'https://github.com/jefferis/nat'>https://github.com/jefferis/nat</a>), 
   which provides extensive functionality for analysing and plotting neurons 
   within the context of temaplate brains.</p>
-      <p>Note that the soma is set by inspecting CATMAID tags that 
+    <p>Note that the soma is set by inspecting CATMAID tags that 
   (case-insensitively) match the regex <code>&quot;(cell body|soma)&quot;</code>. Where &gt;1 
   tag exists the one that tags an endpoint is preferred.</p>
-      <p>When <code>OmitFailures</code> is not <code>NA</code>, <code>FUN</code> will be 
+    <p>When <code>OmitFailures</code> is not <code>NA</code>, <code>FUN</code> will be 
   wrapped in a call to <code>try</code> to ensure that failure for any single 
   neuron does not abort the nlapply/nmapply call. When 
   <code>OmitFailures=TRUE</code> the resultant neuronlist will be subsetted down to
@@ -142,7 +135,7 @@ details.</dd>
   <code>OmitFailures=FALSE</code>, &quot;try-error&quot; objects will be left in place. In 
   either of the last 2 cases error messages will not be printed because the 
   call is wrapped as <code>try(expr, silent=TRUE)</code>.</p>
-      <p>The optional dataframe (<code>df</code>) detailing each neuron should have 
+    <p>The optional dataframe (<code>df</code>) detailing each neuron should have 
   <code>rownames</code> that match the names of each neuron. It would also make 
   sense if the same key was present in a column of the data frame. If the 
   dataframe contains more rows than neurons, the superfluous rows are dropped
@@ -150,19 +143,16 @@ details.</dd>
   is generated. If SortOnUpdate is TRUE then updating an existing neuronlist 
   should result in a new neuronlist with ordering identical to reading all 
   neurons from scratch.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
+    <p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
   <code><a href='connectors.html'>connectors</a></code> to extract connector information from a 
   <code>catmaid.neuron</code></p>
-      <p><code><a href='catmaid_skids.html'>catmaid_skids</a></code></p>
-    </div>
+    <p><code><a href='catmaid_skids.html'>catmaid_skids</a></code></p>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># library(nat)</span>
 <span class='co'># nl=read.neurons.catmaid(c(10418394,4453485))</span>
@@ -205,14 +195,33 @@ details.</dd>
 <span class='co'># plot3d(pns, col=Or)</span>
 <span class='co'># </span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Gregory Jefferis.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -50,12 +49,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jefferis/rcatmaid">
@@ -67,23 +64,23 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Return the CATMAID version running on the server</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Return the CATMAID version running on the server</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>Return the CATMAID version running on the server</p>
     
 
     <pre><span class='fu'>catmaid_version</span>(<span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cached</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>numeric</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>conn</dt>
       <dd>A <code>catmaid_connection</code> object. The default value of NULL 
@@ -97,48 +94,60 @@ implies that the most recent cached open connection will be used.</dd>
       <dt>...</dt>
       <dd>Additional arguments passed to <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code></dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p>A character vector containing the version</p>
-    </div>
+    <p>A character vector containing the version</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class="section">
-      <h2>Details</h2>
-
-      <p>By default the version number for the current 
+    <p>By default the version number for the current 
   <code><a href='catmaid_login.html'>catmaid_connection</a></code> is stored on the first request after a new
   login and then the cached version number is reused. Setting 
   <code>cached=FALSE</code> will always force a request to the server.</p>
-      <p>CATMAID versions are now prduced by <b>git describe</b> and look like 
+    <p>CATMAID versions are now prduced by <b>git describe</b> and look like 
   YYYY.MM.DD-XX-gaaaaaaa where aaaaaaa is a short SHA1 hash and XX is an 
   integer number of revisions since the last base version. Setting
   <code>numeric=TRUE</code> trims of the SHA1 hash leaving a string that can be
   interpreted as four part version number (see examples).</p>
-    </div>
-
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><code>numeric_version</code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code>numeric_version</code></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># # example of checking if server version is newer than required version</span>
 <span class='co'># catmaid_version(numeric=TRUE)&gt;="2016.1.1-65"</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Gregory Jefferis.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

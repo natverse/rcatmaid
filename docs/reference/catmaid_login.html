@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -50,12 +49,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jefferis/rcatmaid">
@@ -67,15 +64,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Connect/authenticate to a CATMAID server, returning a connection object</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Connect/authenticate to a CATMAID server, returning a connection object</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p><code>catmaid_login</code> allows you to login to a CATMAID server 
   specified by a <code>catmaid_connection</code> object. If such an object is not 
@@ -99,8 +97,7 @@
   <span class='kw'>authname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>authpassword</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>authtype</span> <span class='kw'>=</span> <span class='fu'>getOption</span>(<span class='st'>"catmaid.authtype"</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='st'>"basic"</span>))</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>conn</dt>
       <dd>An optional <code>catmaid_connection</code> connection object.</dd>
@@ -127,89 +124,78 @@ username and password). See <b>Token based authentication</b> for details.</dd>
       <dd>The http authentication scheme, see 
 <code><a href='http://www.rdocumentation.org/packages/httr/topics/authenticate'>authenticate</a></code> for details.</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p>a <code>catmaid_connection</code> object that can be used to make 
+    <p>a <code>catmaid_connection</code> object that can be used to make 
   authenticated http requests to a CATMAID server, specifically by making use
   of the <code>$config</code> field.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <div class="section">
-      <h2>Details</h2>
-
-      <p>After successful login, the <code>catmaid_connection</code> object will 
+    <p>After successful login, the <code>catmaid_connection</code> object will 
   contain a <code>cookie</code> field that includes a sessionid that is required 
   for subsequent GET/POST operations.  When <code>Cache=TRUE</code> (the default) 
   the open connection object is cached and will be used when EITHER 
   <code>catmaid_login</code> is called with enough information to indicate that the
   same server is desired OR (when no information about the server is passed 
   to <code>catmaid_login</code>) the last opened connection will be used.</p>
-      <p>Note the difference between <code>authname</code>/<code>authpassword</code> and 
+    <p>Note the difference between <code>authname</code>/<code>authpassword</code> and 
   <code>username</code>/<code>password</code>. The former are for generic web 
   authentication, which is sometimes used to protect a privae catmaid site 
   from being accessible to general web traffic. The latter are used to 
   authenticate to the CATMAID web application itself - for example the 
   <code>username</code> is the one that will be associated with any tracing carried
   out by you in CATMAID.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="token-based-authentication"><a class="anchor" href="#token-based-authentication"></a>Token based authentication</h2>
 
-    <div class="section">
-      <h2>Token based authentication</h2>
-
-      <p>CATMAID now offers token based 
+    <p>CATMAID now offers token based 
   authentication as an alternative to specifying you CATMAID username and 
   password. See <a href = 'http://catmaid.github.io/dev/api.html#api-token'>http://catmaid.github.io/dev/api.html#api-token</a> for how
   to get an API token. You can then set the <code>catmaid.token</code> package 
   option, but no longer need to set the <code>catmaid.username</code> and 
   <code>catmaid.password</code> options.</p>
-      <p>Note that you must <b>NOT</b> reveal this token e.g. by checking it into a 
+    <p>Note that you must <b>NOT</b> reveal this token e.g. by checking it into a 
   version controlled script as it gives complete access to your CATMAID 
   account.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package options</h2>
 
-    <div class="section">
-      <h2>Package options</h2>
-
-      <p></p>
-      <p>You will very likely want to set some of the following package options in 
+    <p></p>
+    <p>You will very likely want to set some of the following package options in 
   your .Rprofile file (see <code>Startup</code> for details)</p>
-      <p><ul>
+    <p><ul>
 <li><code>catmaid.server</code></p>
-      <p></li>
+    <p></li>
 <li><code>catmaid.username</code> Your catmaid username (deprecated in favour 
   of token)</p>
-      <p></li>
+    <p></li>
 <li><code>catmaid.password</code> Your catmaid password (deprecated in favour 
   of token)</p>
-      <p></li>
+    <p></li>
 <li><code>catmaid.token</code> Preferred to using catmaid.username/password</p>
-      <p></li>
+    <p></li>
 <li><code>catmaid.authname</code> Optional username for basic http website 
   authorisation</p>
-      <p></li>
+    <p></li>
 <li><code>catmaid.authpassword</code> Optional password for basic http website
   authorisation</p>
-      <p></li>
+    <p></li>
 </ul>
  using code along these lines:</p>
-      <p># see http://catmaid.github.io/dev/api.html#api-token # for details of 
+    <p># see http://catmaid.github.io/dev/api.html#api-token # for details of 
   obtaining an API token 
   <code>options(catmaid.server=&quot;https://mycatmaidserver.org/catmaidroot&quot;, 
   catmaid.authname=&quot;Calvin&quot;,catmaid.authpassword=&quot;hobbes&quot;, catmaid.token = 
   &quot;9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b&quot;)</code></p>
-    </div>
-
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><code>options</code>, <code>Startup</code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <p><code>options</code>, <code>Startup</code></p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># ## example explicitly specifying connection options</span>
 <span class='co'># # using modern token based authentication</span>
@@ -233,14 +219,37 @@ username and password). See <b>Token based authentication</b> for details.</dd>
 <span class='co'># skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",</span>
 <span class='co'>#   config=conn$config)</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#token-based-authentication">Token based authentication</a></li>
+
+      <li><a href="#package-options">Package options</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Gregory Jefferis.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

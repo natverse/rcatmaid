@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -50,12 +49,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jefferis/rcatmaid">
@@ -67,15 +64,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Get data.frame of connector (synapse) information from a neuron or neuronlist</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Get data.frame of connector (synapse) information from a neuron or neuronlist</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>In contrast to <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code> this assumes that
 you have already read the neurons into an R structure of class 
@@ -90,8 +88,7 @@ you have already read the neurons into an R structure of class
 <span class='co'># S3 method for neuronlist</span>
 <span class='fu'>connectors</span>(<span class='no'>x</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
-    <div class="section">
-    <h2>Arguments</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
       <dt>x</dt>
       <dd>Neuron or neuronlist</dd>
@@ -102,44 +99,39 @@ the case of connectors)</dd>
       <dd>optional subset of neurons to keep (see 
 <code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code> for details)</dd>
     </dl>
-    </div>
     
-    <div class="section">
-      <h2>Value</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-      <p>A data.frame with columns <ul>
+    <p>A data.frame with columns <ul>
 <li> treenode_id (NB this is the treenode id for the <em>current</em> skeleton)</p>
-      <p></li>
+    <p></li>
 <li> connector_skid</p>
-      <p></li>
+    <p></li>
 <li> prepost integer indicating whether connection is pre-(<code>0</code>) or 
   post(<code>1</code>)-synaptic with respect to the current neuron. In other words 
   this field will be <code>0</code> (pre) for the output synapses of this neuron.</p>
-      <p></li>
+    <p></li>
 <li> x Spatial Location</p>
-      <p></li>
+    <p></li>
 <li> y</p>
-      <p></li>
+    <p></li>
 <li> z</p>
-      <p></li>
+    <p></li>
 <li> skid For <code>connectors.neuronlist</code>, the skid of the skeleton from
   which connector information was retrieved.</p>
-      <p></li>
+    <p></li>
 </ul></p>
-    </div>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class="section">
-      <h2>See also</h2>
-
-      <p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code></p>
-      <p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
+    <p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code></p>
+    <p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
   <code><a href='catmaid_get_connectors_between.html'>catmaid_get_connectors_between</a></code>,
   <code><a href='catmaid_get_connectors.html'>catmaid_get_connectors</a></code>,
   <code><a href='catmaid_query_connected.html'>catmaid_query_connected</a></code></p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># ornsl=read.neurons.catmaid("name:ORN left", OmitFailures = T, .progress='text')</span>
 <span class='co'># conndf=connectors(ornsl)</span>
@@ -150,14 +142,31 @@ the case of connectors)</dd>
 <span class='co'># nopen3d()</span>
 <span class='co'># points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Gregory Jefferis.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 

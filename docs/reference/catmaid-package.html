@@ -10,7 +10,6 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
-
 <!-- Bootstrap -->
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,6 +21,7 @@
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
+<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 <!-- mathjax -->
@@ -34,10 +34,9 @@
   </head>
 
   <body>
-    <div class="container">
+    <div class="container template-reference-topic">
       <header>
-      
-<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
@@ -50,12 +49,10 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">Home</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jefferis/rcatmaid">
@@ -67,15 +64,16 @@
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
+
       
       </header>
 
-      <div class="page-header">
-  <h1>Programmatic access to the CATMAID API</h1>
-</div>
+      <div class="row">
+  <div class="col-md-9 contents">
+    <div class="page-header">
+    <h1>Programmatic access to the CATMAID API</h1>
+    </div>
 
-<div class="row">
-  <div class="col-md-9">
     
     <p>To use, first call <code><a href='catmaid_login.html'>catmaid_login</a></code> to authenticate to a catmaid 
 server. You can then use functions such as 
@@ -86,46 +84,38 @@ command.</p>
     
 
         
-    <div class="section">
-      <h2>Connections</h2>
+    <h2 class="hasAnchor" id="connections"><a class="anchor" href="#connections"></a>Connections</h2>
 
-      <p>By default all query functions will use the 
+    <p>By default all query functions will use the 
   server/authentication details specified by the last successful call to 
   <code><a href='catmaid_login.html'>catmaid_login</a></code> unless a <code><a href='catmaid_login.html'>catmaid_connection</a></code> 
   object is provided as an argument.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package Options</h2>
 
-    <div class="section">
-      <h2>Package Options</h2>
-
-      <p>See <code><a href='catmaid_login.html'>catmaid_login</a></code> for details of the 
+    <p>See <code><a href='catmaid_login.html'>catmaid_login</a></code> for details of the 
   options that can be set to specify default login values. It may make sense 
   to set these in your <code>.Rprofile</code> if you regularly use a specific 
   CATMAID server. Beware however that your R workspace will then include a 
   plain text version of your passwords.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="unit-tests"><a class="anchor" href="#unit-tests"></a>Unit tests</h2>
 
-    <div class="section">
-      <h2>Unit tests</h2>
-
-      <p>Unit tests can be run as per the examples section below.
+    <p>Unit tests can be run as per the examples section below.
   In order to do live tests you will need to set environment variables with 
   your catmaid login credentials using the function
   <code><a href='catmaid_connection_setenv.html'>catmaid_connection_setenv</a></code>.</p>
-    </div>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <div class="section">
-      <h2>References</h2>
-
-      <p>Based in large part on code visible at 
+    <p>Based in large part on code visible at 
   <a href = 'https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py'>https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py</a>
    See <a href = 'http://catmaid.org'>http://catmaid.org</a> for further details about CATMAID and 
   <a href = 'https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py'>https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py</a>
    for a list of URLs that the web API accepts.</p>
-    </div>
     
-    <div class="section">
-    <h2 id="examples">Examples</h2>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Not run: ------------------------------------</span>
 <span class='co'># ## test package</span>
 <span class='co'># library(catmaid)</span>
@@ -141,14 +131,34 @@ command.</p>
 <span class='co'># catmaid_connection_setenv(conn)</span>
 <span class='co'># test_package("catmaid")</span>
 <span class='co'>## ---------------------------------------------</span></div></pre>
-    </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      
+      <li><a href="#connections">Connections</a></li>
+
+      <li><a href="#package-options">Package Options</a></li>
+
+      <li><a href="#unit-tests">Unit tests</a></li>
+
+      <li><a href="#references">References</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
+
   </div>
 </div>
 
       <footer>
-      <p>Built by <a href="http://hadley.github.io/pkgdown/">pkgdown</a>. Styled with <a href="http://getbootstrap.com">Bootstrap 3</a>.</p>
+      <div class="copyright">
+  <p>Developed by Gregory Jefferis.</p>
+</div>
+
+<div class="pkgdown">
+  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+</div>
+
       </footer>
    </div>
 
