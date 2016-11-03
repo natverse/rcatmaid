@@ -22,7 +22,23 @@ options as described in the help for \code{\link{catmaid_login}}.}
 function}
 }
 \value{
-A data.frame
+A data.frame with columns \itemize{
+  
+  \item full_name
+  
+  \item login
+  
+  \item id
+  
+  \item new_cable (in nm)
+  
+  \item new_connectors
+  
+  \item new_reviewed_nodes
+  
+  \item date
+  
+  }
 }
 \description{
 Fetch user contribution history

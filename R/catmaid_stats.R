@@ -61,12 +61,28 @@ catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
 }
 
 #' Fetch user contribution history
-#'
+#' 
 #' @param from Starting date for history
 #' @param to End date for history (defaults to today's date)
 #' @inheritParams read.neuron.catmaid
-#' 
-#' @return A data.frame
+#'   
+#' @return A data.frame with columns \itemize{
+#'   
+#'   \item full_name
+#'   
+#'   \item login
+#'   
+#'   \item id
+#'   
+#'   \item new_cable (in nm)
+#'   
+#'   \item new_connectors
+#'   
+#'   \item new_reviewed_nodes
+#'   
+#'   \item date
+#'   
+#'   }
 #' @export
 #' @importFrom dplyr bind_rows right_join
 #' @examples
