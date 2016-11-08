@@ -247,9 +247,13 @@ catmaid_get_connector_table<-function(skids,
   if(partner.skids && !"partner_skid"%in%names(df)){
     # find the skids for the partners
     cdf=catmaid_get_connectors(df$connector_id, pid = pid, conn=conn, ...)
-    cdf2=cdf[, 1, drop=FALSE]
-    cdf2$partner_skid <- if(direction=="outgoing") cdf$post else cdf$pre
-    df=merge(df, cdf2, by='connector_id', all.x=TRUE)
+  
+    if(direction=="outgoing") {
+      names(cdf)[2:3]=c("skid","partner_skid")
+    } else {
+      names(cdf)[2:3]=c("partner_skid","skid")
+    }
+    df=merge(df, cdf, by=c('connector_id', 'skid'), all.x=TRUE)
   }
   df
 }
