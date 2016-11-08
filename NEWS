@@ -1,7 +1,7 @@
 catmaid 0.7
 ===========
 This is a substantial release with many new functions/enhancements, changes to
-match the API defined by the 2015.11.16 CATMAID release, support for token-based
+match the API defined by the 2016.10.18 CATMAID release, support for token-based
 authentication and numerous bug fixes.
 
 * support for CATMAID token-based authentication (#35)
@@ -13,6 +13,7 @@ authentication and numerous bug fixes.
 * Add catmaid_user_history function (#57)
 * Add catmaid_get_annotations_for_skeletons function (#38)
 * Add catmaid_remove_annotations_for_skeletons function (#43)
+* Add catmaid_add_volume to add 3D meshes to catmaid (#69)
 
 * catmaid_get_connector_table can now accept multi skid specifications (#49)
 * catmaid_get_connectors_between returns more informative errors (#51)
@@ -33,8 +34,7 @@ authentication and numerous bug fixes.
 * connectors.neuronlist should handle neurons without connectors (#29)
 * catmaid_skids should pass on pid (#64)
 * fix catmaid_get_connector_table to reflect 2016.09.01-65 API change (#65)
-
-see https://github.com/jefferis/rcatmaid/issues?q=is%3Aissue+is%3Aclosed+closed%3A%3E2015-06-19+sort%3Aupdated-asc
+* fix bug in catmaid_user_history with small queries (#70)
 
 catmaid 0.6
 ===========
