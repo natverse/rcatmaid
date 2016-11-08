@@ -192,18 +192,16 @@ nb you must use connection objects to talk to both servers because if no
 connection object is specified, the last connection will be re-used.
 
 ## Installation
-Currently there isn't a released version on [CRAN](http://cran.r-project.org/).
-
-### Bleeding Edge
-You can use the **devtools** package to install the development version:
+Currently there isn't a released version on [CRAN](https://cran.r-project.org/)
+but can use the **devtools** package to install the development version:
 
 ```r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("jefferis/rcatmaid")
 ```
 
-Note: Windows users need [Rtools](http://www.murdoch-sutherland.com/Rtools/) and
-[devtools](http://CRAN.R-project.org/package=devtools) to install this way.
+Note: Windows users need [Rtools](https://cran.r-project.org/bin/windows/Rtools/) and
+[devtools](https://cran.r-project.org/package=devtools) to install this way.
 
 ## Acknowledgements
 
