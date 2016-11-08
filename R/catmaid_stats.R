@@ -84,10 +84,12 @@ catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
 #'   
 #'   }
 #' @export
-#' @importFrom dplyr bind_rows right_join
+#' @importFrom dplyr bind_rows right_join as_data_frame
 #' @examples
 #' \dontrun{
 #' catmaid_user_history(from="2016-01-01")
+#' # last 2 days
+#' catmaid_user_history(from = Sys.Date()-2)
 #' }
 catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
   fromd=as.Date(from)
@@ -105,7 +107,8 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
   # comes in with name new_treenodes but this is not correct
   names(df)[1]="new_cable"
   df$uid=rep(as.integer(names(cf$stats_table)), sapply(ll, nrow))
-  right_join(ul[c("full_name","login","id")], df, by=c(id="uid"))
+  df=right_join(ul[c("full_name","login","id")], df, by=c(id="uid"))
+  as.data.frame(df)
 }
 
 
@@ -116,7 +119,7 @@ process_one_user_history <- function(x) {
            new_reviewed_nodes = integer(0), date = structure(numeric(0), class = "Date"))
     return(empytydf)
   }
-  df=dplyr::bind_rows(x)
+  df=bind_rows(lapply(x, as_data_frame))
   dates=as.Date(names(x), format="%Y%m%d")
   df$date=rep(dates, sapply(x, function(x) length(x)>0))
   df
