@@ -132,6 +132,7 @@ options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
   catmaid.authname="Calvin",catmaid.authpassword="hobbes",
   catmaid.username="calvin", catmaid.password="hobbesagain")
 ```
+Be sure to leave one blank line at the end of the .Rprofile file, or it will not work.
 
 In this way authentication will happen transparently as required by all functions
 that interact with the specified CATMAID server. Note that the CATMAID servers 
