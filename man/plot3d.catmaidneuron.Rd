@@ -6,7 +6,7 @@
 \title{Plot skeleton and connectors for neuron retrieved from CATMAID}
 \usage{
 \method{plot3d}{catmaidneuron}(x, WithConnectors = FALSE, WithNodes = FALSE,
-  ...)
+  soma = FALSE, ...)
 }
 \arguments{
 \item{x}{A neuron to plot}
@@ -15,6 +15,10 @@
 
 \item{WithNodes}{logical indicating whether to plot branch/end points 
 (default to \code{FALSE} since they will obscure the synapses).}
+
+\item{soma}{Whether to plot a sphere at neuron's origin representing the 
+soma. Either a logical value or a numeric indicating the radius (default 
+\code{FALSE}). When \code{soma=TRUE} the radius is hard coded to 2.}
 
 \item{...}{additional arguments passed to \code{\link[nat]{plot3d.neuron}} 
 (synapses). Default: \code{TRUE}.}

@@ -236,6 +236,7 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #'   (synapses). Default: \code{TRUE}.
 #' @seealso \code{\link[nat]{plot3d.neuron}}
 #' @importFrom rgl plot3d points3d
+#' @inheritParams nat::plot3d.neuron
 #' @examples 
 #' \dontrun{
 #' nl=read.neurons.catmaid(c(10418394,4453485))
