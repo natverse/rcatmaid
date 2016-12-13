@@ -245,10 +245,13 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' @aliases plot3d
 plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
   rglreturnlist=NextMethod()
-  if(WithConnectors) {
-    conndf=connectors(x)
-    rglreturnlist[['synapses']]=points3d(
-      xyzmatrix(conndf),col=c(pre='red', post='cyan')[conndf$prepost+1])
+  if (WithConnectors) {
+    conndf = connectors(x)
+    # only try to plot if the neuron has connectors
+    if (length(conndf)){
+      rglreturnlist[['synapses']] = 
+        points3d(xyzmatrix(conndf), col = c(pre ='red', post = 'cyan')[conndf$prepost + 1])
+    }
   }
   invisible(rglreturnlist)
 }
