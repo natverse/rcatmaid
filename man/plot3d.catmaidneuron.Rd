@@ -11,10 +11,11 @@
 \arguments{
 \item{x}{A neuron to plot}
 
-\item{WithConnectors}{logical indicating whether or not to plot connectors}
+\item{WithConnectors}{logical indicating whether or not to plot connectors
+(defaults to \code{FALSE}).}
 
 \item{WithNodes}{logical indicating whether to plot branch/end points 
-(default to \code{FALSE} since they will obscure the synapses).}
+(defaults to \code{FALSE} since they will obscure the synapses).}
 
 \item{...}{additional arguments passed to \code{\link[nat]{plot3d.neuron}} 
 (synapses). Default: \code{TRUE}.}

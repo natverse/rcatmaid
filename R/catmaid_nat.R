@@ -228,8 +228,9 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' @method plot3d catmaidneuron
 #' @param x A neuron to plot
 #' @param WithConnectors logical indicating whether or not to plot connectors
+#'   (defaults to \code{FALSE}).
 #' @param WithNodes logical indicating whether to plot branch/end points 
-#'   (default to \code{FALSE} since they will obscure the synapses).
+#'   (defaults to \code{FALSE} since they will obscure the synapses).
 #' @param ... additional arguments passed to \code{\link[nat]{plot3d.neuron}} 
 #'   (synapses). Default: \code{TRUE}.
 #' @seealso \code{\link[nat]{plot3d.neuron}}
@@ -244,7 +245,7 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' }
 #' @aliases plot3d
 plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
-  rglreturnlist=NextMethod()
+  rglreturnlist=NextMethod(WithNodes=WithNodes)
   if (WithConnectors) {
     conndf = connectors(x)
     # only try to plot if the neuron has connectors
