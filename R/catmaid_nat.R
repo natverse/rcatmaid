@@ -35,25 +35,9 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
            data.frame(PointNo=id, Label=0, X=x, Y=y, Z=z, W=radius*2, Parent=parent_id)
   )
   swc$Parent[is.na(swc$Parent)]=-1L
-  
-  # Find soma position, based on plausible tags
-  soma_tags<-grep("(cell body|soma)", ignore.case = T, names(res$tags), value = T)
-  soma_id=unlist(unique(res$tags[soma_tags]))
-  soma_id_in_neuron=intersect(soma_id, swc$PointNo)
-  
-  if(length(soma_id_in_neuron)>1) {
-    soma_d=swc[match(soma_id_in_neuron,swc$PointNo),]
-    if(sum(soma_d$Parent<0) == 1 ) {
-      # just one end point is tagged as soma, so go with that
-      soma_id_in_neuron=soma_d$PointNo[soma_d$Parent<0]
-    } else {
-      warning("Ambiguous points tagged as soma in neuron: ",skid,". Using first")
-      soma_id_in_neuron=soma_id_in_neuron[1]
-    }
-  } else if(length(soma_id_in_neuron)==0) {
-    soma_id_in_neuron=NULL
-  }
-  n=nat::as.neuron(swc, origin=soma_id_in_neuron)
+  sp=somapos.catmaidneuron(swc=swc, tags=res$tags)
+  soma_id_in_neuron = if(nrow(sp)==0) NULL else sp$PointNo
+  n=nat::as.neuron(swc, origin=soma_id_in_neuron, skid=skid)
   
   # add all fields from input list except for nodes themselves
   n[names(res[-1])]=res[-1]
@@ -63,6 +47,24 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   n[fields_to_include]=attributes(res)[fields_to_include]
   class(n)=c('catmaidneuron', 'neuron')
   n
+}
+
+somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
+  # Find soma position, based on plausible tags
+  soma_tags<-grep("(cell body|soma)", ignore.case = T, names(tags), value = T)
+  soma_id=unlist(unique(tags[soma_tags]))
+  soma_id_in_neuron=intersect(soma_id, swc$PointNo)
+  
+  soma_d=swc[match(soma_id_in_neuron,swc$PointNo),,drop=FALSE]
+  if(length(soma_id_in_neuron)>1) {
+    if(sum(soma_d$Parent<0) == 1 ) {
+      # just one end point is tagged as soma, so go with that
+      soma_d[soma_d$Parent<0,, drop=FALSE]
+    } else {
+      warning("Ambiguous points tagged as soma in neuron: ",skid,". Using first")
+      soma_d[1,, drop=FALSE]
+    }
+  } else soma_d
 }
 
 #' @rdname read.neuron.catmaid
@@ -235,6 +237,7 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #'   (synapses). Default: \code{TRUE}.
 #' @seealso \code{\link[nat]{plot3d.neuron}}
 #' @importFrom rgl plot3d points3d
+#' @inheritParams nat::plot3d.neuron
 #' @examples 
 #' \dontrun{
 #' nl=read.neurons.catmaid(c(10418394,4453485))
@@ -244,8 +247,9 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' plot3d(nl, WithConnectors=TRUE)
 #' }
 #' @aliases plot3d
-plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
-  rglreturnlist=NextMethod(WithNodes=WithNodes)
+plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, soma=FALSE, ...) {
+  soma=plot3d_somarad(x, soma)
+  rglreturnlist=NextMethod(WithNodes=WithNodes, soma=soma)
   if (WithConnectors) {
     conndf = connectors(x)
     # only try to plot if the neuron has connectors
@@ -255,6 +259,36 @@ plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, ...) {
     }
   }
   invisible(rglreturnlist)
+}
+
+# private function to choose plotting radius for a neuron
+plot3d_somarad <- function(x, soma=FALSE){
+  if(is.logical(soma) && !soma) {
+    # do nothing, soma is FALSE
+  } else if(is.numeric(soma) && soma<=0){
+    # this signals that we really want to plot a sphere at the origin
+    # regardless of whether it is tagged as a soma or not
+    soma=-soma
+  } else {
+    # check if this neuron has a soma and whether it has a sensible radius
+    sp=somapos.catmaidneuron(x)
+    # no soma defined so we don't want to plot
+    if(nrow(sp)==0) soma=FALSE
+    else if(is.numeric(soma) && is.finite(soma)) {
+      # if we got passed a numeric value for soma then accept that
+    } else {
+      # we didn't get passed a numeric value for soma, so let's 
+      # see if we can come up with a sensible number
+      if(sp[,'W']<=0) soma=TRUE else {
+        soma=sp[,'W']/2
+        # check that we don't have a stupid value e.g. because diameter
+        # was not transformed
+        if(soma>max(x$d[,c("X","Y","Z")]))
+          soma=T
+      }
+    }
+  }
+  soma
 }
 
 #' @export
