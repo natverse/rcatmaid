@@ -25,9 +25,7 @@ A data.frame with columns \itemize{
   
   \item id
   
-  \item type
-  
-  \item tags
+  \item parent_id
   
   \item confidence
   
@@ -37,15 +35,13 @@ A data.frame with columns \itemize{
   
   \item z
   
-  \item s
-  
   \item r
   
-  \item user
+  \item user_id
   
   \item last_modified
   
-  \item reviewer (character vector with comma separated reviewer ids)
+  \item reviewer_id (character vector with comma separated reviewer ids)
   
   }
   

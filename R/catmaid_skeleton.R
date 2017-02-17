@@ -266,9 +266,7 @@ catmaid_get_connector_table<-function(skids,
 #'   
 #'   \item id
 #'   
-#'   \item type
-#'   
-#'   \item tags
+#'   \item parent_id
 #'   
 #'   \item confidence
 #'   
@@ -278,15 +276,13 @@ catmaid_get_connector_table<-function(skids,
 #'   
 #'   \item z
 #'   
-#'   \item s
-#'   
 #'   \item r
 #'   
-#'   \item user
+#'   \item user_id
 #'   
 #'   \item last_modified
 #'   
-#'   \item reviewer (character vector with comma separated reviewer ids)
+#'   \item reviewer_id (character vector with comma separated reviewer ids)
 #'   
 #'   }
 #'   
