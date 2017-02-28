@@ -1,3 +1,11 @@
+catmaid 0.7.1
+=============
+* only plot soma when explicitly tagged  (rather than plotting a sphere at the 
+  root of the neuron if not tagged) (#62)
+* only plot3d connectors if they exist (#73)
+* Ensure nodes do not normally plot for catmaidneurons  (#74)
+* doc fix for catmaid_get_treenode_table (#75)
+
 catmaid 0.7
 ===========
 This is a substantial release with many new functions/enhancements, changes to
