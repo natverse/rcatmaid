@@ -75,4 +75,3 @@ text3d(xyzmatrix(tags), texts = tags$tag, cex=.7)
   \code{\link{read.neuron.catmaid}} and \code{\link{catmaid_get_user_list}} 
   to translate user ids into names.
 }
-

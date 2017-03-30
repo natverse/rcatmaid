@@ -88,4 +88,3 @@ catmaid_fetch("/1/rhubarb/crumble")
 \code{\link{catmaid_login}}, \code{\link[httr]{GET}}, 
   \code{\link[httr]{POST}}
 }
-

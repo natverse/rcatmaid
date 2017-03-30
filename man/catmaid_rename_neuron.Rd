@@ -46,4 +46,3 @@ n=get_neuron_name(27296)
 catmaid_rename_neuron(skids=27296, names=n)
 }
 }
-

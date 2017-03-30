@@ -50,4 +50,3 @@ catmaid_user_history(from="2016-01-01")
 catmaid_user_history(from = Sys.Date()-2)
 }
 }
-

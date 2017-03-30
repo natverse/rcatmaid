@@ -57,4 +57,3 @@ left_join(cs$node_contributors, ul) \%>\%
 \seealso{
 \code{\link{catmaid_get_review_status}}
 }
-

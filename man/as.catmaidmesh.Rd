@@ -2,9 +2,9 @@
 % Please edit documentation in R/meshes.R
 \name{as.catmaidmesh}
 \alias{as.catmaidmesh}
-\alias{as.catmaidmesh.default}
 \alias{as.catmaidmesh.hxsurf}
 \alias{as.catmaidmesh.mesh3d}
+\alias{as.catmaidmesh.default}
 \title{Convert a mesh to CATMAID format}
 \usage{
 as.catmaidmesh(x, ...)
@@ -50,4 +50,3 @@ The CATMAID mesh format is documented in the reference below and
 \seealso{
 \code{\link{catmaid_add_volume}}
 }
-

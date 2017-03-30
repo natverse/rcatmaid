@@ -33,4 +33,3 @@ al=catmaid_get_annotationlist(pid=1)
 table(al$annotations$num_users_annotation)
 }
 }
-

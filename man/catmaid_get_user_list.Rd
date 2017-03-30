@@ -29,4 +29,3 @@ catmaid_get_user_list()
 \code{\link{catmaid_get_review_status}, 
   \link{catmaid_get_contributor_stats}}
 }
-

@@ -38,4 +38,3 @@ catmaid_get_neuronnames("annotation:ORN PNs$")
 \seealso{
 \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
 }
-

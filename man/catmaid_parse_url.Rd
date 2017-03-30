@@ -29,4 +29,3 @@ plot3d(n)
 spheres3d(xyzmatrix(cpu), r=1000, col='magenta')
 }
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/catmaid_annotations.R
 \name{catmaid_get_annotations_for_skeletons}
 \alias{catmaid_get_annotations_for_skeletons}
-\alias{catmaid_remove_annotations_for_skeletons}
 \alias{catmaid_set_annotations_for_skeletons}
+\alias{catmaid_remove_annotations_for_skeletons}
 \title{Get or set annotations for neurons from CATMAID}
 \usage{
 catmaid_get_annotations_for_skeletons(skids, pid = 1, conn = NULL, ...)
@@ -86,4 +86,3 @@ catmaid_remove_annotations_for_skeletons(nn, 'mytest')
 \seealso{
 \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
 }
-

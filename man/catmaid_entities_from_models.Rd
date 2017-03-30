@@ -36,4 +36,3 @@ This will normally be used to turn skeleton ids into neuron ids
 \seealso{
 Used by \code{\link{catmaid_remove_annotations_for_skeletons}}
 }
-

@@ -36,4 +36,3 @@ catmaid_get_review_status(skids=c(10418394,4453485))
 \seealso{
 \code{\link{catmaid_fetch}}
 }
-

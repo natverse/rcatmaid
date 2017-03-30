@@ -45,4 +45,3 @@ catmaid_version(numeric=TRUE)>="2016.1.1-65"
 \seealso{
 \code{\link{numeric_version}}
 }
-

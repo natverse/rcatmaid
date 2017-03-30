@@ -41,4 +41,3 @@ for(r in FAFBNP.surf$RegionList){
 \seealso{
 \code{\link{as.catmaidmesh}}
 }
-

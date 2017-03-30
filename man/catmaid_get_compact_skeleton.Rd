@@ -47,4 +47,3 @@ skel=catmaid_get_compact_skeleton(10418394, connectors = FALSE)
 \code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox
   neuron that can be plotted directly. \code{\link{catmaid_fetch}}.
 }
-

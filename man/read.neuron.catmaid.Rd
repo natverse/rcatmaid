@@ -123,4 +123,3 @@ plot3d(pns, col=Or)
 
 \code{\link{catmaid_skids}}
 }
-

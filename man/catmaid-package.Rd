@@ -2,8 +2,8 @@
 % Please edit documentation in R/catmaid.R
 \docType{package}
 \name{catmaid-package}
-\alias{catmaid}
 \alias{catmaid-package}
+\alias{catmaid}
 \title{Programmatic access to the CATMAID API}
 \description{
 To use, first call \code{\link{catmaid_login}} to authenticate to a catmaid 
@@ -34,6 +34,7 @@ command.
   your catmaid login credentials using the function
   \code{\link{catmaid_connection_setenv}}.
 }
+
 \examples{
 \dontrun{
 ## test package
@@ -59,4 +60,3 @@ Based in large part on code visible at
    for a list of URLs that the web API accepts.
 }
 \keyword{package}
-
