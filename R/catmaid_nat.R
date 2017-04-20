@@ -283,7 +283,7 @@ plot3d_somarad <- function(x, soma=FALSE){
         soma=sp[,'W']/2
         # check that we don't have a stupid value e.g. because diameter
         # was not transformed
-        if(soma>max(x$d[,c("X","Y","Z")]))
+        if(soma>max(x$d[,c("X","Y","Z")], na.rm = TRUE))
           soma=T
       }
     }

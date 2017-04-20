@@ -23,6 +23,10 @@ test_that("choose appropriate soma radius for plotting", {
   expect_equal(plot3d_somarad(y, soma=2), 2)
   expect_equal(plot3d_somarad(y, soma=-2), 2)
   
+  # now give the neuron some NA points
+  y$d$X[1]=NA
+  expect_equal(plot3d_somarad(y, soma=TRUE), TRUE)
+  
   # now give the soma a huge radius
   y$d$W[1]=1e3
   # it should return TRUE and use default radius
