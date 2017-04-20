@@ -323,11 +323,15 @@ plot3d_somarad <- function(x, soma=FALSE){
   n2
 }
 
+nsoma <- function(x) length(x[['tags']][['soma']])
+
 #' @export
 summary.catmaidneuron<-function(object, ...) {
+  df=NextMethod()
   nc=nrow(connectors(object))
   if(is.null(nc)) nc=0L
-  data.frame(nodes=nrow(object$d), 
-             cable.length=sum(seglengths(object)),
-             connectors=nc)
+  df$connectors=nc
+  df$nsoma=nsoma(object)
+  df
 }
+
