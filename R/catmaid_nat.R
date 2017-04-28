@@ -348,6 +348,7 @@ summary.catmaidneuron<-function(object, ...) {
 #' @return A new neuron containing tag and connector information from the old 
 #'   neuron and having the same class as the old neuron.
 #' @family catmaidneuron
+#' @importFrom nabor knn
 copy_tags_connectors <- function(new, old, update_node_ids=TRUE) {
   ## connectors
   c = connectors(old)
