@@ -1,3 +1,10 @@
+catmaid 0.7.2
+=============
+* Add catmaid_get_label_stats (use it to find neurons with soma)
+* Add copy_tags_connectors (bring over tags/connector info)
+* improve summary.catmaidneuron (#78)
+* plot3d bugfix when there are NA points (and soma=T) (#77)
+
 catmaid 0.7.1
 =============
 * only plot soma when explicitly tagged  (rather than plotting a sphere at the 
