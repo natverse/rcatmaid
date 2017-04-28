@@ -412,9 +412,20 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL, 
                                            pid=1, conn=NULL, raw=FALSE, ...) {
   post_data=list()
+  if(is.null(post_skids) && is.null(pre_skids))
+    stop("pre_skids and post_skids cannot both be null!")
+  
   if(!is.null(pre_skids)){
     pre_skids=catmaid_skids(pre_skids, conn = conn, pid=pid)
     post_data[sprintf("pre[%d]", seq(from=0, along.with=pre_skids))]=as.list(pre_skids)
+  } else {
+    cvn = catmaid_version(numeric = TRUE)
+    if (cvn < "2017.04.20" && cvn >= "2016.08.09")
+      stop(
+        "catmaid_get_connectors_between is buggy for CATMAID server version",
+        cvn,
+        "when no pre_skids are specified"
+      )
   }
   if(!is.null(post_skids)){
     post_skids=catmaid_skids(post_skids, conn = conn, pid=pid)
