@@ -18,7 +18,8 @@ Imports:
     jsonlite,
     plyr,
     rgl,
-    dplyr
+    dplyr,
+    nabor
 Suggests:
     testthat
 Remotes: jefferis/nat
