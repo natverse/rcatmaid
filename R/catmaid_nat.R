@@ -335,3 +335,56 @@ summary.catmaidneuron<-function(object, ...) {
   df
 }
 
+#' Copy the tag / connector info from a catmaid neuron to a new neuron
+#' @description This function is intended primarily for developer use as a way 
+#'   to copy over connector/tag information typically contained in CATMAID
+#'   neurons but lost when nat functions are applied to transform a neuron.
+#' @details Both connectors and tag information contain node ids. These may need
+#'   to be mapped onto new node ids if these are not consistent between old and 
+#'   new neurons.
+#' @export
+#' @param new,old information will be copied from old -> new
+#' @param update_node_ids whether to update the node ids (default \code{TRUE})
+#' @return A new neuron containing tag and connector information from the old 
+#'   neuron and having the same class as the old neuron.
+#' @family catmaidneuron
+copy_tags_connectors <- function(new, old, update_node_ids=TRUE) {
+  ## connectors
+  c = connectors(old)
+  if(update_node_ids) {
+  nnres = nabor::knn(
+    data = nat::xyzmatrix(new),
+    query = nat::xyzmatrix(c),
+    k = 1
+  )
+  # note that we map indices into the point array onto PointNo
+  c$treenode_id=new$d$PointNo[nnres$nn.idx]
+  }
+  new[['connectors']] = c
+
+  ## tags
+  # replace the tag ids using a similar strategy
+  old_tag_ids = unlist(old$tags, use.names = F)
+  if (!update_node_ids) {
+    new[['tags']] = old[['tags']]
+  } else {
+    nnres = nabor::knn(
+      data = nat::xyzmatrix(new),
+      query = nat::xyzmatrix(old)[match(old_tag_ids, old$d$PointNo), ],
+      k = 1
+    )
+    new_tag_ids = new$d$PointNo[nnres$nn.idx]
+    new$tags = old$tags
+    k = 0
+    for (i in seq_along(old$tags)) {
+      for (j in seq_along(old$tags[[i]])) {
+        k = k + 1
+        new$tags[[i]][[j]] = new_tag_ids[k]
+      }
+      names(new$tags[[i]]) = names(old$tags[[i]])
+    }
+    names(new$tags) = names(old$tags)
+  }
+  class(new)=class(old)
+  new
+}
