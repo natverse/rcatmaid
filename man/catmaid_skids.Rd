@@ -26,10 +26,10 @@ An efficient way to find neuron skeleton ids interactively or in any function
 that can take skids as an input.
 }
 \details{
-If the inputs are numeric or have length > 1 they are assumed 
-  already to be skids and are simply converted to integers. If the the input 
-  is a string starting with "name:" or "annotation:" they are used for a 
-  query by \code{\link{catmaid_query_by_name}} or 
+If the inputs are numeric or have length > 1 they are assumed
+  already to be skids and are simply converted to integers. If the input is a
+  string starting with "name:" or "annotation:" they are used for a query by
+  \code{\link{catmaid_query_by_name}} or
   \code{\link{catmaid_query_by_annotation}}, respectively.
 }
 \examples{
