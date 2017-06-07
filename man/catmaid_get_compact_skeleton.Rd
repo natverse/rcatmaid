@@ -25,6 +25,20 @@ or to convert the nodes and connectors lists into processed data.frames
 \item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
 function.}
 }
+\value{
+An R list object with three elements \itemize{
+  
+  \item nodes A data frame containing XYZ location, node identifiers etc for 
+  each point in the neuron.
+  
+  \item connectors A data frame containing the position and tree node 
+  identifiers for the synaptic partners.
+  
+  \item tags A list containing one vector for each named tag; the vectors 
+  contain node ids that are also present in the \code{nodes} element.
+  
+  }
+}
 \description{
 Return the raw data for a CATMAID neuronal skeleton
 }
@@ -44,6 +58,6 @@ skel=catmaid_get_compact_skeleton(10418394, connectors = FALSE)
 }
 }
 \seealso{
-\code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox
+\code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox 
   neuron that can be plotted directly. \code{\link{catmaid_fetch}}.
 }

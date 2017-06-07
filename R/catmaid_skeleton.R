@@ -12,7 +12,19 @@
 #'   (when \code{FALSE}, the default)
 #' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
 #'   function.
-#' @seealso \code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox
+#' @return An R list object with three elements \itemize{
+#'   
+#'   \item nodes A data frame containing XYZ location, node identifiers etc for 
+#'   each point in the neuron.
+#'   
+#'   \item connectors A data frame containing the position and tree node 
+#'   identifiers for the synaptic partners.
+#'   
+#'   \item tags A list containing one vector for each named tag; the vectors 
+#'   contain node ids that are also present in the \code{nodes} element.
+#'   
+#'   }
+#' @seealso \code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox 
 #'   neuron that can be plotted directly. \code{\link{catmaid_fetch}}.
 #' @export
 #' @examples
@@ -41,6 +53,8 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
   if(length(skel$connectors))
     skel$connectors=list2df(skel$connectors, 
                             cols=c("treenode_id", "connector_id", "prepost", "x", "y", "z"))
+  # change tags from list of lists to list of vectors
+  skel$tags=sapply(skel$tags, unlist, simplify = FALSE)
   skel
 }
 
