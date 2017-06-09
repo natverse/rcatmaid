@@ -160,37 +160,57 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #' @export
 catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
                              authpassword=NULL, token=NULL,
-                             authtype=getOption("catmaid.authtype", default = "basic")) {
+                             authtype=NULL) {
   
-  defaultServer=getOption("catmaid.server")
+  arglist=formals(fun = sys.function())
+  argnames=names(arglist)
+  m=match.call(definition = sys.function(), call = sys.call())
+  conn=as.list(m)[-1]
+
+  defaultServer=unlist(getenvoroption("server"))
   if(missing(server)) {
-    server=defaultServer
+    conn$server=defaultServer
   }
-  if(is.null(server) || !grepl("^http[s]{0,1}", server))
+  if(is.null(conn$server) || !grepl("^http[s]{0,1}", conn$server))
     stop("Must provide a valid https server")
   
-  if(isTRUE(server==defaultServer)){
-    # we're using the default server specified by options
-    # fill in the other options
-    if(is.null(username)) username=getOption("catmaid.username")
-    if(is.null(password)) password=getOption("catmaid.password")
-    if(is.null(authname)) authname=getOption("catmaid.authname")
-    if(is.null(authpassword)) authpassword=getOption("catmaid.authpassword")
-    if(is.null(token)) token=getOption("catmaid.token")
+  # Fill in the missing values using environment vars or options
+  if(conn$server==defaultServer){
+    missing_vars=setdiff(argnames, names(m))
+    conn[missing_vars]=getenvoroption(missing_vars)
   }
   
-  conn=list(server=server, username=username, password=password, 
-            authtype=authtype, authname=authname, authpassword=authpassword, token=token)
   # make a custom curl config that includes authentication information if necessary
-  conn$config = if(is.null(authname)) config() else {
-    authenticate(authname, authpassword, type = authtype)
+  if(is.null(conn$authname)) {
+    conn$config=config() 
+  } else {
+    if(is.null(conn$authtype))
+      conn$authtype='basic'
+    conn$config=authenticate(conn$authname, conn$authpassword, type = conn$authtype)
   }
-  if(!is.null(token))
+  if(!is.null(conn$token))
     conn$config=c(conn$config, 
-                  add_headers(`X-Authorization`=paste("Token", token)))
+                  add_headers(`X-Authorization`=paste("Token", conn$token)))
 
   class(conn)="catmaid_connection"
   invisible(conn)
+}
+
+getenvoroption <- function(vars, prefix="catmaid."){
+  fullvars=paste0(prefix, vars)
+  res=Sys.getenv(fullvars, names = T)
+  missing=!nzchar(res)
+  if(all(missing)){
+    res=do.call(options, as.list(fullvars))
+  } else {
+    # convert environment variables into options style list
+    res=as.list(res)
+    # replace missing values with NULL
+    sapply(res, function(x) if(nzchar(x)) x else NULL)
+  }
+  # give result the original variable names
+  names(res)=vars
+  res
 }
 
 #' Send http GET or POST request to a CATMAID server
