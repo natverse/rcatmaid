@@ -175,7 +175,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     stop("Must provide a valid https server")
   
   # Fill in the missing values using environment vars or options
-  if(conn$server==defaultServer){
+  if(isTRUE(conn$server==defaultServer)){
     missing_vars=setdiff(argnames, names(m))
     conn[missing_vars]=getenvoroption(missing_vars)
   }
