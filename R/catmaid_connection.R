@@ -18,12 +18,13 @@
 #'   same server is desired OR (when no information about the server is passed 
 #'   to \code{catmaid_login}) the last opened connection will be used.
 #'   
-#' @section Token based authentication: CATMAID now offers token based 
-#'   authentication as an alternative to specifying you CATMAID username and 
-#'   password. See \url{http://catmaid.github.io/dev/api.html#api-token} for how
-#'   to get an API token. You can then set the \code{catmaid.token} package 
-#'   option, but no longer need to set the \code{catmaid.username} and 
-#'   \code{catmaid.password} options.
+#' @section Token based authentication: CATMAID offers token based 
+#'   authentication as the strongly preferred alternative to specifying you
+#'   CATMAID username and password. See
+#'   \url{http://catmaid.github.io/dev/api.html#api-token} for how to get an API
+#'   token. You can then set the \code{catmaid.token} package option, but no
+#'   longer need to set the \code{catmaid.username} and \code{catmaid.password}
+#'   options.
 #'   
 #'   Note that you must \bold{NOT} reveal this token e.g. by checking it into a 
 #'   version controlled script as it gives complete access to your CATMAID 
@@ -40,20 +41,19 @@
 #'   authenticated http requests to a CATMAID server, specifically by making use
 #'   of the \code{$config} field.
 #'   
-#' @section Package options:
+#' @section Environment variables:
 #'   
-#'   You will very likely want to set some of the following package options in 
-#'   your .Rprofile file (see \code{\link{Startup}} for details)
+#'   You will very likely want to set the following environment variables in 
+#'   your \code{.Renviron} file (see \code{\link{Startup}} for details). This 
+#'   file is read by R on startup. In this way the catmaid package will 
+#'   automatically login to your preferred CATMAID server. Note that environment
+#'   variables will also be inherited by child R sessions. This means for
+#'   example that they will be available when running knitr reports, tests or R
+#'   CMD Check from Rstudio.
 #'   
 #'   \itemize{
 #'   
 #'   \item{\code{catmaid.server}}
-#'   
-#'   \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
-#'   of token)
-#'   
-#'   \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
-#'   of token)
 #'   
 #'   \item{\code{catmaid.token}} Preferred to using catmaid.username/password
 #'   
@@ -62,14 +62,40 @@
 #'   
 #'   \item{\code{catmaid.authpassword}} Optional password for basic http website
 #'   authorisation
+#'
+#'   \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
+#'   of token)
 #'   
-#'   } using code along these lines:
+#'   \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
+#'   of token)
 #'   
-#'   # see http://catmaid.github.io/dev/api.html#api-token # for details of 
-#'   obtaining an API token 
+#'   } An example \code{.Renviron} file might look like:
+#'   
+#'   \preformatted{
+#'catmaid.server="https://mycatmaidserver.org/catmaidroot"
+#'catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
+#'catmaid.authname="Calvin"
+#'catmaid.authpassword="hobbes"
+#'   }
+#'   
+#'   and \bold{must} finish with a return at the end of the last line. See
+#'   \url{http://catmaid.github.io/dev/api.html#api-token} for details of 
+#'   obtaining an API token
+#'   
+#' @section Options: Although setting environment variables is now the recommended 
+#'   approach, you can also set R startup options e.g. in your \code{.Rprofile}
+#'   to specify default CATMAID login options including your personal access 
+#'   token. The startup options have the same names as the environment variables
+#'   listed above, so you can place code along the lines of:
+#'   
 #'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
 #'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token = 
 #'   "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")}
+#'   
+#'   in your \code{.Rprofile} (see \code{\link{Startup}} for details). Note that
+#'   it is important to have a final return at the end of your \code{.Rprofile}
+#'   file.
+#'   
 #' @seealso \code{\link{options}}, \code{\link{Startup}}
 #' @examples
 #' \dontrun{
@@ -84,7 +110,7 @@
 #'   authname="Calvin",authpassword="hobbes", 
 #'   username="calvin", password="hobbesagain")
 #' 
-#' ## examples assuming that catmaid.* options have been set
+#' ## examples assuming that catmaid.* environment variables/options are set
 #' conn = catmaid_login()
 #' conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 #' 
@@ -152,7 +178,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #'   \code{\link[httr]{authenticate}} for details.
 #' @details Note the difference between \code{authname}/\code{authpassword} and 
 #'   \code{username}/\code{password}. The former are for generic web 
-#'   authentication, which is sometimes used to protect a privae catmaid site 
+#'   authentication, which is sometimes used to protect a private catmaid site 
 #'   from being accessible to general web traffic. The latter are used to 
 #'   authenticate to the CATMAID web application itself - for example the 
 #'   \code{username} is the one that will be associated with any tracing carried
