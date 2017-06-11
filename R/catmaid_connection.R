@@ -198,15 +198,15 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
 
 getenvoroption <- function(vars, prefix="catmaid."){
   fullvars=paste0(prefix, vars)
-  res=Sys.getenv(fullvars, names = T)
-  missing=!nzchar(res)
-  if(all(missing)){
+  res=Sys.getenv(fullvars, names = T, unset = NA)
+  if(all(is.na(res))){
+    # no env variables are set, let's try options
     res=do.call(options, as.list(fullvars))
   } else {
     # convert environment variables into options style list
     res=as.list(res)
     # replace missing values with NULL
-    sapply(res, function(x) if(nzchar(x)) x else NULL)
+    res=sapply(res, function(x) if(is.na(x)) NULL else x)
   }
   # give result the original variable names
   names(res)=vars
