@@ -14,7 +14,6 @@ test_that("catmaid_query_by_name", {
   expect_null(catmaid_query_by_name("wurgle"))
   expect_is(rdf<-catmaid_query_by_name("ORN"), 'data.frame')
   expect_equal(names(rdf), c("id", "name", "type", "skid"))
-  expect_is(attr(rdf,'annotations'),'data.frame')
 })
 
 test_that("catmaid_query_by_annotation", {

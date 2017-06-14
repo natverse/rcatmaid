@@ -185,18 +185,10 @@ query_by_neuron_or_annotation<-function(path, body, maxresults=500,
   names(res2)[names(res2)=="skeleton_ids"]="skid"
   # this column makes no sense as a factor since names should be unique
   res2$name=as.character(res2$name)
-  al=lapply(res$entities, "[[", "annotations")
-  ldf=lapply(al, list2df, c("uid","id", "name"), use.col.names=T, return_empty_df=T)
-  adf=rbind.pages(ldf)
-  names(adf)[names(adf)=='id']='annotation_id'
-  adf$id=rep(res2$id, sapply(ldf, nrow))
-  adf$name=as.character(adf$name)
   if(length(return_type)==1) {
     # subset
     res2=res2[res2$type%in%return_type,]
-    adf=adf[adf$id%in%res2$id,]
   }
-  attr(res2,'annotations')=adf
   res2
 }
 
