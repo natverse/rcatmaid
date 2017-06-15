@@ -1,7 +1,7 @@
 context("catmaid annotation queries")
 
 # nb will reuse cached connection made earlier
-conn=try(catmaid_connection_getenv(), silent = TRUE)
+conn=try(catmaid_login(), silent = TRUE)
 
 test_that("catmaid_get_annotations_for_skeletons", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')

@@ -384,7 +384,7 @@ catmaid_connection_fingerprint<-function(conn) {
 #' \code{catmaid_connection} object.
 #' 
 #' \code{catmaid_connection_getenv} fetches appropriately named environment 
-#' variables and uses them to open a catmaid connection.
+#' variables and returns them as named character vector.
 #' 
 #' \code{catmaid_connection_unsetenv} unsets the environment variables.
 #' @param conn A \code{catmaid_connection} object. The default value of NULL 
@@ -411,7 +411,7 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 #' @rdname catmaid_connection_setenv
 #' @export
 #' @importFrom stats na.omit
-catmaid_connection_getenv<-function(...) {
+catmaid_connection_getenv<-function() {
   varnames=c("server", "username", "password", 
              "authname", "authpassword", "authtype", "token")
   catmaid_envnames=paste0("catmaid.", varnames)
@@ -419,7 +419,6 @@ catmaid_connection_getenv<-function(...) {
   names(catmaid_envs)=varnames
   # drop any empty vars
   catmaid_envs=na.omit(catmaid_envs)
-  do.call(catmaid_login, as.list(catmaid_envs, ...))
 }
 
 #' Unset catmaid connection environment variables

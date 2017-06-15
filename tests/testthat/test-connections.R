@@ -1,7 +1,7 @@
 context("catmaid login and get/post")
 
 # we can only run real tests if we can log in with default parameters
-conn=try(catmaid_connection_getenv(), silent = TRUE)
+conn=try(catmaid_login(), silent = TRUE)
 
 test_that("can make a connection", {
   

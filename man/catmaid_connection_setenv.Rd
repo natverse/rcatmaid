@@ -8,7 +8,7 @@
 \usage{
 catmaid_connection_setenv(conn = NULL, ...)
 
-catmaid_connection_getenv(...)
+catmaid_connection_getenv()
 
 catmaid_connection_unsetenv()
 }
@@ -28,7 +28,7 @@ implies that the most recent cached open connection will be used.}
 \code{catmaid_connection} object.
 
 \code{catmaid_connection_getenv} fetches appropriately named environment 
-variables and uses them to open a catmaid connection.
+variables and returns them as named character vector.
 
 \code{catmaid_connection_unsetenv} unsets the environment variables.
 
