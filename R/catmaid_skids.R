@@ -58,7 +58,7 @@ catmaid_skids<-function(x, several.ok=TRUE, conn=NULL, ...) {
     if(is.null(df)) warning("No matches for query ",x,"!")
     else {
       # handle multiple returned data.frames
-      if(!is.data.frame(df)) df=rbind.pages(df)
+      if(!is.data.frame(df)) df=dplyr::bind_rows(df)
       skids = unique(df$skid)
     }
   }
