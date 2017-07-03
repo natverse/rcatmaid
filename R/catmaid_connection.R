@@ -18,12 +18,13 @@
 #'   same server is desired OR (when no information about the server is passed 
 #'   to \code{catmaid_login}) the last opened connection will be used.
 #'   
-#' @section Token based authentication: CATMAID now offers token based 
-#'   authentication as an alternative to specifying you CATMAID username and 
-#'   password. See \url{http://catmaid.github.io/dev/api.html#api-token} for how
-#'   to get an API token. You can then set the \code{catmaid.token} package 
-#'   option, but no longer need to set the \code{catmaid.username} and 
-#'   \code{catmaid.password} options.
+#' @section Token based authentication: CATMAID offers token based 
+#'   authentication as the strongly preferred alternative to specifying you
+#'   CATMAID username and password. See
+#'   \url{http://catmaid.github.io/dev/api.html#api-token} for how to get an API
+#'   token. You can then set the \code{catmaid.token} package option, but no
+#'   longer need to set the \code{catmaid.username} and \code{catmaid.password}
+#'   options.
 #'   
 #'   Note that you must \bold{NOT} reveal this token e.g. by checking it into a 
 #'   version controlled script as it gives complete access to your CATMAID 
@@ -40,20 +41,19 @@
 #'   authenticated http requests to a CATMAID server, specifically by making use
 #'   of the \code{$config} field.
 #'   
-#' @section Package options:
+#' @section Environment variables:
 #'   
-#'   You will very likely want to set some of the following package options in 
-#'   your .Rprofile file (see \code{\link{Startup}} for details)
+#'   You will very likely want to set the following environment variables in 
+#'   your \code{.Renviron} file (see \code{\link{Startup}} for details). This 
+#'   file is read by R on startup. In this way the catmaid package will 
+#'   automatically login to your preferred CATMAID server. Note that environment
+#'   variables will also be inherited by child R sessions. This means for
+#'   example that they will be available when running knitr reports, tests or R
+#'   CMD Check from Rstudio.
 #'   
 #'   \itemize{
 #'   
 #'   \item{\code{catmaid.server}}
-#'   
-#'   \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
-#'   of token)
-#'   
-#'   \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
-#'   of token)
 #'   
 #'   \item{\code{catmaid.token}} Preferred to using catmaid.username/password
 #'   
@@ -62,14 +62,40 @@
 #'   
 #'   \item{\code{catmaid.authpassword}} Optional password for basic http website
 #'   authorisation
+#'
+#'   \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
+#'   of token)
 #'   
-#'   } using code along these lines:
+#'   \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
+#'   of token)
 #'   
-#'   # see http://catmaid.github.io/dev/api.html#api-token # for details of 
-#'   obtaining an API token 
+#'   } An example \code{.Renviron} file might look like:
+#'   
+#'   \preformatted{
+#'catmaid.server="https://mycatmaidserver.org/catmaidroot"
+#'catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
+#'catmaid.authname="Calvin"
+#'catmaid.authpassword="hobbes"
+#'   }
+#'   
+#'   and \bold{must} finish with a return at the end of the last line. See
+#'   \url{http://catmaid.github.io/dev/api.html#api-token} for details of 
+#'   obtaining an API token
+#'   
+#' @section Options: Although setting environment variables is now the recommended 
+#'   approach, you can also set R startup options e.g. in your \code{.Rprofile}
+#'   to specify default CATMAID login options including your personal access 
+#'   token. The startup options have the same names as the environment variables
+#'   listed above, so you can place code along the lines of:
+#'   
 #'   \code{options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
 #'   catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token = 
 #'   "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")}
+#'   
+#'   in your \code{.Rprofile} (see \code{\link{Startup}} for details). Note that
+#'   it is important to have a final return at the end of your \code{.Rprofile}
+#'   file.
+#'   
 #' @seealso \code{\link{options}}, \code{\link{Startup}}
 #' @examples
 #' \dontrun{
@@ -84,7 +110,7 @@
 #'   authname="Calvin",authpassword="hobbes", 
 #'   username="calvin", password="hobbesagain")
 #' 
-#' ## examples assuming that catmaid.* options have been set
+#' ## examples assuming that catmaid.* environment variables/options are set
 #' conn = catmaid_login()
 #' conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 #' 
@@ -152,7 +178,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #'   \code{\link[httr]{authenticate}} for details.
 #' @details Note the difference between \code{authname}/\code{authpassword} and 
 #'   \code{username}/\code{password}. The former are for generic web 
-#'   authentication, which is sometimes used to protect a privae catmaid site 
+#'   authentication, which is sometimes used to protect a private catmaid site 
 #'   from being accessible to general web traffic. The latter are used to 
 #'   authenticate to the CATMAID web application itself - for example the 
 #'   \code{username} is the one that will be associated with any tracing carried
@@ -160,37 +186,57 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #' @export
 catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
                              authpassword=NULL, token=NULL,
-                             authtype=getOption("catmaid.authtype", default = "basic")) {
+                             authtype=NULL) {
   
-  defaultServer=getOption("catmaid.server")
+  arglist=formals(fun = sys.function())
+  argnames=names(arglist)
+  m=match.call(definition = sys.function(), call = sys.call())
+  conn=as.list(m)[-1]
+
+  defaultServer=unlist(getenvoroption("server"))
   if(missing(server)) {
-    server=defaultServer
+    conn$server=defaultServer
   }
-  if(is.null(server) || !grepl("^http[s]{0,1}", server))
+  if(is.null(conn$server) || !grepl("^http[s]{0,1}", conn$server))
     stop("Must provide a valid https server")
   
-  if(isTRUE(server==defaultServer)){
-    # we're using the default server specified by options
-    # fill in the other options
-    if(is.null(username)) username=getOption("catmaid.username")
-    if(is.null(password)) password=getOption("catmaid.password")
-    if(is.null(authname)) authname=getOption("catmaid.authname")
-    if(is.null(authpassword)) authpassword=getOption("catmaid.authpassword")
-    if(is.null(token)) token=getOption("catmaid.token")
+  # Fill in the missing values using environment vars or options
+  if(isTRUE(unname(conn$server==defaultServer))){
+    missing_vars=setdiff(argnames, names(m))
+    conn[missing_vars]=getenvoroption(missing_vars)
   }
   
-  conn=list(server=server, username=username, password=password, 
-            authtype=authtype, authname=authname, authpassword=authpassword, token=token)
   # make a custom curl config that includes authentication information if necessary
-  conn$config = if(is.null(authname)) config() else {
-    authenticate(authname, authpassword, type = authtype)
+  if(is.null(conn$authname)) {
+    conn$config=config() 
+  } else {
+    if(is.null(conn$authtype))
+      conn$authtype='basic'
+    conn$config=authenticate(conn$authname, conn$authpassword, type = conn$authtype)
   }
-  if(!is.null(token))
+  if(!is.null(conn$token))
     conn$config=c(conn$config, 
-                  add_headers(`X-Authorization`=paste("Token", token)))
+                  add_headers(`X-Authorization`=paste("Token", conn$token)))
 
   class(conn)="catmaid_connection"
   invisible(conn)
+}
+
+getenvoroption <- function(vars, prefix="catmaid."){
+  fullvars=paste0(prefix, vars)
+  res=Sys.getenv(fullvars, names = T, unset = NA)
+  if(all(is.na(res))){
+    # no env variables are set, let's try options
+    res=do.call(options, as.list(fullvars))
+  } else {
+    # convert environment variables into options style list
+    res=as.list(res)
+    # replace missing values with NULL
+    res=sapply(res, function(x) if(is.na(x)) NULL else x)
+  }
+  # give result the original variable names
+  names(res)=vars
+  res
 }
 
 #' Send http GET or POST request to a CATMAID server
@@ -338,7 +384,7 @@ catmaid_connection_fingerprint<-function(conn) {
 #' \code{catmaid_connection} object.
 #' 
 #' \code{catmaid_connection_getenv} fetches appropriately named environment 
-#' variables and uses them to open a catmaid connection.
+#' variables and returns them as named character vector.
 #' 
 #' \code{catmaid_connection_unsetenv} unsets the environment variables.
 #' @param conn A \code{catmaid_connection} object. The default value of NULL 
@@ -365,7 +411,7 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 #' @rdname catmaid_connection_setenv
 #' @export
 #' @importFrom stats na.omit
-catmaid_connection_getenv<-function(...) {
+catmaid_connection_getenv<-function() {
   varnames=c("server", "username", "password", 
              "authname", "authpassword", "authtype", "token")
   catmaid_envnames=paste0("catmaid.", varnames)
@@ -373,7 +419,6 @@ catmaid_connection_getenv<-function(...) {
   names(catmaid_envs)=varnames
   # drop any empty vars
   catmaid_envs=na.omit(catmaid_envs)
-  do.call(catmaid_login, as.list(catmaid_envs, ...))
 }
 
 #' Unset catmaid connection environment variables

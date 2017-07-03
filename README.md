@@ -121,44 +121,13 @@ plot3d(non_pn_downstream.hc,db=non_pn_downstream, k=4, soma=1000)
 
 ## Authentication
 You will obviously need to have the login details of a valid CATMAID instance to try 
-this out. 
-
-### Setting package authentication options in your .Rprofile
-It is recommended that you set these details by including code like 
-this in in your .Rprofile file:
-
-```r
-options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
-  catmaid.authname="Calvin",catmaid.authpassword="hobbes",
-  catmaid.username="calvin", catmaid.password="hobbesagain")
-```
-Be sure to leave one blank line at the end of the .Rprofile file, or it will not work.
-
-In this way authentication will happen transparently as required by all functions
-that interact with the specified CATMAID server. Note that the CATMAID servers 
-that I am aware of require two layers of password
-protection, an outer HTTP auth type user/password combination as well as an inner
-CATMAID-specific password.
-
-### Token based authentication
-As of December 2015 CATMAID is moving to token based authentication. For this
+this out. As of December 2015 CATMAID is moving to token based authentication. For this
 you will need to get an API token when you are logged into the CATMAID web 
 client in your browser. See http://catmaid.github.io/dev/api.html#api-token for
 details. 
 
-You would then set your `.Rprofile` like this:
-
-```r
-options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
-  catmaid.authname="Calvin",catmaid.authpassword="hobbes",
-  catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
-```
-Note that you will probably still need to specify you http username/password combination
-even if you are using an API token to authenticate to the CATMAID server.
-
-### Cached authentication 
-Whether you use options in your `.Rprofile` as described above or you login 
-explicitly at the start of a session by doing something like:
+Once you have the login information you can use the `catmaid_login` function to 
+authenticate. The minimal information is your server URL and your CATMAID token.
 
 ```r
 catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
@@ -166,16 +135,57 @@ catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
               token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
 ```
 
-the access credentials will be cached for the rest of
-the session. You can still authenticate explicitly to a different CATMAID server
-(using `catmaid_login`) if you wish.
+Note that the CATMAID servers that I am aware of require two layers of password
+protection, an outer HTTP auth type user/password combination as well as an inner
+CATMAID-specific token based login. The outer HTTP auth type user/password 
+combination may be specific to you or generic to the project.
+
+### Setting environment variables in your .Renviron file
+It is recommended that you set your login details by including code like 
+this in in your [.Renviron file](https://www.rdocumentation.org/packages/base/versions/3.4.0/topics/Startup):
+
+```r
+catmaid.server="https://mycatmaidserver.org/catmaidroot"
+catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
+
+# additional security for mycatmaidserver.org/catmaidroot page
+catmaid.authname="Calvin"
+catmaid.authpassword="hobbes"
+```
+Be sure to leave one blank line at the end of the .Renviron file, or it will not work.
+
+In this way authentication will happen transparently as required by all functions
+that interact with the specified CATMAID server. 
+
+### Setting environment variables in your .Rprofile file
+Alternatively you can set package options in your .Rprofile file, but the 
+environment variable approach is now recommended as it handles a few edge cases
+where options are not read by R processes e.g. when building vignettes.
+
+```r
+options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
+  catmaid.authname="Calvin",catmaid.authpassword="hobbes",
+  catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
+```
+Once again, be sure to leave one blank line at the end of the .Rprofile file, 
+or it will not work.
+
+### Cached authentication 
+Whether you use options in your `.Renviron` as described above or you login 
+explicitly at the start of a session using `catmaid_login` the access credentials 
+will be cached for the rest of the session. You can still authenticate explicitly
+to a different CATMAID server (using `catmaid_login`) if you wish.
 
 ### Multiple servers
-If you need to talk to more than one catmaid server in a single session then you 
+If you use more than one CATMAID server but always do so in different sessions
+or rmarkdown scripts then you can save an appropriate `.Renviron` file in the 
+project folder.
+
+If you need to talk to more than one CATMAID server in a single session then you 
 must use `catmaid_login` to login into each server
 
 ```r
-# log in to default server specified in .Rprofile
+# log in to default server specified in .Renviron/.Rprofile
 conn1=catmaid_login()
 # log into another server, presumably with different credentials
 conn2=catmaid_login(server='https://my.otherserver.com', ...)
@@ -189,7 +199,7 @@ n1=read.neuron(123, conn=conn1)
 # fetch neuron from server 2
 n2=read.neuron(123, conn=conn2)
 ```
-nb you must use connection objects to talk to both servers because if no 
+n.b. you must use connection objects to talk to both servers because if no 
 connection object is specified, the last connection will be re-used.
 
 ## Installation
