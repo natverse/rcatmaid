@@ -1,3 +1,13 @@
+catmaid 0.8
+===========
+This is a major version update because of the new support (and recommendation)
+to use environment variables for login (.Rprofile is still supported).
+
+* support fetching login informaion from environment variables (#80)
+* catmaid_get_compact_skeleton now returns list of vectors (#79)
+  (used to be a list of lists, but this was less convenient and not helpful)
+* fix query_by_neuron_or_annotation adding empty annotations attribute
+
 catmaid 0.7.2
 =============
 * Add catmaid_get_label_stats (use it to find neurons with soma)
