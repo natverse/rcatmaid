@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Parse a CATMAID URL to extract parameters including xyz location — catmaid_parse_url • catmaid</title>
+<title>Copy the tag / connector info from a catmaid neuron to a new neuron — copy_tags_connectors • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,44 +80,42 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Parse a CATMAID URL to extract parameters including xyz location</h1>
+    <h1>Copy the tag / connector info from a catmaid neuron to a new neuron</h1>
     </div>
 
     
-    <p>Parse a CATMAID URL to extract parameters including xyz location</p>
+    <p>This function is intended primarily for developer use as a way 
+  to copy over connector/tag information typically contained in CATMAID
+  neurons but lost when nat functions are applied to transform a neuron.</p>
     
 
-    <pre class="usage"><span class='fu'>catmaid_parse_url</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>copy_tags_connectors</span>(<span class='no'>new</span>, <span class='no'>old</span>, <span class='kw'>update_node_ids</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>One or more catmaid urls</p></td>
+      <th>new, old</th>
+      <td><p>information will be copied from old -&gt; new</p></td>
+    </tr>
+    <tr>
+      <th>update_node_ids</th>
+      <td><p>whether to update the node ids (default <code>TRUE</code>)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>data.frame</code> containing parsed parameters. The columns will be
-  named according to CATMAID's convention except for the x, y and z location
-  (named as such rather than xp, yp, zp as returned by CATMAID).</p>
+    <p>A new neuron containing tag and connector information from the old 
+  neuron and having the same class as the old neuron.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Both connectors and tag information contain node ids. These may need
+  to be mapped onto new node ids if these are not consistent between old and 
+  new neurons.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>u</span><span class='kw'>=</span><span class='fu'>paste0</span>(<span class='st'>"https://neuropil.janelia.org/tracing/fafb/v12/?pid=1&amp;zp=177100&amp;"</span>,
-  <span class='st'>"yp=166068&amp;xp=373086&amp;tool=tracingtool&amp;sid0=7&amp;s0=1.000000"</span>)
-<span class='fu'>catmaid_parse_url</span>(<span class='no'>u</span>)</div><div class='output co'>#&gt;                                         baseurl pid      z      y      x
-#&gt; 1 https://neuropil.janelia.org/tracing/fafb/v12   1 177100 166068 373086
-#&gt;          tool sid0 s0
-#&gt; 1 tracingtool    7  1</div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>cpu</span><span class='kw'>=</span><span class='fu'>catmaid_parse_url</span>(<span class='no'>u</span>)
-<span class='no'>n</span><span class='kw'>=</span><span class='fu'><a href='read.neuron.catmaid.html'>read.neuron.catmaid</a></span>(<span class='no'>cpu</span>$<span class='no'>active_skeleton_id</span>)
-<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>n</span>)
-<span class='fu'>spheres3d</span>(<span class='fu'>xyzmatrix</span>(<span class='no'>cpu</span>), <span class='kw'>r</span><span class='kw'>=</span><span class='fl'>1000</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'magenta'</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -125,9 +123,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

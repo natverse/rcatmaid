@@ -23,14 +23,17 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-
+  
+  
 <!-- mathjax -->
-<script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
+
   </head>
 
   <body>
@@ -49,6 +52,12 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="..//index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -78,7 +87,7 @@
     <p>Convert a mesh to CATMAID format</p>
     
 
-    <pre><span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for hxsurf</span>
 <span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -90,36 +99,42 @@
 <span class='fu'>as.catmaidmesh</span>(<span class='no'>x</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>comment</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
-    <dl class="dl-horizontal">
-      <dt>x</dt>
-      <dd>A mesh object such as <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.hxsurf'>hxsurf</a></code> or 
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A mesh object such as <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.hxsurf'>hxsurf</a></code> or 
 <code><a href='http://www.rdocumentation.org/packages/rgl/topics/mesh3d'>mesh3d</a></code> object <em>or</em> a list with raw vertices (Nx3) 
-and indices (Nx3).</dd>
-      <dt>...</dt>
-      <dd>Additional fields for the CATMAID mesh object</dd>
-      <dt>title</dt>
-      <dd>The title of the object as it will appear in the catmaid volume manager</dd>
-      <dt>comment</dt>
-      <dd>An informative comment - e.g. how the mesh was generated.</dd>
-    </dl>
+and indices (Nx3).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional fields for the CATMAID mesh object</p></td>
+    </tr>
+    <tr>
+      <th>title</th>
+      <td><p>The title of the object as it will appear in the catmaid volume manager</p></td>
+    </tr>
+    <tr>
+      <th>comment</th>
+      <td><p>An informative comment - e.g. how the mesh was generated.</p></td>
+    </tr>
+    </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The CATMAID mesh format is documented in the reference below and 
-  typically consists of a json encoded object with fields <ul>
-<li> title</p>
-    <p></li>
-<li> mesh The mesh itself (a list of length 2)</p>
-    <p></li>
-<li> comments (optional)</p>
-    <p></li>
-</ul></p>
+  typically consists of a json encoded object with fields</p><ul>
+<li><p>title</p></li>
+<li><p>mesh The mesh itself (a list of length 2)</p></li>
+<li><p>comments (optional)</p></li>
+</ul>
     <p>In R we hold this list in a <code>list</code> object with class 
   <code>catmaidmesh</code>. This can then be posted to the volume manager API.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p><a href = 'https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst'>https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst</a></p>
+    <p><a href='https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst'>https://github.com/catmaid/CATMAID/blob/master/sphinx-doc/source/volumes.rst</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
