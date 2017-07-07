@@ -23,6 +23,7 @@ reference:
   - catmaid_skids
   - catmaid_get_annotations_for_skeletons
   - catmaid_get_annotationlist
+  - catmaid_get_label_stats
 - title: Synaptic Connections
   desc: Querying and fetching neuronal connectivity information
   contents:
@@ -55,5 +56,6 @@ reference:
   desc: Functions primarily intended for developer use
   contents:
   - catmaid_fetch
+  - copy_tags_connectors
   - catmaid_entities_from_models
   - catmaid_version
