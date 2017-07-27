@@ -93,3 +93,99 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
   invisible(res)
 }
 
+#' Fetch a mesh volume from CATMAID
+#' 
+#' @details Note that if \code{x} is a volume name as a character vector then it
+#'   must be unique (something that CATMAID servers do not insist on).
+#'   
+#'   Note also that this function currently only supports
+#'   
+#' @param x The integer volume id or character volume name
+#' @param rval The class to return.
+#'   
+#' @return When rval \code{mesh3d}, the standard format used by the 
+#'   \code{rgl} and \code{nat} packages is the default. \code{catmaidmesh} is a
+#'   tidy version of the mesh format used by catmaid. \code{raw} will allow any
+#'   return value.
+#'   
+#' @inheritParams catmaid_get_compact_skeleton
+#'   
+#' @importFrom xml2 read_xml xml_attr xml_children
+#' @seealso \code{\link{catmaid_get_volumelist}}, 
+#'   \code{\link{catmaid_add_volume}}, \code{\link{as.catmaidmesh}}, 
+#'   \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}},
+#'   \code{\link[rgl]{shapelist3d}}
+#' @examples 
+#' \dontrun{
+#' v375=catmaid_get_volume(375)
+#' v13.AL_R=catmaid_get_volume("v13.AL_R")
+#' 
+#' v13.AL_R.mesh=as.mesh3d(v13.AL_R)
+#' shade3d(v13.AL_R.mesh)
+#' 
+#' # find surfaces for olfactory glomeruli
+#' vl=catmaid_get_volumelist()
+#' glomids=vl$id[grepl("_glomerulus$", vl$name)]
+#' # fetch them all
+#' gg=lapply(glomids, catmaid_get_volume)
+#' # ... and plot
+#' mapply(shade3d, gg, col=rainbow(length(gg)))
+#' 
+#' # alternatively wrap them all in an rgl shapelist3d, plotting each object
+#' sl=shapelist3d(gg, col=rainbow(length(gg)), plot=TRUE)
+#' 
+#' }
+catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"), 
+                               conn=NULL, pid=1, ...) {
+  if(!is.numeric(x)) {
+    vl=catmaid_get_volumelist(conn=conn, pid=pid)
+    x=vl$id[vl$name==x]
+    if(!length(x))
+      stop("No matching volume name!")
+    if(length(x)>1)
+      stop("Multiple volumes matching that name! Please use volume id.")
+  }
+  res=catmaid_fetch(paste0('/1/volumes/', x), conn=conn, pid=pid, ...)
+  catmaid_error_check(res)
+  
+  meshxml=read_xml(res$mesh)
+  idxs=scan(text=xml_attr(meshxml, 'index'), quiet = TRUE, what=1L)
+  verts=scan(text=xml_attr(xml_children(meshxml), 'point'), quiet = TRUE)
+  res$x=list(matrix(verts, ncol = 3, byrow = T),
+                matrix(idxs, ncol = 3, byrow = T))
+  res$mesh=NULL
+  res$title=res$name
+  res$name=NULL
+  # make a catmaidmesh
+  rval=match.arg(rval)
+  if(rval=='raw') return(res)
+  res2=do.call(as.catmaidmesh, res)
+  if(rval=='catmaidmesh') res2 else as.mesh3d(res2)
+}
+
+#' Fetch a data frame containing details of all volumes on CATMAID server
+#' 
+#' @inheritParams catmaid_get_compact_skeleton
+#' @return A data.frame wiht columns \itemize{
+#'   
+#'   \item comment
+#'   
+#'   \item name
+#'   
+#'   \item creation_time
+#'   
+#'   \item edition_time
+#'   
+#'   \item project
+#'   
+#'   \item user
+#'   
+#'   \item id
+#'   
+#'   \item editor }
+#'   
+#' @export
+#' @seealso \code{\link{catmaid_get_volume}}
+catmaid_get_volumelist <- function(conn=NULL, pid=1, ...) {
+  catmaid_fetch('/1/volumes', simplifyVector = T, conn=conn, pid=pid, include_headers = F, ...)
+}

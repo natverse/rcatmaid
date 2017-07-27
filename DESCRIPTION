@@ -19,7 +19,8 @@ Imports:
     plyr,
     rgl,
     dplyr,
-    nabor
+    nabor,
+    xml2
 Suggests:
     testthat
 Remotes: jefferis/nat
