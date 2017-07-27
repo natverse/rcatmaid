@@ -11,6 +11,7 @@ test_that("can pre-process meshes for catmaid", {
       '[[0,1,2], [1,3,2]]]}'
     )
   )
+  class(eg)='catmaidmesh'
   expect_equal(as.catmaidmesh(
     list(matrix(c(0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0), ncol = 3L),
          matrix(c(0, 1, 1, 3, 2, 2), ncol = 3L)),

@@ -43,6 +43,7 @@ as.catmaidmesh.mesh3d <- function(x, ...) {
 }
 
 #' @export
+#' @importFrom rgl as.mesh3d
 as.mesh3d.catmaidmesh <- function(x, ...) {
   rgl::tmesh3d(vertices = t(x$mesh[[1]]), indices = t(x$mesh[[2]]+1L), homogeneous=F)
 }
