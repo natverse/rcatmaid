@@ -42,6 +42,10 @@ as.catmaidmesh.mesh3d <- function(x, ...) {
   as.catmaidmesh(mesh, ...)
 }
 
+#' @export
+as.mesh3d.catmaidmesh <- function(x, ...) {
+  rgl::tmesh3d(vertices = t(x$mesh[[1]]), indices = t(x$mesh[[2]]+1L), homogeneous=F)
+}
 
 #' @export
 #' @param title The title of the object as it will appear in the catmaid volume manager
@@ -51,7 +55,9 @@ as.catmaidmesh.default <- function(x, title=NULL, comment=NULL, ...) {
   nc=ncol(x[[2]])
   if(nc==3) type='trimesh'
   else stop("I only support trimeshes right now")
-  list(title=title, type=type, mesh=x, ...)
+  l=list(title=title, type=type, mesh=x, ...)
+  class(l)='catmaidmesh'
+  l
 }
 
 as.catmaidmesh.catmaidmesh <- function(x, ...){
