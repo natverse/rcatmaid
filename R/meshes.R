@@ -110,7 +110,7 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #'   return value.
 #'   
 #' @inheritParams catmaid_get_compact_skeleton
-#'   
+#' @export
 #' @importFrom xml2 read_xml xml_attr xml_children
 #' @seealso \code{\link{catmaid_get_volumelist}}, 
 #'   \code{\link{catmaid_add_volume}}, \code{\link{as.catmaidmesh}}, 
