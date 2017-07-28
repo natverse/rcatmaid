@@ -4,13 +4,16 @@
 \alias{catmaid_get_volume}
 \title{Fetch a mesh volume from CATMAID}
 \usage{
-catmaid_get_volume(x, rval = c("mesh3d", "catmaidmesh", "raw"), conn = NULL,
-  pid = 1, ...)
+catmaid_get_volume(x, rval = c("mesh3d", "catmaidmesh", "raw"),
+  invertFaces = FALSE, conn = NULL, pid = 1, ...)
 }
 \arguments{
 \item{x}{The integer volume id or character volume name}
 
 \item{rval}{The class to return.}
+
+\item{invertFaces}{Whether to invert the faces (swapping inside and outside, 
+see details).}
 
 \item{conn}{the \code{\link{catmaid_connection}} object}
 
@@ -20,9 +23,9 @@ catmaid_get_volume(x, rval = c("mesh3d", "catmaidmesh", "raw"), conn = NULL,
 function.}
 }
 \value{
-When rval \code{mesh3d}, the standard format used by the 
-  \code{rgl} and \code{nat} packages is the default. \code{catmaidmesh} is a
-  tidy version of the mesh format used by catmaid. \code{raw} will allow any
+When rval \code{mesh3d}, the standard format used by the \code{rgl} 
+  and \code{nat} packages is the default. \code{catmaidmesh} is a tidy 
+  version of the mesh format used by catmaid. \code{raw} will allow any 
   return value.
 }
 \description{
@@ -32,15 +35,24 @@ Fetch a mesh volume from CATMAID
 Note that if \code{x} is a volume name as a character vector then it
   must be unique (something that CATMAID servers do not insist on).
   
-  Note also that this function currently only supports
+  Note also that this function is targeted at mesh volumes, but CATMAID also 
+  support box volumes - these can still be returned and will have a valid set
+  of vertices but an invalid set of indices.
+  
+  I have noticed that some CATMAID meshes are returned with the normals
+  facing into the mesh (the opposite of what one would expect). This causes
+  \code{\link[nat]{pointsinside}} to do the opposite of what one would
+  expect. Use \code{invertFaces=TRUE} to fix this.
 }
 \examples{
 \dontrun{
 v375=catmaid_get_volume(375)
 v13.AL_R=catmaid_get_volume("v13.AL_R")
+shade3d(v13.AL_R, col='red', alpha=.3)
 
-v13.AL_R.mesh=as.mesh3d(v13.AL_R)
-shade3d(v13.AL_R.mesh)
+if(require("Morpho")) {
+  plotNormals(facenormals(v13.AL_R), long=5e3)
+}
 
 # find surfaces for olfactory glomeruli
 vl=catmaid_get_volumelist()
@@ -58,6 +70,6 @@ sl=shapelist3d(gg, col=rainbow(length(gg)), plot=TRUE)
 \seealso{
 \code{\link{catmaid_get_volumelist}}, 
   \code{\link{catmaid_add_volume}}, \code{\link{as.catmaidmesh}}, 
-  \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}},
+  \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}}, 
   \code{\link[rgl]{shapelist3d}}
 }

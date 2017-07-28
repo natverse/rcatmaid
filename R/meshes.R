@@ -99,14 +99,23 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #' @details Note that if \code{x} is a volume name as a character vector then it
 #'   must be unique (something that CATMAID servers do not insist on).
 #'   
-#'   Note also that this function currently only supports
+#'   Note also that this function is targeted at mesh volumes, but CATMAID also 
+#'   support box volumes - these can still be returned and will have a valid set
+#'   of vertices but an invalid set of indices.
+#'   
+#'   I have noticed that some CATMAID meshes are returned with the normals
+#'   facing into the mesh (the opposite of what one would expect). This causes
+#'   \code{\link[nat]{pointsinside}} to do the opposite of what one would
+#'   expect. Use \code{invertFaces=TRUE} to fix this.
 #'   
 #' @param x The integer volume id or character volume name
 #' @param rval The class to return.
+#' @param invertFaces Whether to invert the faces (swapping inside and outside, 
+#'   see details).
 #'   
-#' @return When rval \code{mesh3d}, the standard format used by the 
-#'   \code{rgl} and \code{nat} packages is the default. \code{catmaidmesh} is a
-#'   tidy version of the mesh format used by catmaid. \code{raw} will allow any
+#' @return When rval \code{mesh3d}, the standard format used by the \code{rgl} 
+#'   and \code{nat} packages is the default. \code{catmaidmesh} is a tidy 
+#'   version of the mesh format used by catmaid. \code{raw} will allow any 
 #'   return value.
 #'   
 #' @inheritParams catmaid_get_compact_skeleton
@@ -114,15 +123,17 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #' @importFrom xml2 read_xml xml_attr xml_children
 #' @seealso \code{\link{catmaid_get_volumelist}}, 
 #'   \code{\link{catmaid_add_volume}}, \code{\link{as.catmaidmesh}}, 
-#'   \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}},
+#'   \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}}, 
 #'   \code{\link[rgl]{shapelist3d}}
 #' @examples 
 #' \dontrun{
 #' v375=catmaid_get_volume(375)
 #' v13.AL_R=catmaid_get_volume("v13.AL_R")
+#' shade3d(v13.AL_R, col='red', alpha=.3)
 #' 
-#' v13.AL_R.mesh=as.mesh3d(v13.AL_R)
-#' shade3d(v13.AL_R.mesh)
+#' if(require("Morpho")) {
+#'   plotNormals(facenormals(v13.AL_R), long=5e3)
+#' }
 #' 
 #' # find surfaces for olfactory glomeruli
 #' vl=catmaid_get_volumelist()
@@ -137,7 +148,7 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #' 
 #' }
 catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"), 
-                               conn=NULL, pid=1, ...) {
+                               invertFaces=FALSE, conn=NULL, pid=1, ...) {
   if(!is.numeric(x)) {
     vl=catmaid_get_volumelist(conn=conn, pid=pid)
     x=vl$id[vl$name==x]
@@ -160,6 +171,9 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
   # make a catmaidmesh
   rval=match.arg(rval)
   if(rval=='raw') return(res)
+  # we need to reorder triangles to ensure normals are pointing out
+  if(isTRUE(invertFaces))
+    res$x[[2]]=res$x[[2]][,c(1,3,2)]
   res2=do.call(as.catmaidmesh, res)
   if(rval=='catmaidmesh') res2 else as.mesh3d(res2)
 }
