@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get contributor statistics for neurons from CATMAID — catmaid_get_contributor_stats • catmaid</title>
+<title>Fetch a data frame containing details of all volumes on CATMAID server — catmaid_get_volumelist • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -80,73 +80,52 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get contributor statistics for neurons from CATMAID</h1>
+    <h1>Fetch a data frame containing details of all volumes on CATMAID server</h1>
     </div>
 
     
-    <p>Get contributor statistics for neurons from CATMAID</p>
+    <p>Fetch a data frame containing details of all volumes on CATMAID server</p>
     
 
-    <pre class="usage"><span class='fu'>catmaid_get_contributor_stats</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_volumelist</span>(<span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>skids</th>
-      <td><p>One or more numeric skeleton ids or a character vector defining
-a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
+      <th>conn</th>
+      <td><p>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</p></td>
     </tr>
     <tr>
       <th>pid</th>
-      <td><p>Project id (default 1)</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>A <code>catmaid_connection</code> objection returned by 
-<code>catmaid_login</code>. If <code>NULL</code> (the default) a new connection 
-object will be generated using the values of the <b>catmaid.*</b> package 
-options as described in the help for <code>catmaid_login</code>.</p></td>
+      <td><p>project id (default 1)</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
-function</p></td>
+function.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list containing different statistics including construction and 
-  review times (aggregated across all the specified input neurons). There 
-  will also be 3 data.frames containing statistics for number of nodes and 
-  pre/post-synaptic connectors broken down per user.</p>  
-<p></p><ul>
-<li><p>pre_contributors number of pre-synaptic connectors contributed per
-  user.</p></li>
-<li><p>node_contributors number of skeleton nodes contributed per user.</p></li>
-<li><p>post_contributors number of post-synaptic connectors contributed per
-  user.</p></li>
+    <p>A data.frame wiht columns</p><ul>
+<li><p>comment</p></li>
+<li><p>name</p></li>
+<li><p>creation_time</p></li>
+<li><p>edition_time</p></li>
+<li><p>project</p></li>
+<li><p>user</p></li>
+<li><p>id</p></li>
+<li><p>editor</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='catmaid_get_review_status.html'>catmaid_get_review_status</a></code></p>
+    <p><code><a href='catmaid_get_volume.html'>catmaid_get_volume</a></code></p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>cs</span><span class='kw'>=</span><span class='fu'>catmaid_get_contributor_stats</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='co'># fetch user list</span>
-<span class='no'>ul</span><span class='kw'>=</span><span class='fu'><a href='catmaid_get_user_list.html'>catmaid_get_user_list</a></span>()
-<span class='co'># merge with list of node contributors and sort in descending order of</span>
-<span class='co'># contributions</span>
-<span class='fu'>library</span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>cs</span>$<span class='no'>node_contributors</span>, <span class='no'>ul</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>id</span>,<span class='no'>n</span>, <span class='no'>full_name</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='http://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='fu'><a href='http://dplyr.tidyverse.org/reference/desc.html'>desc</a></span>(<span class='no'>n</span>))
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -156,9 +135,7 @@ function</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

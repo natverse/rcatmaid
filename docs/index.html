@@ -116,7 +116,7 @@ pns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw">fac
 orn_partners=<span class="kw"><a href="reference/catmaid_query_connected.html">catmaid_query_connected</a></span>(orns[,<span class="st">'skid'</span>], <span class="dt">minimum_synapses =</span> <span class="dv">2</span>)
 <span class="co"># keep the ones not already in our set of PNs</span>
 <span class="co"># there are lots!</span>
-non_pn_downstream_ids=<span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/setops">setdiff</a></span>(<span class="kw">unique</span>(orn_partners$outgoing$partner), pns[,<span class="st">'skid'</span>])
+non_pn_downstream_ids=<span class="kw"><a href="http://dplyr.tidyverse.org/reference/setops.html">setdiff</a></span>(<span class="kw">unique</span>(orn_partners$outgoing$partner), pns[,<span class="st">'skid'</span>])
 <span class="co"># download and plot those neurons</span>
 non_pn_downstream=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(non_pn_downstream_ids, <span class="dt">.progress=</span><span class="st">'text'</span>)
 <span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(non_pn_downstream, <span class="dt">col=</span><span class="st">'grey'</span>, <span class="dt">soma=</span><span class="dv">1000</span>)
@@ -128,9 +128,9 @@ non_pn_downstream=<span class="kw"><a href="reference/read.neuron.catmaid.html">
 <span class="co"># first collect those synapse numbers</span>
 <span class="kw">library</span>(dplyr)
 totsyndf=orn_partners$outgoing %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/group_by">group_by</a></span>(partner) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/summarise">summarise</a></span>(<span class="dt">totsyn=</span><span class="kw">sum</span>(syn.count)) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/arrange">arrange</a></span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/dplyr/topics/desc">desc</a></span>(totsyn))
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(partner) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">totsyn=</span><span class="kw">sum</span>(syn.count)) %&gt;%<span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/desc.html">desc</a></span>(totsyn))
 <span class="kw">hist</span>(totsyndf$totsyn)
 <span class="co"># now do the plot</span>
 <span class="kw">clear3d</span>()

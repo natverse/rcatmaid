@@ -42,6 +42,8 @@ reference:
   contents:
   - as.catmaidmesh
   - catmaid_add_volume
+  - catmaid_get_volume
+  - catmaid_get_volumelist
 - title: CATMAID statistics and users
   desc: Neuron and user lists and statistics
   contents:
