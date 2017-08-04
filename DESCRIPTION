@@ -20,7 +20,8 @@ Imports:
     rgl,
     dplyr,
     nabor,
-    xml2
+    xml2,
+    grDevices
 Suggests:
     testthat
 Remotes: jefferis/nat
