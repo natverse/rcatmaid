@@ -14,6 +14,8 @@
 #' @seealso \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
 catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
+  # -1 indicates a bad skid but does not trigger an error like an NA value
+  skids[is.na(skids)]=-1L
   post_data=list(pid=pid)
   post_data[sprintf("skids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/skeleton/neuronnames", pid)
@@ -24,7 +26,9 @@ catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
   if(length(missing_names))
     res[missing_names]=NA_character_
   # ensure that return values are in order that was passed in
-  res[as.character(skids)]
+  res=res[as.character(skids)]
+  names(res)[names(res)=="-1"]="NA"
+  res
 }
 
 
