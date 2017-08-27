@@ -192,6 +192,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   argnames=names(arglist)
   m=match.call(definition = sys.function(), call = sys.call())
   conn=as.list(m)[-1]
+  class(conn)="catmaid_connection"
 
   defaultServer=unlist(getenvoroption("server"))
   if(missing(server)) {
@@ -199,11 +200,16 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   }
   if(is.null(conn$server) || !grepl("^http[s]{0,1}", conn$server))
     stop("Must provide a valid https server")
-  
+
   # Fill in the missing values using environment vars or options
   if(isTRUE(unname(conn$server==defaultServer))){
     missing_vars=setdiff(argnames, names(m))
     conn[missing_vars]=getenvoroption(missing_vars)
+  }
+  
+  if(is.null(conn$username) && is.null(conn$token)) {
+    conn$nologin=TRUE
+    return(invisible(conn))
   }
   
   # make a custom curl config that includes authentication information if necessary
@@ -218,7 +224,6 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     conn$config=c(conn$config, 
                   add_headers(`X-Authorization`=paste("Token", conn$token)))
 
-  class(conn)="catmaid_connection"
   invisible(conn)
 }
 
