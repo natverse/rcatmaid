@@ -89,7 +89,7 @@ as.catmaidmesh.catmaidmesh <- function(x, ...){
 #' }
 catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
   l=as.catmaidmesh(x, ...)
-  res=catmaid_fetch(path="1/volumes/add", body=l, encode='json')
+  res=catmaid_fetch(path=paste0(pid,"/volumes/add"), body=l, encode='json')
   catmaid_error_check(res)
   invisible(res)
 }
