@@ -141,18 +141,34 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
     if(!is.null(cached_conn))
       return(invisible(cached_conn))
   }
-
-  # otherwise login from scratch
-  if(is.null(conn$token)){
-    conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"), 
-                             body=list(name=conn$username,pwd=conn$password),
+  if(isTRUE(conn$nologin)) {
+    # GET the CATMAID root for 2 reasons
+    # 1. this checks that it actually exists
+    # 2. we need to collect a CSRF token
+    conn$authresponse=GET(url=conn$server)
+    stop_for_status(conn$authresponse)
+    
+    # Now assuming that we could talk to the server we need to extract the CSRF
+    # token. But it turns out that we need to pass the token twice
+    # 1. once with the Cookie: header
+    # 2. a second time we need to pass just the value with the X-CSRFToken header
+    # Step 1 is handled generically for any kind of authresponse lower down
+    # but Step 2 needs some special logic here
+    res_cookies=cookies(conn$authresponse)
+    csrf_row=grepl('csrf', res_cookies$name)
+    if(any(csrf_row)) {
+      token_value=res_cookies$value[csrf_row][1]
+      conn$config=httr::add_headers('X-CSRFToken'=token_value)
+    } else warning("I can't seem to find a CSRF token.",
+              "You will not be able to POST to this site!")
+  } else { 
+    body <- if(is.null(conn$token))
+      list(name=conn$username, pwd=conn$password) else NULL
+    conn$authresponse = POST(url = paste0(conn$server, "/accounts/login"), 
+                             body=body,
                              config = conn$config)
-  } else {
-    conn$authresponse = POST(url = paste0(conn$server,"/accounts/login"),
-                             config = conn$config)
+    stop_for_status(conn$authresponse)
   }
-  
-  stop_for_status(conn$authresponse)
   
   # store the returned cookies for future use
   conn$cookies=unlist(cookies(conn$authresponse))
@@ -192,6 +208,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   argnames=names(arglist)
   m=match.call(definition = sys.function(), call = sys.call())
   conn=as.list(m)[-1]
+  class(conn)="catmaid_connection"
 
   defaultServer=unlist(getenvoroption("server"))
   if(missing(server)) {
@@ -199,11 +216,16 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   }
   if(is.null(conn$server) || !grepl("^http[s]{0,1}", conn$server))
     stop("Must provide a valid https server")
-  
+
   # Fill in the missing values using environment vars or options
   if(isTRUE(unname(conn$server==defaultServer))){
     missing_vars=setdiff(argnames, names(m))
     conn[missing_vars]=getenvoroption(missing_vars)
+  }
+  
+  if(is.null(conn$username) && is.null(conn$token)) {
+    conn$nologin=TRUE
+    return(invisible(conn))
   }
   
   # make a custom curl config that includes authentication information if necessary
@@ -218,7 +240,6 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     conn$config=c(conn$config, 
                   add_headers(`X-Authorization`=paste("Token", conn$token)))
 
-  class(conn)="catmaid_connection"
   invisible(conn)
 }
 

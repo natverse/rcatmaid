@@ -1,7 +1,13 @@
 context("catmaid login and get/post")
 
+test_that("can connect to a server without logging in", {
+  # No login is required to talk to this server
+  expect_is(catmaid_login(server='http://hildebrand16.neurodata.io/catmaid/', Cache = FALSE),
+            'catmaid_connection')
+})
+
 # we can only run real tests if we can log in with default parameters
-conn=try(catmaid_login(), silent = TRUE)
+conn=try(catmaid_login(Force = TRUE), silent = TRUE)
 
 test_that("can make a connection", {
   
