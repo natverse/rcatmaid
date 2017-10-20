@@ -52,6 +52,8 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
 somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
   # Find soma position, based on plausible tags
   soma_tags<-grep("(cell body|soma)", ignore.case = T, names(tags), value = T)
+  # soma is the preferred tag - use this for preference if it exists
+  if(any(soma_tags=="soma")) soma_tags="soma"
   soma_id=unlist(unique(tags[soma_tags]))
   soma_id_in_neuron=intersect(soma_id, swc$PointNo)
   
