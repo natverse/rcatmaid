@@ -230,7 +230,12 @@ catmaid_get_connector_table<-function(skids,
     paramsv=sprintf("skeleton_ids[%s]=%d",seq_len(length(skids)), skids)
     paramsv=c(paramsv, paste0("relation_type=", ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")))
     params=paste(paramsv, collapse = "&")
-    relpath=paste0("/", pid, "/connectors/?",params)
+    if(catmaid_version(numeric = TRUE)>="2017.10.02-128"){
+      # see https://github.com/catmaid/CATMAID/commit/9d029cbfaa92a9f14bcf99ebffcb89c3da786ef0
+      relpath=paste0("/", pid, "/connectors/links/?",params)
+    } else {
+      relpath=paste0("/", pid, "/connectors/?",params)
+    }
   } else {
     relpath=paste0("/", pid, "/connector/table/list")
     body=list(skeleton_id=skids)
