@@ -67,9 +67,9 @@
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install</span>
-if (!<span class="kw">require</span>(<span class="st">"devtools"</span>)) <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
+<span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">"devtools"</span>)) <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
 <span class="co"># nb repo is rcatmaid, but R package name is catmaid</span>
-devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)
 
 <span class="co"># use </span>
 <span class="kw">library</span>(catmaid)
@@ -116,7 +116,7 @@ pns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw">fac
 orn_partners=<span class="kw"><a href="reference/catmaid_query_connected.html">catmaid_query_connected</a></span>(orns[,<span class="st">'skid'</span>], <span class="dt">minimum_synapses =</span> <span class="dv">2</span>)
 <span class="co"># keep the ones not already in our set of PNs</span>
 <span class="co"># there are lots!</span>
-non_pn_downstream_ids=<span class="kw"><a href="http://dplyr.tidyverse.org/reference/setops.html">setdiff</a></span>(<span class="kw">unique</span>(orn_partners$outgoing$partner), pns[,<span class="st">'skid'</span>])
+non_pn_downstream_ids=<span class="kw"><a href="http://dplyr.tidyverse.org/reference/setops.html">setdiff</a></span>(<span class="kw">unique</span>(orn_partners<span class="op">$</span>outgoing<span class="op">$</span>partner), pns[,<span class="st">'skid'</span>])
 <span class="co"># download and plot those neurons</span>
 non_pn_downstream=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(non_pn_downstream_ids, <span class="dt">.progress=</span><span class="st">'text'</span>)
 <span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(non_pn_downstream, <span class="dt">col=</span><span class="st">'grey'</span>, <span class="dt">soma=</span><span class="dv">1000</span>)
@@ -127,11 +127,11 @@ non_pn_downstream=<span class="kw"><a href="reference/read.neuron.catmaid.html">
 ## Plot, but colouring partners by number of synapses they receive from ORNs
 <span class="co"># first collect those synapse numbers</span>
 <span class="kw">library</span>(dplyr)
-totsyndf=orn_partners$outgoing %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(partner) %&gt;%<span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">totsyn=</span><span class="kw">sum</span>(syn.count)) %&gt;%<span class="st"> </span>
+totsyndf=orn_partners<span class="op">$</span>outgoing <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(partner) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span>(<span class="dt">totsyn=</span><span class="kw">sum</span>(syn.count)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(<span class="kw"><a href="http://dplyr.tidyverse.org/reference/desc.html">desc</a></span>(totsyn))
-<span class="kw">hist</span>(totsyndf$totsyn)
+<span class="kw">hist</span>(totsyndf<span class="op">$</span>totsyn)
 <span class="co"># now do the plot</span>
 <span class="kw">clear3d</span>()
 <span class="co"># matlab style palette</span>
@@ -141,15 +141,15 @@ jet.colors &lt;-
 <span class="co"># plot colouring by synapse number on a log scale </span>
 <span class="co"># note that it is necessary to convert totsyndf$partner to a character</span>
 <span class="co"># vector to ensure that they are not treated as integer indices</span>
-<span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(<span class="kw">as.character</span>(totsyndf$partner),  <span class="dt">db=</span><span class="kw">c</span>(pns, non_pn_downstream), 
-  <span class="dt">col=</span><span class="kw">jet.colors</span>(<span class="dv">10</span>)[<span class="kw">cut</span>(totsyndf$totsyn, <span class="dt">breaks =</span> <span class="dv">2</span>^(<span class="dv">0</span>:<span class="dv">10</span>))], <span class="dt">soma=</span><span class="dv">1000</span>)
+<span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(<span class="kw">as.character</span>(totsyndf<span class="op">$</span>partner),  <span class="dt">db=</span><span class="kw">c</span>(pns, non_pn_downstream), 
+  <span class="dt">col=</span><span class="kw">jet.colors</span>(<span class="dv">10</span>)[<span class="kw">cut</span>(totsyndf<span class="op">$</span>totsyn, <span class="dt">breaks =</span> <span class="dv">2</span><span class="op">^</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">10</span>))], <span class="dt">soma=</span><span class="dv">1000</span>)
 
 <span class="co"># Now let's cluster these other connected neurons</span>
 <span class="kw">library</span>(nat.nblast)
 <span class="co"># convert to nblast-compatible format</span>
 <span class="co"># nb also convert from nm to um, resample to 1µm spacing and use k=5</span>
 <span class="co"># nearest neighbours of each point to define tangent vector</span>
-non_pn_downstream.dps=<span class="kw"><a href="http://www.rdocumentation.org/packages/nat/topics/dotprops">dotprops</a></span>(non_pn_downstream/<span class="fl">1e3</span>, <span class="dt">k=</span><span class="dv">5</span>, <span class="dt">resample=</span><span class="dv">1</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)
+non_pn_downstream.dps=<span class="kw"><a href="http://www.rdocumentation.org/packages/nat/topics/dotprops">dotprops</a></span>(non_pn_downstream<span class="op">/</span><span class="fl">1e3</span>, <span class="dt">k=</span><span class="dv">5</span>, <span class="dt">resample=</span><span class="dv">1</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)
 <span class="co"># now compute all x all NBLAST scores and cluster</span>
 non_pn_downstream.aba=<span class="kw"><a href="http://www.rdocumentation.org/packages/nat.nblast/topics/nblast_allbyall">nblast_allbyall</a></span>(non_pn_downstream.dps, <span class="dt">.progress=</span><span class="st">'text'</span>)
 non_pn_downstream.hc=<span class="kw"><a href="http://www.rdocumentation.org/packages/nat.nblast/topics/nhclust">nhclust</a></span>(<span class="dt">scoremat =</span> non_pn_downstream.aba)
@@ -220,8 +220,8 @@ n2=<span class="kw"><a href="http://www.rdocumentation.org/packages/nat/topics/r
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Currently there isn’t a released version on <a href="https://cran.r-project.org/">CRAN</a> but can use the <strong>devtools</strong> package to install the development version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (!<span class="kw">require</span>(<span class="st">"devtools"</span>)) <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
-devtools::<span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(<span class="st">"devtools"</span>)) <span class="kw">install.packages</span>(<span class="st">"devtools"</span>)
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</code></pre></div>
 <p>Note: Windows users need <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> and <a href="https://cran.r-project.org/package=devtools">devtools</a> to install this way.</p>
 </div>
 <div id="acknowledgements" class="section level2">

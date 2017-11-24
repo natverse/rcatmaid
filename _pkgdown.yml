@@ -50,10 +50,12 @@ reference:
   - catmaid_get_contributor_stats
   - catmaid_get_user_list
   - catmaid_user_history
-- title: CATMAID URLs
-  desc: Working with the URLs or json files used to save and exchange CATMAID state
+- title: CATMAID URLs and JSON files
+  desc: Working with the URLs or JSON files used to save and exchange CATMAID state
   contents:
   - catmaid_parse_url
+  - read_catmaid_selection
+  - write_catmaid_selection
 - title: Low level functions
   desc: Functions primarily intended for developer use
   contents:
