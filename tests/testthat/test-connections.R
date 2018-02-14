@@ -31,7 +31,8 @@ test_that("can get and post data", {
   expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
                                   body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
             'list')
-  expect_equal(names(neuronnames), c('10418394','4453485'))
+  # nb we can't rely on the returned order
+  expect_equal(sort(names(neuronnames)), c('10418394','4453485'))
   expect_equal(names(attributes(neuronnames)), c("names", "url", "headers"))
 })
 
