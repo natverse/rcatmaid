@@ -79,9 +79,9 @@ nl=read.neurons.catmaid(c(10418394,4453485))
 plot3d(nl)
 
 ## Full worked example looking at Olfactory Receptor Neurons
-# read in ORNs (using a regex to match their name)
+# read in ORNs (using exact match to ORN annotation)
 # note that use a progress bar drop any failures
-orns=read.neurons.catmaid("name:ORN (left|right)", OmitFailures = T, .progress='text')
+orns=read.neurons.catmaid("ORN", OmitFailures = T, .progress='text')
 
 # Add two extra columns to the attached data.frame
 # for the Odorant receptor genes and the side of brain
