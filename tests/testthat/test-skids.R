@@ -21,4 +21,8 @@ test_that("process skid queries", {
   expect_error(suppressWarnings(catmaid_skids("annotation:ORN", several.ok = FALSE)))
   expect_equal(suppressWarnings(catmaid_skids("annotation:rhubarb crumble")), 
                integer())
+  
+  # interpreted as annotation
+  expect_equal(catmaid_skids('ORN PNs'), catmaid_skids('annotation:^ORN PNs$'))
+  expect_warning(catmaid_skids('rhubarb'), regexp = "complete annotation.*no matches")
 })
