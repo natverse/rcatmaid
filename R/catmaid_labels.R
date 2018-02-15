@@ -35,19 +35,41 @@ catmaid_get_label_stats<-function(pid=1, conn=NULL, ...) {
 #' @description \code{catmaid_get_labels} gets labels (tags) for specified
 #'   nodes.
 #'
-#' @param nodeid The integer id of the node to be queried
-#' @param type One of treenode (default), location, or connector
+#' @param treenodes,connectors Integer ids of nodes to be queried
 #' @inheritParams read.neuron.catmaid
 #'
 #' @export
-#' @return a character vector of labels (of length 0 if there are no tags on the
-#'   given node)
+#' @return a data.frame with columns \itemize{
+#'
+#'   \item id (integer)
+#'
+#'   \item type (treenode or connector)
+#'
+#'   \item label (the tag)
+#'
+#'   }
+#'
+#'   A zero row data.frame will be returned if there are no results.
 #' @family labels
-catmaid_get_labels <- function(nodeid, type=c("treenode","location","connector"),
+catmaid_get_labels <- function(treenodes=NULL, connectors=NULL,
                                pid=1, conn=NULL, ...) {
-  type=match.arg(type)
-  path=file.path(pid, "labels", type, nodeid)
-  res=catmaid_fetch(path, conn = conn, ...)
-  if (length(res)) unlist(res) else character()
+  path=file.path(pid, "labels-for-nodes")
+  body=list()
+  if(length(treenodes)) body[['treenode_ids']]=paste(treenodes, collapse=",")
+  if(length(connectors)) body[['connector_ids']]=paste(connectors, collapse=",")
+  
+  res=catmaid_fetch(path, body = body, conn = conn, ...)
+  nres=length(res)
+  nelements=if(nres) sapply(res, length) else 0
+  types=if(nres) ifelse(names(res) %in% treenodes, 'treenode', 'connector') else character()
+  data.frame(id=rep(as.integer(names(res)), nelements),
+             type=rep(types, nelements),
+             label=if(nres) unlist(res, use.names = F) else character())
 }
 
+# @description \code{catmaid_set_labels} sets labels (tags) for specified
+#   nodes.
+# @export
+catmaid_set_labels <- function(treenode, labels, pid=1, conn=NULL, ...) {
+  "https://neuropil.janelia.org/tracing/fafb/v14/1/label/treenode/19777114/update"
+}

@@ -41,4 +41,6 @@ multiple_soma_info = soma_labels \%>\%
 }
 \seealso{
 \code{\link{catmaid_get_review_status}}
+
+Other labels: \code{\link{catmaid_get_labels}}
 }
