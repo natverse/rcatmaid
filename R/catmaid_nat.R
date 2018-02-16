@@ -294,15 +294,15 @@ plot3d_somarad <- function(x, soma=FALSE){
 }
 
 #' @export
-`Ops.catmaidneuron` <- function(n,x) {
+`Ops.catmaidneuron` <- function(e1, e2) {
   n2=NextMethod()
-  conndf=connectors(n)
+  conndf=connectors(e1)
   if(!is.null(conndf)) {
     # multiply connectors as well
-    lx=length(x)
-    if(lx==1) xyzmatrix(conndf)=xyzmatrix(conndf)*x
+    lx=length(e2)
+    if(lx==1) xyzmatrix(conndf)=xyzmatrix(conndf)*e2
     else {
-      xyzmatrix(conndf)=t(t(xyzmatrix(conndf)*x[1:3]))
+      xyzmatrix(conndf)=t(t(xyzmatrix(conndf)*e2[1:3]))
     }
     n2[['connectors']]=conndf
   }
