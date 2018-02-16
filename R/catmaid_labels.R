@@ -53,7 +53,7 @@ catmaid_get_label_stats<-function(pid=1, conn=NULL, ...) {
 #' @family labels
 catmaid_get_labels <- function(treenodes=NULL, connectors=NULL,
                                pid=1, conn=NULL, ...) {
-  path=file.path(pid, "labels-for-nodes")
+  path=file.path(pid, "labels-for-nodes", fsep="/")
   body=list()
   if(length(treenodes)) body[['treenode_ids']]=paste(treenodes, collapse=",")
   if(length(connectors)) body[['connector_ids']]=paste(connectors, collapse=",")
@@ -70,6 +70,14 @@ catmaid_get_labels <- function(treenodes=NULL, connectors=NULL,
 # @description \code{catmaid_set_labels} sets labels (tags) for specified
 #   nodes.
 # @export
-catmaid_set_labels <- function(treenode, labels, pid=1, conn=NULL, ...) {
-  "https://neuropil.janelia.org/tracing/fafb/v14/1/label/treenode/19777114/update"
+catmaid_set_labels <- function(node, labels, type=c("treenode", "connector"),
+                               delete_existing=FALSE, pid=1, conn=NULL, ...) {
+  type=match.arg(type)
+  path=file.path(pid, "label", type, node, "update", fsep="/")
+  if(any(grepl(",", labels, fixed = T)))
+    stop("CATMAID cannot accept labels containing commas")
+  body=list(ntype=type, tags=paste(labels, collapse = ","))
+  if(delete_existing) body[['delete_existing']]='true'
+  res=catmaid_fetch(path, body = body, conn = conn, ...)
+  res
 }
