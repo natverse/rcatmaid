@@ -77,6 +77,6 @@ catmaid_skids<-function(x, several.ok=TRUE, conn=NULL, ...) {
     }
   }
   if(!several.ok && length(skids)>1)
-    stop("Only expecting one skid but I have: ", length(x), "!")
+    stop("Only expecting one skid but I have ", length(skids), "!")
   skids
 }
