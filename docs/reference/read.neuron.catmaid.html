@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -183,9 +183,9 @@ details.</p></td>
 <span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>nl</span>)
 
 <span class='co'>## Full worked example looking at Olfactory Receptor Neurons</span>
-<span class='co'># read in ORNs (using a regex to match their name)</span>
+<span class='co'># read in ORNs (using exact match to ORN annotation)</span>
 <span class='co'># note that use a progress bar drop any failures</span>
-<span class='no'>orns</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='st'>"name:ORN (left|right)"</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>.progress</span><span class='kw'>=</span><span class='st'>'text'</span>)
+<span class='no'>orns</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='st'>"ORN"</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>.progress</span><span class='kw'>=</span><span class='st'>'text'</span>)
 
 <span class='co'># Add two extra columns to the attached data.frame</span>
 <span class='co'># for the Odorant receptor genes and the side of brain</span>

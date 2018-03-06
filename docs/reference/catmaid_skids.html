@@ -52,7 +52,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="..//index.html">
+  <a href="../index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
@@ -121,10 +121,13 @@ options as described in the help for <code>catmaid_login</code>.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>If the inputs are numeric or have length &gt; 1 they are assumed
-  already to be skids and are simply converted to integers. If the input is a
-  string starting with "name:" or "annotation:" they are used for a query by
-  <code><a href='catmaid_query_by_name.html'>catmaid_query_by_name</a></code> or
+  already to be skids and are simply converted to integers.</p>
+<p>If the input is a string starting with "name:" or "annotation:" they are
+  used for a query by <code><a href='catmaid_query_by_name.html'>catmaid_query_by_name</a></code> or
   <code><a href='catmaid_query_by_name.html'>catmaid_query_by_annotation</a></code>, respectively.</p>
+<p>If the input is a string that cannot be interpreted as a number but does
+  not start with "name:" or "annotation:", it is assumed to be an
+  <em>exact</em> match for an annotation.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -139,6 +142,8 @@ options as described in the help for <code>catmaid_login</code>.</p></td>
 <span class='fu'>catmaid_skids</span>(<span class='st'>"annotation:ORN"</span>)
 <span class='co'># but only one that matches this (see regex for details)</span>
 <span class='fu'>catmaid_skids</span>(<span class='st'>"annotation:^ORN$"</span>)
+<span class='co'># As a special case this looks for an exact match annotation for "ORN"</span>
+<span class='fu'>catmaid_skids</span>(<span class='st'>"ORN"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
