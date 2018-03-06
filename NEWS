@@ -1,3 +1,15 @@
+catmaid 0.9.0
+=============
+This version is synced with the upcoming release of nat v1.9.0 which streamlines
+some functionality but has some breaking changes in behaviour. It must be used
+with nat >=1.8.12.900 from github.
+
+* switch to Ops.catmaidneuron to match nat 1.9.0 in prep (and add version 
+  requirement)
+* Simple search for skids with exact annotation match (#89)
+  Now you can do: catmaid_skids("ORN") or read.neurons.catmaid("ORN")
+* Fix bug in catmaid_skids error message when looking for one skid (#90)
+
 catmaid 0.8.1
 =============
 * Add function to get volumes from catmaid (#82)
