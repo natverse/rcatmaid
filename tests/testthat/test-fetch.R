@@ -9,6 +9,14 @@ test_that("catmaid_get_neuronnames", {
   expect_equal(catmaid_get_neuronnames(skids=c(4453485,10418394)), baseline)
 })
 
+test_that("catmaid_get_neuronnames with duplicates / NAs", {
+  if(inherits(conn, 'try-error')) skip('No catmaid connection')
+  baseline=c(`4453485`="IPC 4 left", `10418394`="DH44 1 left", `NA`=NA_character_)
+  sk=c(4453485,10418394, NA)
+  expect_equal(catmaid_get_neuronnames(skids=sk), baseline)
+  expect_equal(catmaid_get_neuronnames(skids=rep(sk, 2))[1:3], baseline)
+})
+
 test_that("catmaid_query_by_name", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
   expect_null(catmaid_query_by_name("wurgle"))

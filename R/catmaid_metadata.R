@@ -1,5 +1,8 @@
 #' Get names of neurons from CATMAID
-#' 
+#'
+#' @details Note that \code{catmaid_get_neuronnames} only queries the server for
+#'   the unique set of input \code{skids} to save time.
+#'
 #' @inheritParams read.neuron.catmaid
 #' @return a character vector of neuron names, with a names attribute specifying
 #'   the skeleton ids (skids). Missing values will be represented by a
@@ -14,6 +17,12 @@
 #' @seealso \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
 catmaid_get_neuronnames<-function(skids, pid=1, conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
+  if(any(duplicated(skids))) {
+    uskids=unique(skids)
+    unames=catmaid_get_neuronnames(uskids, pid=pid, conn=conn, ...)
+    res=unames[match(skids, uskids)]
+    return(res)
+  }
   # -1 indicates a bad skid but does not trigger an error like an NA value
   skids[is.na(skids)]=-1L
   post_data=list(pid=pid)

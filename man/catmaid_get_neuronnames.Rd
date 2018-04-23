@@ -28,6 +28,10 @@ a character vector of neuron names, with a names attribute specifying
 \description{
 Get names of neurons from CATMAID
 }
+\details{
+Note that \code{catmaid_get_neuronnames} only queries the server for
+  the unique set of input \code{skids} to save time.
+}
 \examples{
 \dontrun{
 catmaid_get_neuronnames(skids=c(10418394,4453485))
