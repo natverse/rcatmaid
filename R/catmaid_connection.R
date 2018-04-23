@@ -203,17 +203,30 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
                              authpassword=NULL, token=NULL,
                              authtype=NULL) {
-  
+  # a bit of juggling to figure out which args could be passed and which
+  # actually have been passed explicitly
   arglist=formals(fun = sys.function())
   argnames=names(arglist)
   m=match.call(definition = sys.function(), call = sys.call())
-  conn=as.list(m)[-1]
-  class(conn)="catmaid_connection"
-
+  passed_args=names(m[-1])
+  
+  # Set a default server if none specified
   defaultServer=unlist(getenvoroption("server"))
   if(missing(server)) {
-    conn$server=defaultServer
+    server=defaultServer
   }
+  
+  # construct basic connection list
+  conn=list(server=server,
+            username=username,
+            password=password,
+            authname=authname,
+            authpassword=authpassword,
+            token=token,
+            authtype=authtype)[union("server", passed_args)]
+  class(conn)="catmaid_connection"
+
+  
   if(is.null(conn$server) || !grepl("^http[s]{0,1}", conn$server))
     stop("Must provide a valid https server")
 

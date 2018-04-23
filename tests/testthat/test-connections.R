@@ -17,6 +17,15 @@ test_that("can make a connection", {
   expect_is(conn$config, class(config()))
 })
 
+test_that("can make a connection from list elements", {
+  # see https://github.com/jefferis/rcatmaid/issues/91
+  input = list(server = "https://wurgle.org", token = "YOURTOKEN")
+  expect_is(
+    catmaid_connection(server = input$server, token = input$token),
+    'catmaid_connection'
+  )
+})
+
 test_that("can login", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
   expect_is(conn, 'catmaid_connection')
