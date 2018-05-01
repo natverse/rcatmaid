@@ -17,8 +17,8 @@
 \item{WithNodes}{logical indicating whether to plot branch/end points 
 (defaults to \code{FALSE} since they will obscure the synapses).}
 
-\item{soma}{Whether to plot a sphere at neuron's origin representing the 
-soma. Either a logical value or a numeric indicating the radius (default 
+\item{soma}{Whether to plot a sphere at neuron's origin representing the
+soma. Either a logical value or a numeric indicating the radius (default
 \code{FALSE}). When \code{soma=TRUE} the radius is hard coded to 2.}
 
 \item{...}{additional arguments passed to \code{\link[nat]{plot3d.neuron}} 

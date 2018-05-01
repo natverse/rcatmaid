@@ -80,10 +80,10 @@ as.catmaidmesh.catmaidmesh <- function(x, ...){
 #' @examples
 #' \dontrun{
 #' library(elmr)
-#' FAFBNP.surf=xform_brain(JFRC2NP.surf, sample=JFRC2, ref=FAFB12)
+#' FAFBNP.surf=xform_brain(JFRC2NP.surf, sample=JFRC2, ref=FAFB14)
 #' for(r in FAFBNP.surf$RegionList){
-#'   comment="Transformed from JFRC2 space onto FAFB12"
-#'   name=paste("V12", sep=".", r)
+#'   comment="Transformed from JFRC2 space onto FAFB14"
+#'   name=paste("v14", sep=".", r)
 #'   catmaid_add_volume(subset(FAFBNP.surf, r), title=name, comment=comment)
 #' }
 #' }
