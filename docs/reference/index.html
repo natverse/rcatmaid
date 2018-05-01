@@ -18,13 +18,16 @@
 <!-- Font Awesome icons -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
+<!-- clipboard.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-  
-  
+<meta property="og:title" content="Function reference" />
+
+
 <!-- mathjax -->
 <script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
 
@@ -47,8 +50,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">catmaid</a>
+      <span class="navbar-brand">
+        <a class="navbar-link" href="../index.html">catmaid</a>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+      </span>
     </div>
+
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
@@ -80,10 +87,7 @@
       <div class="row">
   <div class="col-md-9">
     <div class="page-header">
-      <h1>
-        Reference
-        <small>version&nbsp;0.9.0</small>
-      </h1>
+      <h1>Reference</h1>
     </div>
 
     <div class="contents">
@@ -118,13 +122,13 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_login.html">catmaid_login</a></code> <code><a href="catmaid_login.html">catmaid_connection</a></code> </p>
+            <p><code><a href="catmaid_login.html">catmaid_login()</a></code> <code><a href="catmaid_login.html">catmaid_connection()</a></code> </p>
           </td>
           <td><p>Connect/authenticate to a CATMAID server, returning a connection object</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_connection_setenv.html">catmaid_connection_setenv</a></code> <code><a href="catmaid_connection_setenv.html">catmaid_connection_getenv</a></code> <code><a href="catmaid_connection_setenv.html">catmaid_connection_unsetenv</a></code> </p>
+            <p><code><a href="catmaid_connection_setenv.html">catmaid_connection_setenv()</a></code> <code><a href="catmaid_connection_setenv.html">catmaid_connection_getenv()</a></code> <code><a href="catmaid_connection_setenv.html">catmaid_connection_unsetenv()</a></code> </p>
           </td>
           <td><p>Import/Export catmaid connection details to system variables (e.g. for tests)</p></td>
         </tr>
@@ -138,19 +142,19 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_compact_skeleton.html">catmaid_get_compact_skeleton</a></code> </p>
+            <p><code><a href="catmaid_get_compact_skeleton.html">catmaid_get_compact_skeleton()</a></code> </p>
           </td>
           <td><p>Return the raw data for a CATMAID neuronal skeleton</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_treenode_table.html">catmaid_get_treenode_table</a></code> </p>
+            <p><code><a href="catmaid_get_treenode_table.html">catmaid_get_treenode_table()</a></code> </p>
           </td>
           <td><p>Return tree node table for a given neuron</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_review_status.html">catmaid_get_review_status</a></code> </p>
+            <p><code><a href="catmaid_get_review_status.html">catmaid_get_review_status()</a></code> </p>
           </td>
           <td><p>Get review status of neurons from CATMAID</p></td>
         </tr>
@@ -164,43 +168,43 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_query_by_name.html">catmaid_query_by_name</a></code> <code><a href="catmaid_query_by_name.html">catmaid_query_by_annotation</a></code> </p>
+            <p><code><a href="catmaid_query_by_name.html">catmaid_query_by_name()</a></code> <code><a href="catmaid_query_by_name.html">catmaid_query_by_annotation()</a></code> </p>
           </td>
           <td><p>Get list of neurons/annotations querying by neuron/annotation name</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_neuronnames.html">catmaid_get_neuronnames</a></code> </p>
+            <p><code><a href="catmaid_get_neuronnames.html">catmaid_get_neuronnames()</a></code> </p>
           </td>
           <td><p>Get names of neurons from CATMAID</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_rename_neuron.html">catmaid_rename_neuron</a></code> </p>
+            <p><code><a href="catmaid_rename_neuron.html">catmaid_rename_neuron()</a></code> </p>
           </td>
           <td><p>Rename (presently) a single neuron or other entity (e.g. annotation)</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_skids.html">catmaid_skids</a></code> </p>
+            <p><code><a href="catmaid_skids.html">catmaid_skids()</a></code> </p>
           </td>
           <td><p>Find skeleton ids (skids) for various inputs including textual queries</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_get_annotations_for_skeletons</a></code> <code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_set_annotations_for_skeletons</a></code> <code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_remove_annotations_for_skeletons</a></code> </p>
+            <p><code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_get_annotations_for_skeletons()</a></code> <code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_set_annotations_for_skeletons()</a></code> <code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_remove_annotations_for_skeletons()</a></code> </p>
           </td>
           <td><p>Get or set annotations for neurons from CATMAID</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_annotationlist.html">catmaid_get_annotationlist</a></code> </p>
+            <p><code><a href="catmaid_get_annotationlist.html">catmaid_get_annotationlist()</a></code> </p>
           </td>
           <td><p>Get list of annotations (including user information) from CATMAID</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_label_stats.html">catmaid_get_label_stats</a></code> </p>
+            <p><code><a href="catmaid_get_label_stats.html">catmaid_get_label_stats()</a></code> </p>
           </td>
           <td><p>Get statistics for all labels in a project from a CATMAID server</p></td>
         </tr>
@@ -214,25 +218,25 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_query_connected.html">catmaid_query_connected</a></code> </p>
+            <p><code><a href="catmaid_query_connected.html">catmaid_query_connected()</a></code> </p>
           </td>
           <td><p>Find neurons connected to a starting neuron</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_connector_table.html">catmaid_get_connector_table</a></code> </p>
+            <p><code><a href="catmaid_get_connector_table.html">catmaid_get_connector_table()</a></code> </p>
           </td>
           <td><p>Return connector table for a given neuron</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_connectors_between.html">catmaid_get_connectors_between</a></code> </p>
+            <p><code><a href="catmaid_get_connectors_between.html">catmaid_get_connectors_between()</a></code> </p>
           </td>
           <td><p>Return information about connectors joining sets of pre/postsynaptic skids</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_connectors.html">catmaid_get_connectors</a></code> </p>
+            <p><code><a href="catmaid_get_connectors.html">catmaid_get_connectors()</a></code> </p>
           </td>
           <td><p>Return skeleton ids for pre/postsynaptic partners of a set of connector_ids</p></td>
         </tr>
@@ -246,19 +250,19 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="read.neuron.catmaid.html">read.neuron.catmaid</a></code> <code><a href="read.neuron.catmaid.html">read.neurons.catmaid</a></code> </p>
+            <p><code><a href="read.neuron.catmaid.html">read.neuron.catmaid()</a></code> <code><a href="read.neuron.catmaid.html">read.neurons.catmaid()</a></code> </p>
           </td>
           <td><p>Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="plot3d.catmaidneuron.html">plot3d</a></code> </p>
+            <p><code><a href="plot3d.catmaidneuron.html">plot3d(<i>&lt;catmaidneuron&gt;</i>)</a></code> </p>
           </td>
           <td><p>Plot skeleton and connectors for neuron retrieved from CATMAID</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="connectors.html">connectors</a></code> </p>
+            <p><code><a href="connectors.html">connectors()</a></code> </p>
           </td>
           <td><p>Get data.frame of connector (synapse) information from a neuron or neuronlist</p></td>
         </tr>
@@ -272,25 +276,25 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="as.catmaidmesh.html">as.catmaidmesh</a></code> </p>
+            <p><code><a href="as.catmaidmesh.html">as.catmaidmesh()</a></code> </p>
           </td>
           <td><p>Convert a mesh to CATMAID format</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_add_volume.html">catmaid_add_volume</a></code> </p>
+            <p><code><a href="catmaid_add_volume.html">catmaid_add_volume()</a></code> </p>
           </td>
           <td><p>Add a 3D mesh surface to catmaid volume manager</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_volume.html">catmaid_get_volume</a></code> </p>
+            <p><code><a href="catmaid_get_volume.html">catmaid_get_volume()</a></code> </p>
           </td>
           <td><p>Fetch a mesh volume from CATMAID</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_volumelist.html">catmaid_get_volumelist</a></code> </p>
+            <p><code><a href="catmaid_get_volumelist.html">catmaid_get_volumelist()</a></code> </p>
           </td>
           <td><p>Fetch a data frame containing details of all volumes on CATMAID server</p></td>
         </tr>
@@ -304,19 +308,19 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_contributor_stats.html">catmaid_get_contributor_stats</a></code> </p>
+            <p><code><a href="catmaid_get_contributor_stats.html">catmaid_get_contributor_stats()</a></code> </p>
           </td>
           <td><p>Get contributor statistics for neurons from CATMAID</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_get_user_list.html">catmaid_get_user_list</a></code> </p>
+            <p><code><a href="catmaid_get_user_list.html">catmaid_get_user_list()</a></code> </p>
           </td>
           <td><p>Fetch list of catmaid users for current/specified connection/project</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_user_history.html">catmaid_user_history</a></code> </p>
+            <p><code><a href="catmaid_user_history.html">catmaid_user_history()</a></code> </p>
           </td>
           <td><p>Fetch user contribution history</p></td>
         </tr>
@@ -330,19 +334,19 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_parse_url.html">catmaid_parse_url</a></code> </p>
+            <p><code><a href="catmaid_parse_url.html">catmaid_parse_url()</a></code> </p>
           </td>
           <td><p>Parse a CATMAID URL to extract parameters including xyz location</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="read_catmaid_selection.html">read_catmaid_selection</a></code> </p>
+            <p><code><a href="read_catmaid_selection.html">read_catmaid_selection()</a></code> </p>
           </td>
           <td><p>Read a CATMAID selection file</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="write_catmaid_selection.html">write_catmaid_selection</a></code> </p>
+            <p><code><a href="write_catmaid_selection.html">write_catmaid_selection()</a></code> </p>
           </td>
           <td><p>Make a CATMAID selection file based on neuronlist or skids</p></td>
         </tr>
@@ -356,25 +360,25 @@
         <tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_fetch.html">catmaid_fetch</a></code> </p>
+            <p><code><a href="catmaid_fetch.html">catmaid_fetch()</a></code> </p>
           </td>
           <td><p>Send http GET or POST request to a CATMAID server</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="copy_tags_connectors.html">copy_tags_connectors</a></code> </p>
+            <p><code><a href="copy_tags_connectors.html">copy_tags_connectors()</a></code> </p>
           </td>
           <td><p>Copy the tag / connector info from a catmaid neuron to a new neuron</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_entities_from_models.html">catmaid_entities_from_models</a></code> </p>
+            <p><code><a href="catmaid_entities_from_models.html">catmaid_entities_from_models()</a></code> </p>
           </td>
           <td><p>Return the entity ids for one or more model ids</p></td>
         </tr><tr>
           <!--  -->
           <td>
-            <p><code><a href="catmaid_version.html">catmaid_version</a></code> </p>
+            <p><code><a href="catmaid_version.html">catmaid_version()</a></code> </p>
           </td>
           <td><p>Return the CATMAID version running on the server</p></td>
         </tr>
@@ -406,7 +410,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://hadley.github.io/pkgdown/">pkgdown</a>.</p>
+  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
 </div>
 
       </footer>
@@ -414,3 +418,4 @@
 
   </body>
 </html>
+
