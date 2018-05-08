@@ -375,60 +375,67 @@ catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
 }
 
 #' Return information about connectors joining sets of pre/postsynaptic skids
-#' 
-#' @details If either the \code{pre_skids} or \code{post_skids} arguments are 
+#'
+#' @details If either the \code{pre_skids} or \code{post_skids} arguments are
 #'   not specified (taking the default \code{NULL} value) then this implies
 #'   there is no restriction on the pre- (or post-) synaptic partners.
-#'   
-#'   Each row is a unique set of pre_synaptic node, post_synaptic node, 
-#'   connector_id. A rare (and usually erroneous) scenario is if the same 
-#'   pre_node and post_node are present with two different connector_ids - this 
+#'
+#'   Each row is a unique set of pre_synaptic node, post_synaptic node,
+#'   connector_id. A rare (and usually erroneous) scenario is if the same
+#'   pre_node and post_node are present with two different connector_ids - this
 #'   would create two rows.
-#' @param pre_skids,post_skids Skeleton ids in any form understood by 
+#' @param pre_skids,post_skids Skeleton ids in any form understood by
 #'   \code{\link{catmaid_skids}} or \code{NULL} meaning no restriction.
+#' @param get_names Whether to fetch the neuron name for each pre- and
+#'   post-synaptic skid (default \code{FALSE}).
 #' @return A data.frame with columns \itemize{
-#'   
+#'
 #'   \item pre_skid
-#'   
+#'
 #'   \item post_skid
-#'   
+#'
 #'   \item connector_id
-#'   
+#'
 #'   \item pre_node_id
-#'   
+#'
 #'   \item post_node_id
-#'   
+#'
 #'   \item connector_x
-#'   
+#'
 #'   \item connector_y
-#'   
+#'
 #'   \item connector_z
-#'   
+#'
 #'   \item pre_node_x
-#'   
+#'
 #'   \item pre_node_y
-#'   
+#'
 #'   \item pre_node_z
-#'   
+#'
 #'   \item post_node_x
-#'   
+#'
 #'   \item post_node_y
-#'   
+#'
 #'   \item post_node_z
-#'   
+#'
 #'   \item pre_confidence
-#'   
+#'
 #'   \item pre_user
-#'   
+#'
 #'   \item post_confidence
-#'   
+#'
 #'   \item post_user
-#'   
+#'
+#'   \item pre_name (optional - the name of the presynaptic neuron)
+#'
+#'   \item post_name (optional - the name of the postsynaptic neuron)
+#'
 #'   }
 #' @export
 #' @inheritParams catmaid_get_compact_skeleton
 #' @family connectors
 catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL, 
+                                           get_names=FALSE,
                                            pid=1, conn=NULL, raw=FALSE, ...) {
   post_data=list()
   if(is.null(post_skids) && is.null(pre_skids))
@@ -473,6 +480,14 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
   # fix any columns that are still lists
   list_cols=sapply(ddf, is.list)
   ddf[list_cols]=lapply(ddf[list_cols], unlist, use.names=F)
+  
+  # deal with neuron names
+  if(get_names){
+    # make this a single call for efficiency
+    allnames <- catmaid_get_neuronnames(c(ddf$pre_skid, ddf$post_skid))
+    ddf$pre_name <- allnames[seq_along(ddf$pre_skid)]
+    ddf$post_name <- allnames[seq_along(ddf$post_skid)+length(ddf$pre_skid)-1]
+  }
   
   # move some columns to front
   first_cols=c("pre_skid", "post_skid", "connector_id", "pre_node_id", "post_node_id")
