@@ -1,5 +1,5 @@
-catmaid 0.9.0
-=============
+# catmaid 0.9.0
+
 This version is synced with the upcoming release of nat v1.9.0 which streamlines
 some functionality but has some breaking changes in behaviour. It must be used
 with nat >=1.8.12.900 from github.
@@ -10,14 +10,14 @@ with nat >=1.8.12.900 from github.
   Now you can do: catmaid_skids("ORN") or read.neurons.catmaid("ORN")
 * Fix bug in catmaid_skids error message when looking for one skid (#90)
 
-catmaid 0.8.1
-=============
+# catmaid 0.8.1
+
 * Add function to get volumes from catmaid (#82)
 * Add functions to read/write catmaid json selection files
 * make catmaid_neuronnames returns NA for NA skids
 
-catmaid 0.8
-===========
+# catmaid 0.8
+
 This is a major version update because of the new support (and recommendation)
 to use environment variables for login (.Rprofile is still supported).
 
@@ -26,23 +26,23 @@ to use environment variables for login (.Rprofile is still supported).
   (used to be a list of lists, but this was less convenient and not helpful)
 * fix query_by_neuron_or_annotation adding empty annotations attribute
 
-catmaid 0.7.2
-=============
+# catmaid 0.7.2
+
 * Add catmaid_get_label_stats (use it to find neurons with soma)
 * Add copy_tags_connectors (bring over tags/connector info)
 * improve summary.catmaidneuron (#78)
 * plot3d bugfix when there are NA points (and soma=T) (#77)
 
-catmaid 0.7.1
-=============
+# catmaid 0.7.1
+
 * only plot soma when explicitly tagged  (rather than plotting a sphere at the 
   root of the neuron if not tagged) (#62)
 * only plot3d connectors if they exist (#73)
 * Ensure nodes do not normally plot for catmaidneurons  (#74)
 * doc fix for catmaid_get_treenode_table (#75)
 
-catmaid 0.7
-===========
+# catmaid 0.7
+
 This is a substantial release with many new functions/enhancements, changes to
 match the API defined by the 2016.10.18 CATMAID release, support for token-based
 authentication and numerous bug fixes.
@@ -79,8 +79,8 @@ authentication and numerous bug fixes.
 * fix catmaid_get_connector_table to reflect 2016.09.01-65 API change (#65)
 * fix bug in catmaid_user_history with small queries (#70)
 
-catmaid 0.6
-===========
+# catmaid 0.6
+
 * support for upcoming httr 1.0 release
 * fix: ensure catmaid connection objects are passed to all downstream functions
   e.g. so that you can you use different servers in the same session.
@@ -90,8 +90,8 @@ catmaid 0.6
   and remote path is also missing a slash
 * fix: servers don't have to be https
 
-catmaid 0.5
-===========
+# catmaid 0.5
+
 This release 
 * check for http status errors in catmaid (in case there is trouble connecting
   to site, bad URL etc)
@@ -99,8 +99,8 @@ This release
 * export funcs to get/set login details as environment variables
 * ... and clear those env vars (all useful for testing)
 
-catmaid 0.4
-===========
+# catmaid 0.4
+
 This release significantly enhances functionality for querying for neurons by
 annotation or name, while also simplifying a number of plotting/analysis tasks
 involving connectors (synapses).
@@ -125,8 +125,8 @@ involving connectors (synapses).
 * depend on nat (and therefore rgl). Import rather than depend on jsonlite.
 * minor doc fixes
 
-catmaid 0.3
-===========
+# catmaid 0.3
+
 * cache login credentials for automatic reuse
 * option to set/get environment variables for passwords etc
 * Add catmaid_query_connected, catmaid_get_annotationlist, catmaid_query_by_neuronname
