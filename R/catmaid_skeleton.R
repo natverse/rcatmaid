@@ -493,3 +493,81 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
   first_cols=c("pre_skid", "post_skid", "connector_id", "pre_node_id", "post_node_id")
   ddf[c(first_cols, setdiff(colnames(ddf), first_cols))]
 }
+
+#' Fetch position and other information for arbitrary treenode ids
+#'
+#' @details The key feature of this function is that allows you to fetch
+#'   information for arbitrary tree nodes that do not need to be from the same
+#'   skeleton.
+#'
+#' @param tnids One or more (integer) treenode ids
+#' @seealso \code{\link{catmaid_get_treenode_table}},
+#'   \code{\link{catmaid_get_connectors}},
+#'   \code{\link{catmaid_get_compact_skeleton}}
+#' @inheritParams catmaid_get_compact_skeleton
+#'
+#' @return \itemize{
+#'
+#'   \item treenode_id,
+#'
+#'   \item parent_id,
+#'
+#'   \item x,
+#'
+#'   \item y,
+#'
+#'   \item z,
+#'
+#'   \item confidence,
+#'
+#'   \item radius,
+#'
+#'   \item skid,
+#'
+#'   \item edition_time,
+#'
+#'   \item user_id
+#'
+#'   }
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' # details for 3 nodes from two different skeletons
+#' catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
+#' }
+catmaid_get_treenodes_detail<-function(tnids, pid=1, conn=NULL, raw=FALSE, ...) {
+  path=paste("", pid, "treenodes","compact-detail",sep="/")
+  post_data=as.list(tnids)
+  names(post_data)=sprintf("treenode_ids[%d]", seq_along(tnids))
+  nodeinfo=catmaid_fetch(path, body=post_data, conn=conn, simplifyVector = T, ...)
+  
+  if(raw) return(nodeinfo)
+  # else process the connector information
+  if(!length(nodeinfo)) return(NULL)
+  
+  if(!(is.matrix(nodeinfo) && ncol(nodeinfo)==10)){
+    stop("Unexpected return format catmaid_get_treenodes_detail!")
+  }
+  
+  coltypes = c(
+    "treenode_id"="integer",
+    "parent_id"="integer",
+    "x"="numeric",
+    "y"="numeric",
+    "z"="numeric",
+    "confidence"="integer",
+    "radius"="numeric",
+    "skid"="integer",
+    "edition_time"="numeric",
+    "user_id"="integer"
+  )
+  colnames(nodeinfo)=names(coltypes)
+  nodeinfo=as.data.frame(nodeinfo)
+  curcoltypes=sapply(nodeinfo,mode)
+  cols_to_change=names(which(coltypes!=curcoltypes))
+  for(col in cols_to_change) {
+    mode(nodeinfo[[col]]) <- coltypes[col]
+  }
+  nodeinfo
+}
