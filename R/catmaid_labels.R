@@ -77,7 +77,7 @@ catmaid_set_labels <- function(node, labels, type=c("treenode", "connector"),
   if(any(grepl(",", labels, fixed = T)))
     stop("CATMAID cannot accept labels containing commas")
   body=list(ntype=type, tags=paste(labels, collapse = ","))
-  if(delete_existing) body[['delete_existing']]='true'
-  res=catmaid_fetch(path, body = body, conn = conn, ...)
-  res
+  body[['delete_existing']] <- if(isTRUE(delete_existing)) 'true' else 'false'
+  res=catmaid_fetch(path, body = body, conn = conn, ..., include_headers = F)
+  invisible(res)
 }
