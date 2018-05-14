@@ -1,6 +1,6 @@
 [![Travis-CI Build Status](https://travis-ci.org/jefferis/rcatmaid.svg?branch=master)](https://travis-ci.org/jefferis/rcatmaid)
 [![Release Version](https://img.shields.io/github/release/jefferis/rcatmaid.svg)](https://github.com/jefferis/rcatmaid/releases/latest) 
-[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](http://jefferis.github.io/nat/rcatmaid/)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](http://jefferis.github.io/rcatmaid/)
 [![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
 
 # catmaid
