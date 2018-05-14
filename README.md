@@ -1,4 +1,8 @@
-[![Travis-CI Build Status](https://travis-ci.org/jefferis/rcatmaid.svg?branch=master)](https://travis-ci.org/jefferis/rcatmaid) [![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
+[![Travis-CI Build Status](https://travis-ci.org/jefferis/rcatmaid.svg?branch=master)](https://travis-ci.org/jefferis/rcatmaid)
+[![Release Version](https://img.shields.io/github/release/jefferis/rcatmaid.svg)](https://github.com/jefferis/rcatmaid/releases/latest) 
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](http://jefferis.github.io/nat/rcatmaid/)
+[![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
+
 # catmaid
 
 This package provides access to the [CATMAID](http://catmaid.org/) API for 
