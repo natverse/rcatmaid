@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Send http GET or POST request to a CATMAID server — catmaid_fetch" />
 
 <meta property="og:description" content="catmaid_fetch carries out a GET operation when 
@@ -57,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -72,6 +75,9 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -82,6 +88,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,18 +96,21 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Send http GET or POST request to a CATMAID server</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_connection.R'><code>R/catmaid_connection.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_connection.R'><code>R/catmaid_connection.R</code></a></small>
+    <div class="hidden name"><code>catmaid_fetch.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>catmaid_fetch</code> carries out a GET operation when 
   <code>body=NULL</code>, POST otherwise. The http status code of the response will
   be checked - if invalid an error will be thrown.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>catmaid_fetch</span>(<span class='no'>path</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>parse.json</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>include_headers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>simplifyVector</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
@@ -138,7 +148,7 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
     </tr>
     <tr>
       <th>simplifyVector</th>
-      <td><p>Wheter to use jsonlite::simplifyVector</p></td>
+      <td><p>Whether to use jsonlite::simplifyVector</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -155,8 +165,8 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>catmaid_login</code>, <code><a href='http://www.rdocumentation.org/packages/httr/topics/GET'>GET</a></code>, 
-  <code><a href='http://www.rdocumentation.org/packages/httr/topics/POST'>POST</a></code></p>
+    <div class='dont-index'><p><code>catmaid_login</code>, <code><a href='http://www.rdocumentation.org/packages/httr/topics/GET'>GET</a></code>, 
+  <code><a href='http://www.rdocumentation.org/packages/httr/topics/POST'>POST</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -228,6 +238,8 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

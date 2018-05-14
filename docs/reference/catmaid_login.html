@@ -25,11 +25,14 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Connect/authenticate to a CATMAID server, returning a connection object — catmaid_login" />
 
 <meta property="og:description" content="catmaid_login allows you to login to a CATMAID server 
   specified by a catmaid_connection object. If such an object is not 
-  specified, then the last succesful connection in this R session is reused 
+  specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
   options of the form "catmaid.*" (see details).  
 The connection object returned by catmaid_login (or cached when 
@@ -66,7 +69,7 @@ catmaid_connection is a lower level function used by
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -81,6 +84,9 @@ catmaid_connection is a lower level function used by
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -91,6 +97,7 @@ catmaid_connection is a lower level function used by
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -98,17 +105,19 @@ catmaid_connection is a lower level function used by
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Connect/authenticate to a CATMAID server, returning a connection object</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_connection.R'><code>R/catmaid_connection.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_connection.R'><code>R/catmaid_connection.R</code></a></small>
+    <div class="hidden name"><code>catmaid_login.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>catmaid_login</code> allows you to login to a CATMAID server 
   specified by a <code>catmaid_connection</code> object. If such an object is not 
-  specified, then the last succesful connection in this R session is reused 
+  specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
   <code>options</code> of the form "catmaid.*" (see details).</p>  
 <p>The connection object returned by <code>catmaid_login</code> (or cached when 
@@ -119,6 +128,7 @@ catmaid_connection is a lower level function used by
   need to call this directly, but it does document the arguments that can be 
   used to specify a connection to a CATMAID server.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>catmaid_login</span>(<span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>Cache</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>Force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -256,7 +266,7 @@ catmaid.authpassword="hobbes"
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code>options</code>, <code>Startup</code></p>
+    <div class='dont-index'><p><code>options</code>, <code>Startup</code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -318,6 +328,8 @@ catmaid.authpassword="hobbes"
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

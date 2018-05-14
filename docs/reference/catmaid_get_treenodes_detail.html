@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get review status of neurons from CATMAID — catmaid_get_review_status • catmaid</title>
+<title>Fetch position and other information for arbitrary treenode ids — catmaid_get_treenodes_detail • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Get review status of neurons from CATMAID — catmaid_get_review_status" />
+<meta property="og:title" content="Fetch position and other information for arbitrary treenode ids — catmaid_get_treenodes_detail" />
 
-<meta property="og:description" content="Get review status of neurons from CATMAID" />
+<meta property="og:description" content="Fetch position and other information for arbitrary treenode ids" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,60 +97,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get review status of neurons from CATMAID</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_metadata.R'><code>R/catmaid_metadata.R</code></a></small>
-    <div class="hidden name"><code>catmaid_get_review_status.Rd</code></div>
+    <h1>Fetch position and other information for arbitrary treenode ids</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skeleton.R'><code>R/catmaid_skeleton.R</code></a></small>
+    <div class="hidden name"><code>catmaid_get_treenodes_detail.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get review status of neurons from CATMAID</p>
+    <p>Fetch position and other information for arbitrary treenode ids</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_review_status</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='no'>tnids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>skids</th>
-      <td><p>One or more numeric skeleton ids or a character vector defining
-a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
+      <th>tnids</th>
+      <td><p>One or more (integer) treenode ids</p></td>
     </tr>
     <tr>
       <th>pid</th>
-      <td><p>Project id (default 1)</p></td>
+      <td><p>project id (default 1)</p></td>
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>A <code>catmaid_connection</code> objection returned by 
-<code>catmaid_login</code>. If <code>NULL</code> (the default) a new connection 
-object will be generated using the values of the <b>catmaid.*</b> package 
-options as described in the help for <code>catmaid_login</code>.</p></td>
+      <td><p>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</p></td>
+    </tr>
+    <tr>
+      <th>raw</th>
+      <td><p>Whether to return completely unprocessed data (when <code>TRUE</code>) 
+or to convert the nodes and connectors lists into processed data.frames 
+(when <code>FALSE</code>, the default)</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
-function</p></td>
+function.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a data.frame consisting of total number of nodes and number of
-  reviewed nodes. Note that should any neurons be invalid a warning will be
-  generated and a row with NA values will be returned.</p>
+    
+<ul>
+<li><p>treenode_id,</p></li>
+<li><p>parent_id,</p></li>
+<li><p>x,</p></li>
+<li><p>y,</p></li>
+<li><p>z,</p></li>
+<li><p>confidence,</p></li>
+<li><p>radius,</p></li>
+<li><p>skid,</p></li>
+<li><p>edition_time,</p></li>
+<li><p>user_id</p></li>
+</ul>
+
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The key feature of this function is that allows you to fetch
+  information for arbitrary tree nodes that do not need to be from the same
+  skeleton.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='catmaid_fetch.html'>catmaid_fetch</a></code></p></div>
+    <div class='dont-index'><p><code><a href='catmaid_get_treenode_table.html'>catmaid_get_treenode_table</a></code>,
+  <code><a href='catmaid_get_connectors.html'>catmaid_get_connectors</a></code>,
+  <code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>catmaid_get_review_status</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='co'># }</span></pre>
+    <pre class="examples"><div class='input'><span class='co'># details for 3 nodes from two different skeletons</span>
+<span class='fu'>catmaid_get_treenodes_detail</span>(<span class='fu'>c</span>(<span class='fl'>9943214L</span>, <span class='fl'>25069047L</span>, <span class='fl'>12829015L</span>))</div><div class='output co'>#&gt;   treenode_id parent_id       x       y     z confidence radius     skid
+#&gt; 1     9943214        NA 65439.8 20611.2 41250          5   1911  4453485
+#&gt; 2    25069047  10983327 53296.5 14791.1 42650          5     -1  4453485
+#&gt; 3    12829015  12829014 59222.2 65869.2 51150          5     -1 10418394
+#&gt;   edition_time user_id
+#&gt; 1   1496315535      18
+#&gt; 2   1525270313      71
+#&gt; 3   1523630041      18</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -158,6 +186,8 @@ function</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

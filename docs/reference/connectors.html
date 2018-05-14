@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get data.frame of connector (synapse) information from a neuron or neuronlist — connectors • catmaid</title>
+<title>Get data.frame of connector (synapse) information from a neuron or <code>neuronlist</code> — connectors • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,7 +25,10 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Get data.frame of connector (synapse) information from a neuron or neuronlist — connectors" />
+
+
+
+<meta property="og:title" content="Get data.frame of connector (synapse) information from a neuron or <code>neuronlist</code> — connectors" />
 
 <meta property="og:description" content="In contrast to catmaid_get_connector_table this assumes that
 you have already read the neurons into an R structure of class 
@@ -57,7 +60,7 @@ neuron or neuronlist." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -72,6 +75,9 @@ neuron or neuronlist." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -82,6 +88,7 @@ neuron or neuronlist." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,18 +96,21 @@ neuron or neuronlist." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get data.frame of connector (synapse) information from a neuron or neuronlist</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_nat.R'><code>R/catmaid_nat.R</code></a></small>
+    <h1>Get data.frame of connector (synapse) information from a neuron or <code>neuronlist</code></h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_nat.R'><code>R/catmaid_nat.R</code></a></small>
+    <div class="hidden name"><code>connectors.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>In contrast to <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code> this assumes that
 you have already read the neurons into an R structure of class 
 <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuron'>neuron</a></code> or <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>connectors</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -147,11 +157,11 @@ the case of connectors)</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code></p>
+    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code></p>
 <p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
   <code><a href='catmaid_get_connectors_between.html'>catmaid_get_connectors_between</a></code>,
   <code><a href='catmaid_get_connectors.html'>catmaid_get_connectors</a></code>,
-  <code><a href='catmaid_query_connected.html'>catmaid_query_connected</a></code></p>
+  <code><a href='catmaid_query_connected.html'>catmaid_query_connected</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -192,6 +202,8 @@ the case of connectors)</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

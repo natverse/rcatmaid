@@ -25,13 +25,16 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Programmatic access to the CATMAID API — catmaid-package" />
 
-<meta property="og:description" content="To use, first call catmaid_login to authenticate to a catmaid 
-server. You can then use functions such as 
-catmaid_get_neuronnames or 
-catmaid_get_compact_skeleton to query the server. You can also 
-roll your own server queries using the low-level catmaid_fetch 
+<meta property="og:description" content="To use, first call catmaid_login to authenticate to a catmaid
+server. You can then use functions such as
+catmaid_get_neuronnames or
+catmaid_get_compact_skeleton to query the server. You can also
+roll your own server queries using the low-level catmaid_fetch
 command." />
 <meta name="twitter:card" content="summary" />
 
@@ -60,7 +63,7 @@ command." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -75,6 +78,9 @@ command." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -85,6 +91,7 @@ command." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -92,50 +99,56 @@ command." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Programmatic access to the CATMAID API</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid.R'><code>R/catmaid.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid.R'><code>R/catmaid.R</code></a></small>
+    <div class="hidden name"><code>catmaid-package.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>To use, first call <code>catmaid_login</code> to authenticate to a catmaid 
-server. You can then use functions such as 
-<code><a href='catmaid_get_neuronnames.html'>catmaid_get_neuronnames</a></code> or 
-<code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code> to query the server. You can also 
-roll your own server queries using the low-level <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+    <p>To use, first call <code>catmaid_login</code> to authenticate to a catmaid
+server. You can then use functions such as
+<code><a href='catmaid_get_neuronnames.html'>catmaid_get_neuronnames</a></code> or
+<code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code> to query the server. You can also
+roll your own server queries using the low-level <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code>
 command.</p>
     
+    </div>
 
         
     <h2 class="hasAnchor" id="connections"><a class="anchor" href="#connections"></a>Connections</h2>
 
-    <p>By default all query functions will use the 
-  server/authentication details specified by the last successful call to 
-  <code>catmaid_login</code> unless a <code><a href='catmaid_login.html'>catmaid_connection</a></code> 
+    <p>By default all query functions will use the
+  server/authentication details specified by the last successful call to
+  <code>catmaid_login</code> unless a <code><a href='catmaid_login.html'>catmaid_connection</a></code>
   object is provided as an argument.</p>
     
-    <h2 class="hasAnchor" id="package-options"><a class="anchor" href="#package-options"></a>Package Options</h2>
+    <h2 class="hasAnchor" id="default-login"><a class="anchor" href="#default-login"></a>Default Login</h2>
 
-    <p>See <code>catmaid_login</code> for details of the 
-  options that can be set to specify default login values. It may make sense 
-  to set these in your <code>.Rprofile</code> if you regularly use a specific 
-  CATMAID server. Beware however that your R workspace will then include a 
-  plain text version of your passwords.</p>
+    <p>See <code>catmaid_login</code> for details of the
+  environment variables that can be set to specify default login values. It
+  makes sense to set these in your <code>.Renviron</code> file if you
+  regularly use a specific CATMAID server. Note that you can have different
+  <code>.Renviron</code> files in the home folder of different Rstudio projects if
+  you regularly use more than one CATMAID server. Note that the use of 
+  environment variables is now preferred over setting R options.</p>
     
     <h2 class="hasAnchor" id="unit-tests"><a class="anchor" href="#unit-tests"></a>Unit tests</h2>
 
     <p>Unit tests can be run as per the examples section below.
-  In order to do live tests you will need to set environment variables with 
+  In order to do live tests you will need to set environment variables with
   your catmaid login credentials using the function
   <code><a href='catmaid_connection_setenv.html'>catmaid_connection_setenv</a></code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>Based in large part on code visible at 
-  <a href='https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py'>https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py</a>
-   See <a href='http://catmaid.org'>http://catmaid.org</a> for further details about CATMAID and 
+    <p>The first version of this package was based in large part on
+  python code at
+  <a href='https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py'>https://github.com/schlegelp/CATMAID-to-Blender/blob/master/CATMAIDImport.py</a>.
+   See <a href='http://catmaid.org'>http://catmaid.org</a> for further details about CATMAID and
   <a href='https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py'>https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py</a>
    for a list of URLs that the web API accepts.</p>
     
@@ -163,7 +176,7 @@ command.</p>
       
       <li><a href="#connections">Connections</a></li>
 
-      <li><a href="#package-options">Package Options</a></li>
+      <li><a href="#default-login">Default Login</a></li>
 
       <li><a href="#unit-tests">Unit tests</a></li>
 
@@ -186,6 +199,8 @@ command.</p>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

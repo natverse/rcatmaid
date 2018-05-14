@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format — read.neuron.catmaid" />
 
 <meta property="og:description" content="read.neuron.catmaid reads a single neuron, while 
@@ -57,7 +60,7 @@ including some metadata information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -72,6 +75,9 @@ including some metadata information." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -82,6 +88,7 @@ including some metadata information." />
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -89,18 +96,21 @@ including some metadata information." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_nat.R'><code>R/catmaid_nat.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_nat.R'><code>R/catmaid_nat.R</code></a></small>
+    <div class="hidden name"><code>read.neuron.catmaid.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p><code>read.neuron.catmaid</code> reads a single neuron, while 
 <code>read.neurons.catmaid</code> generates a <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
 including some metadata information.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>read.neuron.catmaid</span>(<span class='no'>skid</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
@@ -137,9 +147,9 @@ a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or exam
     </tr>
     <tr>
       <th>OmitFailures</th>
-      <td><p>Whether to omit neurons for which <code>FUN</code> gives an 
-error. The default value (<code>NA</code>) will result in nlapply stopping with 
-an error message the moment there is an eror. For other values, see 
+      <td><p>Whether to omit neurons for which <code>FUN</code> gives an
+error. The default value (<code>NA</code>) will result in nlapply stopping with
+an error message the moment there is an error. For other values, see
 details.</p></td>
     </tr>
     <tr>
@@ -160,33 +170,33 @@ details.</p></td>
     <p>These functions provide a bridge between CATMAID and the 
   neuronanatomy toolbox R package (<a href='https://github.com/jefferis/nat'>https://github.com/jefferis/nat</a>), 
   which provides extensive functionality for analysing and plotting neurons 
-  within the context of temaplate brains.</p>  
+  within the context of template brains.</p>  
 <p>Note that the soma is set by inspecting CATMAID tags that 
   (case-insensitively) match the regex <code>"(cell body|soma)"</code>. Where &gt;1 
   tag exists the one that tags an endpoint is preferred.</p>
-<p>When <code>OmitFailures</code> is not <code>NA</code>, <code>FUN</code> will be 
-  wrapped in a call to <code>try</code> to ensure that failure for any single 
-  neuron does not abort the nlapply/nmapply call. When 
+<p>When <code>OmitFailures</code> is not <code>NA</code>, <code>FUN</code> will be
+  wrapped in a call to <code>try</code> to ensure that failure for any single
+  neuron does not abort the nlapply/nmapply call. When
   <code>OmitFailures=TRUE</code> the resultant neuronlist will be subsetted down to
-  return values for which <code>FUN</code> evaluated successfully. When 
-  <code>OmitFailures=FALSE</code>, "try-error" objects will be left in place. In 
-  either of the last 2 cases error messages will not be printed because the 
-  call is wrapped as <code>try(expr, silent=TRUE)</code>.</p>  
-<p>The optional dataframe (<code>df</code>) detailing each neuron should have 
-  <code>rownames</code> that match the names of each neuron. It would also make 
-  sense if the same key was present in a column of the data frame. If the 
+  return values for which <code>FUN</code> evaluated successfully. When
+  <code>OmitFailures=FALSE</code>, "try-error" objects will be left in place. In
+  either of the last 2 cases error messages will not be printed because the
+  call is wrapped as <code>try(expr, silent=TRUE)</code>.</p>
+<p>The optional dataframe (<code>df</code>) detailing each neuron should have
+  <code>rownames</code> that match the names of each neuron. It would also make
+  sense if the same key was present in a column of the data frame. If the
   dataframe contains more rows than neurons, the superfluous rows are dropped
-  with a warning. If the dataframe is missing rows for some neurons an error 
-  is generated. If SortOnUpdate is TRUE then updating an existing neuronlist 
-  should result in a new neuronlist with ordering identical to reading all 
-  neurons from scratch.</p>
+  with a warning. If the dataframe is missing rows for some neurons an error
+  is generated. If SortOnUpdate is TRUE then updating an existing
+  <code>neuronlist</code> should result in a new <code>neuronlist</code> with ordering
+  identical to reading all neurons from scratch.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
+    <div class='dont-index'><p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='http://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
   <code><a href='connectors.html'>connectors</a></code> to extract connector information from a 
   <code>catmaid.neuron</code></p>
-<p><code><a href='catmaid_skids.html'>catmaid_skids</a></code></p>
+<p><code><a href='catmaid_skids.html'>catmaid_skids</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -261,6 +271,8 @@ details.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

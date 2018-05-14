@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get review status of neurons from CATMAID — catmaid_get_review_status • catmaid</title>
+<title>Get/Set/Remove CATMAID treenode labels (aka tags) — catmaid_get_labels • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,14 @@
 
 
 
-<meta property="og:title" content="Get review status of neurons from CATMAID — catmaid_get_review_status" />
+<meta property="og:title" content="Get/Set/Remove CATMAID treenode labels (aka tags) — catmaid_get_labels" />
 
-<meta property="og:description" content="Get review status of neurons from CATMAID" />
+<meta property="og:description" content="catmaid_get_labels gets labels (tags) for specified
+  nodes.
+catmaid_set_labels sets labels (tags) for a specified
+  node.
+catmaid_remove_labels removes labels (tags) for a
+  specified node." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -97,26 +102,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get review status of neurons from CATMAID</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_metadata.R'><code>R/catmaid_metadata.R</code></a></small>
-    <div class="hidden name"><code>catmaid_get_review_status.Rd</code></div>
+    <h1>Get/Set/Remove CATMAID treenode labels (aka tags)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_labels.R'><code>R/catmaid_labels.R</code></a></small>
+    <div class="hidden name"><code>catmaid_get_labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get review status of neurons from CATMAID</p>
+    <p><code>catmaid_get_labels</code> gets labels (tags) for specified
+  nodes.</p>
+<p><code>catmaid_set_labels</code> sets labels (tags) for a specified
+  node.</p>
+<p><code>catmaid_remove_labels</code> removes labels (tags) for a
+  specified node.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_review_status</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_labels</span>(<span class='kw'>treenodes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>connectors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>catmaid_set_labels</span>(<span class='no'>node</span>, <span class='no'>labels</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"treenode"</span>, <span class='st'>"connector"</span>),
+  <span class='kw'>delete_existing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>catmaid_remove_labels</span>(<span class='no'>node</span>, <span class='no'>labels</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"treenode"</span>, <span class='st'>"connector"</span>),
+  <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>skids</th>
-      <td><p>One or more numeric skeleton ids or a character vector defining
-a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
+      <th>treenodes, connectors</th>
+      <td><p>Integer ids of nodes to be queried</p></td>
     </tr>
     <tr>
       <th>pid</th>
@@ -134,23 +150,42 @@ options as described in the help for <code>catmaid_login</code>.</p></td>
       <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
 function</p></td>
     </tr>
+    <tr>
+      <th>node</th>
+      <td><p>A single tree or connector node to modify</p></td>
+    </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>A character vector specifying the labels to add or remove</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>A character vector specifying the type of node to modify</p></td>
+    </tr>
+    <tr>
+      <th>delete_existing</th>
+      <td><p>For <code>catmaid_set_labels</code> whether to remove all
+existing labels before setting the new ones.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a data.frame consisting of total number of nodes and number of
-  reviewed nodes. Note that should any neurons be invalid a warning will be
-  generated and a row with NA values will be returned.</p>
+    <p><code>catmaid_get_label_stats</code> returns a data.frame with columns</p><ul>
+<li><p>id (integer)</p></li>
+<li><p>type (treenode or connector)</p></li>
+<li><p>label (the tag)</p></li>
+</ul>
+
+<p>A zero row data.frame will be returned if there are no results.</p>
+<p><code>catmaid_remove_labels</code> and <code>catmaid_set_labels</code> throw an
+  error on failure or invisibly return a list containing status information.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='catmaid_fetch.html'>catmaid_fetch</a></code></p></div>
+    <div class='dont-index'><p>Other labels: <code><a href='catmaid_get_label_stats.html'>catmaid_get_label_stats</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>catmaid_get_review_status</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='fu'>c</span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,9 +195,7 @@ function</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

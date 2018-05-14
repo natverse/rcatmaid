@@ -25,16 +25,19 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Get list of neurons/annotations querying by neuron/annotation name — catmaid_query_by_name" />
 
-<meta property="og:description" content="These functions try to match a query against the 
-  name of a neuron or annotation (catmaid_query_by_name) 
-  or against an annotation (tag) that has been applied to a neuron or 
+<meta property="og:description" content="These functions try to match a query against the
+  name of a neuron or annotation (catmaid_query_by_name)
+  or against an annotation (tag) that has been applied to a neuron or
   annotation (catmaid_query_by_annotation). Note that 1) objects can
   be tagged with multiple annotations and 2) annotation tags are recursive so
-  one annotation can be tagged with a second annotation.  
+  one annotation can be tagged with a second annotation.
 The most common use will be to get a data.frames of neurons when you should
-  use type="neuron". You can also return both neurons and annotations 
+  use type="neuron". You can also return both neurons and annotations
   (the default) and just annotations. See type argument for details." />
 <meta name="twitter:card" content="summary" />
 
@@ -63,7 +66,7 @@ The most common use will be to get a data.frames of neurons when you should
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -78,6 +81,9 @@ The most common use will be to get a data.frames of neurons when you should
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -88,6 +94,7 @@ The most common use will be to get a data.frames of neurons when you should
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -95,24 +102,27 @@ The most common use will be to get a data.frames of neurons when you should
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get list of neurons/annotations querying by neuron/annotation name</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_metadata.R'><code>R/catmaid_metadata.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_metadata.R'><code>R/catmaid_metadata.R</code></a></small>
+    <div class="hidden name"><code>catmaid_query_by_name.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
-    <p>These functions try to match a <code>query</code> against the 
-  <code>name</code> of a neuron or annotation (<code>catmaid_query_by_name</code>) 
-  <em>or</em> against an annotation (tag) that has been applied to a neuron or 
+    <p>These functions try to match a <code>query</code> against the
+  <code>name</code> of a neuron or annotation (<code>catmaid_query_by_name</code>)
+  <em>or</em> against an annotation (tag) that has been applied to a neuron or
   annotation (<code>catmaid_query_by_annotation</code>). Note that 1) objects can
   be tagged with multiple annotations and 2) annotation tags are recursive so
-  one annotation can be tagged with a second annotation.</p>  
+  one annotation can be tagged with a second annotation.</p>
 <p>The most common use will be to get a data.frames of neurons when you should
-  use <code>type="neuron"</code>. You can also return both neurons and annotations 
+  use <code>type="neuron"</code>. You can also return both neurons and annotations
   (the default) and just annotations. See <code>type</code> argument for details.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>catmaid_query_by_name</span>(<span class='no'>query</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>maxresults</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"neuron"</span>,
   <span class='st'>"annotation"</span>), <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
@@ -137,7 +147,7 @@ The most common use will be to get a data.frames of neurons when you should
     </tr>
     <tr>
       <th>type</th>
-      <td><p>Type of results to return. Defaults to <code>c("neuron", 
+      <td><p>Type of results to return. Defaults to <code>c("neuron",
 "annotation")</code>. Only relevant when <code>raw=FALSE</code>.</p></td>
     </tr>
     <tr>
@@ -159,15 +169,15 @@ function.</p></td>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>catmaid_query_by_name</code> a data.frame containing the 
-  results with an attribute "annotations" containing the annotations as a 
-  separate data.frame. For both functions the main data.frame has the 
-  following columns</p><ul>
+    <p>For <code>catmaid_query_by_name</code> a data.frame containing the results
+  with an attribute "annotations" containing the annotations as a separate
+  data.frame. For both functions the main data.frame has the following
+  columns</p><ul>
 <li><p>id</p></li>
 <li><p>name</p></li>
 <li><p>type (neuron or annotation)</p></li>
-<li><p>skid (the main identfier for the neuron skeleton, catmaid often calls
-  this skeleton_id)</p></li>
+<li><p>skid (the main identifier for the neuron skeleton, catmaid often
+  calls this skeleton_id)</p></li>
 </ul>
 
 <p>For <code>catmaid_query_by_annotation</code> a data.frame containing the 
@@ -175,7 +185,7 @@ function.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p><code><a href='catmaid_get_annotationlist.html'>catmaid_get_annotationlist</a></code></p>
+    <div class='dont-index'><p><code><a href='catmaid_get_annotationlist.html'>catmaid_get_annotationlist</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -223,6 +233,8 @@ function.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>

@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Return information about connectors joining sets of pre/postsynaptic skids — catmaid_get_connectors_between" />
 
 <meta property="og:description" content="Return information about connectors joining sets of pre/postsynaptic skids" />
@@ -55,7 +58,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
       </span>
     </div>
 
@@ -70,6 +73,9 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -80,6 +86,7 @@
   </a>
 </li>
       </ul>
+      
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
@@ -87,27 +94,35 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Return information about connectors joining sets of pre/postsynaptic skids</h1>
-    <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skeleton.R'><code>R/catmaid_skeleton.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skeleton.R'><code>R/catmaid_skeleton.R</code></a></small>
+    <div class="hidden name"><code>catmaid_get_connectors_between.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>Return information about connectors joining sets of pre/postsynaptic skids</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>catmaid_get_connectors_between</span>(<span class='kw'>pre_skids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>post_skids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>get_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>pre_skids, post_skids</th>
-      <td><p>Skeleton ids in any form understood by 
+      <td><p>Skeleton ids in any form understood by
 <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or <code>NULL</code> meaning no restriction.</p></td>
+    </tr>
+    <tr>
+      <th>get_names</th>
+      <td><p>Whether to fetch the neuron name for each pre- and
+post-synaptic skid (default <code>FALSE</code>).</p></td>
     </tr>
     <tr>
       <th>pid</th>
@@ -151,25 +166,27 @@ function.</p></td>
 <li><p>pre_user</p></li>
 <li><p>post_confidence</p></li>
 <li><p>post_user</p></li>
+<li><p>pre_name (optional - the name of the presynaptic neuron)</p></li>
+<li><p>post_name (optional - the name of the postsynaptic neuron)</p></li>
 </ul>
 
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If either the <code>pre_skids</code> or <code>post_skids</code> arguments are 
+    <p>If either the <code>pre_skids</code> or <code>post_skids</code> arguments are
   not specified (taking the default <code>NULL</code> value) then this implies
-  there is no restriction on the pre- (or post-) synaptic partners.</p>  
-<p>Each row is a unique set of pre_synaptic node, post_synaptic node, 
-  connector_id. A rare (and usually erroneous) scenario is if the same 
-  pre_node and post_node are present with two different connector_ids - this 
+  there is no restriction on the pre- (or post-) synaptic partners.</p>
+<p>Each row is a unique set of pre_synaptic node, post_synaptic node,
+  connector_id. A rare (and usually erroneous) scenario is if the same
+  pre_node and post_node are present with two different connector_ids - this
   would create two rows.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
+    <div class='dont-index'><p>Other connectors: <code><a href='catmaid_get_connector_table.html'>catmaid_get_connector_table</a></code>,
   <code><a href='catmaid_get_connectors.html'>catmaid_get_connectors</a></code>,
   <code><a href='catmaid_query_connected.html'>catmaid_query_connected</a></code>,
-  <code><a href='connectors.html'>connectors</a></code></p>
+  <code><a href='connectors.html'>connectors</a></code></p></div>
     
 
   </div>
@@ -199,6 +216,8 @@ function.</p></td>
 
       </footer>
    </div>
+
+  
 
   </body>
 </html>
