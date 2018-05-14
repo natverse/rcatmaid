@@ -23,6 +23,12 @@ reference:
   - catmaid_skids
   - catmaid_get_annotations_for_skeletons
   - catmaid_get_annotationlist
+- title: Node labels (aka tags)
+  desc: Fetching, setting and removing tags from tree nodes or connectors
+  contents:
+  - catmaid_get_labels
+  - catmaid_set_labels
+  - catmaid_remove_labels
   - catmaid_get_label_stats
 - title: Synaptic Connections
   desc: Querying and fetching neuronal connectivity information
