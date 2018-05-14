@@ -2,7 +2,7 @@
 #' 
 #' @description \code{catmaid_login} allows you to login to a CATMAID server 
 #'   specified by a \code{catmaid_connection} object. If such an object is not 
-#'   specified, then the last succesful connection in this R session is reused 
+#'   specified, then the last successful connection in this R session is reused 
 #'   if possible otherwise a new connection object is created using 
 #'   \code{options} of the form "catmaid.*" (see details).
 #'   
@@ -292,7 +292,7 @@ getenvoroption <- function(vars, prefix="catmaid."){
 #' @param include_headers Whether to include basic headers from the http request
 #'   as attributes on the parsed JSON object (default \code{TRUE}) when 
 #'   \code{parse.json=TRUE}.
-#' @param simplifyVector Wheter to use jsonlite::simplifyVector 
+#' @param simplifyVector Whether to use jsonlite::simplifyVector 
 #' @param ... Additional arguments passed to the \code{httr::GET} or 
 #'   \code{httr::POST} function
 #' @return When \code{parse.json=FALSE} an object of class \code{response} 
@@ -473,7 +473,7 @@ catmaid_connection_unsetenv<-function(){
 #'   login and then the cached version number is reused. Setting 
 #'   \code{cached=FALSE} will always force a request to the server.
 #'   
-#'   CATMAID versions are now prduced by \bold{git describe} and look like 
+#'   CATMAID versions are now produced by \bold{git describe} and look like 
 #'   YYYY.MM.DD-XX-gaaaaaaa where aaaaaaa is a short SHA1 hash and XX is an 
 #'   integer number of revisions since the last base version. Setting
 #'   \code{numeric=TRUE} trims off the SHA1 hash leaving a string that can be

@@ -134,37 +134,37 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 }
 
 #' Get list of neurons/annotations querying by neuron/annotation name
-#' 
-#' @description These functions try to match a \code{query} against the 
-#'   \code{name} of a neuron or annotation (\code{catmaid_query_by_name}) 
-#'   \emph{or} against an annotation (tag) that has been applied to a neuron or 
+#'
+#' @description These functions try to match a \code{query} against the
+#'   \code{name} of a neuron or annotation (\code{catmaid_query_by_name})
+#'   \emph{or} against an annotation (tag) that has been applied to a neuron or
 #'   annotation (\code{catmaid_query_by_annotation}). Note that 1) objects can
 #'   be tagged with multiple annotations and 2) annotation tags are recursive so
 #'   one annotation can be tagged with a second annotation.
-#'   
+#'
 #'   The most common use will be to get a data.frames of neurons when you should
-#'   use \code{type="neuron"}. You can also return both neurons and annotations 
+#'   use \code{type="neuron"}. You can also return both neurons and annotations
 #'   (the default) and just annotations. See \code{type} argument for details.
-#'   
+#'
 #' @param query A query string (NB this is a regular expression)
 #' @inheritParams catmaid_get_compact_skeleton
 #' @param maxresults The maximum number of results to return
-#' @param type Type of results to return. Defaults to \code{c("neuron", 
+#' @param type Type of results to return. Defaults to \code{c("neuron",
 #'   "annotation")}. Only relevant when \code{raw=FALSE}.
-#' @return For \code{catmaid_query_by_name} a data.frame containing the 
-#'   results with an attribute "annotations" containing the annotations as a 
-#'   separate data.frame. For both functions the main data.frame has the 
-#'   following columns \itemize{
-#'   
+#' @return For \code{catmaid_query_by_name} a data.frame containing the results
+#'   with an attribute "annotations" containing the annotations as a separate
+#'   data.frame. For both functions the main data.frame has the following
+#'   columns \itemize{
+#'
 #'   \item id
-#'   
+#'
 #'   \item name
-#'   
+#'
 #'   \item type (neuron or annotation)
-#'   
-#'   \item skid (the main identfier for the neuron skeleton, catmaid often calls
-#'   this skeleton_id)
-#'   
+#'
+#'   \item skid (the main identifier for the neuron skeleton, catmaid often
+#'   calls this skeleton_id)
+#'
 #'   }
 #' @export
 #' @examples

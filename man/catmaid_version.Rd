@@ -30,7 +30,7 @@ By default the version number for the current
   login and then the cached version number is reused. Setting 
   \code{cached=FALSE} will always force a request to the server.
   
-  CATMAID versions are now prduced by \bold{git describe} and look like 
+  CATMAID versions are now produced by \bold{git describe} and look like 
   YYYY.MM.DD-XX-gaaaaaaa where aaaaaaa is a short SHA1 hash and XX is an 
   integer number of revisions since the last base version. Setting
   \code{numeric=TRUE} trims off the SHA1 hash leaving a string that can be

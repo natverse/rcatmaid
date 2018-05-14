@@ -51,9 +51,10 @@ read_catmaid_selection <- function(f, readNeurons=FALSE, getNames=TRUE, ...) {
 
 #' Make a CATMAID selection file based on neuronlist or skids
 #'
-#' @param x A neuronlist, data.frame or vector of skids
+#' @param x A \code{\link{neuronlist}}, data.frame or vector of skids
 #' @param f Path to output file (usually ends in .json)
-#' @param color Optional vector of colours in any format understood by col2rgb
+#' @param color Optional vector of colours in any format understood by
+#'   \code{\link{col2rgb}}
 #' @param opacity Optional vector of opacities (alpha values) in range 0-1
 #' @param ... Additional arguments passed to \code{\link[jsonlite]{toJSON}}
 #'
@@ -63,7 +64,7 @@ read_catmaid_selection <- function(f, readNeurons=FALSE, getNames=TRUE, ...) {
 #' \dontrun{
 #' pns=read.neurons.catmaid("annotation:^PN$")
 #' # extract the glomerulus from the name
-#' pns[, 'glomerulus'] = stringr::str_match(pns[, 'name'], 
+#' pns[, 'glomerulus'] = stringr::str_match(pns[, 'name'],
 #'                                          ".*glomerulus ([A-z0-9]+) .*")[, 2]
 #' pns[, 'glomerulus']=addNA(factor(pns[, 'glomerulus']))
 #' # get the same colours that nat would normally use in a plot

@@ -7,7 +7,7 @@
 #' @details These functions provide a bridge between CATMAID and the 
 #'   neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
 #'   which provides extensive functionality for analysing and plotting neurons 
-#'   within the context of temaplate brains.
+#'   within the context of template brains.
 #'   
 #'   Note that the soma is set by inspecting CATMAID tags that 
 #'   (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1 
@@ -72,29 +72,29 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' @rdname read.neuron.catmaid
 #' @param skids One or more numeric skeleton ids or a character vector defining
 #'   a query (see \code{\link{catmaid_skids}} or examples for the syntax).
-#' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an 
-#'   error. The default value (\code{NA}) will result in nlapply stopping with 
-#'   an error message the moment there is an eror. For other values, see 
+#' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
+#'   error. The default value (\code{NA}) will result in nlapply stopping with
+#'   an error message the moment there is an error. For other values, see
 #'   details.
 #' @param df Optional data frame containing information about each neuron
-#'   
-#' @details When \code{OmitFailures} is not \code{NA}, \code{FUN} will be 
-#'   wrapped in a call to \code{try} to ensure that failure for any single 
-#'   neuron does not abort the nlapply/nmapply call. When 
+#'
+#' @details When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
+#'   wrapped in a call to \code{try} to ensure that failure for any single
+#'   neuron does not abort the nlapply/nmapply call. When
 #'   \code{OmitFailures=TRUE} the resultant neuronlist will be subsetted down to
-#'   return values for which \code{FUN} evaluated successfully. When 
-#'   \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In 
-#'   either of the last 2 cases error messages will not be printed because the 
+#'   return values for which \code{FUN} evaluated successfully. When
+#'   \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In
+#'   either of the last 2 cases error messages will not be printed because the
 #'   call is wrapped as \code{try(expr, silent=TRUE)}.
-#'   
-#'   The optional dataframe (\code{df}) detailing each neuron should have 
-#'   \code{rownames} that match the names of each neuron. It would also make 
-#'   sense if the same key was present in a column of the data frame. If the 
+#'
+#'   The optional dataframe (\code{df}) detailing each neuron should have
+#'   \code{rownames} that match the names of each neuron. It would also make
+#'   sense if the same key was present in a column of the data frame. If the
 #'   dataframe contains more rows than neurons, the superfluous rows are dropped
-#'   with a warning. If the dataframe is missing rows for some neurons an error 
-#'   is generated. If SortOnUpdate is TRUE then updating an existing neuronlist 
-#'   should result in a new neuronlist with ordering identical to reading all 
-#'   neurons from scratch.
+#'   with a warning. If the dataframe is missing rows for some neurons an error
+#'   is generated. If SortOnUpdate is TRUE then updating an existing
+#'   \code{neuronlist} should result in a new \code{neuronlist} with ordering
+#'   identical to reading all neurons from scratch.
 #' @export
 #' @seealso \code{\link{catmaid_skids}}
 #' @examples
@@ -102,22 +102,22 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' library(nat)
 #' nl=read.neurons.catmaid(c(10418394,4453485))
 #' plot3d(nl)
-#' 
+#'
 #' ## Full worked example looking at Olfactory Receptor Neurons
 #' # read in ORNs (using exact match to ORN annotation)
 #' # note that use a progress bar drop any failures
 #' orns=read.neurons.catmaid("ORN", OmitFailures = T, .progress='text')
-#' 
+#'
 #' # Add two extra columns to the attached data.frame
 #' # for the Odorant receptor genes and the side of brain
 #' orns[,'side']=factor(ifelse(grepl("left", orns[,'name']), "L", "R"))
 #' orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
-#'    
+#'
 #' # check what we have
 #' # see ?head.neuronlist and ?with.neuronlist for details of how this works
 #' head(orns)
 #' with(orns, ftable(side~Or))
-#' 
+#'
 #' # now some plots
 #' open3d()
 #' # colour by side of brain
@@ -126,19 +126,19 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' # colour by Odorant Receptor
 #' # note similar position of axon terminals for same ORN class on left and right
 #' plot3d(orns, col=Or)
-#' 
+#'
 #' ## Additional example using Olfactory Projection Neurons
 #' pns=read.neurons.catmaid("annotation:ORN PNs$", .progress='text')
 #' pns[,'side']=factor(ifelse(grepl("left", pns[,'name']), "L", "R"))
 #' pns[,'Or']= factor(sub(" PN.*", "", pns[,'name']))
-#' 
+#'
 #' # check that we have the same levels for the Odorant Receptor (Or) factor
 #' # for ORNs and PNs
 #' stopifnot(levels(pns[,'Or'])==levels(orns[,'Or']))
-#' 
+#'
 #' # Ok, let's plot the PNs - they will be in matching colours
 #' plot3d(pns, col=Or)
-#' 
+#'
 #' }
 read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
@@ -155,7 +155,7 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
   nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
 }
 
-#' Get data.frame of connector (synapse) information from a neuron or neuronlist
+#' Get data.frame of connector (synapse) information from a neuron or \code{neuronlist}
 #' 
 #' In contrast to \code{\link{catmaid_get_connector_table}} this assumes that
 #' you have already read the neurons into an R structure of class 

@@ -17,11 +17,11 @@ options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{pid}{Project id (default 1)}
 
-\item{...}{Additional arguments passed to \code{\link{as.catmaidmesh}} such 
+\item{...}{Additional arguments passed to \code{\link{as.catmaidmesh}} such
 as title, comments etc.}
 }
 \value{
-An invisible list with the post status repsonse on success (the
+An invisible list with the post status response on success (the
   function will throw an error on failure)
 }
 \description{

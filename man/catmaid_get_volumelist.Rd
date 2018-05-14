@@ -15,7 +15,7 @@ catmaid_get_volumelist(conn = NULL, pid = 1, ...)
 function.}
 }
 \value{
-A data.frame wiht columns \itemize{
+A data.frame with columns \itemize{
   
   \item comment
   

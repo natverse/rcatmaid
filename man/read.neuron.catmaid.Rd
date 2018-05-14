@@ -26,9 +26,9 @@ function}
 \item{skids}{One or more numeric skeleton ids or a character vector defining
 a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
-\item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an 
-error. The default value (\code{NA}) will result in nlapply stopping with 
-an error message the moment there is an eror. For other values, see 
+\item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
+error. The default value (\code{NA}) will result in nlapply stopping with
+an error message the moment there is an error. For other values, see
 details.}
 
 \item{df}{Optional data frame containing information about each neuron}
@@ -48,29 +48,29 @@ including some metadata information.
 These functions provide a bridge between CATMAID and the 
   neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
   which provides extensive functionality for analysing and plotting neurons 
-  within the context of temaplate brains.
+  within the context of template brains.
   
   Note that the soma is set by inspecting CATMAID tags that 
   (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1 
   tag exists the one that tags an endpoint is preferred.
 
-When \code{OmitFailures} is not \code{NA}, \code{FUN} will be 
-  wrapped in a call to \code{try} to ensure that failure for any single 
-  neuron does not abort the nlapply/nmapply call. When 
+When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
+  wrapped in a call to \code{try} to ensure that failure for any single
+  neuron does not abort the nlapply/nmapply call. When
   \code{OmitFailures=TRUE} the resultant neuronlist will be subsetted down to
-  return values for which \code{FUN} evaluated successfully. When 
-  \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In 
-  either of the last 2 cases error messages will not be printed because the 
+  return values for which \code{FUN} evaluated successfully. When
+  \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In
+  either of the last 2 cases error messages will not be printed because the
   call is wrapped as \code{try(expr, silent=TRUE)}.
-  
-  The optional dataframe (\code{df}) detailing each neuron should have 
-  \code{rownames} that match the names of each neuron. It would also make 
-  sense if the same key was present in a column of the data frame. If the 
+
+  The optional dataframe (\code{df}) detailing each neuron should have
+  \code{rownames} that match the names of each neuron. It would also make
+  sense if the same key was present in a column of the data frame. If the
   dataframe contains more rows than neurons, the superfluous rows are dropped
-  with a warning. If the dataframe is missing rows for some neurons an error 
-  is generated. If SortOnUpdate is TRUE then updating an existing neuronlist 
-  should result in a new neuronlist with ordering identical to reading all 
-  neurons from scratch.
+  with a warning. If the dataframe is missing rows for some neurons an error
+  is generated. If SortOnUpdate is TRUE then updating an existing
+  \code{neuronlist} should result in a new \code{neuronlist} with ordering
+  identical to reading all neurons from scratch.
 }
 \examples{
 \dontrun{
@@ -87,7 +87,7 @@ orns=read.neurons.catmaid("ORN", OmitFailures = T, .progress='text')
 # for the Odorant receptor genes and the side of brain
 orns[,'side']=factor(ifelse(grepl("left", orns[,'name']), "L", "R"))
 orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
-   
+
 # check what we have
 # see ?head.neuronlist and ?with.neuronlist for details of how this works
 head(orns)

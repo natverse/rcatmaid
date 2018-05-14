@@ -66,14 +66,14 @@ as.catmaidmesh.catmaidmesh <- function(x, ...){
 }
 
 #' Add a 3D mesh surface to catmaid volume manager
-#' 
+#'
 #' @param x A mesh object such as hxsurf or a list with raw vertices and indices
 #'   that will be passed to \code{\link{as.catmaidmesh}}
 #' @inheritParams read.neuron.catmaid
-#' @param ... Additional arguments passed to \code{\link{as.catmaidmesh}} such 
+#' @param ... Additional arguments passed to \code{\link{as.catmaidmesh}} such
 #'   as title, comments etc.
-#'   
-#' @return An invisible list with the post status repsonse on success (the
+#'
+#' @return An invisible list with the post status response on success (the
 #'   function will throw an error on failure)
 #' @export
 #' @seealso \code{\link{as.catmaidmesh}}
@@ -181,7 +181,7 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
 #' Fetch a data frame containing details of all volumes on CATMAID server
 #' 
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return A data.frame wiht columns \itemize{
+#' @return A data.frame with columns \itemize{
 #'   
 #'   \item comment
 #'   

@@ -4,7 +4,7 @@
 \alias{connectors}
 \alias{connectors.catmaidneuron}
 \alias{connectors.neuronlist}
-\title{Get data.frame of connector (synapse) information from a neuron or neuronlist}
+\title{Get data.frame of connector (synapse) information from a neuron or \code{neuronlist}}
 \usage{
 connectors(x, ...)
 

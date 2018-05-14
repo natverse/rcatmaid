@@ -44,7 +44,7 @@ a \code{catmaid_connection} object that can be used to make
 \description{
 \code{catmaid_login} allows you to login to a CATMAID server 
   specified by a \code{catmaid_connection} object. If such an object is not 
-  specified, then the last succesful connection in this R session is reused 
+  specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
   \code{options} of the form "catmaid.*" (see details).
   
