@@ -1,3 +1,14 @@
+# catmaid 0.9.0.9000
+
+* Add catmaid_get_labels, catmaid_set_labels, catmaid_remove_labels to 
+  manipulate labels (aka tags) on treenodes and connectors (#95)
+* Add catmaid_get_treenodes_detail to get location and other information for 
+  many nodes at once (#94)
+* Teach catmaid_get_connectors_between to find names for pre/post skids 
+  (optional, #93)
+* Teach catmaid_get_neuronnames to handle duplicate requests efficiently (#91)
+* Teach catmaid_login to accept arguments in a list (#91)
+
 # catmaid 0.9.0
 
 This version is synced with the upcoming release of nat v1.9.0 which streamlines
