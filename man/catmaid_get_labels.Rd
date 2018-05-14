@@ -2,10 +2,18 @@
 % Please edit documentation in R/catmaid_labels.R
 \name{catmaid_get_labels}
 \alias{catmaid_get_labels}
+\alias{catmaid_set_labels}
+\alias{catmaid_remove_labels}
 \title{Get/Set/Remove CATMAID treenode labels (aka tags)}
 \usage{
 catmaid_get_labels(treenodes = NULL, connectors = NULL, pid = 1,
   conn = NULL, ...)
+
+catmaid_set_labels(node, labels, type = c("treenode", "connector"),
+  delete_existing = FALSE, pid = 1, conn = NULL, ...)
+
+catmaid_remove_labels(node, labels, type = c("treenode", "connector"),
+  pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{treenodes, connectors}{Integer ids of nodes to be queried}
@@ -19,9 +27,19 @@ options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
 function}
+
+\item{node}{A single tree or connector node to modify}
+
+\item{labels}{A character vector specifying the labels to add or remove}
+
+\item{type}{A character vector specifying the type of node to modify}
+
+\item{delete_existing}{For \code{catmaid_set_labels} whether to remove all
+existing labels before setting the new ones.}
 }
 \value{
-a data.frame with columns \itemize{
+\code{catmaid_get_label_stats} returns a data.frame with columns
+  \itemize{
 
   \item id (integer)
 
@@ -32,10 +50,19 @@ a data.frame with columns \itemize{
   }
 
   A zero row data.frame will be returned if there are no results.
+
+\code{catmaid_remove_labels} and \code{catmaid_set_labels} throw an
+  error on failure or invisibly return a list containing status information.
 }
 \description{
 \code{catmaid_get_labels} gets labels (tags) for specified
   nodes.
+
+\code{catmaid_set_labels} sets labels (tags) for a specified
+  node.
+
+\code{catmaid_remove_labels} removes labels (tags) for a
+  specified node.
 }
 \seealso{
 Other labels: \code{\link{catmaid_get_label_stats}}

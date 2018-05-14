@@ -39,7 +39,8 @@ catmaid_get_label_stats<-function(pid=1, conn=NULL, ...) {
 #' @inheritParams read.neuron.catmaid
 #'
 #' @export
-#' @return a data.frame with columns \itemize{
+#' @return \code{catmaid_get_label_stats} returns a data.frame with columns
+#'   \itemize{
 #'
 #'   \item id (integer)
 #'
@@ -67,9 +68,15 @@ catmaid_get_labels <- function(treenodes=NULL, connectors=NULL,
              label=if(nres) unlist(res, use.names = F) else character())
 }
 
-# @description \code{catmaid_set_labels} sets labels (tags) for specified
-#   nodes.
-# @export
+#' @description \code{catmaid_set_labels} sets labels (tags) for a specified
+#'   node.
+#' @param node A single tree or connector node to modify
+#' @param labels A character vector specifying the labels to add or remove
+#' @param type A character vector specifying the type of node to modify
+#' @param delete_existing For \code{catmaid_set_labels} whether to remove all
+#'   existing labels before setting the new ones.
+#' @export
+#' @rdname catmaid_get_labels
 catmaid_set_labels <- function(node, labels, type=c("treenode", "connector"),
                                delete_existing=FALSE, pid=1, conn=NULL, ...) {
   type=match.arg(type)
@@ -79,5 +86,24 @@ catmaid_set_labels <- function(node, labels, type=c("treenode", "connector"),
   body=list(ntype=type, tags=paste(labels, collapse = ","))
   body[['delete_existing']] <- if(isTRUE(delete_existing)) 'true' else 'false'
   res=catmaid_fetch(path, body = body, conn = conn, ..., include_headers = F)
-  invisible(res)
+  invisible(catmaid_error_check(res))
+}
+
+#' @description \code{catmaid_remove_labels} removes labels (tags) for a
+#'   specified node.
+#' @export
+#' @rdname catmaid_get_labels
+#' @return \code{catmaid_remove_labels} and \code{catmaid_set_labels} throw an
+#'   error on failure or invisibly return a list containing status information.
+catmaid_remove_labels <- function(node, labels, type=c("treenode", "connector"),
+                               pid=1, conn=NULL, ...) {
+  type=match.arg(type)
+  path=file.path(pid, "label", type, node, "remove", fsep="/")
+  if(any(grepl(",", labels, fixed = T)))
+    stop("CATMAID cannot accept labels containing commas")
+  if(length(labels)>1)
+    stop("CATMAID API can only remove one label at a time!")
+  body=list(ntype=type, tag=paste(labels, collapse = ","))
+  res=catmaid_fetch(path, body = body, conn = conn, ..., include_headers = F)
+  invisible(catmaid_error_check(res))
 }
