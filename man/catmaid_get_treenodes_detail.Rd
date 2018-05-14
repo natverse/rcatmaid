@@ -38,7 +38,7 @@ function.}
 
   \item radius,
 
-  \item skeleton_id,
+  \item skid,
 
   \item edition_time,
 
