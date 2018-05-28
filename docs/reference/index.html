@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.0.9000</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.9.1</span>
       </span>
     </div>
 
@@ -163,6 +163,12 @@
           <p><code><a href="catmaid_get_review_status.html">catmaid_get_review_status()</a></code> </p>
         </td>
         <td><p>Get review status of neurons from CATMAID</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="catmaid_get_treenodes_detail.html">catmaid_get_treenodes_detail()</a></code> </p>
+        </td>
+        <td><p>Fetch position and other information for arbitrary treenode ids</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -224,9 +230,15 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="catmaid_get_label_stats.html">catmaid_get_label_stats()</a></code> </p>
+          <p><code><a href="catmaid_get_label_stats.html">catmaid_get_label_stats()</a></code> <code><a href="catmaid_get_label_stats.html">catmaid_get_all_labels()</a></code> </p>
         </td>
         <td><p>Get statistics for all labels in a project from a CATMAID server</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="nsoma.html">nsoma()</a></code> </p>
+        </td>
+        <td><p>Return the number of explicitly tagged somata in a (CATMAID) neuron</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -373,6 +385,20 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-data" class="hasAnchor"><a href="#section-data" class="anchor"></a>Data</h2>
+          <p class="section-desc"><p>Sample data included with the package</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="AV4b1.html">AV4b1</a></code> </p>
+        </td>
+        <td><p>A sample CATMAID neuron (from the adult lateral horn of class AV4b1)</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-low-level-functions" class="hasAnchor"><a href="#section-low-level-functions" class="anchor"></a>Low level functions</h2>
           <p class="section-desc"><p>Functions primarily intended for developer use</p></p>
         </th>
@@ -419,6 +445,7 @@
       <li><a href="#section-handling-volume-meshes">Handling volume meshes</a></li>
       <li><a href="#section-catmaid-statistics-and-users">CATMAID statistics and users</a></li>
       <li><a href="#section-catmaid-urls-and-json-files">CATMAID URLs and JSON files</a></li>
+      <li><a href="#section-data">Data</a></li>
       <li><a href="#section-low-level-functions">Low level functions</a></li>
     </ul>
   </div>

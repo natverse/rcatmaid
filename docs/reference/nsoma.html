@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find skeleton ids (skids) for various inputs including textual queries — catmaid_skids • catmaid</title>
+<title>Return the number of explicitly tagged somata in a (CATMAID) neuron — nsoma • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,10 +28,9 @@
 
 
 
-<meta property="og:title" content="Find skeleton ids (skids) for various inputs including textual queries — catmaid_skids" />
+<meta property="og:title" content="Return the number of explicitly tagged somata in a (CATMAID) neuron — nsoma" />
 
-<meta property="og:description" content="An efficient way to find neuron skeleton ids interactively or in any function
-that can take skids as an input." />
+<meta property="og:description" content="Return the number of explicitly tagged somata in a (CATMAID) neuron" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,74 +97,84 @@ that can take skids as an input." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find skeleton ids (skids) for various inputs including textual queries</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skids.R'><code>R/catmaid_skids.R</code></a></small>
-    <div class="hidden name"><code>catmaid_skids.Rd</code></div>
+    <h1>Return the number of explicitly tagged somata in a (CATMAID) neuron</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_nat.R'><code>R/catmaid_nat.R</code></a></small>
+    <div class="hidden name"><code>nsoma.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>An efficient way to find neuron skeleton ids interactively or in any function
-that can take skids as an input.</p>
+    <p>Return the number of explicitly tagged somata in a (CATMAID) neuron</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_skids</span>(<span class='no'>x</span>, <span class='kw'>several.ok</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>nsoma</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuronlist</span>
+<span class='fu'>nsoma</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuron</span>
+<span class='fu'>nsoma</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>nsoma</span>(<span class='no'>x</span>, <span class='kw'>soma_label</span> <span class='kw'>=</span> <span class='st'>"soma"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>one or more skids or a query expression (see details)</p></td>
-    </tr>
-    <tr>
-      <th>several.ok</th>
-      <td><p>Logical indicating whether we can allow multiple skids.</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>A <code>catmaid_connection</code> objection returned by 
-<code>catmaid_login</code>. If <code>NULL</code> (the default) a new connection 
-object will be generated using the values of the <b>catmaid.*</b> package 
-options as described in the help for <code>catmaid_login</code>.</p></td>
+      <td><p>Objects to count somata e.g. one or more neurons or a specifier
+passed to <code><a href='catmaid_skids.html'>catmaid_skids</a></code></p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional parameters passed to <code>catmaid_query_by_annotation</code></p></td>
+      <td><p>Additional arguments, eventually passed by <code>nsoma.default</code> to
+<code><a href='catmaid_skids.html'>catmaid_skids</a></code>, otherwise ignored.</p></td>
+    </tr>
+    <tr>
+      <th>soma_label</th>
+      <td><p>Character vector of one or more label names that identify
+somata.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>integer</code> vector of skids (of length 0 on failure).</p>
+    <p>A named integer vector corresponding to the number of neurons
+  specified by <code>x</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If the inputs are numeric or have length &gt; 1 they are assumed
-  already to be skids and are simply converted to integers.</p>
-<p>If the input is a string starting with "name:" or "annotation:" they are
-  used for a query by <code><a href='catmaid_query_by_name.html'>catmaid_query_by_name</a></code> or
-  <code><a href='catmaid_query_by_name.html'>catmaid_query_by_annotation</a></code>, respectively.</p>
-<p>If the input is a string that cannot be interpreted as a number but does
-  not start with "name:" or "annotation:", it is assumed to be an
-  <em>exact</em> match for an annotation.</p>
+    <p>These functions can cope with loaded neuron objects or CATMAID skid
+  specifications (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code>). Note that this function
+  will return 0 for any neuron that does not contain a <code>tags$soma</code>
+  entry, including regular <code>neuron</code> objects .</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># these are just passed through</span>
-<span class='fu'>catmaid_skids</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-
-<span class='co'># nb these are all regex matches</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"name:ORN"</span>)
-<span class='fu'>catmaid_skids</span>(<span class='st'>"name:PN"</span>)
-<span class='co'># there will be multiple annotations that match this</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"annotation:ORN"</span>)
-<span class='co'># but only one that matches this (see regex for details)</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"annotation:^ORN$"</span>)
-<span class='co'># As a special case this looks for an exact match annotation for "ORN"</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"ORN"</span>)
+    <pre class="examples"><div class='input'><span class='fu'>nsoma</span>(<span class='no'>Cell07PNs</span>)</div><div class='output co'>#&gt; EBH11R EBH20L EBH20R EBI12L EBI22R EBJ23L  EBJ3R EBN19L EBO15L EBO53L ECA34L 
+#&gt;      0      0      0      0      0      0      0      0      0      0      0 
+#&gt;  ECB3L  LI23L  LIC2R   LJ5L   MC3B  MH16L  MM14L   NA7L  NH15L  NH29B  NI16L 
+#&gt;      0      0      0      0      0      0      0      0      0      0      0 
+#&gt;  NIA8L  NIA8R  NNA9L  NNC4R  NNE1L  OFD2L  OKC9R  SDD8L  SH21L  SL20L  TKC8R 
+#&gt;      0      0      0      0      0      0      0      0      0      0      0 
+#&gt;   TL4R   TS7L  TT27R  VA15R  VA20R  VB37L  VB58L 
+#&gt;      0      0      0      0      0      0      0 </div><div class='input'><span class='fu'>data</span>(<span class='st'>"AV4b1"</span>)
+<span class='fu'>nsoma</span>(<span class='no'>AV4b1</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>nsoma</span>(<span class='st'>"ORN PNs"</span>)</div><div class='output co'>#&gt; 
+#&gt;  3486381  8021456  4354933  4493199  4651929  7843730  8399890  7515491 
+#&gt;        1        1        1        1        1        1        1        1 
+#&gt;  7092417  7107433  7198338  7852250  7845346  7851153  7864823  7865652 
+#&gt;        1        1        1        1        1        1        1        1 
+#&gt;  7865696  7865767  7873135  7916593  7934904  7935088  8140109  8243455 
+#&gt;        1        1        1        1        1        1        1        1 
+#&gt;  8244723  8244823  8245014  8245146  8245513  8245692  8245869  8246081 
+#&gt;        1        1        1        1        1        1        1        1 
+#&gt;  8246750  8247451  8248631  8252067  8253413  8256186 11279244 13589251 
+#&gt;        1        1        1        1        1        1        1        1 
+#&gt; 14604028 16259595 
+#&gt;        1        1 </div><span class='co'># NOT RUN {</span>
+<span class='fu'>nsoma</span>(<span class='fl'>3486381</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

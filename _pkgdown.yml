@@ -14,6 +14,7 @@ reference:
   - catmaid_get_compact_skeleton
   - catmaid_get_treenode_table
   - catmaid_get_review_status
+  - catmaid_get_treenodes_detail
 - title: Names and Annotations
   desc: Querying, fetching and setting neuron names and annotations
   contents:
@@ -30,6 +31,7 @@ reference:
   - catmaid_set_labels
   - catmaid_remove_labels
   - catmaid_get_label_stats
+  - nsoma
 - title: Synaptic Connections
   desc: Querying and fetching neuronal connectivity information
   contents:
@@ -62,6 +64,10 @@ reference:
   - catmaid_parse_url
   - read_catmaid_selection
   - write_catmaid_selection
+- title: Data
+  desc: Sample data included with the package
+  contents:
+  - AV4b1
 - title: Low level functions
   desc: Functions primarily intended for developer use
   contents:
