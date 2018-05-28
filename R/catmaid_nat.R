@@ -310,7 +310,61 @@ plot3d_somarad <- function(x, soma=FALSE){
 }
 
 
-nsoma <- function(x) length(x[['tags']][['soma']])
+#' Return the number of explicitly tagged somata in a (CATMAID) neuron
+#'
+#' @details These functions can cope with loaded neuron objects or CATMAID skid
+#'   specifications (see \code{\link{catmaid_skids}}). Note that this function
+#'   will return 0 for any neuron that does not contain a \code{tags$soma}
+#'   entry, including regular \code{\link{neuron}} objects .
+#' @param x Objects to count somata e.g. one or more neurons or a specifier
+#'   passed to \code{\link{catmaid_skids}}
+#' @param soma_label Character vector of one or more label names that identify
+#'   somata.
+#' @param ... Additional arguments, eventually passed by \code{nsoma.default} to
+#'   \code{\link{catmaid_skids}}, otherwise ignored.
+#'
+#' @return A named integer vector corresponding to the number of neurons
+#'   specified by \code{x}.
+#' @export
+#' @examples
+#' nsoma(Cell07PNs)
+#' data("AV4b1")
+#' nsoma(AV4b1)
+#' \donttest{
+#' nsoma("ORN PNs")
+#' }
+#' \dontrun{
+#' nsoma(3486381)
+#' }
+nsoma <- function(x, ...) UseMethod("nsoma")
+
+#' @export
+#' @rdname nsoma
+nsoma.neuronlist <- function(x, ...) sapply(x, nsoma, ...)
+
+#' @export
+#' @rdname nsoma
+nsoma.neuron <- function(x, ...) length(x[['tags']][['soma']])
+
+#' @export
+#' @rdname nsoma
+nsoma.default <- function(x, soma_label='soma', ...) {
+  skids <- catmaid_skids(x, ...)
+  skids_with_soma = skids_with_tags(soma_label)
+  # NB augment the skid list with query skids so that everybody appears in table
+  tt=table(c(skids_with_soma[skids_with_soma%in%skids], skids))
+  # ... but then subtract 1 for the dummy entry
+  tt=tt-1L
+  tt[as.character(skids)]
+}
+
+# nb returns skid once for every time it contains tag
+# TODO see if we can avoid project wide catmaid_get_label_stats
+skids_with_tags <- function(tags, ...) {
+  label_stats=catmaid_get_label_stats(...)
+  matches=label_stats[['labelName']] %in% tags
+  label_stats[matches, 'skeletonID']
+}
 
 #' @export
 summary.catmaidneuron<-function(object, ...) {
