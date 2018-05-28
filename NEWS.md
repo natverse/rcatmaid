@@ -1,7 +1,9 @@
-# catmaid 0.9.0.9000
+# catmaid 0.9.1
 
 * Add catmaid_get_labels, catmaid_set_labels, catmaid_remove_labels to 
   manipulate labels (aka tags) on treenodes and connectors (#95)
+* Add catmaid_get_all_labels
+* Add nsoma function to return number of somata (#96)
 * Add catmaid_get_treenodes_detail to get location and other information for 
   many nodes at once (#94)
 * Teach catmaid_get_connectors_between to find names for pre/post skids 
