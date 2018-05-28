@@ -1,7 +1,8 @@
 context("nat")
 
 test_that("copy fields", {
-  lhn=readRDS('testdata/lhn.rds')
+  data(AV4b1)
+  lhn=AV4b1
   expect_equal(copy_tags_connectors(new = lhn, old = lhn), lhn)
   
   r=resample(lhn, 1000)
@@ -12,12 +13,12 @@ test_that("copy fields", {
 })
 
 test_that("summary.catmaidneuron behaves", {
-  lhn = readRDS('testdata/lhn.rds')
-  lhn2=lhn
+  data(AV4b1)
+  lhn2=AV4b1
   class(lhn2)='neuron'
-  expect_is(s1 <- summary(lhn), 'data.frame')
+  expect_is(s1 <- summary(AV4b1), 'data.frame')
   expect_is(s2 <- summary(lhn2), 'data.frame')
   # check the initial summary columns are identical
   expect_equal(s1[seq_along(s2)], s2)
-  expect_equal(summary(neuronlist(lhn)), s1) 
+  expect_equal(summary(neuronlist(AV4b1)), s1) 
 })

@@ -52,3 +52,21 @@
 #'   \url{https://github.com/acardona/CATMAID/blob/master/django/applications/catmaid/urls.py}
 #'    for a list of URLs that the web API accepts.
 NULL
+
+#' A sample CATMAID neuron (from the adult lateral horn of class AV4b1)
+#'
+#' @details This neuron was reconstructed by Philipp Schelegel and Greg Jefferis
+#'   and is in FAFB14 space. and is from the
+#' @references A Complete Electron Microscopy Volume of the Brain of Adult
+#'   \emph{Drosophila melanogaster}.
+#'   Zheng, Zhihao and Lauritzen, J. Scott and Perlman, Eric and Robinson,
+#'   Camenzind G. and Nichols, Matthew and Milkie, Daniel and Torrens, Omar and
+#'   Price, John and Fisher, Corey B. and Sharifi, Nadiya and Calle-Schuler,
+#'   Steven A. and Kmecova, Lucia and Ali, Iqbal J. and Karsh, Bill and
+#'   Trautman, Eric T. and Bogovic, John and Hanslovsky, Philipp and Jefferis,
+#'   Gregory S. X. E. and Kazhdan, Michael and Khairy, Khaled and Saalfeld,
+#'   Stephan and Fetter, Richard D. and Bock, Davi D. bioRxiv (2017).
+#'   \href{https://doi.org/10.1101/140905}{doi:10.1101/140905}
+#' @docType data
+#' @name AV4b1
+"AV4b1"
