@@ -2,9 +2,12 @@
 % Please edit documentation in R/catmaid_labels.R
 \name{catmaid_get_label_stats}
 \alias{catmaid_get_label_stats}
+\alias{catmaid_get_all_labels}
 \title{Get statistics for all labels in a project from a CATMAID server}
 \usage{
 catmaid_get_label_stats(pid = 1, conn = NULL, ...)
+
+catmaid_get_all_labels(pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{pid}{Project id (default 1)}
@@ -18,7 +21,10 @@ options as described in the help for \code{\link{catmaid_login}}.}
 function}
 }
 \description{
-Get statistics for all labels in a project from a CATMAID server
+\code{catmaid_get_label_stats} returns a data.frame with one row
+  for every node-tag pair.
+
+\code{catmaid_get_all_labels} returns a character vector of labels
 }
 \examples{
 \donttest{
@@ -35,8 +41,11 @@ multiple_soma=soma_labels \%>\%
   filter(n>1) \%>\%
   arrange(desc(n))
 
-multiple_soma_info = soma_labels \%>\% 
+multiple_soma_info = soma_labels \%>\%
   filter(skeletonID\%in\% multiple_soma$skeletonID)
+}
+\donttest{
+head(catmaid_get_all_labels())
 }
 }
 \seealso{
