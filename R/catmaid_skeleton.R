@@ -571,3 +571,34 @@ catmaid_get_treenodes_detail<-function(tnids, pid=1, conn=NULL, raw=FALSE, ...) 
   }
   nodeinfo
 }
+
+
+#' Get the number of nodes per skeleton
+#'
+#' @details This is actually a thin wrapper around the
+#'   \code{\link{catmaid_get_review_status}} function, which returns the number
+#'   of reviewed and total nodes for one or more neurons. However this function
+#'   can efficiently return the number of nodes when there are duplicates in the
+#'   input list.
+#'
+#' @inheritParams catmaid_get_review_status
+#' @return An integer vector of node counts
+#' @examples 
+#' \dontrun{
+#' catmaid_get_node_count("glomerulus DA2")
+#' 
+#' # NB handles repeated input efficiently
+#' skids=catmaid_skids("glomerulus DA2")
+#' catmaid_get_node_count(rep(skids,20))
+#' }
+catmaid_get_node_count <- function(skids, pid=1, conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
+  if(any(duplicated(skids))) {
+    uskids=unique(skids)
+    ulengths=catmaid_get_review_status(uskids, pid=pid, conn=conn, raw=FALSE, ...)$total
+    res=ulengths[match(skids, uskids)]
+    return(res)
+  }
+  res=catmaid_get_review_status(skids, pid=pid, conn=conn, raw=FALSE, ...)
+  res$total
+}
