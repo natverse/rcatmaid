@@ -582,6 +582,7 @@ catmaid_get_treenodes_detail<-function(tnids, pid=1, conn=NULL, raw=FALSE, ...) 
 #'   input list.
 #'
 #' @inheritParams catmaid_get_review_status
+#' @export
 #' @return An integer vector of node counts
 #' @examples 
 #' \dontrun{
