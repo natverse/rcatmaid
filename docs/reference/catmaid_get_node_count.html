@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot skeleton and connectors for neuron retrieved from CATMAID — plot3d.catmaidneuron • catmaid</title>
+<title>Get the number of nodes per skeleton — catmaid_get_node_count • catmaid</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Plot skeleton and connectors for neuron retrieved from CATMAID — plot3d.catmaidneuron" />
+<meta property="og:title" content="Get the number of nodes per skeleton — catmaid_get_node_count" />
 
-<meta property="og:description" content="Plot skeleton and connectors for neuron retrieved from CATMAID" />
+<meta property="og:description" content="Get the number of nodes per skeleton" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -100,63 +100,65 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot skeleton and connectors for neuron retrieved from CATMAID</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_nat.R'><code>R/catmaid_nat.R</code></a></small>
-    <div class="hidden name"><code>plot3d.catmaidneuron.Rd</code></div>
+    <h1>Get the number of nodes per skeleton</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skeleton.R'><code>R/catmaid_skeleton.R</code></a></small>
+    <div class="hidden name"><code>catmaid_get_node_count.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot skeleton and connectors for neuron retrieved from CATMAID</p>
+    <p>Get the number of nodes per skeleton</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for catmaidneuron</span>
-<span class='fu'>plot3d</span>(<span class='no'>x</span>, <span class='kw'>WithConnectors</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>WithNodes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>soma</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_node_count</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A neuron to plot</p></td>
+      <th>skids</th>
+      <td><p>One or more numeric skeleton ids or a character vector defining
+a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
     </tr>
     <tr>
-      <th>WithConnectors</th>
-      <td><p>logical indicating whether or not to plot connectors
-(defaults to <code>FALSE</code>).</p></td>
+      <th>pid</th>
+      <td><p>Project id (default 1)</p></td>
     </tr>
     <tr>
-      <th>WithNodes</th>
-      <td><p>logical indicating whether to plot branch/end points 
-(defaults to <code>FALSE</code> since they will obscure the synapses).</p></td>
-    </tr>
-    <tr>
-      <th>soma</th>
-      <td><p>Whether to plot a sphere at neuron's origin representing the
-soma. Either a logical value or a numeric indicating the radius (default
-<code>FALSE</code>). When <code>soma=TRUE</code> the radius is hard coded to 2.</p></td>
+      <th>conn</th>
+      <td><p>A <code>catmaid_connection</code> objection returned by 
+<code>catmaid_login</code>. If <code>NULL</code> (the default) a new connection 
+object will be generated using the values of the <b>catmaid.*</b> package 
+options as described in the help for <code>catmaid_login</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments passed to <code><a href='http://www.rdocumentation.org/packages/nat/topics/plot3d.neuron'>plot3d.neuron</a></code> 
-(synapses). Default: <code>TRUE</code>.</p></td>
+      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+function</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/nat/topics/plot3d.neuron'>plot3d.neuron</a></code></p></div>
+    <p>An integer vector of node counts</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This is actually a thin wrapper around the
+  <code><a href='catmaid_get_review_status.html'>catmaid_get_review_status</a></code> function, which returns the number
+  of reviewed and total nodes for one or more neurons. However this function
+  can efficiently return the number of nodes when there are duplicates in the
+  input list.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>nl</span><span class='kw'>=</span><span class='fu'><a href='read.neuron.catmaid.html'>read.neurons.catmaid</a></span>(<span class='fu'>c</span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='fu'>plot3d</span>(<span class='no'>nl</span>)
+<span class='fu'>catmaid_get_node_count</span>(<span class='st'>"glomerulus DA2"</span>)
 
-<span class='co'># now with connectors (i.e. synapses)</span>
-<span class='fu'>plot3d</span>(<span class='no'>nl</span>, <span class='kw'>WithConnectors</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='co'># NB handles repeated input efficiently</span>
+<span class='no'>skids</span><span class='kw'>=</span><span class='fu'><a href='catmaid_skids.html'>catmaid_skids</a></span>(<span class='st'>"glomerulus DA2"</span>)
+<span class='fu'>catmaid_get_node_count</span>(<span class='fu'>rep</span>(<span class='no'>skids</span>,<span class='fl'>20</span>))
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -164,7 +166,9 @@ soma. Either a logical value or a numeric indicating the radius (default
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

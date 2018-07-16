@@ -21,9 +21,11 @@
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
 
+<!-- sticky kit -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
 
 
@@ -34,7 +36,7 @@
   specified by a catmaid_connection object. If such an object is not 
   specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
-  options of the form "catmaid.*" (see details).  
+  options of the form &quot;catmaid.*&quot; (see details).  
 The connection object returned by catmaid_login (or cached when 
   Cache=TRUE, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.
@@ -43,6 +45,7 @@ catmaid_connection is a lower level function used by
   need to call this directly, but it does document the arguments that can be 
   used to specify a connection to a CATMAID server." />
 <meta name="twitter:card" content="summary" />
+
 
 
 <!-- mathjax -->
