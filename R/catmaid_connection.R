@@ -393,7 +393,7 @@ catmaid_cached_connection<-function(conn) {
   
   for(thisconn in open_connections) {
     thisconn=.package_statevars$connections[[thisconn]]
-    checkfields=c("server","username","authname", "authtype")
+    checkfields=intersect(c("server","username","authname", "authtype"), names(thisconn))
     # drop any fields where the incoming connection does not contain info
     checkfields=checkfields[!sapply(conn[checkfields], is.null)]
     if(isTRUE(all.equal(thisconn[checkfields], conn[checkfields])))
