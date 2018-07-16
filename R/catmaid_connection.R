@@ -145,8 +145,8 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
     # GET the CATMAID root for 2 reasons
     # 1. this checks that it actually exists
     # 2. we need to collect a CSRF token
-    conn$authresponse=GET(url=conn$server)
-    stop_for_status(conn$authresponse)
+    conn$authresponse=conn$httpclient$get(conn$basepath)
+    conn$authresponse$raise_for_status()
     
     # Now assuming that we could talk to the server we need to extract the CSRF
     # token. But it turns out that we need to pass the token twice
@@ -164,10 +164,12 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   } else { 
     body <- if(is.null(conn$token))
       list(name=conn$username, pwd=conn$password) else NULL
-    conn$authresponse = POST(url = paste0(conn$server, "/accounts/login"), 
-                             body=body,
-                             config = conn$config)
-    stop_for_status(conn$authresponse)
+    conn$authresponse = conn$httpclient$post(
+      paste0(conn$basepath, "/accounts/login"),
+      body = body,
+      config = conn$config
+    )
+    conn$authresponse$raise_for_status()
   }
   
   # store the returned cookies for future use
@@ -200,6 +202,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 #'   \code{username} is the one that will be associated with any tracing carried
 #'   out by you in CATMAID.
 #' @export
+#' @importFrom crul auth set_headers
 catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
                              authpassword=NULL, token=NULL,
                              authtype=NULL) {
@@ -241,18 +244,23 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     return(invisible(conn))
   }
   
+  pu=crul::url_parse(conn$server)
+  conn$rooturl=sprintf("%s://%s", pu$scheme, pu$domain)
+  conn$basepath=pu$path
   # make a custom curl config that includes authentication information if necessary
-  if(is.null(conn$authname)) {
-    conn$config=config() 
+  if(!is.null(conn$authname)) {
+    authopts=crul::auth(conn$authname,
+                              conn$authpassword,
+                              auth = ifelse(is.null(conn$authtype), "basic", conn$authtype))
+    # crul::set_auth(authopts)
   } else {
-    if(is.null(conn$authtype))
-      conn$authtype='basic'
-    conn$config=authenticate(conn$authname, conn$authpassword, type = conn$authtype)
+    authopts=NULL
   }
-  if(!is.null(conn$token))
-    conn$config=c(conn$config, 
-                  add_headers(`X-Authorization`=paste("Token", conn$token)))
-
+  if(!is.null(conn$token)) {
+    crul::set_headers(`X-Authorization`=paste("Token", conn$token))
+  }
+  # make the new HttpClient
+  conn$httpclient=crul::HttpClient$new(conn$rooturl, auth=authopts)
   invisible(conn)
 }
 
