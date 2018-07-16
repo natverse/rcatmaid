@@ -386,6 +386,83 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   } else req
 }
 
+#' Record and use a web cache when running an R script / Rmarkdown file
+#'
+#' @details \code{catmaid_record_markdown} will set up a web cache using the
+#'   \code{\link[httptest]{httptest}} package. This will record all web requests
+#'   made via the httr package for the remainder of the session, including all
+#'   calls made via the \bold{catmaid} package to CATMAID servers. If you are
+#'   knitting a markdown file the session lasts for that file only. If you are
+#'   running interactively, then the session will last until you close R or call
+#'   \code{\link[httptest]{end_vignette}()}. See
+#'   \url{https://cran.r-project.org/web/packages/httptest/vignettes/vignettes.html}
+#'    for further details of  the httptest package.
+#'
+#'   By default when you are using an Rstudio project, the http cache will be a
+#'   folder called \code{catmaid_recording} placed next to your \code{Rproj}
+#'   file. If you are knitting an Rmarkdown file that is not associated with an
+#'   Rstudio project, the recording path for \code{myfile.rmd} will be
+#'   \code{myfile.catmaid_recording}.
+#'
+#' @param path Optional path to location to cache http requests
+#' @param ... Additional arguments passed to
+#'   \code{\link[httptest]{start_vignette}}
+#'
+#' @export
+#' @return The path to the recording location (invisibly)
+#' @seealso \code{\link[httptest]{httptest}},
+#'   \code{\link[httptest]{start_vignette}},
+#'   \code{\link[httptest]{end_vignette}}
+#' @examples
+#'
+#' \dontrun{
+#' # You can use this when you have an Rstudio project open
+#' library(httptest)
+#' catmaid_record_markdown()
+#'
+#' # You can place the following towards the start of your Rmarkdown file
+#' ```{r, include=FALSE}
+#' library(httptest)
+#' catmaid::catmaid_record_markdown()
+#' ```
+#' # If you intend to run your Rmarkdown interactively, it is recommended to add
+#' # the following at the end of your Rmarkdown.
+#' # see https://cran.r-project.org/web/packages/httptest/vignettes/vignettes.html
+#' # for details
+#' ```{r, include=FALSE}
+#' end_vignette()
+#' ```
+#' }
+catmaid_record_markdown <- function(path, ...) {
+  path <- catmaid_recording_path(path)
+  if (!isNamespaceLoaded('httptest'))
+    stop("You must call:\n",
+         "library(httptest)\n",
+         "before you start recording!")
+  httptest::start_vignette(path, ...)
+  invisible(path)
+}
+
+catmaid_recording_path <- function(path) {
+  if (missing(path)) {
+    if(!requireNamespace('rprojroot', quietly = TRUE))
+      stop("You must install the suggested package rprojroot!")
+    path <-try(rprojroot::find_rstudio_root_file('catmaid_recording'), silent = TRUE)
+    if (inherits(path, 'try-error')) {
+      if(!requireNamespace('knitr', quietly = TRUE))
+        stop("You must install the suggested package knitr!")
+      path <- tools::file_path_sans_ext(knitr::current_input(dir = TRUE))
+    }
+    if (!length(path))
+      stop(
+        "I can't find an RStudio project and it doesn't look like you are knitting an Rmd file!",
+        " If this is correct, you will have to specify a path manually!"
+      )
+    path
+  }
+}
+
+
 catmaid_parse_json <- function(req, simplifyVector = FALSE, ...) {
   text <- content(req, as = "text", encoding = "UTF-8")
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
