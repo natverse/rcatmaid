@@ -354,30 +354,33 @@ getenvoroption <- function(vars, prefix="catmaid."){
 catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE, 
                         include_headers=TRUE, simplifyVector=FALSE, ...) {
   conn=catmaid_login(conn)
-  req<-with_config(conn$config, {
-    if(is.null(body)) {
-      GET(url=file.path(conn$server, path, fsep="/"), ...)
+  
+  fullpath=file.path(conn$basepath, path, fsep="/")
+  req<-if(is.null(body)) {
+      conn$httpclient$get(fullpath, ...)
     } else {
-      POST(url=file.path(conn$server, path, fsep="/"), body=body, ...)
+      conn$httpclient$post(fullpath, body=body, ...)
     }
-  } )
   # error out if there was a problem
-  stop_for_status(req)
+  req$raise_for_status()
   if(parse.json) {
     parsed=catmaid_parse_json(req, simplifyVector=simplifyVector)
     if(length(parsed)==2 && isTRUE(names(parsed)[2]=='error')) {
       stop("catmaid error: " , parsed$error)
     }
     if(include_headers) {
-      fields_to_include=c("url", "headers")
-      attributes(parsed) = c(attributes(parsed), req[fields_to_include])
+      fields_to_include=c("url", "response_headers")
+      hl=sapply(fields_to_include, function(x) req[[x]], simplify = FALSE)
+      # this was formerly available at 
+      names(hl)[2]='headers'
+      attributes(parsed) = c(attributes(parsed), hl)
     }
     parsed
   } else req
 }
 
 catmaid_parse_json <- function(req, simplifyVector = FALSE, ...) {
-  text <- content(req, as = "text", encoding = "UTF-8")
+  text <- req$parse("UTF-8")
   if (identical(text, "")) stop("No output to parse", call. = FALSE)
   fromJSON(text, simplifyVector = simplifyVector, ...)
 }
