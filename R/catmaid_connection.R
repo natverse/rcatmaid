@@ -413,8 +413,10 @@ catmaid_last_connection<-function() {
 }
 
 # fingerprint of a connection consisting of server, username and cookies
+#' @importFrom digest digest
 catmaid_connection_fingerprint<-function(conn) {
-  paste(c(conn$server, conn$username, conn$cookies), collapse = "")
+  auth_hash=digest(list(conn$username, conn$token, conn$httpclient$headers))
+  paste(conn$server, auth_hash, sep = "-")
 }
 
 #' Import/Export catmaid connection details to system variables (e.g. for tests)

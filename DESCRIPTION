@@ -23,7 +23,8 @@ Imports:
     nabor,
     xml2,
     grDevices,
-    crul
+    crul,
+    digest
 Suggests:
     spelling,
     testthat
