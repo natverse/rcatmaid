@@ -14,7 +14,7 @@ test_that("can make a connection", {
   expect_is(catmaid_connection(server="http://somewhere.org"), 'catmaid_connection')
   conn<-catmaid_connection(server="https://somewhere.org", username = 'calvin', password = 'hobbes')
   expect_is(conn, "catmaid_connection")
-  expect_is(conn$config, class(config()))
+  # expect_is(conn$config, class(config()))
 })
 
 test_that("can make a connection from list elements", {
@@ -29,14 +29,14 @@ test_that("can make a connection from list elements", {
 test_that("can login", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
   expect_is(conn, 'catmaid_connection')
-  expect_is(conn$authresponse, 'response')
-  expect_equal(conn$authresponse$status, 200L)
+  expect_is(conn$authresponse, 'HttpResponse')
+  expect_equal(conn$authresponse$status_code, 200L)
 })
 
 test_that("can get and post data", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
   expect_is(skel<-catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn, parse.json = FALSE),
-            'response')
+            'HttpResponse')
   expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
                                   body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
             'list')
