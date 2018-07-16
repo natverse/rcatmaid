@@ -154,11 +154,11 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
     # 2. a second time we need to pass just the value with the X-CSRFToken header
     # Step 1 is handled generically for any kind of authresponse lower down
     # but Step 2 needs some special logic here
-    res_cookies=cookies(conn$authresponse)
+    res_cookies=curl::handle_cookies(conn$authresponse$handle)
     csrf_row=grepl('csrf', res_cookies$name)
     if(any(csrf_row)) {
       token_value=res_cookies$value[csrf_row][1]
-      conn$config=httr::add_headers('X-CSRFToken'=token_value)
+      conn$httpclient$headers[['X-CSRFToken']]=token_value
     } else warning("I can't seem to find a CSRF token.",
               "You will not be able to POST to this site!")
   } else { 
@@ -172,9 +172,6 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
     conn$authresponse$raise_for_status()
   }
   
-  # store the returned cookies for future use
-  conn$cookies=unlist(cookies(conn$authresponse))
-  conn$config=c(conn$config, set_cookies(conn$cookies))
   if(Cache)
     catmaid_cache_connection(conn)
   invisible(conn)
@@ -239,14 +236,16 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     conn[missing_vars]=getenvoroption(missing_vars)
   }
   
-  if(is.null(conn$username) && is.null(conn$token)) {
-    conn$nologin=TRUE
-    return(invisible(conn))
-  }
-  
   pu=crul::url_parse(conn$server)
   conn$rooturl=sprintf("%s://%s", pu$scheme, pu$domain)
   conn$basepath=pu$path
+
+  if(is.null(conn$username) && is.null(conn$token)) {
+    conn$nologin=TRUE
+    conn$httpclient=crul::HttpClient$new(conn$rooturl)
+    return(invisible(conn))
+  }
+  
   # make a custom curl config that includes authentication information if necessary
   if(!is.null(conn$authname)) {
     authopts=crul::auth(conn$authname,
@@ -415,7 +414,7 @@ catmaid_last_connection<-function() {
 
 # fingerprint of a connection consisting of server, username and cookies
 catmaid_connection_fingerprint<-function(conn) {
-  paste(c(conn$server, conn$username, cookies(conn$authresponse)), collapse = "")
+  paste(c(conn$server, conn$username, conn$cookies), collapse = "")
 }
 
 #' Import/Export catmaid connection details to system variables (e.g. for tests)
