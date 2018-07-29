@@ -498,9 +498,17 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #'
 #' @details The key feature of this function is that allows you to fetch
 #'   information for arbitrary tree nodes that do not need to be from the same
-#'   skeleton.
+#'   skeleton. Furthermore the nodes can be defined by the presence of labels
+#'   (tags) or by a skeleton id. \code{labels} and \code{skids} specifiers can
+#'   be combined in order e.g. to find details for the somata for a given set of
+#'   skeleton ids. However these queries are slow for more than a few hundred
+#'   skids, at which point it is better to fetch using the label and then filter
+#'   by skid post hoc in R.
 #'
 #' @param tnids One or more (integer) treenode ids
+#' @param labels One or more (character) labels with which nodes must be tagged
+#' @param skids One or more skeleton ids or an expression compatible with
+#'   \code{\link{catmaid_skids}} (see Details for advice re many skids)
 #' @seealso \code{\link{catmaid_get_treenode_table}},
 #'   \code{\link{catmaid_get_connectors}},
 #'   \code{\link{catmaid_get_compact_skeleton}}
@@ -536,16 +544,42 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #' # details for 3 nodes from two different skeletons
 #' catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
 #' }
-catmaid_get_treenodes_detail<-function(tnids, pid=1, conn=NULL, raw=FALSE, ...) {
+catmaid_get_treenodes_detail<-function(tnids=NULL, labels=NULL, skids=NULL, 
+                                       pid=1, conn=NULL, raw=FALSE, ...) {
   path=paste("", pid, "treenodes","compact-detail",sep="/")
-  post_data=as.list(tnids)
-  names(post_data)=sprintf("treenode_ids[%d]", seq_along(tnids))
-  nodeinfo=catmaid_fetch(path, body=post_data, conn=conn, simplifyVector = T, ...)
+  
+  params=!sapply(list(tnids, labels, skids), is.null)
+  if (sum(params) == 0)
+    stop("You must specify at least one of tree node ids, node labels",
+         " or skeleton id args!")
+  if(any(params[2:3])) {
+    min.version="2018.08.19"
+    if((cv <- catmaid_version(conn = conn, numeric = TRUE)) < min.version)
+      stop("Your CATMAID server is running version ", cv, " but version >=",
+           min.version, " is required to support label or skid queries!")
+  }
+  body=list()
+  if(!is.null(tnids)){
+    body=as.list(tnids)
+    names(body)=sprintf("treenode_ids[%d]", seq_along(tnids))
+  }
+  if(!is.null(labels)){
+    body=c(body, label_names=labels)
+  }
+  if(!is.null(skids)) {
+    skids=catmaid_skids(skids)
+    skidlist=as.list(skids)
+    names(skidlist)=sprintf("skeleton_ids[%d]", seq_along(skids)-1L)
+    body=c(body, skidlist)
+  }
+  
+  nodeinfo=catmaid_fetch(path, body=body, conn=conn, simplifyVector = T, ...)
   
   if(raw) return(nodeinfo)
   # else process the connector information
   if(!length(nodeinfo)) return(NULL)
   
+  catmaid_error_check(nodeinfo)
   if(!(is.matrix(nodeinfo) && ncol(nodeinfo)==10)){
     stop("Unexpected return format catmaid_get_treenodes_detail!")
   }
