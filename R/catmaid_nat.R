@@ -352,7 +352,7 @@ nsoma.default <- function(x, soma_label='soma', ...) {
   skids <- catmaid_skids(x, ...)
   skids_with_soma = skids_with_tags(soma_label)
   # NB augment the skid list with query skids so that everybody appears in table
-  tt=table(c(skids_with_soma[skids_with_soma%in%skids], skids))
+  tt=table(c(skids_with_soma[skids_with_soma%in%skids], unique(skids)))
   # ... but then subtract 1 for the dummy entry
   tt=tt-1L
   tt[as.character(skids)]
