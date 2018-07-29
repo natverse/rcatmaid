@@ -553,7 +553,7 @@ catmaid_get_treenodes_detail<-function(tnids=NULL, labels=NULL, skids=NULL,
     stop("You must specify at least one of tree node ids, node labels",
          " or skeleton id args!")
   if(any(params[2:3])) {
-    min.version="2018.08.19"
+    min.version="2018.07.19"
     if((cv <- catmaid_version(conn = conn, numeric = TRUE)) < min.version)
       stop("Your CATMAID server is running version ", cv, " but version >=",
            min.version, " is required to support label or skid queries!")
