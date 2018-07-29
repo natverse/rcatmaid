@@ -359,11 +359,12 @@ nsoma.default <- function(x, soma_label='soma', ...) {
 }
 
 # nb returns skid once for every time it contains tag
-# TODO see if we can avoid project wide catmaid_get_label_stats
+# New catmaid_get_treenodes_detail is faster than project wide 
+# catmaid_get_label_stats but could probably still be faster, although whether
+# we could be fast and handle skeletons with multiple tags is less clear
 skids_with_tags <- function(tags, ...) {
-  label_stats=catmaid_get_label_stats(...)
-  matches=label_stats[['labelName']] %in% tags
-  label_stats[matches, 'skeletonID']
+  tnt=catmaid_get_treenodes_detail(labels = tags, ...)
+  tnt[['skid']]
 }
 
 #' @export
