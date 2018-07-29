@@ -543,6 +543,9 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #' \donttest{
 #' # details for 3 nodes from two different skeletons
 #' catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
+#' 
+#' # example label search
+#' tosoma=catmaid_get_treenodes_detail("to soma")
 #' }
 catmaid_get_treenodes_detail<-function(tnids=NULL, labels=NULL, skids=NULL, 
                                        pid=1, conn=NULL, raw=FALSE, ...) {

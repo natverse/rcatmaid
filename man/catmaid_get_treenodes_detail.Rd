@@ -68,6 +68,9 @@ The key feature of this function is that allows you to fetch
 \donttest{
 # details for 3 nodes from two different skeletons
 catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
+
+# example label search
+tosoma=catmaid_get_treenodes_detail("to soma")
 }
 }
 \seealso{
