@@ -164,7 +164,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
     csrf_row=grepl('csrf', res_cookies$name)
     if(any(csrf_row)) {
       token_value=res_cookies$value[csrf_row][1]
-      conn$config=httr::add_headers('X-CSRFToken'=token_value)
+      conn$config=httr::add_headers('X-CSRFToken'=token_value, referer=conn$server)
     } else warning("I can't seem to find a CSRF token.",
               "You will not be able to POST to this site!")
   } else { 
