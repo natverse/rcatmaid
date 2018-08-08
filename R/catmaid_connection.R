@@ -123,6 +123,12 @@
 #' }
 #' @export
 catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
+  if(is.character(conn) && grepl("^http", conn)) {
+    # this looks like a server, probably because we are trying to connect to 
+    # without other login details
+    stop("To connect to : ", conn, ", you must name the server argument i.e.\n",
+         sprintf('  catmaid_login(server="%s")', conn)) 
+  }
   if(is.null(conn)) {
     if(!length(pairlist(...))) {
       # try and get the last cached connection
