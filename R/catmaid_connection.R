@@ -373,8 +373,18 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   } )
   # error out if there was a problem
   stop_for_status(req)
+  
   if(parse.json) {
-    parsed=catmaid_parse_json(req, simplifyVector=simplifyVector)
+    ct=req$headers$`content-type`
+    if(ct=="application/json") {
+      parsed=catmaid_parse_json(req, simplifyVector=simplifyVector)
+    } else if(ct=="application/octet-stream") {
+      # assume this is msgpack
+      parsed=msgpack::unpackMsg(req$content, simplify=simplifyVector)
+    } else {
+      stop("Unsupported content type:", ct)
+    }
+    
     if(length(parsed)==2 && isTRUE(names(parsed)[2]=='error')) {
       stop("catmaid error: " , parsed$error)
     }

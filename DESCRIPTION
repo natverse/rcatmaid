@@ -39,7 +39,8 @@ Suggests:
     nat.nblast,
     rmarkdown,
     spelling,
-    testthat
+    testthat,
+    msgpack
 Remotes: jefferis/nat,
     jefferislab/nat.nblast
 RoxygenNote: 6.1.1
