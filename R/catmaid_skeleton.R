@@ -40,7 +40,7 @@
 catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
   path=file.path("", pid, skid, ifelse(connectors, 1L, 0L), ifelse(tags, 1L, 0L), "compact-skeleton")
   skel=catmaid_fetch(path, conn=conn, ...)
-  if(isTRUE(skel[[1]]=="Exception"))
+  if(is.character(skel[[1]]) && isTRUE(skel[[1]]=="Exception"))
     stop("No valid neuron returned for skid: ",skid)
   names(skel)=c("nodes", "connectors", "tags")
   
