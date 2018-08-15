@@ -58,6 +58,55 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
   skel
 }
 
+catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, format="msgpack", ...) {
+  path=file.path("", pid, 'skeletons', skid, "compact-detail")
+  skel = catmaid_fetch(
+    path,
+    conn = conn,
+    query = list(
+      with_tags = tags,
+      with_connectors = connectors,
+      with_history = FALSE,
+      format = format
+    ),
+    raw = FALSE,
+    simplifyVector = TRUE
+  )
+  if(is.character(skel[[1]]) && isTRUE(skel[[1]]=="Exception"))
+    stop("No valid neuron returned for skid: ",skid)
+  
+  # don't know what elements 4:5 are
+  # https://github.com/catmaid/CATMAID/blob/e6484a18c9aed463b06e8894a87c932b02bcf0f7/django/applications/catmaid/control/skeletonexport.py#L134
+  names(skel)=c("nodes", "connectors", "tags")
+  
+  if(raw) return(skel)
+  # else process the skeleton
+  if(length(skel$nodes)){
+    nodes=do.call(rbind, skel$nodes)
+    colnames(nodes)=c("id", "parent_id", "user_id", "x","y", "z", "radius", "confidence")
+    nodes=as.data.frame(nodes)
+    mode(nodes$id)='integer'
+    mode(nodes$parent_id)='integer'
+    mode(nodes$user_id)='integer'
+    mode(nodes$confidence)='integer'
+    skel$nodes=nodes
+  }
+    
+  if(length(skel$connectors)) {
+    connectors=do.call(rbind, skel$connectors)
+    colnames(connectors)=c("treenode_id", "connector_id", "prepost", "x", "y", "z")
+    connectors=as.data.frame(connectors)
+    mode(connectors$treenode_id)='integer'
+    mode(connectors$connector_id)='integer'
+    mode(connectors$prepost)='integer'
+    skel$connectors=connectors
+  }
+  
+  # no action needed for tags
+  skel
+}
+
+
 list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
   if(!length(x)) {
     return(if(return_empty_df){
