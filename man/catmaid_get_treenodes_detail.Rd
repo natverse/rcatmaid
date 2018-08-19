@@ -19,11 +19,11 @@ catmaid_get_treenodes_detail(tnids = NULL, labels = NULL,
 
 \item{conn}{the \code{\link{catmaid_connection}} object}
 
-\item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
-or to convert the nodes and connectors lists into processed data.frames 
+\item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
+or to convert the nodes and connectors lists into processed data.frames
 (when \code{FALSE}, the default)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function.}
 }
 \value{

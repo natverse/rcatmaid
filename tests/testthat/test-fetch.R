@@ -57,7 +57,7 @@ skid_2 <-tempval[[2]]
 with_mock_api(
 test_that("get neuron", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
-  expect_is(skel<-catmaid_get_compact_skeleton(pid=1, skid=skid_1, conn=conn), 'list')
+  expect_is(skel<-catmaid_get_compact_detail(pid=1, skid=skid_1, conn=conn), 'list')
 }))
 
 with_mock_api(

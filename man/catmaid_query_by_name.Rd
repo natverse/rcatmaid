@@ -21,11 +21,11 @@ catmaid_query_by_annotation(query, pid = 1, maxresults = 500,
 \item{type}{Type of results to return. Defaults to \code{c("neuron",
 "annotation")}. Only relevant when \code{raw=FALSE}.}
 
-\item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
-or to convert the nodes and connectors lists into processed data.frames 
+\item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
+or to convert the nodes and connectors lists into processed data.frames
 (when \code{FALSE}, the default)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function.}
 
 \item{conn}{the \code{\link{catmaid_connection}} object}

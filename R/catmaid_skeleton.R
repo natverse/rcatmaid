@@ -1,63 +1,47 @@
 #' Return the raw data for a CATMAID neuronal skeleton
-#' 
-#' @details Note that by default this fetches both skeleton and connector 
+#'
+#' @description \code{catmaid_get_compact_detail} has additional functionality
+#'   (e.g. more compact msgpack format) over \code{catmaid_get_compact_skeleton}
+#'   (whose API endpoint has been marked deprecated since 2016.11.04).
+#' @details Note that by default this fetches both skeleton and connector
 #'   (synapse) information.
 #' @param skid single skeleton id
 #' @param pid project id (default 1)
 #' @param conn the \code{\link{catmaid_connection}} object
 #' @param connectors Whether to fetch connector information
 #' @param tags Whether to fetch tag information
-#' @param raw Whether to return completely unprocessed data (when \code{TRUE}) 
-#'   or to convert the nodes and connectors lists into processed data.frames 
+#' @param raw Whether to return completely unprocessed data (when \code{TRUE})
+#'   or to convert the nodes and connectors lists into processed data.frames
 #'   (when \code{FALSE}, the default)
-#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
+#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}}
 #'   function.
 #' @return An R list object with three elements \itemize{
-#'   
-#'   \item nodes A data frame containing XYZ location, node identifiers etc for 
+#'
+#'   \item nodes A data frame containing XYZ location, node identifiers etc for
 #'   each point in the neuron.
-#'   
-#'   \item connectors A data frame containing the position and tree node 
+#'
+#'   \item connectors A data frame containing the position and tree node
 #'   identifiers for the synaptic partners.
-#'   
-#'   \item tags A list containing one vector for each named tag; the vectors 
+#'
+#'   \item tags A list containing one vector for each named tag; the vectors
 #'   contain node ids that are also present in the \code{nodes} element.
-#'   
+#'
 #'   }
-#' @seealso \code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox 
-#'   neuron that can be plotted directly. \code{\link{catmaid_fetch}}.
+#' @seealso \code{\link{read.neuron.catmaid}} to read as neuroanatomy toolbox
+#'   \code{\link[nat]{neuron}} that can be plotted directly and
+#'   \code{\link{catmaid_fetch}} for low level API access.
 #' @export
 #' @examples
 #' \dontrun{
 #' ## ensure that you have done something like
 #' # conn=catmaid_login()
 #' # at least once this session to connect to the server
-#' skel=catmaid_get_compact_skeleton(10418394)
+#' skel=catmaid_get_compact_detail(10418394)
 #' # no connector (i.e. synapse) information
-#' skel=catmaid_get_compact_skeleton(10418394, connectors = FALSE)
-#' 
+#' skel=catmaid_get_compact_detail(10418394, connectors = FALSE)
+#'
 #' }
-catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
-  path=file.path("", pid, skid, ifelse(connectors, 1L, 0L), ifelse(tags, 1L, 0L), "compact-skeleton")
-  skel=catmaid_fetch(path, conn=conn, ...)
-  if(is.character(skel[[1]]) && isTRUE(skel[[1]]=="Exception"))
-    stop("No valid neuron returned for skid: ",skid)
-  names(skel)=c("nodes", "connectors", "tags")
-  
-  if(raw) return(skel)
-  # else process the skeleton
-  if(length(skel$nodes))
-    skel$nodes=list2df(skel$nodes, 
-                     cols=c("id", "parent_id", "user_id", "x","y", "z", "radius", "confidence"))
-  
-  if(length(skel$connectors))
-    skel$connectors=list2df(skel$connectors, 
-                            cols=c("treenode_id", "connector_id", "prepost", "x", "y", "z"))
-  # change tags from list of lists to list of vectors
-  skel$tags=sapply(skel$tags, function(x) sort(unlist(x)), simplify = FALSE)
-  skel
-}
-
+#' @export
 catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, format="msgpack", ...) {
   path=file.path("", pid, 'skeletons', skid, "compact-detail")
   
@@ -111,6 +95,28 @@ catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE,
   skel
 }
 
+#' @rdname catmaid_get_compact_detail
+#' @export
+catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
+    path=file.path("", pid, skid, ifelse(connectors, 1L, 0L), ifelse(tags, 1L, 0L), "compact-skeleton")
+    skel=catmaid_fetch(path, conn=conn, ...)
+    if(is.character(skel[[1]]) && isTRUE(skel[[1]]=="Exception"))
+    stop("No valid neuron returned for skid: ",skid)
+    names(skel)=c("nodes", "connectors", "tags")
+    
+    if(raw) return(skel)
+    # else process the skeleton
+    if(length(skel$nodes))
+    skel$nodes=list2df(skel$nodes,
+    cols=c("id", "parent_id", "user_id", "x","y", "z", "radius", "confidence"))
+    
+    if(length(skel$connectors))
+    skel$connectors=list2df(skel$connectors,
+    cols=c("treenode_id", "connector_id", "prepost", "x", "y", "z"))
+    # change tags from list of lists to list of vectors
+    skel$tags=sapply(skel$tags, function(x) sort(unlist(x)), simplify = FALSE)
+    skel
+}
 
 list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
   if(!length(x)) {

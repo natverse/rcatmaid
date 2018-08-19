@@ -19,7 +19,7 @@ see details).}
 
 \item{pid}{project id (default 1)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function.}
 }
 \value{

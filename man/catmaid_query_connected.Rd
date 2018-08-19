@@ -24,8 +24,8 @@ to all the specified neurons (\code{boolean_op="AND"}).}
 
 \item{pid}{Project id (default 1)}
 
-\item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
-or to convert the nodes and connectors lists into processed data.frames 
+\item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
+or to convert the nodes and connectors lists into processed data.frames
 (when \code{FALSE}, the default)}
 
 \item{conn}{A \code{catmaid_connection} objection returned by 

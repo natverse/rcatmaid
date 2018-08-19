@@ -27,8 +27,8 @@ number of nodes for the partner neurons.}
 object will be generated using the values of the \bold{catmaid.*} package 
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
-or to convert the nodes and connectors lists into processed data.frames 
+\item{raw}{Whether to return completely unprocessed data (when \code{TRUE})
+or to convert the nodes and connectors lists into processed data.frames
 (when \code{FALSE}, the default)}
 
 \item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
