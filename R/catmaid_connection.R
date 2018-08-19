@@ -381,6 +381,9 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
     } else if(ct=="application/octet-stream") {
       # assume this is msgpack
       parsed=msgpack::unpackMsg(req$content, simplify=simplifyVector)
+    } else if(substr(ct, 1, 9)=="text/html") {
+      # treenode/table advertises itself as text/html but seems to be json
+      parsed=catmaid_parse_json(req, simplifyVector=simplifyVector)
     } else {
       stop("Unsupported content type:", ct)
     }
