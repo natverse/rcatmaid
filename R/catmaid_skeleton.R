@@ -60,6 +60,11 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
 
 catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, format="msgpack", ...) {
   path=file.path("", pid, 'skeletons', skid, "compact-detail")
+  
+  format <- if(.package_statevars$msgpack_available && 
+               catmaid_version(numeric = TRUE) >= "2018.07.19")
+    "msgpack" else NULL
+  
   skel = catmaid_fetch(
     path,
     conn = conn,
