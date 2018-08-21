@@ -631,12 +631,7 @@ catmaid_get_treenodes_detail<-function(tnids=NULL, labels=NULL, skids=NULL,
 #' }
 catmaid_get_node_count <- function(skids, pid=1, conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
-  if(any(duplicated(skids))) {
-    uskids=unique(skids)
-    ulengths=catmaid_get_review_status(uskids, pid=pid, conn=conn, raw=FALSE, ...)$total
-    res=ulengths[match(skids, uskids)]
-    return(res)
-  }
-  res=catmaid_get_review_status(skids, pid=pid, conn=conn, raw=FALSE, ...)
-  res$total
+  good_skids=unique(na.omit(skids))
+  res=catmaid_get_review_status(good_skids, pid=pid, conn=conn, raw=FALSE, ...)
+  res$total[match(skids, good_skids)]
 }
