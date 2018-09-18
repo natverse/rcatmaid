@@ -54,7 +54,7 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
     skel$connectors=list2df(skel$connectors, 
                             cols=c("treenode_id", "connector_id", "prepost", "x", "y", "z"))
   # change tags from list of lists to list of vectors
-  skel$tags=sapply(skel$tags, unlist, simplify = FALSE)
+  skel$tags=sapply(skel$tags, function(x) sort(unlist(x)), simplify = FALSE)
   skel
 }
 
