@@ -38,7 +38,7 @@ This is actually a thin wrapper around the
 catmaid_get_node_count("glomerulus DA2")
 
 # NB handles repeated input efficiently
-skids=catmaid_skids("glomerulus DA2")
+skids=catmaid_skids("glomerulus DA2 right")
 catmaid_get_node_count(rep(skids,20))
 }
 }
