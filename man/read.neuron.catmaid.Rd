@@ -55,22 +55,22 @@ These functions provide a bridge between CATMAID and the
   tag exists the one that tags an endpoint is preferred.
 
 When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
-  wrapped in a call to \code{try} to ensure that failure for any single
-  neuron does not abort the nlapply/nmapply call. When
-  \code{OmitFailures=TRUE} the resultant neuronlist will be subsetted down to
-  return values for which \code{FUN} evaluated successfully. When
-  \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In
-  either of the last 2 cases error messages will not be printed because the
-  call is wrapped as \code{try(expr, silent=TRUE)}.
+  wrapped in a call to \code{\link{try}} to ensure that failure for any
+  single neuron does not abort the \code{\link{nlapply}} call. When
+  \code{OmitFailures=TRUE} the resultant \code{\link{neuronlist}} will be
+  subsetted down to return values for which \code{FUN} evaluated
+  successfully. When \code{OmitFailures=FALSE}, "try-error" objects will be
+  left in place. In either of the last 2 cases error messages will not be
+  printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
 
   The optional dataframe (\code{df}) detailing each neuron should have
   \code{rownames} that match the names of each neuron. It would also make
   sense if the same key was present in a column of the data frame. If the
   dataframe contains more rows than neurons, the superfluous rows are dropped
   with a warning. If the dataframe is missing rows for some neurons an error
-  is generated. If SortOnUpdate is TRUE then updating an existing
-  \code{neuronlist} should result in a new \code{neuronlist} with ordering
-  identical to reading all neurons from scratch.
+  is generated. If \code{SortOnUpdate=TRUE} then updating an existing
+  \code{\link{neuronlist}} should result in a new \code{\link{neuronlist}}
+  with ordering identical to reading all neurons from scratch.
 }
 \examples{
 \dontrun{
