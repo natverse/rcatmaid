@@ -73,9 +73,9 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' @param skids One or more numeric skeleton ids or a character vector defining
 #'   a query (see \code{\link{catmaid_skids}} or examples for the syntax).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
-#'   error. The default value (\code{NA}) will result in nlapply stopping with
-#'   an error message the moment there is an error. For other values, see
-#'   details.
+#'   error. The default value (\code{NA}) will result in \code{\link{nlapply}}
+#'   stopping with an error message the moment there is an error. For other
+#'   values, see details.
 #' @param df Optional data frame containing information about each neuron
 #'
 #' @details When \code{OmitFailures} is not \code{NA}, \code{FUN} will be

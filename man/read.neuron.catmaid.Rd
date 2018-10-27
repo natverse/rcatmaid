@@ -27,9 +27,9 @@ function}
 a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
 \item{OmitFailures}{Whether to omit neurons for which \code{FUN} gives an
-error. The default value (\code{NA}) will result in nlapply stopping with
-an error message the moment there is an error. For other values, see
-details.}
+error. The default value (\code{NA}) will result in \code{\link{nlapply}}
+stopping with an error message the moment there is an error. For other
+values, see details.}
 
 \item{df}{Optional data frame containing information about each neuron}
 }
