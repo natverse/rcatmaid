@@ -111,8 +111,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='no'>tnids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='kw'>tnids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>skids</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -120,6 +120,15 @@
     <tr>
       <th>tnids</th>
       <td><p>One or more (integer) treenode ids</p></td>
+    </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>One or more (character) labels with which nodes must be tagged</p></td>
+    </tr>
+    <tr>
+      <th>skids</th>
+      <td><p>One or more skeleton ids or an expression compatible with
+<code><a href='catmaid_skids.html'>catmaid_skids</a></code> (see Details for advice re many skids)</p></td>
     </tr>
     <tr>
       <th>pid</th>
@@ -163,7 +172,12 @@ function.</p></td>
 
     <p>The key feature of this function is that allows you to fetch
   information for arbitrary tree nodes that do not need to be from the same
-  skeleton.</p>
+  skeleton. Furthermore the nodes can be defined by the presence of labels
+  (tags) or by a skeleton id. <code>labels</code> and <code>skids</code> specifiers can
+  be combined in order e.g. to find details for the somata for a given set of
+  skeleton ids. However these queries are slow for more than a few hundred
+  skids, at which point it is better to fetch using the label and then filter
+  by skid post hoc in R.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -181,7 +195,9 @@ function.</p></td>
 #&gt;   edition_time user_id
 #&gt; 1   1496315535      18
 #&gt; 2   1525270313      71
-#&gt; 3   1523630041      18</div></pre>
+#&gt; 3   1523630041      18</div><div class='input'>
+<span class='co'># example label search</span>
+<span class='no'>tosoma</span><span class='kw'>=</span><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='st'>"to soma"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_error_check(nodeinfo): invalid literal for int() with base 10: 'to soma'	type: ValueError</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -40,7 +40,10 @@
   one annotation can be tagged with a second annotation.
 The most common use will be to get a data.frames of neurons when you should
   use type=&quot;neuron&quot;. You can also return both neurons and annotations
-  (the default) and just annotations. See type argument for details." />
+  (the default) and just annotations. See type argument for details.
+Note that catmaid_query_by_name prepends a &quot;/&quot; to the
+  query argument so that it is treated as a regular expression (which
+  by some slight quirk of the API would otherwise not be the case)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,6 +127,9 @@ The most common use will be to get a data.frames of neurons when you should
 <p>The most common use will be to get a data.frames of neurons when you should
   use <code>type="neuron"</code>. You can also return both neurons and annotations
   (the default) and just annotations. See <code>type</code> argument for details.</p>
+<p>Note that <code>catmaid_query_by_name</code> prepends a <code>"/"</code> to the
+  <code>query</code> argument so that it is treated as a regular expression (which
+  by some slight quirk of the API would otherwise not be the case).</p>
     
     </div>
 

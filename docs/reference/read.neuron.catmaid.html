@@ -151,9 +151,9 @@ a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or exam
     <tr>
       <th>OmitFailures</th>
       <td><p>Whether to omit neurons for which <code>FUN</code> gives an
-error. The default value (<code>NA</code>) will result in nlapply stopping with
-an error message the moment there is an error. For other values, see
-details.</p></td>
+error. The default value (<code>NA</code>) will result in <code>nlapply</code>
+stopping with an error message the moment there is an error. For other
+values, see details.</p></td>
     </tr>
     <tr>
       <th>df</th>
@@ -178,21 +178,21 @@ details.</p></td>
   (case-insensitively) match the regex <code>"(cell body|soma)"</code>. Where &gt;1 
   tag exists the one that tags an endpoint is preferred.</p>
 <p>When <code>OmitFailures</code> is not <code>NA</code>, <code>FUN</code> will be
-  wrapped in a call to <code>try</code> to ensure that failure for any single
-  neuron does not abort the nlapply/nmapply call. When
-  <code>OmitFailures=TRUE</code> the resultant neuronlist will be subsetted down to
-  return values for which <code>FUN</code> evaluated successfully. When
-  <code>OmitFailures=FALSE</code>, "try-error" objects will be left in place. In
-  either of the last 2 cases error messages will not be printed because the
-  call is wrapped as <code>try(expr, silent=TRUE)</code>.</p>
+  wrapped in a call to <code>try</code> to ensure that failure for any
+  single neuron does not abort the <code><a href='http://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code> call. When
+  <code>OmitFailures=TRUE</code> the resultant <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> will be
+  subsetted down to return values for which <code>FUN</code> evaluated
+  successfully. When <code>OmitFailures=FALSE</code>, "try-error" objects will be
+  left in place. In either of the last 2 cases error messages will not be
+  printed because the call is wrapped as <code>try(expr, silent=TRUE)</code>.</p>
 <p>The optional dataframe (<code>df</code>) detailing each neuron should have
   <code>rownames</code> that match the names of each neuron. It would also make
   sense if the same key was present in a column of the data frame. If the
   dataframe contains more rows than neurons, the superfluous rows are dropped
   with a warning. If the dataframe is missing rows for some neurons an error
-  is generated. If SortOnUpdate is TRUE then updating an existing
-  <code>neuronlist</code> should result in a new <code>neuronlist</code> with ordering
-  identical to reading all neurons from scratch.</p>
+  is generated. If <code>SortOnUpdate=TRUE</code> then updating an existing
+  <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> should result in a new <code><a href='http://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code>
+  with ordering identical to reading all neurons from scratch.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

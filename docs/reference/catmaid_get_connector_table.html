@@ -112,8 +112,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>catmaid_get_connector_table</span>(<span class='no'>skids</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"both"</span>, <span class='st'>"incoming"</span>,
-  <span class='st'>"outgoing"</span>), <span class='kw'>partner.skids</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>)</pre>
+  <span class='st'>"outgoing"</span>), <span class='kw'>partner.skids</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>get_partner_names</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>get_partner_nodes</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,6 +130,11 @@
       <th>partner.skids</th>
       <td><p>Whether to include information about the skid of each
 partner neuron (NB there may be multiple partners per connector)</p></td>
+    </tr>
+    <tr>
+      <th>get_partner_names, get_partner_nodes</th>
+      <td><p>Whether to fetch the names and/or
+number of nodes for the partner neurons.</p></td>
     </tr>
     <tr>
       <th>pid</th>
@@ -169,7 +174,7 @@ function</p></td>
 <li><p>last_modified</p></li>
 <li><p>partner_skid</p></li>
 </ul>
-  
+
 <p>Prior to this it returned a data.frame with columns</p><ul>
 <li><p>connector_id</p></li>
 <li><p>partner_skid</p></li>
