@@ -327,10 +327,6 @@ catmaid_get_connector_table<-function(skids,
 #' \dontrun{
 #' # get tree node table for neuron 10418394
 #' tnt=catmaid_get_treenode_table(10418394)
-#' # show all leaf nodes
-#' subset(tnt, type=="L")
-#' # table of node types
-#' table(tnt$type)
 #' 
 #' # look at tags data
 #' str(attr(tnt, 'tags'))
@@ -346,7 +342,7 @@ catmaid_get_connector_table<-function(skids,
 #'   to translate user ids into names.
 catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # relation_type 0 => incoming
-  tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/",skid,"/content"),
+  tnl=catmaid_fetch(path=paste0("/", pid, "/skeletons/",skid,"/node-overview"),
                     conn=conn, simplifyVector = TRUE, ...)
   
   if(raw) return(tnl)
