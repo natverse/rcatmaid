@@ -146,6 +146,10 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 #'   use \code{type="neuron"}. You can also return both neurons and annotations
 #'   (the default) and just annotations. See \code{type} argument for details.
 #'
+#'   Note that \code{catmaid_query_by_name} prepends a \code{"/"} to the
+#'   \code{query} argument so that it is treated as a regular expression (which
+#'   by some slight quirk of the API would otherwise not be the case).
+#'
 #' @param query A query string (NB this is a regular expression)
 #' @inheritParams catmaid_get_compact_skeleton
 #' @param maxresults The maximum number of results to return
@@ -178,6 +182,7 @@ catmaid_get_annotationlist<-function(pid=1, conn=NULL, raw=FALSE, ...){
 catmaid_query_by_name<-function(query, pid=1, maxresults=500, 
                                       type=c("neuron","annotation"), raw=FALSE, 
                                       ...){
+  query=paste0("/", query)
   query_by_neuron_or_annotation(path=paste0(pid, '/annotations/query-targets'),
                                 body=list(name=query),
                                 maxresults=maxresults, type=type, 
