@@ -36,9 +36,9 @@ read_catmaid_selection <- function(f, readNeurons=FALSE, getNames=TRUE, ...) {
   
   if(readNeurons) {
     x=read.neurons.catmaid(j$skid, OmitFailures = T, ...)
-    m=merge(x[,], j, by='skid')
-    rownames(m)=names(x)
-    x[,]=m
+    m=merge(x[,], j, by='skid', sort=FALSE)
+    rownames(m)=m[['skid']]
+    data.frame(x)=m
     x
   } else {
     if(getNames)
