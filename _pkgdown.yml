@@ -13,6 +13,7 @@ reference:
   contents:
   - catmaid_get_compact_skeleton
   - catmaid_get_treenode_table
+  - catmaid_get_node_count
   - catmaid_get_review_status
   - catmaid_get_treenodes_detail
 - title: Names and Annotations
