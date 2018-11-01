@@ -1,3 +1,19 @@
+# catmaid 0.9.2
+
+* Teach `catmaid_get_volumelist()` about new API return format (#102)
+* Sync `catmaid_get_treenode_table()` with API (#101)
+* make `catmaid_query_by_name()` treat query as regex (#100)
+* Fix bug in metadata for read_catmaid_selection (#99)
+* Sort tags for neurons so that they are always returned in the same order (#98)
+* Add `catmaid_get_node_count()` to get the number of nodes per skeleton
+* Teach `catmaid_get_treenodes_detail()` to search by labels - can use this e.g.
+  to find all nodes (regardless of neuron) with a certain tag e.g. `soma`.
+* Fix bug in `nsoma()` for duplicate skids; also speed-up
+* Make `catmaid_login()` explain why passing server directly doesn't work
+* Add name|nodes to results of `catmaid_get_connector_table()`
+* Speed-up in `catmaid_get_compact_skeleton()`/`read.neuron.catmaid()`
+* Teach `catmaid_get_node_count()` to handle NAs/dupes
+
 # catmaid 0.9.1
 
 * Add catmaid_get_labels, catmaid_set_labels, catmaid_remove_labels to 
