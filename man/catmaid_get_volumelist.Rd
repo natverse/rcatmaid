@@ -15,23 +15,28 @@ catmaid_get_volumelist(conn = NULL, pid = 1, ...)
 function.}
 }
 \value{
-A data.frame with columns \itemize{
-  
-  \item comment
-  
-  \item name
-  
-  \item creation_time
-  
-  \item edition_time
-  
-  \item project
-  
-  \item user
-  
+Since \code{CATMAID v2018.07.19-457-ga09910b} a \code{data.frame}
+  with columns \itemize{
+
   \item id
-  
-  \item editor }
+
+  \item name
+
+  \item comment
+
+  \item user_id
+
+  \item editor_id
+
+  \item project_id
+
+  \item creation_time
+
+  \item edition_time
+
+  \item annotations
+
+  }
 }
 \description{
 Fetch a data frame containing details of all volumes on CATMAID server
