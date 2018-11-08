@@ -506,12 +506,25 @@ catmaid_version <- function(conn=NULL, cached=TRUE, numeric=FALSE, ...) {
                       conn=conn, ...)
     # we just need the first return value
     conn$catmaid.version=res[[1]]
+    nv <- try(numeric_version(sub("-dev-g[a-f0-9]{6,}$", "", conn$catmaid.version)),
+              silent = TRUE)
+    if(inherits(nv, 'try-error')){
+      warning("CATMAID version: ", conn$catmaid.version, " could not be parsed!\n",
+              "I will assume that you are running the latest version of CATMAID!")
+      conn$catmaid.version <- "9999.12.31"
+    }
     catmaid_cache_connection(conn)
   }
   if(!numeric){
     conn$catmaid.version
   } else {
-    numeric_version(sub("-g[a-f0-9]{6,}$", "", conn$catmaid.version))
+    numeric_version(sub("-dev-g[a-f0-9]{6,}$", "", conn$catmaid.version))
   }
 }
 
+set_catmaid_version <- function(version, conn=NULL, ...) {
+  catmaid_version(conn=conn)
+  conn=catmaid_login(conn)
+  conn$catmaid.version=version
+  catmaid_cache_connection(conn)
+}
