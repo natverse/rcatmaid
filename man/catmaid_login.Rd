@@ -2,14 +2,14 @@
 % Please edit documentation in R/catmaid_connection.R
 \name{catmaid_login}
 \alias{catmaid_login}
-\alias{catmaid_login}
 \alias{catmaid_connection}
 \title{Connect/authenticate to a CATMAID server, returning a connection object}
 \usage{
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
 catmaid_connection(server, username = NULL, password = NULL,
-  authname = NULL, authpassword = NULL, token = NULL, authtype = NULL)
+  authname = NULL, authpassword = NULL, token = NULL,
+  authtype = NULL)
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}

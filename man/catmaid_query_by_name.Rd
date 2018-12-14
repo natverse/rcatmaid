@@ -5,8 +5,8 @@
 \alias{catmaid_query_by_annotation}
 \title{Get list of neurons/annotations querying by neuron/annotation name}
 \usage{
-catmaid_query_by_name(query, pid = 1, maxresults = 500, type = c("neuron",
-  "annotation"), raw = FALSE, ...)
+catmaid_query_by_name(query, pid = 1, maxresults = 500,
+  type = c("neuron", "annotation"), raw = FALSE, ...)
 
 catmaid_query_by_annotation(query, pid = 1, maxresults = 500,
   type = c("neuron", "annotation"), raw = FALSE, conn = NULL, ...)

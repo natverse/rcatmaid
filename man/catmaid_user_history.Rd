@@ -4,7 +4,8 @@
 \alias{catmaid_user_history}
 \title{Fetch user contribution history}
 \usage{
-catmaid_user_history(from, to = Sys.Date(), pid = 1L, conn = NULL, ...)
+catmaid_user_history(from, to = Sys.Date(), pid = 1L, conn = NULL,
+  ...)
 }
 \arguments{
 \item{from}{Starting date for history}

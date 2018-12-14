@@ -4,8 +4,8 @@
 \alias{catmaid_get_connectors}
 \title{Return skeleton ids for pre/postsynaptic partners of a set of connector_ids}
 \usage{
-catmaid_get_connectors(connector_ids, pid = 1, conn = NULL, raw = FALSE,
-  ...)
+catmaid_get_connectors(connector_ids, pid = 1, conn = NULL,
+  raw = FALSE, ...)
 }
 \arguments{
 \item{connector_ids}{Numeric ids for each connector (synapse).}
@@ -47,3 +47,4 @@ Other connectors: \code{\link{catmaid_get_connector_table}},
   \code{\link{catmaid_query_connected}},
   \code{\link{connectors}}
 }
+\concept{connectors}

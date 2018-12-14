@@ -25,3 +25,4 @@ Both connectors and tag information contain node ids. These may need
   to be mapped onto new node ids if these are not consistent between old and 
   new neurons.
 }
+\concept{catmaidneuron}

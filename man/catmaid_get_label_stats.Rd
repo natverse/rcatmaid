@@ -53,3 +53,4 @@ head(catmaid_get_all_labels())
 
 Other labels: \code{\link{catmaid_get_labels}}
 }
+\concept{labels}

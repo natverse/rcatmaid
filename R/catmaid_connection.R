@@ -417,23 +417,17 @@ catmaid_connection_fingerprint<-function(conn) {
 }
 
 #' Import/Export catmaid connection details to system variables (e.g. for tests)
-#' 
-#' @description
-#' 
-#' \code{catmaid_connection_setenv} sets environment variables based on a 
-#' \code{catmaid_connection} object.
-#' 
-#' \code{catmaid_connection_getenv} fetches appropriately named environment 
-#' variables and returns them as named character vector.
-#' 
-#' \code{catmaid_connection_unsetenv} unsets the environment variables.
-#' @param conn A \code{catmaid_connection} object. The default value of NULL 
+#'
+#' @description \code{catmaid_connection_setenv} sets environment variables
+#'   based on a \code{catmaid_connection} object.
+#'
+#' @param conn A \code{catmaid_connection} object. The default value of NULL
 #'   implies that the most recent cached open connection will be used.
 #' @param ... additional arguments passed to \code{catmaid_login}
-#' @details \code{catmaid_connection_setenv} will attempt to login if this has 
+#' @details \code{catmaid_connection_setenv} will attempt to login if this has
 #'   not already been done
-#' @return \code{catmaid_connection_setenv} returns TRUE or FALSE depending on 
-#'   whether variables were set successfully. \code{catmaid_connection_getenv} 
+#' @return \code{catmaid_connection_setenv} returns TRUE or FALSE depending on
+#'   whether variables were set successfully. \code{catmaid_connection_getenv}
 #'   returns a connection object created based on environment variables.
 #' @seealso \code{\link{catmaid_login}}
 #' @export
@@ -447,7 +441,8 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
   all(do.call(Sys.setenv, as.list(export_vector)))
 }
 
-#' Fetch connection details from appropriate environment variables
+#' @description  #' \code{catmaid_connection_getenv} fetches appropriately named
+#'   environment variables and returns them as named character vector.
 #' @rdname catmaid_connection_setenv
 #' @export
 #' @importFrom stats na.omit
@@ -461,7 +456,8 @@ catmaid_connection_getenv<-function() {
   catmaid_envs=na.omit(catmaid_envs)
 }
 
-#' Unset catmaid connection environment variables
+#' @description \code{catmaid_connection_unsetenv} unsets the environment
+#'   variables.
 #' @rdname catmaid_connection_setenv
 #' @export
 catmaid_connection_unsetenv<-function(){

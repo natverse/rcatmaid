@@ -4,7 +4,8 @@
 \alias{catmaid_get_treenode_table}
 \title{Return tree node table for a given neuron}
 \usage{
-catmaid_get_treenode_table(skid, pid = 1, conn = NULL, raw = FALSE, ...)
+catmaid_get_treenode_table(skid, pid = 1, conn = NULL, raw = FALSE,
+  ...)
 }
 \arguments{
 \item{skid}{Numeric skeleton id}

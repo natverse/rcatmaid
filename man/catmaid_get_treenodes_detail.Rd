@@ -4,8 +4,8 @@
 \alias{catmaid_get_treenodes_detail}
 \title{Fetch position and other information for arbitrary treenode ids}
 \usage{
-catmaid_get_treenodes_detail(tnids = NULL, labels = NULL, skids = NULL,
-  pid = 1, conn = NULL, raw = FALSE, ...)
+catmaid_get_treenodes_detail(tnids = NULL, labels = NULL,
+  skids = NULL, pid = 1, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
 \item{tnids}{One or more (integer) treenode ids}

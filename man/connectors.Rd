@@ -68,3 +68,4 @@ Other connectors: \code{\link{catmaid_get_connector_table}},
   \code{\link{catmaid_get_connectors}},
   \code{\link{catmaid_query_connected}}
 }
+\concept{connectors}

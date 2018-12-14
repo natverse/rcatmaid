@@ -13,31 +13,28 @@ catmaid_connection_getenv()
 catmaid_connection_unsetenv()
 }
 \arguments{
-\item{conn}{A \code{catmaid_connection} object. The default value of NULL 
+\item{conn}{A \code{catmaid_connection} object. The default value of NULL
 implies that the most recent cached open connection will be used.}
 
 \item{...}{additional arguments passed to \code{catmaid_login}}
 }
 \value{
-\code{catmaid_connection_setenv} returns TRUE or FALSE depending on 
-  whether variables were set successfully. \code{catmaid_connection_getenv} 
+\code{catmaid_connection_setenv} returns TRUE or FALSE depending on
+  whether variables were set successfully. \code{catmaid_connection_getenv}
   returns a connection object created based on environment variables.
 }
 \description{
-\code{catmaid_connection_setenv} sets environment variables based on a 
-\code{catmaid_connection} object.
+\code{catmaid_connection_setenv} sets environment variables
+  based on a \code{catmaid_connection} object.
 
-\code{catmaid_connection_getenv} fetches appropriately named environment 
-variables and returns them as named character vector.
+#' \code{catmaid_connection_getenv} fetches appropriately named
+  environment variables and returns them as named character vector.
 
-\code{catmaid_connection_unsetenv} unsets the environment variables.
-
-Fetch connection details from appropriate environment variables
-
-Unset catmaid connection environment variables
+\code{catmaid_connection_unsetenv} unsets the environment
+  variables.
 }
 \details{
-\code{catmaid_connection_setenv} will attempt to login if this has 
+\code{catmaid_connection_setenv} will attempt to login if this has
   not already been done
 }
 \seealso{

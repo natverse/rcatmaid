@@ -6,7 +6,8 @@
 \usage{
 catmaid_get_connector_table(skids, direction = c("both", "incoming",
   "outgoing"), partner.skids = TRUE, get_partner_names = FALSE,
-  get_partner_nodes = FALSE, pid = 1, conn = NULL, raw = FALSE, ...)
+  get_partner_nodes = FALSE, pid = 1, conn = NULL, raw = FALSE,
+  ...)
 }
 \arguments{
 \item{skids}{Numeric skeleton ids}
@@ -128,3 +129,4 @@ Other connectors: \code{\link{catmaid_get_connectors_between}},
   \code{\link{catmaid_query_connected}},
   \code{\link{connectors}}
 }
+\concept{connectors}

@@ -4,8 +4,9 @@
 \alias{catmaid_query_connected}
 \title{Find neurons connected to a starting neuron}
 \usage{
-catmaid_query_connected(skids, minimum_synapses = 1, boolean_op = c("OR",
-  "AND"), pid = 1, raw = FALSE, conn = NULL, ...)
+catmaid_query_connected(skids, minimum_synapses = 1,
+  boolean_op = c("OR", "AND"), pid = 1, raw = FALSE, conn = NULL,
+  ...)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -72,3 +73,4 @@ Other connectors: \code{\link{catmaid_get_connector_table}},
   \code{\link{catmaid_get_connectors}},
   \code{\link{connectors}}
 }
+\concept{connectors}

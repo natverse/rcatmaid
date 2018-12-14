@@ -67,3 +67,4 @@ existing labels before setting the new ones.}
 \seealso{
 Other labels: \code{\link{catmaid_get_label_stats}}
 }
+\concept{labels}
