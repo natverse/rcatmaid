@@ -65,7 +65,7 @@ including some metadata information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
       </span>
     </div>
 
@@ -136,19 +136,19 @@ including some metadata information.</p>
     <tr>
       <th>conn</th>
       <td><p>A <code>catmaid_connection</code> objection returned by 
-<code>catmaid_login</code>. If <code>NULL</code> (the default) a new connection 
+<code><a href='catmaid_login.html'>catmaid_login</a></code>. If <code>NULL</code> (the default) a new connection 
 object will be generated using the values of the <b>catmaid.*</b> package 
-options as described in the help for <code>catmaid_login</code>.</p></td>
+options as described in the help for <code><a href='catmaid_login.html'>catmaid_login</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to the <code>catmaid_fetch</code> 
+      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
 function</p></td>
     </tr>
     <tr>
       <th>skids</th>
       <td><p>One or more numeric skeleton ids or a character vector defining
-a query (see <code>catmaid_skids</code> or examples for the syntax).</p></td>
+a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
     </tr>
     <tr>
       <th>OmitFailures</th>
@@ -198,17 +198,17 @@ values, see details.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>plot3d.catmaidneuron</code>, <code><a href='https://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
-  <code>connectors</code> to extract connector information from a 
+    <div class='dont-index'><p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='https://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
+  <code><a href='connectors.html'>connectors</a></code> to extract connector information from a 
   <code>catmaid.neuron</code></p>
-<p><code>catmaid_skids</code></p></div>
+<p><code><a href='catmaid_skids.html'>catmaid_skids</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>nat</span>)
 <span class='no'>nl</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/plot3d'>plot3d</a></span>(<span class='no'>nl</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>nl</span>)
 
 <span class='co'>## Full worked example looking at Olfactory Receptor Neurons</span>
 <span class='co'># read in ORNs (using exact match to ORN annotation)</span>
@@ -228,11 +228,11 @@ values, see details.</p></td>
 <span class='co'># now some plots</span>
 <span class='fu'>open3d</span>()
 <span class='co'># colour by side of brain</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/plot3d'>plot3d</a></span>(<span class='no'>orns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>side</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>orns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>side</span>)
 <span class='fu'>clear3d</span>()
 <span class='co'># colour by Odorant Receptor</span>
 <span class='co'># note similar position of axon terminals for same ORN class on left and right</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/plot3d'>plot3d</a></span>(<span class='no'>orns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>Or</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>orns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>Or</span>)
 
 <span class='co'>## Additional example using Olfactory Projection Neurons</span>
 <span class='no'>pns</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='st'>"annotation:ORN PNs$"</span>, <span class='kw'>.progress</span><span class='kw'>=</span><span class='st'>'text'</span>)
@@ -244,7 +244,7 @@ values, see details.</p></td>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/stopifnot'>stopifnot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/levels'>levels</a></span>(<span class='no'>pns</span>[,<span class='st'>'Or'</span>])<span class='kw'>==</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/levels'>levels</a></span>(<span class='no'>orns</span>[,<span class='st'>'Or'</span>]))
 
 <span class='co'># Ok, let's plot the PNs - they will be in matching colours</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/plot3d'>plot3d</a></span>(<span class='no'>pns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>Or</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>pns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>Or</span>)
 
 <span class='co'># }</span></pre>
   </div>
@@ -271,7 +271,7 @@ values, see details.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

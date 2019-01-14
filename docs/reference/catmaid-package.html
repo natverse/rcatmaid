@@ -68,7 +68,7 @@ command." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
       </span>
     </div>
 
@@ -114,11 +114,11 @@ command." />
 
     <div class="ref-description">
     
-    <p>To use, first call <code>catmaid_login</code> to authenticate to a catmaid
+    <p>To use, first call <code><a href='catmaid_login.html'>catmaid_login</a></code> to authenticate to a catmaid
 server. You can then use functions such as
-<code>catmaid_get_neuronnames</code> or
-<code>catmaid_get_compact_skeleton</code> to query the server. You can also
-roll your own server queries using the low-level <code>catmaid_fetch</code>
+<code><a href='catmaid_get_neuronnames.html'>catmaid_get_neuronnames</a></code> or
+<code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code> to query the server. You can also
+roll your own server queries using the low-level <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code>
 command.</p>
     
     </div>
@@ -128,12 +128,12 @@ command.</p>
 
     <p>By default all query functions will use the
   server/authentication details specified by the last successful call to
-  <code><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_login'>catmaid_login</a></code> unless a <code><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_login'>catmaid_connection</a></code>
+  <code><a href='catmaid_login.html'>catmaid_login</a></code> unless a <code><a href='catmaid_login.html'>catmaid_connection</a></code>
   object is provided as an argument.</p>
     
     <h2 class="hasAnchor" id="default-login"><a class="anchor" href="#default-login"></a>Default Login</h2>
 
-    <p>See <code><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_login'>catmaid_login</a></code> for details of the
+    <p>See <code><a href='catmaid_login.html'>catmaid_login</a></code> for details of the
   environment variables that can be set to specify default login values. It
   makes sense to set these in your <code><a href='https://www.rdocumentation.org/packages/base/topics/Startup'>.Renviron</a></code> file if you
   regularly use a specific CATMAID server. Note that you can have different
@@ -146,7 +146,7 @@ command.</p>
     <p>Unit tests can be run as per the examples section below.
   In order to do live tests you will need to set environment variables with
   your catmaid login credentials using the function
-  <code><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_connection_setenv'>catmaid_connection_setenv</a></code>.</p>
+  <code><a href='catmaid_connection_setenv.html'>catmaid_connection_setenv</a></code>.</p>
     
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
@@ -166,12 +166,12 @@ command.</p>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/testthat/topics/test_dir'>test_package</a></span>(<span class='st'>"catmaid"</span>)
 
 <span class='co'>## same but use appropriate login info</span>
-<span class='no'>conn</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_login'>catmaid_login</a></span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>"https://myserver.com"</span>, <span class='kw'>user</span><span class='kw'>=</span><span class='st'>"calvin"</span>, <span class='kw'>password</span><span class='kw'>=</span><span class='st'>'hobbes'</span>)
+<span class='no'>conn</span><span class='kw'>=</span><span class='fu'><a href='catmaid_login.html'>catmaid_login</a></span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>"https://myserver.com"</span>, <span class='kw'>user</span><span class='kw'>=</span><span class='st'>"calvin"</span>, <span class='kw'>password</span><span class='kw'>=</span><span class='st'>'hobbes'</span>)
 <span class='co'>## alternatively, login using an API token</span>
 <span class='co'># see http://catmaid.github.io/dev/api.html#api-token for how to get one</span>
-<span class='no'>conn</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_login'>catmaid_login</a></span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>"https://myserver.com"</span>,
+<span class='no'>conn</span><span class='kw'>=</span><span class='fu'><a href='catmaid_login.html'>catmaid_login</a></span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>"https://myserver.com"</span>,
                    <span class='kw'>token</span> <span class='kw'>=</span> <span class='st'>"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/catmaid/topics/catmaid_connection_setenv'>catmaid_connection_setenv</a></span>(<span class='no'>conn</span>)
+<span class='fu'><a href='catmaid_connection_setenv.html'>catmaid_connection_setenv</a></span>(<span class='no'>conn</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/testthat/topics/test_dir'>test_package</a></span>(<span class='st'>"catmaid"</span>)
 <span class='co'># }</span></pre>
   </div>
@@ -199,7 +199,7 @@ command.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>

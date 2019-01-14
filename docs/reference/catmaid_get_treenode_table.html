@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>the <code>catmaid_connection</code> object</p></td>
+      <td><p>the <code><a href='catmaid_login.html'>catmaid_connection</a></code> object</p></td>
     </tr>
     <tr>
       <th>raw</th>
@@ -139,7 +139,7 @@ or to convert the nodes and connectors lists into processed data.frames
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to the <code>catmaid_fetch</code> 
+      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
 function.</p></td>
     </tr>
     </table>
@@ -164,8 +164,8 @@ function.</p></td>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code>catmaid_get_compact_skeleton</code>, 
-  <code>read.neuron.catmaid</code> and <code>catmaid_get_user_list</code> 
+    <div class='dont-index'><p><code><a href='catmaid_get_compact_skeleton.html'>catmaid_get_compact_skeleton</a></code>, 
+  <code><a href='read.neuron.catmaid.html'>read.neuron.catmaid</a></code> and <code><a href='catmaid_get_user_list.html'>catmaid_get_user_list</a></code> 
   to translate user ids into names.</p></div>
     
 
@@ -179,8 +179,8 @@ function.</p></td>
 <span class='co'># merge with main node table to get xyz position</span>
 <span class='no'>tags</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/merge'>merge</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>tnt</span>, <span class='st'>'tags'</span>), <span class='no'>tnt</span>, <span class='kw'>by</span><span class='kw'>=</span><span class='st'>'id'</span>)
 <span class='co'># label up a 3d neuron plot</span>
-<span class='no'>n</span><span class='kw'>=</span><span class='fu'>read.neuron.catmaid</span>(<span class='fl'>10418394</span>)
-<span class='fu'>plot3d</span>(<span class='no'>n</span>, <span class='kw'>WithNodes</span><span class='kw'>=</span><span class='no'>F</span>)
+<span class='no'>n</span><span class='kw'>=</span><span class='fu'><a href='read.neuron.catmaid.html'>read.neuron.catmaid</a></span>(<span class='fl'>10418394</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>n</span>, <span class='kw'>WithNodes</span><span class='kw'>=</span><span class='no'>F</span>)
 <span class='fu'>text3d</span>(<span class='fu'>xyzmatrix</span>(<span class='no'>tags</span>), <span class='kw'>texts</span> <span class='kw'>=</span> <span class='no'>tags</span>$<span class='no'>tag</span>, <span class='kw'>cex</span><span class='kw'>=</span><span class='fl'>.7</span>)
 <span class='co'># }</span></pre>
   </div>
@@ -205,7 +205,7 @@ function.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
    </div>
