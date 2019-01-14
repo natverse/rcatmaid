@@ -1,6 +1,10 @@
+# catmaid 0.9.4
+
+* `write_catmaid_selection()` accepts annotations/name specs
+
 # catmaid 0.9.3
 
-* workaround for bug in catmaid version (#103). Still waiting on changes in CATMAID
+* workaround for bug in `catmaid_version()` (#103). Still waiting on changes in CATMAID
   for more permanent fix.
 * fix import error with jsonlite version >=1.6
 
