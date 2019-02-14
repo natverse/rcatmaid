@@ -233,7 +233,7 @@ catmaid_query_by_annotation<-function(query, pid=1, maxresults=500,
                                       conn=NULL, ...){
   return_type=match.arg(type, several.ok = T)
   if(is.character(query)) {
-    querydf=catmaid_aids(query, conn=conn, rval = 'data.frame')
+    querydf=catmaid_aids(query, conn=conn, pid=pid, rval = 'data.frame')
     query=querydf$id
     if(length(query)>1) {
       warning(length(query)," matching annotations!")
