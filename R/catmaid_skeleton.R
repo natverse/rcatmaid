@@ -280,6 +280,10 @@ catmaid_get_connector_table<-function(skids,
     } else {
       names(cdf)[2:3]=c("partner_skid","skid")
     }
+    # remove any duplicates e.g. where the a single connector 
+    # has multiple connections for the same pair of partner neurons
+    cdf=cdf[!duplicated(cdf), , drop=FALSE]
+    
     df=merge(df, cdf, by=c('connector_id', 'skid'), all.x=TRUE)
   }
   if(get_partner_names)
