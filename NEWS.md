@@ -1,3 +1,12 @@
+# catmaid 0.9.5
+
+* Stop `catmaid_get_connector_table()` returning duplicate rows when there are
+ multiple connections between the same partner neurons at a given connector. 
+ Thanks to Shanice Bailey and Istvan Taisz for the bug report (#106).
+* Pass on pid in `catmaid_skids()`, thereby fixing an issue with 
+  `read.neurons.catmaid()` with annotation queries when project id is not 1.
+  Thanks to Marta Costa for the bug report (#105)
+
 # catmaid 0.9.4
 
 * `write_catmaid_selection()` accepts annotations/name specs
