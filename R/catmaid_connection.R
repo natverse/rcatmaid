@@ -497,12 +497,13 @@ catmaid_connection_unsetenv<-function(){
 #' }
 catmaid_version <- function(conn=NULL, cached=TRUE, numeric=FALSE, ...) {
   conn=catmaid_login(conn = conn)
+  version_regex="(-dev){0,1}-g[a-f0-9]{6,}$"
   if(!isTRUE(cached) || is.null(conn$catmaid.version)) {
     res=catmaid_fetch("/version", include_headers = F, simplifyVector = T, 
                       conn=conn, ...)
     # we just need the first return value
     conn$catmaid.version=res[[1]]
-    nv <- try(numeric_version(sub("-dev-g[a-f0-9]{6,}$", "", conn$catmaid.version)),
+    nv <- try(numeric_version(sub(version_regex, "", conn$catmaid.version)),
               silent = TRUE)
     if(inherits(nv, 'try-error')){
       warning("CATMAID version: ", conn$catmaid.version, " could not be parsed!\n",
@@ -514,7 +515,7 @@ catmaid_version <- function(conn=NULL, cached=TRUE, numeric=FALSE, ...) {
   if(!numeric){
     conn$catmaid.version
   } else {
-    numeric_version(sub("-dev-g[a-f0-9]{6,}$", "", conn$catmaid.version))
+    numeric_version(sub(version_regex, "", conn$catmaid.version))
   }
 }
 
