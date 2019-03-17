@@ -2,7 +2,8 @@
 
 * Give `read.neurons.catmaid()` an optional fetch.annotations argument that 
   adds a second metadata data.frame as an attribute to the resultant 
-  `neuronlist()` object.
+  `neuronlist()` object (#18).
+* Fix handling of CATMAID version string (#103)
 
 # catmaid 0.9.5
 
