@@ -1,3 +1,9 @@
+# catmaid 0.9.6
+
+* Give `read.neurons.catmaid()` an optional fetch.annotations argument that 
+  adds a second metadata data.frame as an attribute to the resultant 
+  `neuronlist()` object.
+
 # catmaid 0.9.5
 
 * Stop `catmaid_get_connector_table()` returning duplicate rows when there are
