@@ -8,7 +8,7 @@
 read.neuron.catmaid(skid, pid = 1L, conn = NULL, ...)
 
 read.neurons.catmaid(skids, pid = 1L, conn = NULL, OmitFailures = NA,
-  df = NULL, ...)
+  df = NULL, fetch.annotations = FALSE, ...)
 }
 \arguments{
 \item{skid}{A numeric skeleton id}
@@ -32,6 +32,9 @@ stopping with an error message the moment there is an error. For other
 values, see details.}
 
 \item{df}{Optional data frame containing information about each neuron}
+
+\item{fetch.annotations}{Whether or not to fetch the annotations for each
+skeleton (default \code{FALSE})}
 }
 \value{
 a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object 
@@ -71,12 +74,21 @@ When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
   is generated. If \code{SortOnUpdate=TRUE} then updating an existing
   \code{\link{neuronlist}} should result in a new \code{\link{neuronlist}}
   with ordering identical to reading all neurons from scratch.
+
+  When \code{fetch.annotations=TRUE} then a second data.frame containing the
+  annotations for each neurons as returned by
+  \code{\link{catmaid_get_annotations_for_skeletons}} will be attached as the
+  attribute \code{anndf} (see examples).
 }
 \examples{
 \dontrun{
 library(nat)
 nl=read.neurons.catmaid(c(10418394,4453485))
 plot3d(nl)
+
+nl=read.neurons.catmaid(c(10418394,4453485), fetch.annotations=TRUE)
+# look at those annotations
+head(attr(nl, 'anndf'))
 
 ## Full worked example looking at Olfactory Receptor Neurons
 # read in ORNs (using exact match to ORN annotation)
@@ -121,5 +133,5 @@ plot3d(pns, col=Or)
   \code{\link{connectors}} to extract connector information from a 
   \code{catmaid.neuron}
 
-\code{\link{catmaid_skids}}
+\code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotations_for_skeletons}}
 }

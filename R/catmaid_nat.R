@@ -77,6 +77,8 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #'   stopping with an error message the moment there is an error. For other
 #'   values, see details.
 #' @param df Optional data frame containing information about each neuron
+#' @param fetch.annotations Whether or not to fetch the annotations for each
+#'   skeleton (default \code{FALSE})
 #'
 #' @details When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
 #'   wrapped in a call to \code{\link{try}} to ensure that failure for any
@@ -95,14 +97,23 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #'   is generated. If \code{SortOnUpdate=TRUE} then updating an existing
 #'   \code{\link{neuronlist}} should result in a new \code{\link{neuronlist}}
 #'   with ordering identical to reading all neurons from scratch.
+#'
+#'   When \code{fetch.annotations=TRUE} then a second data.frame containing the
+#'   annotations for each neurons as returned by
+#'   \code{\link{catmaid_get_annotations_for_skeletons}} will be attached as the
+#'   attribute \code{anndf} (see examples).
 #' @export
-#' @seealso \code{\link{catmaid_skids}}
+#' @seealso \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotations_for_skeletons}}
 #' @examples
 #' \dontrun{
 #' library(nat)
 #' nl=read.neurons.catmaid(c(10418394,4453485))
 #' plot3d(nl)
 #'
+#' nl=read.neurons.catmaid(c(10418394,4453485), fetch.annotations=TRUE)
+#' # look at those annotations
+#' head(attr(nl, 'anndf'))
+#' 
 #' ## Full worked example looking at Olfactory Receptor Neurons
 #' # read in ORNs (using exact match to ORN annotation)
 #' # note that use a progress bar drop any failures
@@ -140,7 +151,8 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' plot3d(pns, col=Or)
 #'
 #' }
-read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
+read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL,
+                               fetch.annotations=FALSE, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
   if(is.null(df)) {
     names(skids)=as.character(skids)
@@ -152,7 +164,10 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
     names(skids)=rownames(df)
   }
   fakenl=nat::as.neuronlist(as.list(skids), df=df)
-  nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
+  nl <- nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
+  if(isTRUE(fetch.annotations))
+    attr(nl, 'anndf') <- catmaid_get_annotations_for_skeletons(skids, pid = pid, conn=conn)
+  nl
 }
 
 #' Get data.frame of connector (synapse) information from a neuron or \code{neuronlist}
