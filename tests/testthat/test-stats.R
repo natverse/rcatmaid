@@ -38,3 +38,19 @@ test_that("catmaid_user_history", {
   
   expect_equal(as.data.frame(res), baseline_df)
 })
+
+# nb will reuse cached connection made earlier
+conn=try(catmaid_login(), silent = TRUE)
+
+test_that("catmaid users", {
+  expect_equal(catmaid_userids(1), 1L)
+  expect_equal(catmaid_userids(1.00000000001), 1L)
+  expect_equal(catmaid_userids(1:2), 1:2)
+  expect_error(catmaid_userids(1.1))
+  
+  if(inherits(conn, 'try-error')) skip('No catmaid connection')
+  ul=catmaid_get_user_list()
+  l1=ul[['login']][1]
+  i1=ul[['id']][1]
+  expect_equal(catmaid_userids(c(l1, 'rhubarbcrumble')), c(i1, NA_integer_))  
+})

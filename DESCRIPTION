@@ -23,7 +23,8 @@ Imports:
     dplyr,
     nabor,
     xml2,
-    grDevices
+    grDevices,
+    checkmate
 Suggests:
     spelling,
     testthat
