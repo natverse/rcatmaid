@@ -52,7 +52,8 @@ As of CATMAID v2016.10.18 this returns a data.frame with columns
 
   \item user_id
 
-  \item partner_treenode_id
+  \item treenode_id (NB this is always the treenode id of the query skeleton
+  whether or not incoming or outgoing connections are requested)
 
   \item last_modified
 
@@ -82,7 +83,7 @@ As of CATMAID v2016.10.18 this returns a data.frame with columns
 
   \item username
 
-  \item partner_treenode_id
+  \item treenode_id
 
   \item last_modified
 

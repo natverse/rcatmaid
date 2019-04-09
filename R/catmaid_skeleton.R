@@ -144,7 +144,8 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'
 #'   \item user_id
 #'
-#'   \item partner_treenode_id
+#'   \item treenode_id (NB this is always the treenode id of the query skeleton
+#'   whether or not incoming or outgoing connections are requested)
 #'
 #'   \item last_modified
 #'
@@ -174,7 +175,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #'
 #'   \item username
 #'
-#'   \item partner_treenode_id
+#'   \item treenode_id
 #'
 #'   \item last_modified
 #'
@@ -260,10 +261,10 @@ catmaid_get_connector_table<-function(skids,
   # else process the connector information
   dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.09.01-77") {
     c("skid", "connector_id", "x", "y", "z", "confidence", 
-      "user_id", "partner_treenode_id", "last_modified")
+      "user_id", "treenode_id", "last_modified")
   } else {
     c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
-      "tags", "nodes_in_partner", "username", "partner_treenode_id", 
+      "tags", "nodes_in_partner", "username", "treenode_id", 
       "last_modified")
   }
   df=list2df(ctl[[1]], cols = dfcolnames, return_empty_df = T, stringsAsFactors=FALSE)
