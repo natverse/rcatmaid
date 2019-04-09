@@ -40,9 +40,9 @@
 The connection object returned by catmaid_login (or cached when 
   Cache=TRUE, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.
-catmaid_connection is a lower level function used by 
-  catmaid_login to create a connection object. End users should not 
-  need to call this directly, but it does document the arguments that can be 
+catmaid_connection is a lower level function used by
+  catmaid_login to create a connection object. End users should not
+  need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server." />
 <meta name="twitter:card" content="summary" />
 
@@ -74,7 +74,7 @@ catmaid_connection is a lower level function used by
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.7</span>
       </span>
     </div>
 
@@ -128,9 +128,9 @@ catmaid_connection is a lower level function used by
 <p>The connection object returned by <code>catmaid_login</code> (or cached when 
   <code>Cache=TRUE</code>, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.</p>
-<p><code>catmaid_connection</code> is a lower level function used by 
-  <code>catmaid_login</code> to create a connection object. End users should not 
-  need to call this directly, but it does document the arguments that can be 
+<p><code>catmaid_connection</code> is a lower level function used by
+  <code>catmaid_login</code> to create a connection object. End users should not
+  need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server.</p>
     
     </div>
@@ -139,7 +139,7 @@ catmaid_connection is a lower level function used by
 
 <span class='fu'>catmaid_connection</span>(<span class='no'>server</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>authname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>authpassword</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>authtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>authtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,19 +172,24 @@ reused automatically.</p></td>
     </tr>
     <tr>
       <th>authname, authpassword</th>
-      <td><p>The http username/password that optionally 
+      <td><p>The http username/password that optionally
 secures the CATMAID website. These are not the same as your CATMAID login
 details.</p></td>
     </tr>
     <tr>
       <th>token</th>
-      <td><p>An API token (A modern alternative to providing your CATMAID 
+      <td><p>An API token (A modern alternative to providing your CATMAID
 username and password). See <b>Token based authentication</b> for details.</p></td>
     </tr>
     <tr>
       <th>authtype</th>
-      <td><p>The http authentication scheme, see 
+      <td><p>The http authentication scheme, see
 <code><a href='https://www.rdocumentation.org/packages/httr/topics/authenticate'>authenticate</a></code> for details.</p></td>
+    </tr>
+    <tr>
+      <th>config</th>
+      <td><p>Additional curl config options. See <code><a href='https://www.rdocumentation.org/packages/httr/topics/config'>config</a></code>
+for details and the examples section below.</p></td>
     </tr>
     </table>
     
@@ -203,11 +208,11 @@ username and password). See <b>Token based authentication</b> for details.</p></
   <code>catmaid_login</code> is called with enough information to indicate that the
   same server is desired OR (when no information about the server is passed 
   to <code>catmaid_login</code>) the last opened connection will be used.</p>
-<p>Note the difference between <code>authname</code>/<code>authpassword</code> and 
-  <code>username</code>/<code>password</code>. The former are for generic web 
-  authentication, which is sometimes used to protect a private catmaid site 
-  from being accessible to general web traffic. The latter are used to 
-  authenticate to the CATMAID web application itself - for example the 
+<p>Note the difference between <code>authname</code>/<code>authpassword</code> and
+  <code>username</code>/<code>password</code>. The former are for generic web
+  authentication, which is sometimes used to protect a private catmaid site
+  from being accessible to general web traffic. The latter are used to
+  authenticate to the CATMAID web application itself - for example the
   <code>username</code> is the one that will be associated with any tracing carried
   out by you in CATMAID.</p>
     
@@ -292,8 +297,15 @@ catmaid.authpassword="hobbes"
 <span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>()
 <span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>'https://someotherserver.org/catmaidroot'</span>)
 
+<span class='co'>## set additional curl options/headers</span>
+<span class='co'># This example will bypass an SSL certificate verification error on the</span>
+<span class='co'># remote host e.g. if it has expired. Don't this regularly of course!</span>
+<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>config</span><span class='kw'>=</span><span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/httr/topics/config'>config</a></span>(<span class='kw'>ssl_verifypeer</span><span class='kw'>=</span><span class='fl'>0</span>))
+
 <span class='co'>## now do stuff with the connection like</span>
 <span class='no'>skel</span><span class='kw'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>, <span class='kw'>conn</span><span class='kw'>=</span><span class='no'>conn</span>)
+<span class='co'># you can also omit the connecttion because it will be cached and reused</span>
+<span class='no'>skel</span><span class='kw'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>)
 
 <span class='co'>## or for those who want to work at the lowest level</span>
 <span class='no'>skel2</span><span class='kw'>=</span><span class='fu'>GET</span>(<span class='st'>"https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton"</span>,

@@ -1,3 +1,11 @@
+# catmaid 0.9.7
+* New `catmaid_userids()` function converts user login names to ids.
+* `catmaid_connection()` gets a new `config` argument to allow curl options to
+  be set (#108). 
+* Return format and documentation fix: tree node ids in
+  `catmaid_get_connector_table()` always refer to the query skeleton and not
+  the partner neuron (#107)
+
 # catmaid 0.9.6
 
 * Give `read.neurons.catmaid()` an optional fetch.annotations argument that 
@@ -76,7 +84,7 @@ with nat >=1.8.12.900 from github.
 This is a major version update because of the new support (and recommendation)
 to use environment variables for login (.Rprofile is still supported).
 
-* support fetching login informaion from environment variables (#80)
+* support fetching login information from environment variables (#80)
 * catmaid_get_compact_skeleton now returns list of vectors (#79)
   (used to be a list of lists, but this was less convenient and not helpful)
 * fix query_by_neuron_or_annotation adding empty annotations attribute
