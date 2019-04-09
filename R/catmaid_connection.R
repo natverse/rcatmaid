@@ -114,8 +114,15 @@
 #' conn = catmaid_login()
 #' conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 #' 
+#' ## set additional curl options/headers
+#' # This example will bypass an SSL certificate verification error on the
+#' # remote host e.g. if it has expired. Don't this regularly of course!
+#' conn = catmaid_login(config=httr::config(ssl_verifypeer=0))
+#' 
 #' ## now do stuff with the connection like
 #' skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)
+#' # you can also omit the connecttion because it will be cached and reused
+#' skel=catmaid_fetch("1/10418394/0/0/compact-skeleton")
 #' 
 #' ## or for those who want to work at the lowest level
 #' skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
@@ -185,30 +192,32 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
 }
 
 #' @name catmaid_login
-#' @description \code{catmaid_connection} is a lower level function used by 
-#'   \code{catmaid_login} to create a connection object. End users should not 
-#'   need to call this directly, but it does document the arguments that can be 
+#' @description \code{catmaid_connection} is a lower level function used by
+#'   \code{catmaid_login} to create a connection object. End users should not
+#'   need to call this directly, but it does document the arguments that can be
 #'   used to specify a connection to a CATMAID server.
 #' @param server url of CATMAID server
 #' @param username,password Your CATMAID username and password.
-#' @param token An API token (A modern alternative to providing your CATMAID 
+#' @param token An API token (A modern alternative to providing your CATMAID
 #'   username and password). See \bold{Token based authentication} for details.
-#' @param authname,authpassword The http username/password that optionally 
+#' @param authname,authpassword The http username/password that optionally
 #'   secures the CATMAID website. These are not the same as your CATMAID login
 #'   details.
-#' @param authtype The http authentication scheme, see 
+#' @param authtype The http authentication scheme, see
 #'   \code{\link[httr]{authenticate}} for details.
-#' @details Note the difference between \code{authname}/\code{authpassword} and 
-#'   \code{username}/\code{password}. The former are for generic web 
-#'   authentication, which is sometimes used to protect a private catmaid site 
-#'   from being accessible to general web traffic. The latter are used to 
-#'   authenticate to the CATMAID web application itself - for example the 
+#' @param config Additional curl config options. See \code{\link[httr]{config}}
+#'   for details and the examples section below.
+#' @details Note the difference between \code{authname}/\code{authpassword} and
+#'   \code{username}/\code{password}. The former are for generic web
+#'   authentication, which is sometimes used to protect a private catmaid site
+#'   from being accessible to general web traffic. The latter are used to
+#'   authenticate to the CATMAID web application itself - for example the
 #'   \code{username} is the one that will be associated with any tracing carried
 #'   out by you in CATMAID.
 #' @export
 catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL, 
                              authpassword=NULL, token=NULL,
-                             authtype=NULL) {
+                             authtype=NULL, config=NULL) {
   # a bit of juggling to figure out which args could be passed and which
   # actually have been passed explicitly
   arglist=formals(fun = sys.function())
@@ -247,18 +256,18 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
     return(invisible(conn))
   }
   
-  # make a custom curl config that includes authentication information if necessary
-  if(is.null(conn$authname)) {
-    conn$config=config() 
-  } else {
-    if(is.null(conn$authtype))
-      conn$authtype='basic'
-    conn$config=authenticate(conn$authname, conn$authpassword, type = conn$authtype)
+  # make a curl config that includes any settings passed in 
+  conn$config=c(config(), config)
+  # then add authentication information if necessary
+  if (!is.null(conn$authname)) {
+    if (is.null(conn$authtype))
+      conn$authtype = 'basic'
+    conn$config = c(conn$config,
+                    authenticate(conn$authname, conn$authpassword, type = conn$authtype))
   }
-  if(!is.null(conn$token))
-    conn$config=c(conn$config, 
-                  add_headers(`X-Authorization`=paste("Token", conn$token)))
-
+  if (!is.null(conn$token))
+    conn$config = c(conn$config,
+                    add_headers(`X-Authorization` = paste("Token", conn$token)))
   invisible(conn)
 }
 

@@ -9,7 +9,7 @@ catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
 catmaid_connection(server, username = NULL, password = NULL,
   authname = NULL, authpassword = NULL, token = NULL,
-  authtype = NULL)
+  authtype = NULL, config = NULL)
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
@@ -26,15 +26,18 @@ reused automatically.}
 
 \item{username, password}{Your CATMAID username and password.}
 
-\item{authname, authpassword}{The http username/password that optionally 
+\item{authname, authpassword}{The http username/password that optionally
 secures the CATMAID website. These are not the same as your CATMAID login
 details.}
 
-\item{token}{An API token (A modern alternative to providing your CATMAID 
+\item{token}{An API token (A modern alternative to providing your CATMAID
 username and password). See \bold{Token based authentication} for details.}
 
-\item{authtype}{The http authentication scheme, see 
+\item{authtype}{The http authentication scheme, see
 \code{\link[httr]{authenticate}} for details.}
+
+\item{config}{Additional curl config options. See \code{\link[httr]{config}}
+for details and the examples section below.}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make 
@@ -52,9 +55,9 @@ a \code{catmaid_connection} object that can be used to make
   \code{Cache=TRUE}, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.
 
-\code{catmaid_connection} is a lower level function used by 
-  \code{catmaid_login} to create a connection object. End users should not 
-  need to call this directly, but it does document the arguments that can be 
+\code{catmaid_connection} is a lower level function used by
+  \code{catmaid_login} to create a connection object. End users should not
+  need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server.
 }
 \details{
@@ -66,11 +69,11 @@ After successful login, the \code{catmaid_connection} object will
   same server is desired OR (when no information about the server is passed 
   to \code{catmaid_login}) the last opened connection will be used.
 
-Note the difference between \code{authname}/\code{authpassword} and 
-  \code{username}/\code{password}. The former are for generic web 
-  authentication, which is sometimes used to protect a private catmaid site 
-  from being accessible to general web traffic. The latter are used to 
-  authenticate to the CATMAID web application itself - for example the 
+Note the difference between \code{authname}/\code{authpassword} and
+  \code{username}/\code{password}. The former are for generic web
+  authentication, which is sometimes used to protect a private catmaid site
+  from being accessible to general web traffic. The latter are used to
+  authenticate to the CATMAID web application itself - for example the
   \code{username} is the one that will be associated with any tracing carried
   out by you in CATMAID.
 }
@@ -164,8 +167,15 @@ conn = catmaid_login(server="https://mycatmaidserver.org/catmaidroot",
 conn = catmaid_login()
 conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 
+## set additional curl options/headers
+# This example will bypass an SSL certificate verification error on the
+# remote host e.g. if it has expired. Don't this regularly of course!
+conn = catmaid_login(config=httr::config(ssl_verifypeer=0))
+
 ## now do stuff with the connection like
 skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)
+# you can also omit the connecttion because it will be cached and reused
+skel=catmaid_fetch("1/10418394/0/0/compact-skeleton")
 
 ## or for those who want to work at the lowest level
 skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
