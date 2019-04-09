@@ -26,10 +26,10 @@ integer (or numeric) ids then they will be returned as is.}
 \value{
 For \code{catmaid_get_user_list} a \code{data.frame} with
 
-For \code{catmaid_users} an integer vector of numeric ids
+For \code{catmaid_userids} an integer vector of numeric ids
 }
 \description{
-\code{catmaid_users} convert login names to numeric ids
+\code{catmaid_userids} convert login names to numeric ids
 }
 \examples{
 \donttest{

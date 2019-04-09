@@ -61,10 +61,10 @@ catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
   catmaid_fetch('user-list', simplifyVector = T, pid=pid, conn=conn, ...)
 }
 
-#' @description \code{catmaid_users} convert login names to numeric ids
+#' @description \code{catmaid_userids} convert login names to numeric ids
 #' @param x A character vector of login names. If \code{x} contains valid
 #'   integer (or numeric) ids then they will be returned as is.
-#' @return For \code{catmaid_users} an integer vector of numeric ids
+#' @return For \code{catmaid_userids} an integer vector of numeric ids
 #' @rdname catmaid_get_user_list
 #' @importFrom checkmate check_integerish asInteger
 #' @export
