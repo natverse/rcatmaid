@@ -1,4 +1,11 @@
+# catmaid 0.9.8
+
+* Fix bug in `catmaid_get_connectors_between()` when getting neuron names.
+  There was an off by one error for the postsynaptic partner name (#109). 
+  Thanks to @mmc46 for the bug report.
+
 # catmaid 0.9.7
+
 * New `catmaid_userids()` function converts user login names to ids.
 * `catmaid_connection()` gets a new `config` argument to allow curl options to
   be set (#108). 

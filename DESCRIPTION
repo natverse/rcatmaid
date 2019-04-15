@@ -1,7 +1,7 @@
 Package: catmaid
 Type: Package
 Title: R access to the API for the CATMAID web image annotation tool
-Version: 0.9.7
+Version: 0.9.8
 Authors@R: person("Gregory","Jefferis", email="jefferis@gmail.com",
     role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355"))
 Maintainer: Gregory Jefferis <jefferis@gmail.com>
