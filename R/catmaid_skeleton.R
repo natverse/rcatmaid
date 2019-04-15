@@ -499,9 +499,9 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
   # deal with neuron names
   if(get_names){
     # make this a single call for efficiency
-    allnames <- catmaid_get_neuronnames(c(ddf$pre_skid, ddf$post_skid))
+    allnames <- catmaid_get_neuronnames(c(ddf$pre_skid, ddf$post_skid), conn = conn, pid=pid, ...)
     ddf$pre_name <- allnames[seq_along(ddf$pre_skid)]
-    ddf$post_name <- allnames[seq_along(ddf$post_skid)+length(ddf$pre_skid)-1]
+    ddf$post_name <- allnames[seq_along(ddf$post_skid)+length(ddf$pre_skid)]
   }
   
   # move some columns to front
