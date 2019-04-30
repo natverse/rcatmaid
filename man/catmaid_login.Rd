@@ -49,7 +49,7 @@ a \code{catmaid_connection} object that can be used to make
   specified by a \code{catmaid_connection} object. If such an object is not 
   specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
-  \code{options} of the form "catmaid.*" (see details).
+  \code{options} of the form "catmaid.\*" or "catmaid_\*" (see details).
   
   The connection object returned by \code{catmaid_login} (or cached when 
   \code{Cache=TRUE}, the default) can then be used for future requests to the
@@ -82,8 +82,8 @@ Note the difference between \code{authname}/\code{authpassword} and
   authentication as the strongly preferred alternative to specifying you
   CATMAID username and password. See
   \url{http://catmaid.github.io/dev/api.html#api-token} for how to get an API
-  token. You can then set the \code{catmaid.token} package option, but no
-  longer need to set the \code{catmaid.username} and \code{catmaid.password}
+  token. You can then set the \code{catmaid.token} or \code{catmaid_token} package option, but no
+  longer need to set the \code{catmaid.username} or \code{catmaid_username} and \code{catmaid.password} or \code{catmaid_password}
   options.
   
   Note that you must \bold{NOT} reveal this token e.g. by checking it into a 
@@ -104,23 +104,24 @@ Note the difference between \code{authname}/\code{authpassword} and
   
   \itemize{
   
-  \item{\code{catmaid.server}}
+  \item{\code{catmaid.server} or \code{catmaid_server}}
   
-  \item{\code{catmaid.token}} Preferred to using catmaid.username/password
+  \item{\code{catmaid.token} or \code{catmaid_token}} Preferred to using catmaid.username/password
   
-  \item{\code{catmaid.authname}} Optional username for basic http website 
+  \item{\code{catmaid.authname} or \code{catmaid_authname}} Optional username for basic http website 
   authorisation
   
-  \item{\code{catmaid.authpassword}} Optional password for basic http website
+  \item{\code{catmaid.authpassword} or \code{catmaid_authpassword}} Optional password for basic http website
   authorisation
 
-  \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
+  \item{\code{catmaid.username} or \code{catmaid_username}} Your catmaid username (deprecated in favour 
   of token)
   
-  \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
+  \item{\code{catmaid.password} or \code{catmaid_password}} Your catmaid password (deprecated in favour 
   of token)
   
-  } An example \code{.Renviron} file might look like:
+  } An example \code{.Renviron} file might look like (the periods(.) in the environmental variable name can be also replaced
+  with underscore(_) as mentioned above:
   
   \preformatted{
 catmaid.server="https://mycatmaidserver.org/catmaidroot"
@@ -181,6 +182,7 @@ skel=catmaid_fetch("1/10418394/0/0/compact-skeleton")
 skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
   config=conn$config)
 }
+conn=catmaid_login()
 }
 \seealso{
 \code{\link{options}}, \code{\link{Startup}}
