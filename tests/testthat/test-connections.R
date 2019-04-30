@@ -1,5 +1,27 @@
 context("catmaid login and get/post")
 
+test_that("set and get the environmental variables responsible for connections", {
+  #check the named object has all necessary fields..
+  expect_named(catmaid_connection_getenv(), c("server", "authname", "authpassword","token"))
+  #check if it returns a specific authname..
+  expect_match(catmaid_connection_getenv()['authname'],'fly')
+  #set a specific server name and check if it returns it back..
+  
+  
+  #Set environmental variables through connection object and check them back again..
+  conn <- catmaid_connection(server='http://somewhere.org', authname = "flyeee")
+  catmaid_connection_setenv(conn = conn)
+  expect_match(catmaid_connection_getenv()['server'],'http://somewhere.org')
+  expect_match(catmaid_connection_getenv()['authname'],'flyeee')
+  
+  #just unset them so the other test cases can run..
+  conn['authname'] <- "fly"
+  catmaid_connection_setenv(conn = conn)
+  expect_match(catmaid_connection_getenv()['authname'],'fly')
+
+  
+})
+
 test_that("can connect to a server without logging in", {
   # No login is required to talk to this server
   expect_is(catmaid_login(server='http://hildebrand16.neurodata.io/catmaid/', Cache = FALSE),
@@ -27,6 +49,9 @@ test_that("can make a connection from list elements", {
 })
 
 test_that("can login", {
+  #Just restart the connection here to a public server..
+  conn <- catmaid_login(server='http://hildebrand16.neurodata.io/catmaid/', Cache = FALSE)
+  
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
   expect_is(conn, 'catmaid_connection')
   expect_is(conn$authresponse, 'response')
@@ -34,14 +59,22 @@ test_that("can login", {
 })
 
 test_that("can get and post data", {
+  
+  #Just restart the connection here to a public server..
+  conn <- catmaid_login(server='http://hildebrand16.neurodata.io/catmaid/', Cache = FALSE)
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
-  expect_is(skel<-catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn, parse.json = FALSE),
+ 
+  #Fetch the skeletons first..
+  expect_is(skel<-catmaid_fetch("2/skeletons", conn=conn, parse.json = FALSE),
             'response')
-  expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
-                                  body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
+  
+  #Get the neuronnames from some skids..
+  skel_parsed<-catmaid_fetch("2/skeletons", conn=conn, parse.json = TRUE)
+  expect_is(neuronnames<-catmaid_fetch("/2/skeleton/neuronnames", conn=conn,
+                                       body=list(pid=2, 'skids[1]'=skel_parsed[[1]], 'skids[2]'=skel_parsed[[7]])),
             'list')
   # nb we can't rely on the returned order
-  expect_equal(sort(names(neuronnames)), c('10418394','4453485'))
+  expect_equal(sort(names(neuronnames)), c(as.character(skel_parsed[[1]]),as.character(skel_parsed[[7]])))
   expect_equal(names(attributes(neuronnames)), c("names", "url", "headers"))
 })
 
