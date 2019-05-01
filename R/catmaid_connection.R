@@ -131,8 +131,6 @@
 #' }
 #' @export
 #' 
-#' @examples
-#' conn=catmaid_login()
 catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   if(is.character(conn) && grepl("^http", conn)) {
     # this looks like a server, probably because we are trying to connect to 
@@ -445,7 +443,7 @@ catmaid_connection_fingerprint<-function(conn) {
 #' @seealso \code{\link{catmaid_login}}
 #' @export
 catmaid_connection_setenv<-function(conn=NULL, ...) {
-  if (is.null(conn)){conn=catmaid_login(conn, ...)} #only do the connection if I supply a null..
+  conn=catmaid_login(conn, ...)
   poss_vars_to_export=c("server", "username", "password", 
                         "authname", "authpassword", "authtype", "token")
   vars_to_export=intersect(poss_vars_to_export, names(conn))
@@ -546,14 +544,14 @@ catmaid_envstr <- function(){
   matchvalues <- grep(pattern = tempstr, x = names(Sys.getenv()), value = TRUE)
   
   if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) == 4) {
-    return(paste0("catmaid."))
+    return("catmaid.")
   } else if (length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) == 4) {
-    return(paste0("catmaid_"))
+    return("catmaid_")
   }else if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) == 0 && 
             length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) == 0) {
-    stop(paste("\ncatmaid error: No usable environmental variables found"))
+    simpleMessage("catmaid message: No usable environmental variables found")
   } 
-  else stop(paste("\ncatmaid error: Only found the following environmental variables -- ", matchvalues))
+  else stop(paste("\ncatmaid error: Only found the environmental variable -- ", matchvalues))
   
   
 }
