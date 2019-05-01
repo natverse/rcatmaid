@@ -182,7 +182,6 @@ skel=catmaid_fetch("1/10418394/0/0/compact-skeleton")
 skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
   config=conn$config)
 }
-conn=catmaid_login()
 }
 \seealso{
 \code{\link{options}}, \code{\link{Startup}}
