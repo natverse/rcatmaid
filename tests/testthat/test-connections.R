@@ -1,5 +1,41 @@
 context("catmaid login and get/post")
 
+#Initial settings for all tests (that can be changed later)
+publicserver <- 'http://hildebrand16.neurodata.io/catmaid/' #public server running a catmaid instance..
+
+test_that("set and get the environmental variables responsible for connections", {
+  
+  #first check if any environment variable has the name of format catmaid. or catmaid_
+  catmaid_msg <- try(catmaid_envstr())
+  if (class(catmaid_msg)[[1]] == 'simpleMessage'){
+    expect_message(message(catmaid_msg), regexp = "catmaid message: No usable environmental variables found") 
+    skip('No environmental variables found so skipping..')
+  } else if (class(catmaid_msg) == "try-error"){
+    #some environmental variables are missing here, so best to skip the tests again.. 
+    skip('Some environmental variables are missing so skipping..')
+  }
+  
+  #check the named object has all necessary fields..
+  expect_named(catmaid_connection_getenv(), c("server", "authname", "authpassword","token"))
+  #check if it returns a specific authname..
+  expect_match(catmaid_connection_getenv()['authname'],'fly')
+  #set a specific server name and check if it returns it back..
+  
+  
+  #Set environmental variables through connection object and check them back again..
+  conn <- catmaid_connection(server=publicserver, authname = "flyeee")
+  catmaid_connection_setenv(conn = conn)
+  expect_match(catmaid_connection_getenv()['server'],publicserver)
+  expect_match(catmaid_connection_getenv()['authname'],'flyeee')
+  
+  #just unset them so the other test cases can run..
+  conn['authname'] <- "fly"
+  catmaid_connection_setenv(conn = conn)
+  expect_match(catmaid_connection_getenv()['authname'],'fly')
+  
+  
+})
+
 test_that("can connect to a server without logging in", {
   # No login is required to talk to this server
   expect_is(catmaid_login(server='http://hildebrand16.neurodata.io/catmaid/', Cache = FALSE),
@@ -38,7 +74,7 @@ test_that("can get and post data", {
   expect_is(skel<-catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn, parse.json = FALSE),
             'response')
   expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
-                                  body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
+                                       body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
             'list')
   # nb we can't rely on the returned order
   expect_equal(sort(names(neuronnames)), c('10418394','4453485'))
