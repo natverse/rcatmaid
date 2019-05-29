@@ -537,22 +537,20 @@ set_catmaid_version <- function(version, conn=NULL, ...) {
   catmaid_cache_connection(conn)
 }
 
-#This local function returns the string to be used in matching the environmental variable..
+#This local function returns the string to be used in matching the environment variable..
 # either catmaid_ or catmaid.
 catmaid_envstr <- function(){
   tempstr <- paste0("^", "catmaid", "(\\.|_)") #searching for strings beginning with catmaid_ or catmaid.
   matchvalues <- grep(pattern = tempstr, x = names(Sys.getenv()), value = TRUE)
   
-  if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) == 4) {
+  if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) >= 1) {
     return("catmaid.")
-  } else if (length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) == 4) {
+  } else if (length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) >= 1) {
     return("catmaid_")
   }else if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) == 0 && 
             length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) == 0) {
-    simpleMessage("catmaid message: No usable environmental variables found")
+    simpleMessage("catmaid message: No usable environment variables found")
   } 
-  else stop(paste("\ncatmaid error: Only found the environmental variable -- ", matchvalues))
-  
-  
+  else stop(paste("\ncatmaid error: Only found the environment variable -- ", matchvalues))
 }
 
