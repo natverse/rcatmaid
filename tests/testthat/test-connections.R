@@ -11,7 +11,7 @@ test_that("set and get the environmental variables responsible for connections",
   #first check if any environment variable has the name of format catmaid. or catmaid_
   catmaid_msg <- try(catmaid_envstr())
   if (class(catmaid_msg)[[1]] == 'simpleMessage'){
-    expect_message(message(catmaid_msg), regexp = "catmaid message: No usable environmental variables found")
+    expect_message(message(catmaid_msg), regexp = "No usable environment")
     skip('No environmental variables found so skipping..')
   } else if (class(catmaid_msg) == "try-error"){
     #some environmental variables are missing here, so best to skip the tests again..
