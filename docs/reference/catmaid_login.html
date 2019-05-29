@@ -36,7 +36,7 @@
   specified by a catmaid_connection object. If such an object is not 
   specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
-  options of the form &quot;catmaid.*&quot; (see details).  
+  options of the form &quot;catmaid.\*&quot; or &quot;catmaid_\*&quot; (see details).  
 The connection object returned by catmaid_login (or cached when 
   Cache=TRUE, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.
@@ -124,7 +124,7 @@ catmaid_connection is a lower level function used by
   specified by a <code>catmaid_connection</code> object. If such an object is not 
   specified, then the last successful connection in this R session is reused 
   if possible otherwise a new connection object is created using 
-  <code>options</code> of the form "catmaid.*" (see details).</p>  
+  <code>options</code> of the form "catmaid.\*" or "catmaid_\*" (see details).</p>  
 <p>The connection object returned by <code>catmaid_login</code> (or cached when 
   <code>Cache=TRUE</code>, the default) can then be used for future requests to the
   CATMAID server by get/query/fetch functions.</p>
@@ -222,8 +222,8 @@ for details and the examples section below.</p></td>
   authentication as the strongly preferred alternative to specifying you
   CATMAID username and password. See
   <a href='http://catmaid.github.io/dev/api.html#api-token'>http://catmaid.github.io/dev/api.html#api-token</a> for how to get an API
-  token. You can then set the <code>catmaid.token</code> package option, but no
-  longer need to set the <code>catmaid.username</code> and <code>catmaid.password</code>
+  token. You can then set the <code>catmaid.token</code> or <code>catmaid_token</code> package option, but no
+  longer need to set the <code>catmaid.username</code> or <code>catmaid_username</code> and <code>catmaid.password</code> or <code>catmaid_password</code>
   options.</p>  
 <p>Note that you must <b>NOT</b> reveal this token e.g. by checking it into a 
   version controlled script as it gives complete access to your CATMAID 
@@ -240,17 +240,18 @@ for details and the examples section below.</p></td>
   example that they will be available when running knitr reports, tests or R
   CMD Check from Rstudio.</p>  
 <p></p><ul>
-<li><p><code>catmaid.server</code></p></li>
-<li><p><code>catmaid.token</code> Preferred to using catmaid.username/password</p></li>
-<li><p><code>catmaid.authname</code> Optional username for basic http website 
+<li><p><code>catmaid.server</code> or <code>catmaid_server</code></p></li>
+<li><p><code>catmaid.token</code> or <code>catmaid_token</code> Preferred to using catmaid.username/password</p></li>
+<li><p><code>catmaid.authname</code> or <code>catmaid_authname</code> Optional username for basic http website 
   authorisation</p></li>
-<li><p><code>catmaid.authpassword</code> Optional password for basic http website
+<li><p><code>catmaid.authpassword</code> or <code>catmaid_authpassword</code> Optional password for basic http website
   authorisation</p></li>
-<li><p><code>catmaid.username</code> Your catmaid username (deprecated in favour 
+<li><p><code>catmaid.username</code> or <code>catmaid_username</code> Your catmaid username (deprecated in favour 
   of token)</p></li>
-<li><p><code>catmaid.password</code> Your catmaid password (deprecated in favour 
+<li><p><code>catmaid.password</code> or <code>catmaid_password</code> Your catmaid password (deprecated in favour 
   of token)</p></li>
-</ul><p>An example <code>.Renviron</code> file might look like:</p>  
+</ul><p>An example <code>.Renviron</code> file might look like (the periods(.) in the environmental variable name can be also replaced
+  with underscore(_) as mentioned above:</p>  
 <p></p><pre>
 catmaid.server="https://mycatmaidserver.org/catmaidroot"
 catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"

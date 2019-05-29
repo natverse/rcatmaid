@@ -4,6 +4,10 @@
   also allows a confidence threshold to be set. The default threshold of 1
   is a new more permissive behaviour (#113).
   Thanks to Sebastian Cachero / @schlegelp for the bug report.
+* Fix bug in `catmaid_connection_getenv()` and friends in getting environment
+  variables on some OSes. It turns out that we should switch to recommending 
+  variables of the form `catmaid_*` (#110).
+  Thanks to @SridharJagannathan for detective work and a PR with a fix.
 
 # catmaid 0.9.8
 

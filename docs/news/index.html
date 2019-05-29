@@ -109,6 +109,7 @@
 <ul>
 <li>
 <code><a href="../reference/catmaid_query_connected.html">catmaid_query_connected()</a></code> now returns stats for all connections but also allows a confidence threshold to be set. The default threshold of 1 is a new more permissive behaviour (<a href='https://github.com/jefferis/rcatmaid/issues/113'>#113</a>). Thanks to Sebastian Cachero / <a href='https://github.com/schlegelp'>@schlegelp</a> for the bug report.</li>
+<li>Fix bug in <code><a href="../reference/catmaid_connection_setenv.html">catmaid_connection_getenv()</a></code> and friends in getting environment variables on some OSes. It turns out that we should switch to recommending variables of the form <code>catmaid_*</code> (<a href='https://github.com/jefferis/rcatmaid/issues/110'>#110</a>). Thanks to <a href='https://github.com/SridharJagannathan'>@SridharJagannathan</a> for detective work and a PR with a fix.</li>
 </ul>
 </div>
     <div id="catmaid-0-9-8" class="section level1">

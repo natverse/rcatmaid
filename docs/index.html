@@ -190,13 +190,13 @@ non_pn_downstream.hc=<span class="kw"><a href="https://www.rdocumentation.org/pa
 <h3 class="hasAnchor">
 <a href="#setting-environment-variables-in-your--renviron-file" class="anchor"></a>Setting environment variables in your .Renviron file</h3>
 <p>It is recommended that you set your login details by including code like this in in your <a href="https://www.rdocumentation.org/packages/base/versions/3.4.0/topics/Startup">.Renviron file</a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">catmaid.server=<span class="st">"https://mycatmaidserver.org/catmaidroot"</span>
-catmaid.token=<span class="st">"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">catmaid_server=<span class="st">"https://mycatmaidserver.org/catmaidroot"</span>
+catmaid_token=<span class="st">"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>
 
 <span class="co"># additional security for mycatmaidserver.org/catmaidroot page</span>
-catmaid.authname=<span class="st">"Calvin"</span>
-catmaid.authpassword=<span class="st">"hobbes"</span></code></pre></div>
-<p>Be sure to leave one blank line at the end of the .Renviron file, or it will not work.</p>
+catmaid_authname=<span class="st">"Calvin"</span>
+catmaid_authpassword=<span class="st">"hobbes"</span></code></pre></div>
+<p>Note that <code>catmaid_server</code> rather than <code>catmaid.server</code> is now the preferred form of specifying environment variables. Be sure to leave <em>one blank line</em> at the end of the .Renviron file, or it will not work.</p>
 <p>In this way authentication will happen transparently as required by all functions that interact with the specified CATMAID server.</p>
 </div>
 <div id="setting-environment-variables-in-your--rprofile-file" class="section level3">
@@ -273,6 +273,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Gregory Jefferis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0587-9355" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
