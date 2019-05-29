@@ -30,7 +30,7 @@ implies that the most recent cached open connection will be used.}
 #' \code{catmaid_connection_getenv} fetches appropriately named
   environment variables and returns them as named character vector.
 
-\code{catmaid_connection_unsetenv} unsets the environment
+\code{catmaid_connection_unsetenv} unsets (or removes) the environment
   variables.
 }
 \details{

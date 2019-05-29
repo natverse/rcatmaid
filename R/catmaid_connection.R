@@ -4,7 +4,7 @@
 #'   specified by a \code{catmaid_connection} object. If such an object is not 
 #'   specified, then the last successful connection in this R session is reused 
 #'   if possible otherwise a new connection object is created using 
-#'   \code{options} of the form "catmaid.*" (see details).
+#'   \code{options} of the form "catmaid.\*" or "catmaid_\*" (see details).
 #'   
 #'   The connection object returned by \code{catmaid_login} (or cached when 
 #'   \code{Cache=TRUE}, the default) can then be used for future requests to the
@@ -22,8 +22,8 @@
 #'   authentication as the strongly preferred alternative to specifying you
 #'   CATMAID username and password. See
 #'   \url{http://catmaid.github.io/dev/api.html#api-token} for how to get an API
-#'   token. You can then set the \code{catmaid.token} package option, but no
-#'   longer need to set the \code{catmaid.username} and \code{catmaid.password}
+#'   token. You can then set the \code{catmaid.token} or \code{catmaid_token} package option, but no
+#'   longer need to set the \code{catmaid.username} or \code{catmaid_username} and \code{catmaid.password} or \code{catmaid_password}
 #'   options.
 #'   
 #'   Note that you must \bold{NOT} reveal this token e.g. by checking it into a 
@@ -53,23 +53,24 @@
 #'   
 #'   \itemize{
 #'   
-#'   \item{\code{catmaid.server}}
+#'   \item{\code{catmaid.server} or \code{catmaid_server}}
 #'   
-#'   \item{\code{catmaid.token}} Preferred to using catmaid.username/password
+#'   \item{\code{catmaid.token} or \code{catmaid_token}} Preferred to using catmaid.username/password
 #'   
-#'   \item{\code{catmaid.authname}} Optional username for basic http website 
+#'   \item{\code{catmaid.authname} or \code{catmaid_authname}} Optional username for basic http website 
 #'   authorisation
 #'   
-#'   \item{\code{catmaid.authpassword}} Optional password for basic http website
+#'   \item{\code{catmaid.authpassword} or \code{catmaid_authpassword}} Optional password for basic http website
 #'   authorisation
 #'
-#'   \item{\code{catmaid.username}} Your catmaid username (deprecated in favour 
+#'   \item{\code{catmaid.username} or \code{catmaid_username}} Your catmaid username (deprecated in favour 
 #'   of token)
 #'   
-#'   \item{\code{catmaid.password}} Your catmaid password (deprecated in favour 
+#'   \item{\code{catmaid.password} or \code{catmaid_password}} Your catmaid password (deprecated in favour 
 #'   of token)
 #'   
-#'   } An example \code{.Renviron} file might look like:
+#'   } An example \code{.Renviron} file might look like (the periods(.) in the environmental variable name can be also replaced
+#'   with underscore(_) as mentioned above:
 #'   
 #'   \preformatted{
 #'catmaid.server="https://mycatmaidserver.org/catmaidroot"
@@ -129,6 +130,7 @@
 #'   config=conn$config)
 #' }
 #' @export
+#' 
 catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   if(is.character(conn) && grepl("^http", conn)) {
     # this looks like a server, probably because we are trying to connect to 
@@ -271,8 +273,8 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   invisible(conn)
 }
 
-getenvoroption <- function(vars, prefix="catmaid."){
-  fullvars=paste0(prefix, vars)
+getenvoroption <- function(vars){
+  fullvars=paste0(catmaid_envstr(), vars)
   res=Sys.getenv(fullvars, names = T, unset = NA)
   if(all(is.na(res))){
     # no env variables are set, let's try options
@@ -446,7 +448,7 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
                         "authname", "authpassword", "authtype", "token")
   vars_to_export=intersect(poss_vars_to_export, names(conn))
   export_vector=unlist(conn[vars_to_export])
-  names(export_vector)=paste0("catmaid.",  names(export_vector))
+  names(export_vector)=paste0(catmaid_envstr(),  names(export_vector))
   all(do.call(Sys.setenv, as.list(export_vector)))
 }
 
@@ -458,19 +460,19 @@ catmaid_connection_setenv<-function(conn=NULL, ...) {
 catmaid_connection_getenv<-function() {
   varnames=c("server", "username", "password", 
              "authname", "authpassword", "authtype", "token")
-  catmaid_envnames=paste0("catmaid.", varnames)
+  catmaid_envnames=paste0(catmaid_envstr(), varnames)
   catmaid_envs=Sys.getenv(catmaid_envnames, unset = NA_character_)
   names(catmaid_envs)=varnames
   # drop any empty vars
   catmaid_envs=na.omit(catmaid_envs)
 }
 
-#' @description \code{catmaid_connection_unsetenv} unsets the environment
+#' @description \code{catmaid_connection_unsetenv} unsets (or removes) the environment
 #'   variables.
 #' @rdname catmaid_connection_setenv
 #' @export
 catmaid_connection_unsetenv<-function(){
-  vars=paste0("catmaid.",
+  vars=paste0(catmaid_envstr(),
               c("server", "username", "password", "authname", 
                 "authpassword", "authtype", "token"))
   Sys.unsetenv(vars)
@@ -534,3 +536,23 @@ set_catmaid_version <- function(version, conn=NULL, ...) {
   conn$catmaid.version=version
   catmaid_cache_connection(conn)
 }
+
+#This local function returns the string to be used in matching the environmental variable..
+# either catmaid_ or catmaid.
+catmaid_envstr <- function(){
+  tempstr <- paste0("^", "catmaid", "(\\.|_)") #searching for strings beginning with catmaid_ or catmaid.
+  matchvalues <- grep(pattern = tempstr, x = names(Sys.getenv()), value = TRUE)
+  
+  if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) == 4) {
+    return("catmaid.")
+  } else if (length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) == 4) {
+    return("catmaid_")
+  }else if (length(grep(pattern = paste0("^", "catmaid", "\\.") , x= matchvalues)) == 0 && 
+            length(grep(pattern = paste0("^", "catmaid", "_") , x= matchvalues)) == 0) {
+    simpleMessage("catmaid message: No usable environmental variables found")
+  } 
+  else stop(paste("\ncatmaid error: Only found the environmental variable -- ", matchvalues))
+  
+  
+}
+
