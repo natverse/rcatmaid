@@ -149,14 +149,16 @@ It is recommended that you set your login details by including code like
 this in in your [.Renviron file](https://www.rdocumentation.org/packages/base/versions/3.4.0/topics/Startup):
 
 ```r
-catmaid.server="https://mycatmaidserver.org/catmaidroot"
-catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
+catmaid_server="https://mycatmaidserver.org/catmaidroot"
+catmaid_token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
 
 # additional security for mycatmaidserver.org/catmaidroot page
-catmaid.authname="Calvin"
-catmaid.authpassword="hobbes"
+catmaid_authname="Calvin"
+catmaid_authpassword="hobbes"
 ```
-Be sure to leave one blank line at the end of the .Renviron file, or it will not work.
+Note that `catmaid_server` rather than `catmaid.server` is now the preferred form
+of specifying environment variables. Be sure to leave *one blank line* at the end of 
+the .Renviron file, or it will not work.
 
 In this way authentication will happen transparently as required by all functions
 that interact with the specified CATMAID server. 
