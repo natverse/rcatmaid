@@ -1,39 +1,50 @@
 context("catmaid login and get/post")
 
-#Initial settings for all tests (that can be changed later)
+# we can only run real tests if we can log in with default parameters
+conn=try(catmaid_login(Force = TRUE), silent = TRUE)
+
+# Sample server used in next block
 publicserver <- 'http://hildebrand16.neurodata.io/catmaid/' #public server running a catmaid instance..
 
 test_that("set and get the environmental variables responsible for connections", {
-  
+
   #first check if any environment variable has the name of format catmaid. or catmaid_
   catmaid_msg <- try(catmaid_envstr())
   if (class(catmaid_msg)[[1]] == 'simpleMessage'){
-    expect_message(message(catmaid_msg), regexp = "catmaid message: No usable environmental variables found") 
+    expect_message(message(catmaid_msg), regexp = "catmaid message: No usable environmental variables found")
     skip('No environmental variables found so skipping..')
   } else if (class(catmaid_msg) == "try-error"){
-    #some environmental variables are missing here, so best to skip the tests again.. 
+    #some environmental variables are missing here, so best to skip the tests again..
     skip('Some environmental variables are missing so skipping..')
   }
+
+  # check the named object has valid field names
+  expect_true(all(
+    names(catmaid_connection_getenv()) %in%
+      c(
+        "server",
+        "authname",
+        "authpassword",
+        "authtype",
+        "token",
+        "username",
+        "password"
+      )
+  ))
   
-  #check the named object has all necessary fields..
-  expect_named(catmaid_connection_getenv(), c("server", "authname", "authpassword","token"))
-  #check if it returns a specific authname..
-  expect_match(catmaid_connection_getenv()['authname'],'fly')
-  #set a specific server name and check if it returns it back..
-  
-  
-  #Set environmental variables through connection object and check them back again..
-  conn <- catmaid_connection(server=publicserver, authname = "flyeee")
-  catmaid_connection_setenv(conn = conn)
+  #Set environment variables through connection object and check them back again..
+  pubconn <- catmaid_connection(server=publicserver, authname = "flyeee")
+  catmaid_connection_setenv(conn = pubconn, Cache=FALSE)
   expect_match(catmaid_connection_getenv()['server'],publicserver)
   expect_match(catmaid_connection_getenv()['authname'],'flyeee')
   
-  #just unset them so the other test cases can run..
-  conn['authname'] <- "fly"
-  catmaid_connection_setenv(conn = conn)
-  expect_match(catmaid_connection_getenv()['authname'],'fly')
-  
-  
+  # reset environment vars so that other test cases can run
+  # we reset them to those implied by the default connection if it is valid
+  # otherwise we just unset them
+  if(inherits(conn, 'try-error'))
+    catmaid_connection_unsetenv()
+  else
+    catmaid_connection_setenv(conn = conn)
 })
 
 test_that("can connect to a server without logging in", {
@@ -42,8 +53,6 @@ test_that("can connect to a server without logging in", {
             'catmaid_connection')
 })
 
-# we can only run real tests if we can log in with default parameters
-conn=try(catmaid_login(Force = TRUE), silent = TRUE)
 
 test_that("can make a connection", {
   
