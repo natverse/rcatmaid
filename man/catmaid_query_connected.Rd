@@ -4,18 +4,21 @@
 \alias{catmaid_query_connected}
 \title{Find neurons connected to a starting neuron}
 \usage{
-catmaid_query_connected(skids, minimum_synapses = 1,
-  boolean_op = c("OR", "AND"), pid = 1, raw = FALSE, conn = NULL,
-  ...)
+catmaid_query_connected(skids, minimum_synapses = 1L,
+  minimum_confidence = 1L, boolean_op = c("OR", "AND"), pid = 1,
+  raw = FALSE, conn = NULL, ...)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
 a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
-\item{minimum_synapses}{Must be at least this number of synapses between 
+\item{minimum_synapses}{Must be at least this number of synapses between
 starter neuron and returned partners}
 
-\item{boolean_op}{Whether returned neurons can be connected to \emph{any} 
+\item{minimum_confidence}{The minimum confidence score (1-5, where 5 is high)
+of the reported connections.}
+
+\item{boolean_op}{Whether returned neurons can be connected to \emph{any}
 character vector (\code{boolean_op="OR"}, the default) or must be connected
 to all the specified neurons (\code{boolean_op="AND"}).}
 
@@ -34,18 +37,18 @@ options as described in the help for \code{\link{catmaid_login}}.}
 function}
 }
 \value{
-A list containing two data.frames (incoming, outgoing), each 
+A list containing two data.frames (incoming, outgoing), each
   data.frame having one row for each partner neuron and the following columns
   \itemize{
-  
+
   \item skid skeleton id of the query neuron
-  
+
   \item partner the skeleton id of the partner neuron
-  
+
   \item syn.count the number of synapses made with partner
-  
+
   \item num_nodes number of nodes in the partner neuron
-  
+
   }
 }
 \description{
@@ -64,7 +67,7 @@ catmaid_query_connected(orn13as, boolean_op = 'AND')
 }
 }
 \seealso{
-\code{\link{catmaid_skids}}. See 
+\code{\link{catmaid_skids}}. See
   \code{\link{catmaid_get_review_status}} to get information about the review
   status of partners (as shown in the equivalent CATMAID report).
 

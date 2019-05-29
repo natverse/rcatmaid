@@ -1,3 +1,10 @@
+# catmaid 0.9.9
+
+* `catmaid_query_connected()` now returns stats for all connections but
+  also allows a confidence threshold to be set. The default threshold of 1
+  is a new more permissive behaviour (#113).
+  Thanks to Sebastian Cachero / @schlegelp for the bug report.
+
 # catmaid 0.9.8
 
 * Fix bug in `catmaid_get_connectors_between()` when getting neuron names.
