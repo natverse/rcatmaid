@@ -156,25 +156,14 @@ catmaid_token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
 catmaid_authname="Calvin"
 catmaid_authpassword="hobbes"
 ```
-Note that `catmaid_server` rather than `catmaid.server` is now the preferred form
-of specifying environment variables. Be sure to leave *one blank line* at the end of 
-the .Renviron file, or it will not work.
 
 In this way authentication will happen transparently as required by all functions
-that interact with the specified CATMAID server. 
+that interact with the specified CATMAID server.
 
-### Setting environment variables in your .Rprofile file
-Alternatively you can set package options in your .Rprofile file, but the 
-environment variable approach is now recommended as it handles a few edge cases
-where options are not read by R processes e.g. when building vignettes.
-
-```r
-options(catmaid.server="https://mycatmaidserver.org/catmaidroot",
-  catmaid.authname="Calvin",catmaid.authpassword="hobbes",
-  catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")
-```
-Once again, be sure to leave one blank line at the end of the .Rprofile file, 
-or it will not work.
+Be sure to leave *one blank line* at the end of the .Renviron file, or it will not work.
+Note that `catmaid_server` rather than `catmaid.server` is now the preferred form
+of specifying environment variables (some shells do not like variables with periods in their name).
+Note also that the use of package options in your `.Rprofile` file is still possible but now deprecated.
 
 ### Cached authentication 
 Whether you use options in your `.Renviron` as described above or you login 
@@ -222,7 +211,7 @@ Note: Windows users need [Rtools](https://cran.r-project.org/bin/windows/Rtools/
 
 ## Acknowledgements
 
-Based on python code presently visible at:
+Originally based on python code presently visible at:
 
 * https://github.com/catmaid/CATMAID/blob/master/scripts/remote/access.py
 * https://github.com/catmaid/CATMAID/blob/master/django/applications/catmaid/urls.py
