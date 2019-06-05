@@ -140,6 +140,379 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 }
 
 
+#' Calculates the time individual users have spent working on a set of neurons
+#' This API is a replica of the get_time_invested from python package `pymaid`
+#' Use @param minimum_actions and @param max_inactive_time to fine tune how time
+#' invested is calculated: by default, time is binned over 3 minutes in which a given user 
+#' has to perform 3x10 actions for that interval to be counted as active.
+#'  @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
+#' 'SUM' will return total time invested (in minutes) per user.
+#' 'OVER_TIME' will return minutes invested/day over time.
+#' 'ACTIONS' will return actions (node/connectors placed/edited) per day.
+#' @param skids could be skeleton id or neuron name or annotation
+#' @param pid the project id
+#' @param mode can be one of 'SUM','OVER_TIME','ACTIONS', where 'SUM' will return
+#' the total time invested (in minutes), 'OVER_TIME' returns minutes invested per day over
+#' time, 'ACTIONS' returns actions (node/connectors placed/edited) performed per day
+#' @param minimum_actions the minimum number of actions per minute to be counted as active.
+#' @param max_inactive_time Interval in minutes over which time invested is binned. Essentially determines how much time can be between bouts of activity.
+#' @param treenodes Whether tree nodes need to be taken into account or not
+#' @param connectors Whether connectors need to be taken into account or not
+#' @param start_date The start date to compute activity from
+#' @param end_date  The end date to compute end of activity at
+#' @param conn  CATMAID connection instance
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
+catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_TIME','ACTIONS'),
+                                    minimum_actions=10, max_inactive_time=3,
+                                    treenodes=TRUE, connectors=TRUE, 
+                                    start_date="2005-01-01",end_date="2099-01-01") {
+                                    
+   #Step1: Process the arguments first..
+    mode <- match.arg(mode)
+    cat("Using mode as : ", mode, "\n")
+    # Maximal inactive time is the time interval bin in which no. of actions are computed (here 3 minutes)
+    timeinterval <- max_inactive_time
+    # The minimum number of actions parameter is per minute and hence it should be scaled 
+    # for the given interval bin, hence here 10*3
+    minimum_actions <- minimum_actions*timeinterval
+    
+    #Check the validity of the dates now..
+    start_date_dt=as.POSIXct(as.POSIXct(start_date, tz = "GMT"), format = "%Y-%m-%dT%H:%M:%S")
+    if(start_date_dt<as.POSIXct("2001-01-01", tz = "GMT")) 
+      stop("Invalid date: ",start_date, ". See ?POSIXct for valid formats")
+    end_date_dt = as.POSIXct(as.POSIXct(end_date, tz = "GMT"), format = "%Y-%m-%dT%H:%M:%S")
+    if(end_date_dt<as.POSIXct("2001-01-01", tz = "GMT")) 
+      stop("Invalid date: ",end_date, ". See ?POSIXct for valid formats")
+  
+  #Step2: Convert the queries (whether regex or character or integer) to integer skeleton ids..
+    skids <- catmaid_skids(skids, conn = conn, pid=pid)
+  
+  #Step3: Get the user list now..
+    user_list <- catmaid_get_user_list(pid=pid, conn=conn)
+  
+  #Step4: Extract node and connector ids, tags for the individual neurons..
+    list_cf_df = {}
+    for (skididx in seq_along(skids)){
+        skid = skids[skididx]
+        path=file.path("", pid, "skeletons", skid, "compact-detail")
+        u = sprintf("?with_history=false&with_tags=true&with_merge_history=false")
+        u = paste(u,'&with_connectors=', tolower(connectors),sep = "")
+        path = paste(path,u, sep ="")
+  
+        #rename them accordingly
+        cf=catmaid_fetch(path,simplifyVector = T)
+        
+        if ("error" %in% names(cf)){
+          cat('Skipping skid: ',skid, '\n')
+        }
+        else{
+            cat('Processing skid: ',skid, '\n')
+            names(cf)=c("nodes", "connectors", "tags")
+            colnames(cf[["nodes"]]) <- c("id", "parent_id", "user_id", "x", "y", "z",
+                                          "radius", "confidence")
+            colnames(cf[["connectors"]]) <- c("treenode_id", "connector_id", "relation", 
+                                          "x", "y", "z")
+  
+            #convert them as tibbles for ease of manipulation
+            cf_df = {}
+            cf_df$nodes = dplyr::as_tibble(as.matrix(cf[["nodes"]]))
+            cf_df$connectors = dplyr::as_tibble(as.matrix(cf[["connectors"]]))
+            cf_df$tags = cf[["tags"]]
+  
+            #Get the neuron name
+            cf_df$neuron_name <- catmaid_get_neuronnames(skid)
+        
+            list_cf_df[[skididx]] <- cf_df
+        }
+    }
+    
+    #Get the ids of the nodes and connector_id of connectors
+    overallcf_df ={}
+    for (listidx in seq_along(list_cf_df)){
+      overallcf_df$nodes$id <- c(list_cf_df[[listidx]]$nodes$id, overallcf_df$nodes$id)
+      overallcf_df$connectors$connector_id <- c(list_cf_df[[listidx]]$connectors$connector_id, 
+                                                overallcf_df$connectors$connector_id)
+    }
+    
+    #Extract creator and editor ids for the individual neurons..
+    node_ids = NULL
+    connector_ids = NULL
+    if (treenodes) {node_ids = overallcf_df$nodes$id}
+    if (connectors) {connector_ids = overallcf_df$connectors$connector_id}
+    all_ids = c(node_ids,connector_ids)
+    
+  #Step5: Get user details for the node_ids, connector_ids..
+    #Do the user details in chunks of 1000 so the CATMAID server can process them..
+    chunkall_ids <- split(all_ids, ceiling(seq_along(all_ids)/20000))
+    path=file.path("", pid, "node", "user-info")
+    
+    res = {}
+    df_res <- NULL
+    for (listidx in seq_along(chunkall_ids)){
+    post_data=list()
+    post_data[sprintf("node_ids[%d]", seq_along(chunkall_ids[[listidx]]))]=as.list(chunkall_ids[[listidx]])
+    res=append(res, catmaid_fetch(path, body=post_data, include_headers = F, 
+                                simplifyVector = T))
+    }
+  
+    #Do some post processing on the details..
+    #unlist while retaining the empty lists..
+    chunkall_ids <- split(seq_along(res), ceiling(seq_along(seq_along(res))/10000))
+    
+    df_res <- NULL
+    for (listidx in seq_along(res)){
+      if ((listidx %% 10000) == 1){
+        #cat('\nProcesssing Chunk#', listidx)
+        }
+      df_tempval  <- data.frame(node_id = names(res[listidx]),
+                                user = replace_emptylist(res[[listidx]]$user),
+                                editor = replace_emptylist(res[[listidx]]$editor),
+                                creation_time = replace_emptylist(res[[listidx]]$creation_time),
+                                edition_time = replace_emptylist(res[[listidx]]$edition_time),
+                                reviewers = replace_emptylist(res[[listidx]]$reviewers),
+                                review_times = replace_emptylist(res[[listidx]]$review_times),
+                                stringsAsFactors=FALSE)
+      df_res  <- rbind(df_res,df_tempval)
+    }
+    
+     # Rename column 'user' to 'creator'
+    colnames(df_res)[colnames(df_res)=="user"] <- "creator"
+  
+    #Convert character to date format 
+    for (listidx in seq_len(nrow(df_res))){
+    df_res$creation_time[[listidx]] = as.POSIXct(strptime(df_res$creation_time[[listidx]], 
+                                                        format = "%Y-%m-%dT%H:%M", tz = "UTC"))
+    df_res$edition_time[[listidx]] = as.POSIXct(strptime(df_res$edition_time[[listidx]], 
+                                                         format = "%Y-%m-%dT%H:%M", tz = "UTC"))
+    df_res$review_times[[listidx]] = as.POSIXct(strptime(df_res$review_times[[listidx]], 
+                                                         format = "%Y-%m-%dT%H:%M", tz = "UTC"))
+    }
+  
+  #Step6: Get details about links..
+    if (connectors) {
+      path=file.path("", pid, "connectors", "links")
+      path = paste(path,"?relation_type=", sep ="")
+    
+      types_connectors = c("presynaptic_to","postsynaptic_to","abutting","gapjunction_with")
+      path_multiple = paste(path,types_connectors, sep="")
+      
+      links_all = list()
+      
+      for (skididx in seq_along(skids)){
+          u = paste("&skeleton_ids%5B0%5D=",skids[skididx], sep="")
+          querypath = paste(path_multiple, u, sep="")
+          #cat("\n")
+          #cat(querypath)
+          links_temp = list()
+          for (linksidx in seq_along(querypath)){
+              connectorslist_temp = list(catmaid_fetch(querypath[linksidx], 
+                                                       include_headers = F, simplifyVector = T))
+              names(connectorslist_temp) <- types_connectors[linksidx]
+              links_temp <- c(links_temp,connectorslist_temp)
+          }
+              links_temp$skid <- skids[skididx]
+              links_all[[skididx]] <- links_temp
+      }
+    
+    #Now create a dataframe with each elements..
+    links_collec = {}
+    for (skididx in seq_along(skids)){
+        for (connectypeidx in seq_along(types_connectors)){
+            if (length(links_all[[skididx]][[connectypeidx]]$links)) {
+            links_collec <- rbind(links_collec, data.frame(links_all[[skididx]][[connectypeidx]]$links, 
+                                                     relationtype = types_connectors[connectypeidx], 
+                                                     stringsAsFactors=FALSE))
+            }
+        }
+    }
+    
+    
+    colnames(links_collec) <- c("skeleton_id", "connector_id","x","y","z","confidence",
+                  "creator_id","treenode_id","creation_time","edition_time","relationtype")
+    
+    #Convert character to date format
+    links_collec$creation_time <- as.POSIXct(links_collec$creation_time,format = "%Y-%m-%dT%H:%M", 
+                                             tz = "UTC")
+    links_collec$edition_time <- as.POSIXct(links_collec$edition_time, format = "%Y-%m-%dT%H:%M",
+                                            tz = "UTC")
+    
+    #Choose only those links that have matching connector ids in the neuron???
+    links_collec <- links_collec[links_collec$connector_id %in% connector_ids,]
+    
+    }
+  
+    node_details <- df_res
+    link_details <- links_collec
+    colnames(link_details)[colnames(link_details)=="creator_id"] <- "creator"
+ 
+  #Step7: Remove timestamps outside of date range (if provided)
+    if(start_date_dt){
+      node_details = node_details[node_details$creation_time >= start_date_dt,]
+      link_details = link_details[link_details$creation_time >= start_date_dt,]}
+    if(end_date_dt){
+      node_details = node_details[node_details$creation_time <= end_date_dt,]
+      link_details = link_details[link_details$creation_time <= end_date_dt,]}
+  
+  #Step8a:  Create dataframes for the creation of items
+    creation_timestamps <- {}
+    creation_timestamps <- rbind( link_details[, c('creator', 'creation_time')],
+                                  node_details[, c('creator', 'creation_time')])
+    colnames(creation_timestamps) <- c('user', 'timestamps')
+    #creation_timestamps <- creation_timestamps[!creation_timestamps$timestamps == "NA",]
+  
+  #Step8b:  Create dataframes for edition of items (you can't use links as there is no 
+    # editor associated with..)
+    edition_timestamps <- node_details[, c('editor', 'edition_time')]
+    colnames(edition_timestamps) <- c('user', 'timestamps')
+    #edition_timestamps <- edition_timestamps[!edition_timestamps$timestamps == "NA",]
+  
+  #Step8c:  Create dataframes for review items
+    review_timestamps <- node_details[, c('reviewers', 'review_times')]
+    colnames(review_timestamps) <- c('user', 'timestamps')
+    review_timestamps <- review_timestamps[!review_timestamps$timestamps == "NA",]
+   
+  #Step8d:  Merge all the dataframes timestamps
+    all_timestamps <- rbind(creation_timestamps, edition_timestamps, review_timestamps)
+    all_timestamps <- na.omit(all_timestamps)
+  
+  #Step9: Choose only users that have performed a minimal number of actions..
+    relevant_users <- plyr::count(all_timestamps, vars = "user")
+    relevant_users <- relevant_users[relevant_users$freq >=minimum_actions,"user"]
+    relevant_users <- relevant_users[!relevant_users == "NA"]
+    
+  #Step10: Update the stats now..
+    #Step10a: Time invested stats for 'SUM'
+      if(mode=='SUM'){
+        stats_df = data.frame(users=character(),login = character(), total = double(),
+                              creation = double(),edition = double(),review = double(),
+                              stringsAsFactors = FALSE)
+        stats_df[1:length(relevant_users),'users'] <- relevant_users  
+        stats_df[,c('total','creation','edition','review')] <- 0
+        
+        total_agg_df <- aggregate_timestamps(all_timestamps,minimum_actions,timeinterval)
+        creation_agg_df <- aggregate_timestamps(creation_timestamps,minimum_actions,timeinterval)
+        edition_agg_df <- aggregate_timestamps(edition_timestamps,minimum_actions,timeinterval)
+        review_agg_df <- aggregate_timestamps(review_timestamps,minimum_actions,timeinterval)
+        
+        
+        for (useridx in seq_along(stats_df$users)){
+          matchidx <- stats_df[useridx,'users']  == user_list$id
+          if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
+          
+          matchidx <- stats_df[useridx,'users']  == total_agg_df$users
+          if (any(matchidx)){stats_df[useridx,'total'] <- timeinterval*total_agg_df[matchidx,'x']} 
+          
+          matchidx <- stats_df[useridx,'users'] == creation_agg_df$users
+          if (any(matchidx)){stats_df[useridx,'creation'] <- timeinterval*creation_agg_df[matchidx,'x']}
+          
+          matchidx <- stats_df[useridx,'users'] == edition_agg_df$users
+          if (any(matchidx)){stats_df[useridx,'edition'] <- timeinterval*edition_agg_df[matchidx,'x']}
+          
+          matchidx <- stats_df[useridx,'users'] == review_agg_df$users
+          if (any(matchidx)){stats_df[useridx,'review'] <- timeinterval*review_agg_df[matchidx,'x']}
+        }
+        
+      stats_df <- stats_df[sort(stats_df$total,decreasing = TRUE, index.return = TRUE)$ix,]
+       
+      }
+    #Step10b: Time invested stats for 'OVER_TIME'
+      if(mode=='OVER_TIME'){
+        
+        
+        
+        all_timestamps$timestamps <- as.POSIXct(strptime(all_timestamps$timestamps,
+                                                         format = "%Y-%m-%d %H:%M:%S"),tz = "UTC")
+        overtime_timestamps <- all_timestamps %>% 
+                                dplyr::mutate(interval = lubridate::floor_date
+                                              (.data$timestamps, unit="minute")) %>% 
+                                dplyr::group_by(.data$interval, .data$user) %>% 
+                                dplyr::summarise(count=dplyr::n()) %>%
+                                dplyr::arrange(dplyr::desc(.data$count))
+        
+        overtime_timestamps$status <- 0
+        overtime_timestamps[overtime_timestamps$count>=minimum_actions,'status'] = 1
+        overtime_timestamps <- overtime_timestamps[overtime_timestamps$status ==1, ]
+        
+        temptimestamps <- overtime_timestamps
+        
+        overtime_hourlystamps <- temptimestamps %>% 
+                                dplyr::mutate(interval2 = lubridate::floor_date
+                                              (.data$interval, unit="day")) %>% 
+                                dplyr::group_by(.data$interval2, .data$user) %>% 
+                                dplyr::summarise(count2=dplyr::n()) %>%
+                                dplyr::arrange(dplyr::desc(.data$count2))
+        
+        
+      }
+    
+    #Step10c: Time invested stats for 'ACTIONS'
+      if(mode=='ACTIONS'){
+        
+        all_timestamps$timestamps <- as.POSIXct(strptime(all_timestamps$timestamps,
+                                                           format = "%Y-%m-%d %H:%M:%S",tz = "UTC"))
+        
+        actions_timestamps <- all_timestamps %>% 
+          dplyr::mutate(interval = lubridate::floor_date(.data$timestamps, unit="day")) %>% 
+          dplyr::group_by(.data$interval, .data$user) %>% 
+          dplyr::summarise(count=dplyr::n()) %>%
+          dplyr::arrange(dplyr::desc(.data$count))
+        
+        #recast it into columns with date
+        stats_df <- reshape2::dcast(actions_timestamps, user ~ interval, value.var = "count")
+        
+        for (useridx in seq_along(stats_df$user)){
+          matchidx <- stats_df[useridx,'user']  == user_list$id
+          if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
+        }
+        
+        #summarise the data in a neat format..
+        stats_df[is.na(stats_df)] <- 0
+        stats_df$user <- NULL
+        stats_df <- stats_df %>%
+                    dplyr::select(.data$login,dplyr::everything())
+        stats_df[nrow(stats_df)+1,2:length(stats_df)] <- colSums(stats_df[,2:length(stats_df)])
+        stats_df[nrow(stats_df),1] <- 'all_users'
+        
+      }
+    
+    stats_df <- subset(stats_df, stats_df$users!="NA")
+    return(stats_df)
+    
+}
+
+aggregate_timestamps <- function(timestamps_collec,minimum_actions,timeinterval){
+  
+  timestamps_collec$timestamps <- as.POSIXct(strptime(timestamps_collec$timestamps,
+                                                     format = "%Y-%m-%d %H:%M:%S",tz = "UTC"))
+  timestamps_collec <- timestamps_collec[complete.cases(timestamps_collec), ]
+  if(nrow(timestamps_collec) >0){
+          agg_timestamps <- timestamps_collec %>% 
+                            dplyr::mutate(interval = lubridate::floor_date(.data$timestamps, unit="hour")+
+                            lubridate::minutes(floor(lubridate::minute(.data$timestamps)/timeinterval)
+                                                      *timeinterval)) %>% 
+                            dplyr::group_by(.data$interval, .data$user) %>% 
+                            dplyr::summarise(count=dplyr::n()) %>%
+                            dplyr::arrange(dplyr::desc(.data$count))
+          agg_timestamps$status <- 0
+          agg_timestamps[agg_timestamps$count>=minimum_actions,'status'] = 1
+          temp_agg_df <- stats::aggregate(x = agg_timestamps$status, 
+                                          by=list(users=agg_timestamps$user), FUN=sum)
+  } else{
+    temp_agg_df <- NULL
+  }
+  
+  return(temp_agg_df)
+}
+
+replace_emptylist <- function(x) {
+  if(length(x) == 0) {return('NA')}
+  else if (length(x) == 1) {return(x)}
+  else return(x)
+  #else return(paste0(x, collapse = ','))
+}
+
+
 process_one_user_history <- function(x) {
   slx=sum(sapply(x, length))
   if(slx<1) {

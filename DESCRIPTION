@@ -24,11 +24,15 @@ Imports:
     nabor,
     xml2,
     grDevices,
-    checkmate
+    checkmate,
+    lubridate,
+    reshape2,
+    magrittr,
+    rlang
 Suggests:
     spelling,
     testthat
 Remotes: jefferis/nat
-RoxygenNote: 6.1.1
+RoxygenNote: 6.1.1.9000
 Language: en-GB
 Encoding: UTF-8
