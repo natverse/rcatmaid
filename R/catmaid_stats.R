@@ -163,6 +163,7 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 #' @param conn  CATMAID connection instance
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
+#' @export
 catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_TIME','ACTIONS'),
                                     minimum_actions=10, max_inactive_time=3,
                                     treenodes=TRUE, connectors=TRUE, 
@@ -258,35 +259,35 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
   
     #Do some post processing on the details..
     #unlist while retaining the empty lists..
-    chunkall_ids <- split(seq_along(res), ceiling(seq_along(seq_along(res))/10000))
+   # Take the first 4 cols user editor, creation/edition times
+    node_details_df=list2df(res, cols = names(res[[1]][1:4]))
+    node_details_df$node_id=names(res)
     
-    df_res <- NULL
-    for (listidx in seq_along(res)){
-      if ((listidx %% 10000) == 1){
-        cat('\nProcesssing Chunk#', listidx,'\n')
-        }
-      df_tempval  <- data.frame(node_id = names(res[listidx]),
-                                user = replace_emptylist(res[[listidx]]$user),
-                                editor = replace_emptylist(res[[listidx]]$editor),
-                                creation_time = replace_emptylist(res[[listidx]]$creation_time),
-                                edition_time = replace_emptylist(res[[listidx]]$edition_time),
-                                reviewers = replace_emptylist(res[[listidx]]$reviewers),
-                                review_times = replace_emptylist(res[[listidx]]$review_times),
-                                stringsAsFactors=FALSE)
-      df_res  <- rbind(df_res,df_tempval)
+    # now handle review times separately
+    review_details=res[sapply(res, function(x) length(x$reviewers))>=1]
+    if (length(review_details) >= 1){
+        review_details_df = data.frame(reviewer = unlist(lapply(review_details, '[[', 'reviewers'), 
+                                                         use.names = F),
+        review_time = unlist(lapply(review_details, '[[', 'review_times'), use.names = F),
+                              stringsAsFactors = FALSE)
+        review_details_df$node_id = rep(as.integer(names(review_details)),
+                                    sapply(review_details, function(x)
+                                      length(x$reviewers)))
+    } else {
+      review_details_df = data.frame(reviewer = character(),review_time = character(),
+                                     node_id = integer())
     }
     
-     # Rename column 'user' to 'creator'
-    colnames(df_res)[colnames(df_res)=="user"] <- "creator"
+    # Rename column 'user' to 'creator'
+    colnames(node_details_df)[colnames(node_details_df)=="user"] <- "creator"
   
     #Convert character to date format 
-    
-    df_res$creation_time <- as.POSIXct(strptime(df_res$creation_time,format = "%Y-%m-%dT%H:%M", 
-                                                      tz = "UTC"))
-    df_res$edition_time <- as.POSIXct(strptime(df_res$edition_time, format = "%Y-%m-%dT%H:%M",
-                                                     tz = "UTC"))
-    df_res$review_times <- as.POSIXct(strptime(df_res$review_times, format = "%Y-%m-%dT%H:%M",
-                                               tz = "UTC"))
+    node_details_df$creation_time <- as.POSIXct(strptime(node_details_df$creation_time,
+                                                         format = "%Y-%m-%dT%H:%M", tz = "UTC"))
+    node_details_df$edition_time <- as.POSIXct(strptime(node_details_df$edition_time, 
+                                                        format = "%Y-%m-%dT%H:%M", tz = "UTC"))
+    review_details_df$review_time <- as.POSIXct(strptime(review_details_df$review_time, 
+                                                          format = "%Y-%m-%dT%H:%M",tz = "UTC"))
   
   #Step6: Get details about links..
     if (connectors) {
@@ -341,16 +342,19 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     
     }
   
-    node_details <- df_res
+    node_details <- node_details_df
+    review_details <- review_details_df
     link_details <- links_collec
     colnames(link_details)[colnames(link_details)=="creator_id"] <- "creator"
  
   #Step7: Remove timestamps outside of date range (if provided)
     if(start_date_dt){
       node_details = node_details[node_details$creation_time >= start_date_dt,]
+      review_details = review_details[review_details$review_times >= start_date_dt,]
       link_details = link_details[link_details$creation_time >= start_date_dt,]}
     if(end_date_dt){
       node_details = node_details[node_details$creation_time <= end_date_dt,]
+      review_details = review_details[review_details$review_times <= end_date_dt,]
       link_details = link_details[link_details$creation_time <= end_date_dt,]}
   
   #Step8a:  Create dataframes for the creation of items
@@ -358,18 +362,19 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     creation_timestamps <- rbind( link_details[, c('creator', 'creation_time')],
                                   node_details[, c('creator', 'creation_time')])
     colnames(creation_timestamps) <- c('user', 'timestamps')
-    #creation_timestamps <- creation_timestamps[!creation_timestamps$timestamps == "NA",]
+
   
   #Step8b:  Create dataframes for edition of items (you can't use links as there is no 
     # editor associated with..)
     edition_timestamps <- node_details[, c('editor', 'edition_time')]
     colnames(edition_timestamps) <- c('user', 'timestamps')
-    #edition_timestamps <- edition_timestamps[!edition_timestamps$timestamps == "NA",]
   
   #Step8c:  Create dataframes for review items
-    review_timestamps <- node_details[, c('reviewers', 'review_times')]
+   
+    review_timestamps <- review_details[, c('reviewer', 'review_time')]
     colnames(review_timestamps) <- c('user', 'timestamps')
     review_timestamps <- review_timestamps[!is.na(review_timestamps$timestamps),]
+    
    
   #Step8d:  Merge all the dataframes timestamps
     all_timestamps <- rbind(creation_timestamps, edition_timestamps, review_timestamps)
@@ -437,8 +442,8 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         
         overtime_daystamps <- temp_agg_df %>% 
                   dplyr::mutate(dayinterval = lubridate::floor_date(.data$interval, unit="day")) %>% 
-                  dplyr::group_by(dayinterval, user) %>%
-                  dplyr::summarise(count2=sum(status))
+                  dplyr::group_by(.data$dayinterval, .data$user) %>%
+                  dplyr::summarise(count2=sum(.data$status))
         
        #Now find out the user names..
         stats_df = overtime_daystamps
@@ -485,14 +490,13 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         
       }
     
-    #stats_df <- subset(stats_df, stats_df$users!="NA")
     return(stats_df)
     
 }
 
 aggregate_timestamps <- function(timestamps_collec,minimum_actions,timeinterval){
   
-  timestamps_collec <- timestamps_collec[complete.cases(timestamps_collec), ]
+  timestamps_collec <- timestamps_collec[stats::complete.cases(timestamps_collec), ]
   if(nrow(timestamps_collec) >0){
           agg_timestamps <- timestamps_collec %>% 
                             dplyr::mutate(interval = lubridate::floor_date(.data$timestamps, unit="hour")+
