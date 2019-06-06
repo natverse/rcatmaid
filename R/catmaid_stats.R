@@ -178,11 +178,11 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     minimum_actions <- minimum_actions*timeinterval
     
     #Check the validity of the dates now..
-    start_date_dt=as.POSIXct(as.POSIXct(start_date, tz = "GMT"), format = "%Y-%m-%dT%H:%M:%S")
-    if(start_date_dt<as.POSIXct("2001-01-01", tz = "GMT")) 
+    start_date_dt=as.POSIXct(as.POSIXct(start_date, tz = "UTC"), format = "%Y-%m-%dT%H:%M:%S")
+    if(start_date_dt<as.POSIXct("2001-01-01", tz = "UTC")) 
       stop("Invalid date: ",start_date, ". See ?POSIXct for valid formats")
-    end_date_dt = as.POSIXct(as.POSIXct(end_date, tz = "GMT"), format = "%Y-%m-%dT%H:%M:%S")
-    if(end_date_dt<as.POSIXct("2001-01-01", tz = "GMT")) 
+    end_date_dt = as.POSIXct(as.POSIXct(end_date, tz = "UTC"), format = "%Y-%m-%dT%H:%M:%S")
+    if(end_date_dt<as.POSIXct("2001-01-01", tz = "UTC")) 
       stop("Invalid date: ",end_date, ". See ?POSIXct for valid formats")
   
   #Step2: Convert the queries (whether regex or character or integer) to integer skeleton ids..
@@ -263,7 +263,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     df_res <- NULL
     for (listidx in seq_along(res)){
       if ((listidx %% 10000) == 1){
-        #cat('\nProcesssing Chunk#', listidx)
+        cat('\nProcesssing Chunk#', listidx,'\n')
         }
       df_tempval  <- data.frame(node_id = names(res[listidx]),
                                 user = replace_emptylist(res[[listidx]]$user),
@@ -280,14 +280,13 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     colnames(df_res)[colnames(df_res)=="user"] <- "creator"
   
     #Convert character to date format 
-    for (listidx in seq_len(nrow(df_res))){
-    df_res$creation_time[[listidx]] = as.POSIXct(strptime(df_res$creation_time[[listidx]], 
-                                                        format = "%Y-%m-%dT%H:%M", tz = "UTC"))
-    df_res$edition_time[[listidx]] = as.POSIXct(strptime(df_res$edition_time[[listidx]], 
-                                                         format = "%Y-%m-%dT%H:%M", tz = "UTC"))
-    df_res$review_times[[listidx]] = as.POSIXct(strptime(df_res$review_times[[listidx]], 
-                                                         format = "%Y-%m-%dT%H:%M", tz = "UTC"))
-    }
+    
+    df_res$creation_time <- as.POSIXct(strptime(df_res$creation_time,format = "%Y-%m-%dT%H:%M", 
+                                                      tz = "UTC"))
+    df_res$edition_time <- as.POSIXct(strptime(df_res$edition_time, format = "%Y-%m-%dT%H:%M",
+                                                     tz = "UTC"))
+    df_res$review_times <- as.POSIXct(strptime(df_res$review_times, format = "%Y-%m-%dT%H:%M",
+                                               tz = "UTC"))
   
   #Step6: Get details about links..
     if (connectors) {
@@ -332,10 +331,10 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
                   "creator_id","treenode_id","creation_time","edition_time","relationtype")
     
     #Convert character to date format
-    links_collec$creation_time <- as.POSIXct(links_collec$creation_time,format = "%Y-%m-%dT%H:%M", 
-                                             tz = "UTC")
-    links_collec$edition_time <- as.POSIXct(links_collec$edition_time, format = "%Y-%m-%dT%H:%M",
-                                            tz = "UTC")
+    links_collec$creation_time <- as.POSIXct(strptime(links_collec$creation_time,format = "%Y-%m-%dT%H:%M", 
+                                             tz = "UTC"))
+    links_collec$edition_time <- as.POSIXct(strptime(links_collec$edition_time, format = "%Y-%m-%dT%H:%M",
+                                            tz = "UTC"))
     
     #Choose only those links that have matching connector ids in the neuron???
     links_collec <- links_collec[links_collec$connector_id %in% connector_ids,]
@@ -370,7 +369,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
   #Step8c:  Create dataframes for review items
     review_timestamps <- node_details[, c('reviewers', 'review_times')]
     colnames(review_timestamps) <- c('user', 'timestamps')
-    review_timestamps <- review_timestamps[!review_timestamps$timestamps == "NA",]
+    review_timestamps <- review_timestamps[!is.na(review_timestamps$timestamps),]
    
   #Step8d:  Merge all the dataframes timestamps
     all_timestamps <- rbind(creation_timestamps, edition_timestamps, review_timestamps)
@@ -419,38 +418,48 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     #Step10b: Time invested stats for 'OVER_TIME'
       if(mode=='OVER_TIME'){
         
+        #minutes invested/day over time.
+        
+        # Count only those minutes with the minimum number of actions
+        agg_timestamps <- all_timestamps %>% 
+          dplyr::mutate(interval = lubridate::floor_date(.data$timestamps, unit="hour")+
+                          lubridate::minutes(floor(lubridate::minute(.data$timestamps)/timeinterval)
+                                             *timeinterval)) %>% 
+          dplyr::group_by(.data$interval, .data$user) %>% 
+          dplyr::summarise(count=dplyr::n()) %>%
+          dplyr::arrange(dplyr::desc(.data$count))
+        
+        agg_timestamps$status <- 0
+        agg_timestamps[agg_timestamps$count>=minimum_actions,'status'] = 1
+        temp_agg_df <- agg_timestamps[agg_timestamps$status == 1,]
+        
+        # Now group per day (number of minutes per day)
+        
+        overtime_daystamps <- temp_agg_df %>% 
+                  dplyr::mutate(dayinterval = lubridate::floor_date(.data$interval, unit="day")) %>% 
+                  dplyr::group_by(dayinterval, user) %>%
+                  dplyr::summarise(count2=sum(status))
+        
+       #Now find out the user names..
+        stats_df = overtime_daystamps
+       #Now rename the columns..
+        names(stats_df)[names(stats_df) == 'dayinterval'] <- 'day'
+        names(stats_df)[names(stats_df) == 'count2'] <- 'minutes'
+        names(stats_df)[names(stats_df) == 'user'] <- 'users'
+        stats_df$login <- NA
+        
+        for (useridx in seq_along(stats_df$users)){
+          matchidx <- as.numeric(stats_df[useridx,'users'])  == user_list$id
+          if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
+        }
         
         
-        all_timestamps$timestamps <- as.POSIXct(strptime(all_timestamps$timestamps,
-                                                         format = "%Y-%m-%d %H:%M:%S"),tz = "UTC")
-        overtime_timestamps <- all_timestamps %>% 
-                                dplyr::mutate(interval = lubridate::floor_date
-                                              (.data$timestamps, unit="minute")) %>% 
-                                dplyr::group_by(.data$interval, .data$user) %>% 
-                                dplyr::summarise(count=dplyr::n()) %>%
-                                dplyr::arrange(dplyr::desc(.data$count))
-        
-        overtime_timestamps$status <- 0
-        overtime_timestamps[overtime_timestamps$count>=minimum_actions,'status'] = 1
-        overtime_timestamps <- overtime_timestamps[overtime_timestamps$status ==1, ]
-        
-        temptimestamps <- overtime_timestamps
-        
-        overtime_hourlystamps <- temptimestamps %>% 
-                                dplyr::mutate(interval2 = lubridate::floor_date
-                                              (.data$interval, unit="day")) %>% 
-                                dplyr::group_by(.data$interval2, .data$user) %>% 
-                                dplyr::summarise(count2=dplyr::n()) %>%
-                                dplyr::arrange(dplyr::desc(.data$count2))
         
         
       }
     
     #Step10c: Time invested stats for 'ACTIONS'
       if(mode=='ACTIONS'){
-        
-        all_timestamps$timestamps <- as.POSIXct(strptime(all_timestamps$timestamps,
-                                                           format = "%Y-%m-%d %H:%M:%S",tz = "UTC"))
         
         actions_timestamps <- all_timestamps %>% 
           dplyr::mutate(interval = lubridate::floor_date(.data$timestamps, unit="day")) %>% 
@@ -476,15 +485,13 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         
       }
     
-    stats_df <- subset(stats_df, stats_df$users!="NA")
+    #stats_df <- subset(stats_df, stats_df$users!="NA")
     return(stats_df)
     
 }
 
 aggregate_timestamps <- function(timestamps_collec,minimum_actions,timeinterval){
   
-  timestamps_collec$timestamps <- as.POSIXct(strptime(timestamps_collec$timestamps,
-                                                     format = "%Y-%m-%d %H:%M:%S",tz = "UTC"))
   timestamps_collec <- timestamps_collec[complete.cases(timestamps_collec), ]
   if(nrow(timestamps_collec) >0){
           agg_timestamps <- timestamps_collec %>% 
