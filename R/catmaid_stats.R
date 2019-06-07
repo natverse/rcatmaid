@@ -193,40 +193,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     user_list <- catmaid_get_user_list(pid=pid, conn=conn)
   
   #Step4: Extract node and connector ids, tags for the individual neurons..
-    list_cf_df = {}
-    for (skididx in seq_along(skids)){
-        skid = skids[skididx]
-        path=file.path("", pid, "skeletons", skid, "compact-detail")
-        u = sprintf("?with_history=false&with_tags=true&with_merge_history=false")
-        u = paste(u,'&with_connectors=', tolower(connectors),sep = "")
-        path = paste(path,u, sep ="")
-  
-        #rename them accordingly
-        cf=catmaid_fetch(path,simplifyVector = T)
-        
-        if ("error" %in% names(cf)){
-          cat('Skipping skid: ',skid, '\n')
-        }
-        else{
-            cat('Processing skid: ',skid, '\n')
-            names(cf)=c("nodes", "connectors", "tags")
-            colnames(cf[["nodes"]]) <- c("id", "parent_id", "user_id", "x", "y", "z",
-                                          "radius", "confidence")
-            colnames(cf[["connectors"]]) <- c("treenode_id", "connector_id", "relation", 
-                                          "x", "y", "z")
-  
-            #convert them as tibbles for ease of manipulation
-            cf_df = {}
-            cf_df$nodes = dplyr::as_tibble(as.matrix(cf[["nodes"]]))
-            cf_df$connectors = dplyr::as_tibble(as.matrix(cf[["connectors"]]))
-            cf_df$tags = cf[["tags"]]
-  
-            #Get the neuron name
-            cf_df$neuron_name <- catmaid_get_neuronnames(skid)
-        
-            list_cf_df[[skididx]] <- cf_df
-        }
-    }
+    list_cf_df <- extract_nodeconnectorids(skids,pid,connectors)
     
     #Get the ids of the nodes and connector_id of connectors
     overallcf_df ={}
@@ -241,7 +208,9 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     connector_ids = NULL
     if (treenodes) {node_ids = overallcf_df$nodes$id}
     if (connectors) {connector_ids = overallcf_df$connectors$connector_id}
-    all_ids = c(node_ids,connector_ids)
+    # Convert ids to ints to ensure that they are formatted cleanly in the JSON post
+    # body in the loop coming up
+    all_ids = as.integer(c(node_ids,connector_ids))
     
   #Step5: Get user details for the node_ids, connector_ids..
     #Do the user details in chunks of 1000 so the CATMAID server can process them..
@@ -251,10 +220,12 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     res = {}
     df_res <- NULL
     for (listidx in seq_along(chunkall_ids)){
-    post_data=list()
-    post_data[sprintf("node_ids[%d]", seq_along(chunkall_ids[[listidx]]))]=as.list(chunkall_ids[[listidx]])
-    res=append(res, catmaid_fetch(path, body=post_data, include_headers = F, 
-                                simplifyVector = T))
+      post_data=list()
+      post_data[sprintf("node_ids[%d]", seq_along(chunkall_ids[[listidx]]))]=as.list(chunkall_ids[[listidx]])
+      singleres=catmaid_fetch(path, body=post_data, include_headers = F, simplifyVector = T)
+      if(catmaid_error_check(singleres, stoponerror=FALSE)) {
+        message("Failed to process chunk", listidx)
+      } else res=append(res, singleres)
     }
   
     #Do some post processing on the details..
@@ -302,8 +273,6 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
       for (skididx in seq_along(skids)){
           u = paste("&skeleton_ids%5B0%5D=",skids[skididx], sep="")
           querypath = paste(path_multiple, u, sep="")
-          #cat("\n")
-          #cat(querypath)
           links_temp = list()
           for (linksidx in seq_along(querypath)){
               connectorslist_temp = list(catmaid_fetch(querypath[linksidx], 
@@ -350,11 +319,11 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
   #Step7: Remove timestamps outside of date range (if provided)
     if(start_date_dt){
       node_details = node_details[node_details$creation_time >= start_date_dt,]
-      review_details = review_details[review_details$review_times >= start_date_dt,]
+      review_details = review_details[review_details$review_time >= start_date_dt,]
       link_details = link_details[link_details$creation_time >= start_date_dt,]}
     if(end_date_dt){
       node_details = node_details[node_details$creation_time <= end_date_dt,]
-      review_details = review_details[review_details$review_times <= end_date_dt,]
+      review_details = review_details[review_details$review_time <= end_date_dt,]
       link_details = link_details[link_details$creation_time <= end_date_dt,]}
   
   #Step8a:  Create dataframes for the creation of items
@@ -459,7 +428,14 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         }
         
         
+        statsrecast_df <- reshape2::dcast(stats_df, login ~ day, value.var = "minutes")
         
+        statsrecast_df[is.na(statsrecast_df)] <- 0
+        
+        statsrecast_df[nrow(statsrecast_df)+1,2:length(statsrecast_df)]  <- colSums(statsrecast_df[,2:length(statsrecast_df)])
+        statsrecast_df[nrow(statsrecast_df),1] <- 'all_users'
+        
+        stats_df <- statsrecast_df
         
       }
     
@@ -490,8 +466,48 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         
       }
     
+    stats_df$users <- NULL
     return(stats_df)
     
+}
+
+extract_nodeconnectorids <- function(skids,pid,connectors){
+  list_cf_df = {}
+  for (skididx in seq_along(skids)){
+      skid = skids[skididx]
+      path=file.path("", pid, "skeletons", skid, "compact-detail")
+      u = sprintf("?with_history=false&with_tags=true&with_merge_history=false")
+      u = paste(u,'&with_connectors=', tolower(connectors),sep = "")
+      path = paste(path,u, sep ="")
+    
+      #rename them accordingly
+      cf=catmaid_fetch(path,simplifyVector = T)
+    
+      if ("error" %in% names(cf)){
+          cat('Skipping skid: ',skid, '\n')
+      }
+      else{
+          cat('Processing skid: ',skid, '\n')
+          names(cf)=c("nodes", "connectors", "tags")
+          colnames(cf[["nodes"]]) <- c("id", "parent_id", "user_id", "x", "y", "z",
+                                   "radius", "confidence")
+          colnames(cf[["connectors"]]) <- c("treenode_id", "connector_id", "relation", 
+                                        "x", "y", "z")
+      
+          #convert them as tibbles for ease of manipulation
+          cf_df = {}
+          cf_df$nodes = dplyr::as_tibble(as.matrix(cf[["nodes"]]))
+          cf_df$connectors = dplyr::as_tibble(as.matrix(cf[["connectors"]]))
+          cf_df$tags = cf[["tags"]]
+      
+          #Get the neuron name
+          cf_df$neuron_name <- catmaid_get_neuronnames(skid)
+      
+          list_cf_df[[skididx]] <- cf_df
+    }
+  }
+  
+  return(list_cf_df)
 }
 
 aggregate_timestamps <- function(timestamps_collec,minimum_actions,timeinterval){
@@ -520,7 +536,6 @@ replace_emptylist <- function(x) {
   if(length(x) == 0) {return('NA')}
   else if (length(x) == 1) {return(x)}
   else return(x)
-  #else return(paste0(x, collapse = ','))
 }
 
 
