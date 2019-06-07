@@ -70,7 +70,10 @@ list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
     raw_col = sapply(x, "[[", colidx)
     if(is.list(raw_col)) {
       raw_col[sapply(raw_col, is.null)]=NA
-      raw_col=unlist(raw_col)
+      sublens=sapply(raw_col, length)
+      if(all(sublens==1))
+        raw_col=unlist(raw_col)
+      else raw_col=sapply(raw_col, paste, collapse=',')
     }
     l[[cols[i]]]=raw_col
   }
