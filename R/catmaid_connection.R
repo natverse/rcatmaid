@@ -256,7 +256,7 @@ catmaid_connection<-function(server, username=NULL, password=NULL, authname=NULL
   
   pu=crul::url_parse(conn$server)
   conn$rooturl=sprintf("%s://%s", pu$scheme, pu$domain)
-  conn$basepath=pu$path
+  conn$basepath=ifelse(is.na(pu$path),"",pu$path)
 
   if(is.null(conn$username) && is.null(conn$token)) {
     conn$nologin=TRUE
