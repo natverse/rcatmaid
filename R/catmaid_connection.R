@@ -554,3 +554,18 @@ catmaid_envstr <- function(){
   else stop(paste("\ncatmaid error: Only found the environment variable -- ", matchvalues))
 }
 
+
+#' Get the CATMAID server in use
+#'
+#' @description shows the URL for a connection object in use (see \code{catmaid_login})
+#' @param conn CATMAID connection object, see ?catmaid::catmaid_login for details
+#' @param ... methods passed to catmaid::catmaid_login
+#' @seealso \code{\link{catmaid_login}}
+#' @export
+#' @rdname catmaid_get_server
+catmaid_get_server<-function(conn=NULL,...){
+  if(is.null(conn)){
+    conn = catmaid::catmaid_login()
+  }
+  conn$server
+}
