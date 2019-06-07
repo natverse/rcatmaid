@@ -6,8 +6,8 @@
 #' @param bbx the bounding box (a matrix of 2 rows and 3 columns) describing a search volume
 #' @param min_nodes the minimum number of nodes a neuron in the search area must have (includes nodes outside search area)
 #' @param pid project id. Defaults to 1
-#' @param conn CATMAID connection object, see ?catmaid::catmaid_login for details
-#' @param ... methods passed to catmaid::catmaid_fetch
+#' @param conn CATMAID connection object, see ?catmaid_login for details
+#' @param ... methods passed to catmaid_fetch
 #' @export
 #' @rdname catmaid_skeletons_in_bbx
 catmaid_skeletons_in_bbx <- function(bbx, min_nodes = 2, pid = 1, conn = NULL, ...){
@@ -20,7 +20,7 @@ catmaid_skeletons_in_bbx <- function(bbx, min_nodes = 2, pid = 1, conn = NULL, .
   post_data["maxz"] = bbx[2,3]
   post_data["min_nodes"] = min_nodes
   path = sprintf("/%d/skeletons/in-bounding-box", pid)
-  res = catmaid::catmaid_fetch(path, body = post_data, include_headers = F,
+  res = catmaid_fetch(path, body = post_data, include_headers = F,
                                simplifyVector = T, conn = conn, ...)
   res
 }
@@ -31,7 +31,7 @@ catmaid_skeletons_in_bbx <- function(bbx, min_nodes = 2, pid = 1, conn = NULL, .
 #' @description Retrieve the neuron IDs for given skeleton IDs. This is typically the skeleton ID + 1, and is often, but not always accurately, kept by CATMAID tracers in the name of a neuron.
 #' @param skids a vector of skeleton IDs or argument applicable to \code{catmaid_get_neuronid}
 #' @param pid project id. Defaults to 1
-#' @param conn CATMAID connection object, see \code{catmaid::catmaid_login} for details
+#' @param conn CATMAID connection object, see \code{catmaid_login} for details
 #' @param ... methods passed to  \code{catmaid_fetch}
 #' @export
 #' @rdname catmaid_get_neuronid
@@ -45,7 +45,7 @@ catmaid_get_neuronid <- function(skids, pid = 1, conn = NULL, ...){
   }
   skids[is.na(skids)] = -1L
   res = lapply(skids,function(skid)
-    catmaid::catmaid_fetch(sprintf("/%d/skeleton/%s/neuronname", pid, skid), body = NULL, include_headers = F,
+    catmaid_fetch(sprintf("/%d/skeleton/%s/neuronname", pid, skid), body = NULL, include_headers = F,
                            conn = conn, ...)$neuronid)
   res = sapply(res,function(r) ifelse(is.null(r),NA,r))
   names(res) = skids

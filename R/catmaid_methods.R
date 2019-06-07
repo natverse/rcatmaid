@@ -5,7 +5,7 @@
 #' @importFrom nat resample
 resample.catmaidneuron<-function(x, stepsize=1, ...){
   r=NextMethod(x)
-  c = tryCatch(catmaid::connectors(x), error = function(e) NULL)
+  c = tryCatch(connectors(x), error = function(e) NULL)
   if(!is.null(c)) {
     c$treenode_id = nabor::knn(
       data = nat::xyzmatrix(r),
@@ -41,7 +41,7 @@ prune.catmaidneuron<- function (x,target,maxdist, keep = c("near", "far"),
   pruned = nat:::prune.neuron(x,target=target, maxdist=maxdist, keep = keep,
                               return.indices = return.indices, ...)
   pruned$connectors = x$connectors[x$connectors$treenode_id%in%pruned$d$PointNo,]
-  relevant.points = subset(x$d, PointNo%in%pruned$d$PointNo)
+  relevant.points = x$d[x$d$PointNo%in%pruned$d$PointNo,] 
   y = pruned
   y$d = relevant.points[match(pruned$d$PointNo,relevant.points$PointNo),]
   y$d$Parent = pruned$d$Parent
@@ -64,7 +64,7 @@ prune.catmaidneuron<- function (x,target,maxdist, keep = c("near", "far"),
 prune_vertices.catmaidneuron <- function (x,verticestoprune, invert = FALSE,...){
   pruned = nat::prune_vertices(x,verticestoprune,invert = invert,...)
   pruned$connectors = x$connectors[x$connectors$treenode_id%in%pruned$d$PointNo,]
-  relevant.points = subset(x$d, PointNo%in%pruned$d$PointNo)
+  relevant.points = x$d[x$d$PointNo%in%pruned$d$PointNo,] 
   y = pruned
   y$d = relevant.points[match(pruned$d$PointNo,relevant.points$PointNo),]
   y$d$Parent = pruned$d$Parent

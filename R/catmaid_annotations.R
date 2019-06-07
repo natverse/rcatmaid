@@ -168,19 +168,19 @@ catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=N
 #' @description  Lock or unlock a CATMAID neuron reconstruction by adding or removing a 'locked' annotation to a set of skeleton IDs (skids). A locked neuron cannot be edited until it is unlocked.
 #' @param skids the skeleton IDs neurons you wish to lock / unlock
 #' @param pid project id. Defaults to 1
-#' @param conn CATMAID connection object, see ?catmaid::catmaid_login for details
-#' @param ... methods passed to catmaid::catmaid_fetch
+#' @param conn CATMAID connection object, see ?catmaid_login for details
+#' @param ... methods passed to catmaid_fetch
 #' @export
 #' @rdname catmaid_lock_neurons
 catmaid_lock_neurons <- function(skids, pid = 1, conn = NULL, ...){
-  skids = catmaid::catmaid_skids(skids, pid=pid,conn=conn,...)
-  catmaid::catmaid_set_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
+  skids = catmaid_skids(skids, pid=pid,conn=conn,...)
+  catmaid_set_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
                                                  conn = conn, ...)
 }
 #' @export
 #' @rdname catmaid_lock_neurons
 catmaid_unlock_neurons <- function(skids, pid = 1, conn = NULL, ...){
-  skids = catmaid::catmaid_skids(skids, pid=pid,conn=conn,...)
-  catmaid::catmaid_remove_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
+  skids = catmaid_skids(skids, pid=pid,conn=conn,...)
+  catmaid_remove_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
                                                     conn = conn, ...)
 }

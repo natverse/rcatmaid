@@ -153,8 +153,6 @@ process_one_user_history <- function(x) {
   df
 }
 
-
-
 #' Get meta information on nodes connected to a CATMAID connector node
 #'
 #' @description Get information on a CATMAID connector node
@@ -163,6 +161,7 @@ process_one_user_history <- function(x) {
 #' @param pid project id. Defaults to 1
 #' @param conn CATMAID connection object, see ?catmaid_login for details
 #' @param ... methods passed to \code{catmaid_fetch} and \code{catmaid_get_treenode_detail}
+#' @seealso \code{\link{catmaid_get_treenodes_detail}}, \code{\link{catmaid_node_time}}
 #' @export
 #' @rdname catmaid_connector_nodes
 catmaid_connector_nodes <- function(connector_id, node = c("presynaptic","postsynaptic"),
@@ -181,10 +180,8 @@ catmaid_connector_nodes <- function(connector_id, node = c("presynaptic","postsy
   detail = catmaid_get_treenodes_detail (tnids=tnids, pid = pid, conn = conn, ...)
   detail$connector_id = connector_id
   detail
-}
+} 
 
-
-### Added to rcatmaid ###
 #' Get the UTC creation / edit time for a CATMAID node
 #'
 #' @description Get the UTC creation / edit time for a CATMAID treenode or connector. 
@@ -192,8 +189,9 @@ catmaid_connector_nodes <- function(connector_id, node = c("presynaptic","postsy
 #' @param id a treenode or connector ID
 #' @param time whether to return the creation_time or edition_time
 #' @param pid project id. Defaults to 1
-#' @param conn CATMAID connection object, see ?catmaid_login for details
-#' @param ... methods passed to catmaid_set_labels
+#' @param conn CATMAID connection object, see \code{catmaid_login} for details
+#' @param ... methods passed to catmaid_fetch
+#' @seealso \code{\link{catmaid_get_treenodes_detail}}, \code{\link{catmaid_connector_nodes}}
 #' @export
 #' @rdname catmaid_node_time
 catmaid_node_time <- function(id, time = c("creation_time", "edition_time"), pid = 1, conn = NULL, ...){

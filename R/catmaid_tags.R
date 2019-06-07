@@ -5,10 +5,11 @@
 #' @param x a \code{neuron} or \code{neuronlist} object
 #' @param tag a tag that has been assigned in CATMAID
 #' @param remove.upstream Logical when \code{TRUE} points downstream of the tag(s) are removed, if true, points upstream are removed
-#' @param ... Additional arguments, passed to \code{\link{nlapply}} or eventually to \code{\link{prune_vertices}}
-#' @rdname prune_by_tag
+#' @param ... Additional arguments, passed to \code{nlapply} or eventually to \code{prune_vertices}
 #' @export
-prune_by_tag <-function(x, ...) UseMethod("prune_by_tag")
+#' @rdname prune_by_tag
+#' @importFrom igraph shortest_paths
+prune_by_tag <-function(x, tag, remove.upstream = TRUE, ...) UseMethod("prune_by_tag")
 prune_by_tag.neuron <- function(x, tag, remove.upstream = TRUE, ...){
   classes = class(x)
   p = unlist(x$tags[names(x$tags)%in%tag])
@@ -23,6 +24,7 @@ prune_by_tag.neuron <- function(x, tag, remove.upstream = TRUE, ...){
   class(x) = classes
   x
 }
+#' @importFrom igraph shortest_paths
 prune_by_tag.catmaidneuron<- function(x, tag, remove.upstream = TRUE, ...){
   p = unlist(x$tags[names(x$tags)%in%tag])
   if(is.null(p)){
@@ -34,7 +36,7 @@ prune_by_tag.catmaidneuron<- function(x, tag, remove.upstream = TRUE, ...){
   downstream = suppressWarnings(unique(unlist(igraph::shortest_paths(n, split.point, to = leaves, mode = "out")$vpath)))
   pruned = nat::prune_vertices(x,verticestoprune = downstream, invert = remove.upstream, ...)
   pruned$connectors = x$connectors[x$connectors$treenode_id%in%pruned$d$PointNo,]
-  relevant.points = subset(x$d, PointNo%in%pruned$d$PointNo)
+  relevant.points = x$d[x$d$PointNo%in%pruned$d$PointNo,]
   y = pruned
   y$d = relevant.points[match(pruned$d$PointNo,relevant.points$PointNo),]
   y$d$Parent = pruned$d$Parent
@@ -97,13 +99,15 @@ somapos.neuron <- function(x) match(somaid(x), x$d$PointNo)
 
 #' Find the location of specified tags for a CATMAID neuron
 #'
-#' @description  Find the location of tags in a CATMAID neuron, either as URLs to the location of a TODO tag in CATMAID or as a data.frame reporting the location and skeleton treenode locations of specified tags.
+#' @description  Find the location of tags in a CATMAID neuron, either as URLs to 
+#' the location of a TODO tag in CATMAID or as a data.frame reporting the location and skeleton treenode 
+#' locations of specified tags.
 #' @param x a neuron or neuronlist object
 #' @param tag a single character specifying which tag to look for. Defaults to TODO
 #' @param only.leaves whether or not to only return leaf nodes with the specified tag
 #' @param url if TRUE (default) a list of URLs pertaining to specified tag locations are returned. If FALSE, a data.frame subsetted from x$d is returned, reporting treenode ID and X,Y,Z positions for specified tags
 #' @param pid project id. Defaults to 1. For making the URL.
-#' @param conn CATMAID connection object, see ?catmaid::catmaid_login for details. For making the URL.
+#' @param conn CATMAID connection object, see ?catmaid_login for details. For making the URL.
 #' @export
 #' @rdname catmaid_get_tag
 catmaid_get_tag<-function(x, tag = "TODO", url = FALSE, only.leaves = TRUE, conn = NULL, pid = 1) UseMethod("catmaid_get_tag")
@@ -116,7 +120,7 @@ catmaid_get_tag.neuron <- function(x, tag = "TODO", url = FALSE, only.leaves = T
   if(is.null(TODO)){
     NULL
   }else if(length(TODO)){
-    df = subset(x$d,PointNo%in%TODO)
+    df = x$d[x$d$PointNo%in%TODO,]
     if(url){
       catmaid_url = paste0(catmaid_get_server(conn), "?pid=",pid)
       catmaid_url = paste0(catmaid_url, "&zp=", df[["Z"]])
@@ -139,12 +143,4 @@ catmaid_get_tag.neuronlist <- function(x, tag = "TODO", url = FALSE, only.leaves
     do.call(rbind,lapply(x,catmaid_get_tag.neuron, url=url, tag = tag))
   }
 }
-
-
-
-
-
-
-
-
 
