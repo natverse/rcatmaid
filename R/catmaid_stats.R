@@ -152,3 +152,69 @@ process_one_user_history <- function(x) {
   df$date=rep(dates, sapply(x, function(x) length(x)>0))
   df
 }
+
+
+
+#' Get meta information on nodes connected to a CATMAID connector node
+#'
+#' @description Get information on a CATMAID connector node
+#' @param connector_id the ID for a connector of interest
+#' @param node whether the connector is pre- or post-synaptic to the node of interest
+#' @param pid project id. Defaults to 1
+#' @param conn CATMAID connection object, see ?catmaid_login for details
+#' @param ... methods passed to \code{catmaid_fetch} and \code{catmaid_get_treenode_detail}
+#' @export
+#' @rdname catmaid_connector_nodes
+catmaid_connector_nodes <- function(connector_id, node = c("presynaptic","postsynaptic"),
+                                    pid=1, conn = conn, ...){
+  node = match.arg(node)
+  connector_id = as.numeric(connector_id)
+  if(length(connector_id)!=1){
+    stop("connector_id must be a single connector_id")
+  }
+  post_data = list()
+  post_data["connector_ids[0]"] = connector_id
+  path = sprintf("/%d/connector/skeletons", pid)
+  res = catmaid_fetch(path, body = post_data, include_headers = F,
+                               simplifyVector = T, conn = conn,...)
+  tnids = res[[1]][[2]][[paste0(node,"_to_node")]]
+  detail = catmaid_get_treenodes_detail (tnids=tnids, pid = pid, conn = conn, ...)
+  detail$connector_id = connector_id
+  detail
+}
+
+
+### Added to rcatmaid ###
+#' Get the UTC creation / edit time for a CATMAID node
+#'
+#' @description Get the UTC creation / edit time for a CATMAID treenode or connector. 
+#' Useful for making 'state' arguments to be passed to other functions that edit data on a CATMAID server.
+#' @param id a treenode or connector ID
+#' @param time whether to return the creation_time or edition_time
+#' @param pid project id. Defaults to 1
+#' @param conn CATMAID connection object, see ?catmaid_login for details
+#' @param ... methods passed to catmaid_set_labels
+#' @export
+#' @rdname catmaid_node_time
+catmaid_node_time <- function(id, time = c("creation_time", "edition_time"), pid = 1, conn = NULL, ...){
+  time = match.arg(time)
+  id = as.numeric(id)
+  post_data = list()
+  post_data["node_ids"] = id
+  path = sprintf("/%d/node/user-info", pid)
+  res = catmaid_fetch(path, body = post_data, include_headers = F,
+                               simplifyVector = T, conn = conn, ...)
+  if(!is.null(res$error)){
+    stop(res$error)
+  }else{
+    res[[1]][[time]]
+  }
+}
+
+# A helper function, not exported
+catmaid_convert_time <- function(utc){
+  t = format(as.POSIXlt(utc,tz="GMT",origin="1970-01-01"), "%Y-%m-%d %H:%M:%OS3")
+  s = unlist(strsplit(t," "))
+  t = paste0(s[1],"T",s[2],"Z")
+}
+
