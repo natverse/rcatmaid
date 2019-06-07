@@ -1,3 +1,71 @@
+# catmaid 0.9.9
+
+* `catmaid_query_connected()` now returns stats for all connections but
+  also allows a confidence threshold to be set. The default threshold of 1
+  is a new more permissive behaviour (#113).
+  Thanks to Sebastian Cachero / @schlegelp for the bug report.
+* Fix bug in `catmaid_connection_getenv()` and friends in getting environment
+  variables on some OSes. It turns out that we should switch to recommending 
+  variables of the form `catmaid_*` (#110).
+  Thanks to @SridharJagannathan for detective work and a PR with a fix.
+
+# catmaid 0.9.8
+
+* Fix bug in `catmaid_get_connectors_between()` when getting neuron names.
+  There was an off by one error for the postsynaptic partner name (#109). 
+  Thanks to @mmc46 for the bug report.
+
+# catmaid 0.9.7
+
+* New `catmaid_userids()` function converts user login names to ids.
+* `catmaid_connection()` gets a new `config` argument to allow curl options to
+  be set (#108). 
+* Return format and documentation fix: tree node ids in
+  `catmaid_get_connector_table()` always refer to the query skeleton and not
+  the partner neuron (#107)
+
+# catmaid 0.9.6
+
+* Give `read.neurons.catmaid()` an optional fetch.annotations argument that 
+  adds a second metadata data.frame as an attribute to the resultant 
+  `neuronlist()` object (#18).
+* Fix handling of CATMAID version string (#103)
+
+# catmaid 0.9.5
+
+* Stop `catmaid_get_connector_table()` returning duplicate rows when there are
+ multiple connections between the same partner neurons at a given connector. 
+ Thanks to Shanice Bailey and Istvan Taisz for the bug report (#106).
+* Pass on pid in `catmaid_skids()`, thereby fixing an issue with 
+  `read.neurons.catmaid()` with annotation queries when project id is not 1.
+  Thanks to Marta Costa for the bug report (#105)
+
+# catmaid 0.9.4
+
+* `write_catmaid_selection()` accepts annotations/name specs
+
+# catmaid 0.9.3
+
+* workaround for bug in `catmaid_version()` (#103). Still waiting on changes in CATMAID
+  for more permanent fix.
+* fix import error with jsonlite version >=1.6
+
+# catmaid 0.9.2
+
+* Teach `catmaid_get_volumelist()` about new API return format (#102)
+* Sync `catmaid_get_treenode_table()` with API (#101)
+* make `catmaid_query_by_name()` treat query as regex (#100)
+* Fix bug in metadata for read_catmaid_selection (#99)
+* Sort tags for neurons so that they are always returned in the same order (#98)
+* Add `catmaid_get_node_count()` to get the number of nodes per skeleton
+* Teach `catmaid_get_treenodes_detail()` to search by labels - can use this e.g.
+  to find all nodes (regardless of neuron) with a certain tag e.g. `soma`.
+* Fix bug in `nsoma()` for duplicate skids; also speed-up
+* Make `catmaid_login()` explain why passing server directly doesn't work
+* Add name|nodes to results of `catmaid_get_connector_table()`
+* Speed-up in `catmaid_get_compact_skeleton()`/`read.neuron.catmaid()`
+* Teach `catmaid_get_node_count()` to handle NAs/dupes
+
 # catmaid 0.9.1
 
 * Add catmaid_get_labels, catmaid_set_labels, catmaid_remove_labels to 
@@ -34,7 +102,7 @@ with nat >=1.8.12.900 from github.
 This is a major version update because of the new support (and recommendation)
 to use environment variables for login (.Rprofile is still supported).
 
-* support fetching login informaion from environment variables (#80)
+* support fetching login information from environment variables (#80)
 * catmaid_get_compact_skeleton now returns list of vectors (#79)
   (used to be a list of lists, but this was less convenient and not helpful)
 * fix query_by_neuron_or_annotation adding empty annotations attribute

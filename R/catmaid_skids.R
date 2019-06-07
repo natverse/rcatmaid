@@ -20,7 +20,6 @@
 #' @inheritParams catmaid_fetch
 #' @return \code{integer} vector of skids (of length 0 on failure).
 #' @export
-#' @importFrom jsonlite rbind.pages
 #' @examples
 #' \dontrun{
 #' # these are just passed through

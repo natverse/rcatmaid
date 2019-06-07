@@ -16,14 +16,18 @@ write_catmaid_selection(x, f, color = NULL, opacity = NULL, ...)
 
 \item{opacity}{Optional vector of opacities (alpha values) in range 0-1}
 
-\item{...}{Additional arguments passed to \code{\link[jsonlite]{toJSON}}}
+\item{...}{Additional arguments passed to \code{\link{catmaid_skids}}}
 }
 \description{
 Make a CATMAID selection file based on neuronlist or skids
 }
 \examples{
 \dontrun{
-pns=read.neurons.catmaid("annotation:^PN$")
+# Write selection file for neurons defined by annotation or name
+write_catmaid_selection("PN", "pns.json")
+write_catmaid_selection("name:AV6", "name:av6.json")
+
+pns=read.neurons.catmaid("PN")
 # extract the glomerulus from the name
 pns[, 'glomerulus'] = stringr::str_match(pns[, 'name'],
                                          ".*glomerulus ([A-z0-9]+) .*")[, 2]

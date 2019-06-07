@@ -73,36 +73,47 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' @param skids One or more numeric skeleton ids or a character vector defining
 #'   a query (see \code{\link{catmaid_skids}} or examples for the syntax).
 #' @param OmitFailures Whether to omit neurons for which \code{FUN} gives an
-#'   error. The default value (\code{NA}) will result in nlapply stopping with
-#'   an error message the moment there is an error. For other values, see
-#'   details.
+#'   error. The default value (\code{NA}) will result in \code{\link{nlapply}}
+#'   stopping with an error message the moment there is an error. For other
+#'   values, see details.
 #' @param df Optional data frame containing information about each neuron
+#' @param fetch.annotations Whether or not to fetch the annotations for each
+#'   skeleton (default \code{FALSE})
 #'
 #' @details When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
-#'   wrapped in a call to \code{try} to ensure that failure for any single
-#'   neuron does not abort the nlapply/nmapply call. When
-#'   \code{OmitFailures=TRUE} the resultant neuronlist will be subsetted down to
-#'   return values for which \code{FUN} evaluated successfully. When
-#'   \code{OmitFailures=FALSE}, "try-error" objects will be left in place. In
-#'   either of the last 2 cases error messages will not be printed because the
-#'   call is wrapped as \code{try(expr, silent=TRUE)}.
+#'   wrapped in a call to \code{\link{try}} to ensure that failure for any
+#'   single neuron does not abort the \code{\link{nlapply}} call. When
+#'   \code{OmitFailures=TRUE} the resultant \code{\link{neuronlist}} will be
+#'   subsetted down to return values for which \code{FUN} evaluated
+#'   successfully. When \code{OmitFailures=FALSE}, "try-error" objects will be
+#'   left in place. In either of the last 2 cases error messages will not be
+#'   printed because the call is wrapped as \code{try(expr, silent=TRUE)}.
 #'
 #'   The optional dataframe (\code{df}) detailing each neuron should have
 #'   \code{rownames} that match the names of each neuron. It would also make
 #'   sense if the same key was present in a column of the data frame. If the
 #'   dataframe contains more rows than neurons, the superfluous rows are dropped
 #'   with a warning. If the dataframe is missing rows for some neurons an error
-#'   is generated. If SortOnUpdate is TRUE then updating an existing
-#'   \code{neuronlist} should result in a new \code{neuronlist} with ordering
-#'   identical to reading all neurons from scratch.
+#'   is generated. If \code{SortOnUpdate=TRUE} then updating an existing
+#'   \code{\link{neuronlist}} should result in a new \code{\link{neuronlist}}
+#'   with ordering identical to reading all neurons from scratch.
+#'
+#'   When \code{fetch.annotations=TRUE} then a second data.frame containing the
+#'   annotations for each neurons as returned by
+#'   \code{\link{catmaid_get_annotations_for_skeletons}} will be attached as the
+#'   attribute \code{anndf} (see examples).
 #' @export
-#' @seealso \code{\link{catmaid_skids}}
+#' @seealso \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotations_for_skeletons}}
 #' @examples
 #' \dontrun{
 #' library(nat)
 #' nl=read.neurons.catmaid(c(10418394,4453485))
 #' plot3d(nl)
 #'
+#' nl=read.neurons.catmaid(c(10418394,4453485), fetch.annotations=TRUE)
+#' # look at those annotations
+#' head(attr(nl, 'anndf'))
+#' 
 #' ## Full worked example looking at Olfactory Receptor Neurons
 #' # read in ORNs (using exact match to ORN annotation)
 #' # note that use a progress bar drop any failures
@@ -140,7 +151,8 @@ somapos.catmaidneuron <- function(x, swc=x$d, tags=x$tags, skid=NULL, ...) {
 #' plot3d(pns, col=Or)
 #'
 #' }
-read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL, ... ) {
+read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NULL,
+                               fetch.annotations=FALSE, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
   if(is.null(df)) {
     names(skids)=as.character(skids)
@@ -152,7 +164,10 @@ read.neurons.catmaid<-function(skids, pid=1L, conn=NULL, OmitFailures=NA, df=NUL
     names(skids)=rownames(df)
   }
   fakenl=nat::as.neuronlist(as.list(skids), df=df)
-  nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
+  nl <- nat::nlapply(fakenl, read.neuron.catmaid, pid=pid, conn=conn, OmitFailures=OmitFailures, ...)
+  if(isTRUE(fetch.annotations))
+    attr(nl, 'anndf') <- catmaid_get_annotations_for_skeletons(skids, pid = pid, conn=conn)
+  nl
 }
 
 #' Get data.frame of connector (synapse) information from a neuron or \code{neuronlist}
@@ -352,18 +367,19 @@ nsoma.default <- function(x, soma_label='soma', ...) {
   skids <- catmaid_skids(x, ...)
   skids_with_soma = skids_with_tags(soma_label)
   # NB augment the skid list with query skids so that everybody appears in table
-  tt=table(c(skids_with_soma[skids_with_soma%in%skids], skids))
+  tt=table(c(skids_with_soma[skids_with_soma%in%skids], unique(skids)))
   # ... but then subtract 1 for the dummy entry
   tt=tt-1L
   tt[as.character(skids)]
 }
 
 # nb returns skid once for every time it contains tag
-# TODO see if we can avoid project wide catmaid_get_label_stats
+# New catmaid_get_treenodes_detail is faster than project wide 
+# catmaid_get_label_stats but could probably still be faster, although whether
+# we could be fast and handle skeletons with multiple tags is less clear
 skids_with_tags <- function(tags, ...) {
-  label_stats=catmaid_get_label_stats(...)
-  matches=label_stats[['labelName']] %in% tags
-  label_stats[matches, 'skeletonID']
+  tnt=catmaid_get_treenodes_detail(labels = tags, ...)
+  tnt[['skid']]
 }
 
 #' @export

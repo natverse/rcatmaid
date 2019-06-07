@@ -5,8 +5,8 @@
 \alias{catmaid_query_by_annotation}
 \title{Get list of neurons/annotations querying by neuron/annotation name}
 \usage{
-catmaid_query_by_name(query, pid = 1, maxresults = 500, type = c("neuron",
-  "annotation"), raw = FALSE, ...)
+catmaid_query_by_name(query, pid = 1, maxresults = 500,
+  type = c("neuron", "annotation"), raw = FALSE, ...)
 
 catmaid_query_by_annotation(query, pid = 1, maxresults = 500,
   type = c("neuron", "annotation"), raw = FALSE, conn = NULL, ...)
@@ -61,6 +61,10 @@ These functions try to match a \code{query} against the
   The most common use will be to get a data.frames of neurons when you should
   use \code{type="neuron"}. You can also return both neurons and annotations
   (the default) and just annotations. See \code{type} argument for details.
+
+  Note that \code{catmaid_query_by_name} prepends a \code{"/"} to the
+  \code{query} argument so that it is treated as a regular expression (which
+  by some slight quirk of the API would otherwise not be the case).
 }
 \examples{
 \dontrun{

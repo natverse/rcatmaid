@@ -4,7 +4,8 @@
 \alias{catmaid_get_treenode_table}
 \title{Return tree node table for a given neuron}
 \usage{
-catmaid_get_treenode_table(skid, pid = 1, conn = NULL, raw = FALSE, ...)
+catmaid_get_treenode_table(skid, pid = 1, conn = NULL, raw = FALSE,
+  ...)
 }
 \arguments{
 \item{skid}{Numeric skeleton id}
@@ -55,10 +56,6 @@ Return tree node table for a given neuron
 \dontrun{
 # get tree node table for neuron 10418394
 tnt=catmaid_get_treenode_table(10418394)
-# show all leaf nodes
-subset(tnt, type=="L")
-# table of node types
-table(tnt$type)
 
 # look at tags data
 str(attr(tnt, 'tags'))

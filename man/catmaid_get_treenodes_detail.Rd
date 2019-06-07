@@ -4,11 +4,16 @@
 \alias{catmaid_get_treenodes_detail}
 \title{Fetch position and other information for arbitrary treenode ids}
 \usage{
-catmaid_get_treenodes_detail(tnids, pid = 1, conn = NULL, raw = FALSE,
-  ...)
+catmaid_get_treenodes_detail(tnids = NULL, labels = NULL,
+  skids = NULL, pid = 1, conn = NULL, raw = FALSE, ...)
 }
 \arguments{
 \item{tnids}{One or more (integer) treenode ids}
+
+\item{labels}{One or more (character) labels with which nodes must be tagged}
+
+\item{skids}{One or more skeleton ids or an expression compatible with
+\code{\link{catmaid_skids}} (see Details for advice re many skids)}
 
 \item{pid}{project id (default 1)}
 
@@ -52,12 +57,20 @@ Fetch position and other information for arbitrary treenode ids
 \details{
 The key feature of this function is that allows you to fetch
   information for arbitrary tree nodes that do not need to be from the same
-  skeleton.
+  skeleton. Furthermore the nodes can be defined by the presence of labels
+  (tags) or by a skeleton id. \code{labels} and \code{skids} specifiers can
+  be combined in order e.g. to find details for the somata for a given set of
+  skeleton ids. However these queries are slow for more than a few hundred
+  skids, at which point it is better to fetch using the label and then filter
+  by skid post hoc in R.
 }
 \examples{
 \donttest{
 # details for 3 nodes from two different skeletons
 catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
+
+# example label search
+tosoma=catmaid_get_treenodes_detail("to soma")
 }
 }
 \seealso{

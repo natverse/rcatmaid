@@ -18,3 +18,11 @@ test_that("can pre-process meshes for catmaid", {
     title = "Example mesh"
   ), eg)
 })
+
+# nb will reuse cached connection made earlier
+conn=try(catmaid_login(), silent = TRUE)
+
+test_that("get volume list", {
+  if(inherits(conn, 'try-error')) skip('No catmaid connection')
+  expect_is(catmaid_get_volumelist(), 'data.frame')
+})

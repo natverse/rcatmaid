@@ -179,28 +179,55 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
 }
 
 #' Fetch a data frame containing details of all volumes on CATMAID server
-#' 
+#'
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return A data.frame with columns \itemize{
-#'   
-#'   \item comment
-#'   
-#'   \item name
-#'   
-#'   \item creation_time
-#'   
-#'   \item edition_time
-#'   
-#'   \item project
-#'   
-#'   \item user
-#'   
+#' @return Since \code{CATMAID v2018.07.19-457-ga09910b} a \code{data.frame}
+#'   with columns \itemize{
+#'
 #'   \item id
-#'   
-#'   \item editor }
-#'   
+#'
+#'   \item name
+#'
+#'   \item comment
+#'
+#'   \item user_id
+#'
+#'   \item editor_id
+#'
+#'   \item project_id
+#'
+#'   \item creation_time
+#'
+#'   \item edition_time
+#'
+#'   \item annotations
+#'
+#'   }
+#'
 #' @export
 #' @seealso \code{\link{catmaid_get_volume}}
 catmaid_get_volumelist <- function(conn=NULL, pid=1, ...) {
-  catmaid_fetch('/1/volumes', simplifyVector = T, conn=conn, pid=pid, include_headers = F, ...)
+  old_version=catmaid_version(numeric = TRUE)<"2018.07.19-457"
+  req = catmaid_fetch(
+    '/1/volumes',
+    parse.json = FALSE,
+    conn = conn,
+    pid = pid,
+    include_headers = F,
+    ...
+  )
+  
+  text <- content(req, as = "text", encoding = "UTF-8")
+  if (identical(text, "")) stop("No output to parse", call. = FALSE)
+  
+  if(old_version){
+    vols <- fromJSON(text, simplifyVector = TRUE, ...)
+    catmaid_error_check(vols)
+  } else {
+    vols=fromJSON(text, simplifyVector = FALSE, ...)
+    catmaid_error_check(vols)
+    df=list2df(vols$data, unlist(vols$columns), stringsAsFactors=FALSE)
+    colnames(df)=vols$columns
+    df
+  }
 }

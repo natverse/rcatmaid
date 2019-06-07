@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find skeleton ids (skids) for various inputs including textual queries — catmaid_skids • catmaid</title>
+<title>Get the number of nodes per skeleton — catmaid_get_node_count • catmaid</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,9 @@
 
 
 
-<meta property="og:title" content="Find skeleton ids (skids) for various inputs including textual queries — catmaid_skids" />
+<meta property="og:title" content="Get the number of nodes per skeleton — catmaid_get_node_count" />
 
-<meta property="og:description" content="An efficient way to find neuron skeleton ids interactively or in any function
-that can take skids as an input." />
+<meta property="og:description" content="Get the number of nodes per skeleton" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,30 +102,30 @@ that can take skids as an input." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find skeleton ids (skids) for various inputs including textual queries</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skids.R'><code>R/catmaid_skids.R</code></a></small>
-    <div class="hidden name"><code>catmaid_skids.Rd</code></div>
+    <h1>Get the number of nodes per skeleton</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_skeleton.R'><code>R/catmaid_skeleton.R</code></a></small>
+    <div class="hidden name"><code>catmaid_get_node_count.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>An efficient way to find neuron skeleton ids interactively or in any function
-that can take skids as an input.</p>
+    <p>Get the number of nodes per skeleton</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_skids</span>(<span class='no'>x</span>, <span class='kw'>several.ok</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_node_count</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>one or more skids or a query expression (see details)</p></td>
+      <th>skids</th>
+      <td><p>One or more numeric skeleton ids or a character vector defining
+a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
     </tr>
     <tr>
-      <th>several.ok</th>
-      <td><p>Logical indicating whether we can allow multiple skids.</p></td>
+      <th>pid</th>
+      <td><p>Project id (default 1)</p></td>
     </tr>
     <tr>
       <th>conn</th>
@@ -137,40 +136,31 @@ options as described in the help for <code><a href='catmaid_login.html'>catmaid_
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional parameters passed to <code>catmaid_query_by_annotation</code></p></td>
+      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+function</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>integer</code> vector of skids (of length 0 on failure).</p>
+    <p>An integer vector of node counts</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If the inputs are numeric or have length &gt; 1 they are assumed
-  already to be skids and are simply converted to integers.</p>
-<p>If the input is a string starting with "name:" or "annotation:" they are
-  used for a query by <code><a href='catmaid_query_by_name.html'>catmaid_query_by_name</a></code> or
-  <code><a href='catmaid_query_by_name.html'>catmaid_query_by_annotation</a></code>, respectively.</p>
-<p>If the input is a string that cannot be interpreted as a number but does
-  not start with "name:" or "annotation:", it is assumed to be an
-  <em>exact</em> match for an annotation.</p>
+    <p>This is actually a thin wrapper around the
+  <code><a href='catmaid_get_review_status.html'>catmaid_get_review_status</a></code> function, which returns the number
+  of reviewed and total nodes for one or more neurons. However this function
+  can efficiently return the number of nodes when there are duplicates in the
+  input list.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># these are just passed through</span>
-<span class='fu'>catmaid_skids</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
+<span class='fu'>catmaid_get_node_count</span>(<span class='st'>"glomerulus DA2"</span>)
 
-<span class='co'># nb these are all regex matches</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"name:ORN"</span>)
-<span class='fu'>catmaid_skids</span>(<span class='st'>"name:PN"</span>)
-<span class='co'># there will be multiple annotations that match this</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"annotation:ORN"</span>)
-<span class='co'># but only one that matches this (see regex for details)</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"annotation:^ORN$"</span>)
-<span class='co'># As a special case this looks for an exact match annotation for "ORN"</span>
-<span class='fu'>catmaid_skids</span>(<span class='st'>"ORN"</span>)
+<span class='co'># NB handles repeated input efficiently</span>
+<span class='no'>skids</span><span class='kw'>=</span><span class='fu'><a href='catmaid_skids.html'>catmaid_skids</a></span>(<span class='st'>"glomerulus DA2 right"</span>)
+<span class='fu'>catmaid_get_node_count</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>skids</span>,<span class='fl'>20</span>))
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

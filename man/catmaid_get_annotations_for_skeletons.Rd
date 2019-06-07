@@ -11,8 +11,8 @@ catmaid_get_annotations_for_skeletons(skids, pid = 1, conn = NULL, ...)
 catmaid_set_annotations_for_skeletons(skids, annotations, pid = 1,
   conn = NULL, ...)
 
-catmaid_remove_annotations_for_skeletons(skids, annotations, force = FALSE,
-  pid = 1, conn = NULL, ...)
+catmaid_remove_annotations_for_skeletons(skids, annotations,
+  force = FALSE, pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining

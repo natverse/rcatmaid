@@ -36,9 +36,9 @@ read_catmaid_selection <- function(f, readNeurons=FALSE, getNames=TRUE, ...) {
   
   if(readNeurons) {
     x=read.neurons.catmaid(j$skid, OmitFailures = T, ...)
-    m=merge(x[,], j, by='skid')
-    rownames(m)=names(x)
-    x[,]=m
+    m=merge(x[,], j, by='skid', sort=FALSE)
+    rownames(m)=m[['skid']]
+    data.frame(x)=m
     x
   } else {
     if(getNames)
@@ -56,13 +56,17 @@ read_catmaid_selection <- function(f, readNeurons=FALSE, getNames=TRUE, ...) {
 #' @param color Optional vector of colours in any format understood by
 #'   \code{\link{col2rgb}}
 #' @param opacity Optional vector of opacities (alpha values) in range 0-1
-#' @param ... Additional arguments passed to \code{\link[jsonlite]{toJSON}}
+#' @param ... Additional arguments passed to \code{\link{catmaid_skids}}
 #'
 #' @export
 #' @seealso \code{\link{read_catmaid_selection}}
 #' @examples
 #' \dontrun{
-#' pns=read.neurons.catmaid("annotation:^PN$")
+#' # Write selection file for neurons defined by annotation or name
+#' write_catmaid_selection("PN", "pns.json")
+#' write_catmaid_selection("name:AV6", "name:av6.json")
+#' 
+#' pns=read.neurons.catmaid("PN")
 #' # extract the glomerulus from the name
 #' pns[, 'glomerulus'] = stringr::str_match(pns[, 'name'],
 #'                                          ".*glomerulus ([A-z0-9]+) .*")[, 2]
@@ -91,6 +95,8 @@ write_catmaid_selection <- function(x, f, color=NULL, opacity=NULL, ...) {
       if(any(is.finite(opac_col)))
         opacity=df[[opac_col[1]]]
     }
+  } else {
+    x=catmaid_skids(x, ...)
   }
   df=data.frame(skeleton_id=x)
   if(length(color))
@@ -98,7 +104,7 @@ write_catmaid_selection <- function(x, f, color=NULL, opacity=NULL, ...) {
   if(length(opacity))
     df$opacity=opacity
   
-  json=jsonlite::toJSON(df, pretty=TRUE, ...)
+  json=jsonlite::toJSON(df, pretty=TRUE)
   json=gsub("  ", " ", json, fixed = T)
   writeLines(json, f)
 }

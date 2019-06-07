@@ -1,9 +1,13 @@
 Package: catmaid
 Type: Package
 Title: R access to the API for the CATMAID web image annotation tool
-Version: 0.9.1
-Authors@R: person("Gregory","Jefferis", email="jefferis@gmail.com",
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355"))
+Version: 0.9.9
+Authors@R: c(
+    person("Gregory","Jefferis", email="jefferis@gmail.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
+    person("Sridhar","Jagannathan", email="j.sridharrajan@gmail.com", 
+    role = c("ctb"), comment = c(ORCID = "0000-0002-2078-1145"))
+    )
 Maintainer: Gregory Jefferis <jefferis@gmail.com>
 Description: This package provide access to the API exposed by the CATMAID (C
     ollaborative A nnotation T oolkit for M assive A mounts of I mage D ata)
@@ -24,10 +28,12 @@ Imports:
     xml2,
     grDevices,
     crul,
-    digest
+    digest,
+    checkmate
 Suggests:
     spelling,
     testthat
 Remotes: jefferis/nat
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 Language: en-GB
+Encoding: UTF-8

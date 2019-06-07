@@ -40,7 +40,7 @@
 catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, ...) {
   path=file.path("", pid, skid, ifelse(connectors, 1L, 0L), ifelse(tags, 1L, 0L), "compact-skeleton")
   skel=catmaid_fetch(path, conn=conn, ...)
-  if(isTRUE(skel[[1]]=="Exception"))
+  if(is.character(skel[[1]]) && isTRUE(skel[[1]]=="Exception"))
     stop("No valid neuron returned for skid: ",skid)
   names(skel)=c("nodes", "connectors", "tags")
   
@@ -54,7 +54,7 @@ catmaid_get_compact_skeleton<-function(skid, pid=1L, conn=NULL, connectors = TRU
     skel$connectors=list2df(skel$connectors, 
                             cols=c("treenode_id", "connector_id", "prepost", "x", "y", "z"))
   # change tags from list of lists to list of vectors
-  skel$tags=sapply(skel$tags, unlist, simplify = FALSE)
+  skel$tags=sapply(skel$tags, function(x) sort(unlist(x)), simplify = FALSE)
   skel
 }
 
@@ -70,7 +70,10 @@ list2df<-function(x, cols, use.col.names=F, return_empty_df=FALSE, ...) {
     raw_col = sapply(x, "[[", colidx)
     if(is.list(raw_col)) {
       raw_col[sapply(raw_col, is.null)]=NA
-      raw_col=unlist(raw_col)
+      sublens=sapply(raw_col, length)
+      if(all(sublens==1))
+        raw_col=unlist(raw_col)
+      else raw_col=sapply(raw_col, paste, collapse=',')
     }
     l[[cols[i]]]=raw_col
   }
@@ -118,64 +121,67 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 
 
 #' Return connector table for a given neuron
-#' 
+#'
 #' @param skids Numeric skeleton ids
 #' @param direction whether to find incoming or outgoing connections
 #' @param partner.skids Whether to include information about the skid of each
 #'   partner neuron (NB there may be multiple partners per connector)
+#' @param get_partner_names,get_partner_nodes Whether to fetch the names and/or
+#'   number of nodes for the partner neurons.
 #' @inheritParams read.neuron.catmaid
 #' @inheritParams catmaid_get_compact_skeleton
-#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns 
+#' @return As of CATMAID v2016.10.18 this returns a data.frame with columns
 #'   \itemize{
-#'   
+#'
 #'   \item skid
-#'   
+#'
 #'   \item connector_id
-#'   
+#'
 #'   \item x
-#'   
+#'
 #'   \item y
-#'   
+#'
 #'   \item z
-#'   
+#'
 #'   \item confidence
-#'   
+#'
 #'   \item user_id
-#'   
-#'   \item partner_treenode_id
-#'   
+#'
+#'   \item treenode_id (NB this is always the treenode id of the query skeleton
+#'   whether or not incoming or outgoing connections are requested)
+#'
 #'   \item last_modified
-#'   
+#'
 #'   \item partner_skid
-#'   
+#'
 #'   }
-#'   
+#'
 #'   Prior to this it returned a data.frame with columns \itemize{
-#'   
+#'
 #'   \item connector_id
-#'   
+#'
 #'   \item partner_skid
-#'   
+#'
 #'   \item x
-#'   
+#'
 #'   \item y
-#'   
+#'
 #'   \item z
-#'   
+#'
 #'   \item s
-#'   
+#'
 #'   \item confidence
-#'   
+#'
 #'   \item tags
-#'   
+#'
 #'   \item nodes_in_partner
-#'   
+#'
 #'   \item username
-#'   
-#'   \item partner_treenode_id
-#'   
+#'
+#'   \item treenode_id
+#'
 #'   \item last_modified
-#'   
+#'
 #'   }
 #' @export
 #' @examples
@@ -184,7 +190,7 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' ct=catmaid_get_connector_table(10418394)
 #' # compare number of incoming and outgoing synapses
 #' table(ct$direction)
-#' 
+#'
 #' ## Look at synapse location in 3d
 #' # plot the neuron skeleton in grey for context
 #' library(nat)
@@ -193,18 +199,18 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 #' # note use of nat::xyzmatrix to get xyz positions from the ct data.frame
 #' # colour synapses by direction
 #' points3d(xyzmatrix(ct), col=as.integer(ct$direction))
-#' 
+#'
 #' ## plot connected neurons in context of brain
 #' nopen3d()
 #' # fetch and plot brain model
 #' models=catmaid_fetch("1/stack/5/models")
 #' vs=matrix(as.numeric(models$cns$vertices), ncol=3, byrow = TRUE)
 #' points3d(vs, col='grey', size=1.5)
-#' 
+#'
 #' # fetch and plot neurons
 #' plot3d(read.neurons.catmaid(10418394), col='black', lwd=3)
 #' points3d(xyzmatrix(ct), col=as.integer(ct$direction))
-#' 
+#'
 #' partner_neuron_ids=unique(na.omit(as.integer(ct$partner_skid)))
 #' partner_neurons=read.neurons.catmaid(partner_neuron_ids, .progress='text', OmitFailures = TRUE)
 #' plot3d(partner_neurons)
@@ -213,8 +219,14 @@ catmaid_get_connectors<-function(connector_ids, pid=1, conn=NULL, raw=FALSE, ...
 catmaid_get_connector_table<-function(skids, 
                                       direction=c("both", "incoming", "outgoing"),
                                       partner.skids=TRUE,
+                                      get_partner_names=FALSE, get_partner_nodes=FALSE,
                                       pid=1, conn=NULL, raw=FALSE, ...) {
   direction=match.arg(direction)
+  if(get_partner_names || get_partner_nodes) {
+    if(!partner.skids) 
+      stop("Must fetch partner skids to find names/partner nodes")
+  }
+  
   skids=catmaid_skids(skids, conn = conn, pid=pid)
   if(direction[1]=='both') {
     dfin =catmaid_get_connector_table(skids, direction='incoming', pid=pid, conn=conn, raw=raw, ...)
@@ -252,10 +264,10 @@ catmaid_get_connector_table<-function(skids,
   # else process the connector information
   dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.09.01-77") {
     c("skid", "connector_id", "x", "y", "z", "confidence", 
-      "user_id", "partner_treenode_id", "last_modified")
+      "user_id", "treenode_id", "last_modified")
   } else {
     c("connector_id", "partner_skid", "x", "y", "z", "s", "confidence", 
-      "tags", "nodes_in_partner", "username", "partner_treenode_id", 
+      "tags", "nodes_in_partner", "username", "treenode_id", 
       "last_modified")
   }
   df=list2df(ctl[[1]], cols = dfcolnames, return_empty_df = T, stringsAsFactors=FALSE)
@@ -272,8 +284,18 @@ catmaid_get_connector_table<-function(skids,
     } else {
       names(cdf)[2:3]=c("partner_skid","skid")
     }
+    # remove any duplicates e.g. where the a single connector 
+    # has multiple connections for the same pair of partner neurons
+    cdf=cdf[!duplicated(cdf), , drop=FALSE]
+    
     df=merge(df, cdf, by=c('connector_id', 'skid'), all.x=TRUE)
   }
+  if(get_partner_names)
+    df$partner_name <- catmaid_get_neuronnames(df$partner_skid)
+  
+  if(get_partner_nodes)
+    df$partner_nodes <- catmaid_get_node_count(df$partner_skid)
+  
   df
 }
 
@@ -313,10 +335,6 @@ catmaid_get_connector_table<-function(skids,
 #' \dontrun{
 #' # get tree node table for neuron 10418394
 #' tnt=catmaid_get_treenode_table(10418394)
-#' # show all leaf nodes
-#' subset(tnt, type=="L")
-#' # table of node types
-#' table(tnt$type)
 #' 
 #' # look at tags data
 #' str(attr(tnt, 'tags'))
@@ -332,7 +350,7 @@ catmaid_get_connector_table<-function(skids,
 #'   to translate user ids into names.
 catmaid_get_treenode_table<-function(skid, pid=1, conn=NULL, raw=FALSE, ...) {
   # relation_type 0 => incoming
-  tnl=catmaid_fetch(path=paste0("/", pid, "/treenode/table/",skid,"/content"),
+  tnl=catmaid_fetch(path=paste0("/", pid, "/skeletons/",skid,"/node-overview"),
                     conn=conn, simplifyVector = TRUE, ...)
   
   if(raw) return(tnl)
@@ -484,9 +502,9 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
   # deal with neuron names
   if(get_names){
     # make this a single call for efficiency
-    allnames <- catmaid_get_neuronnames(c(ddf$pre_skid, ddf$post_skid))
+    allnames <- catmaid_get_neuronnames(c(ddf$pre_skid, ddf$post_skid), conn = conn, pid=pid, ...)
     ddf$pre_name <- allnames[seq_along(ddf$pre_skid)]
-    ddf$post_name <- allnames[seq_along(ddf$post_skid)+length(ddf$pre_skid)-1]
+    ddf$post_name <- allnames[seq_along(ddf$post_skid)+length(ddf$pre_skid)]
   }
   
   # move some columns to front
@@ -498,9 +516,17 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #'
 #' @details The key feature of this function is that allows you to fetch
 #'   information for arbitrary tree nodes that do not need to be from the same
-#'   skeleton.
+#'   skeleton. Furthermore the nodes can be defined by the presence of labels
+#'   (tags) or by a skeleton id. \code{labels} and \code{skids} specifiers can
+#'   be combined in order e.g. to find details for the somata for a given set of
+#'   skeleton ids. However these queries are slow for more than a few hundred
+#'   skids, at which point it is better to fetch using the label and then filter
+#'   by skid post hoc in R.
 #'
 #' @param tnids One or more (integer) treenode ids
+#' @param labels One or more (character) labels with which nodes must be tagged
+#' @param skids One or more skeleton ids or an expression compatible with
+#'   \code{\link{catmaid_skids}} (see Details for advice re many skids)
 #' @seealso \code{\link{catmaid_get_treenode_table}},
 #'   \code{\link{catmaid_get_connectors}},
 #'   \code{\link{catmaid_get_compact_skeleton}}
@@ -535,17 +561,46 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #' \donttest{
 #' # details for 3 nodes from two different skeletons
 #' catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
+#' 
+#' # example label search
+#' tosoma=catmaid_get_treenodes_detail("to soma")
 #' }
-catmaid_get_treenodes_detail<-function(tnids, pid=1, conn=NULL, raw=FALSE, ...) {
+catmaid_get_treenodes_detail<-function(tnids=NULL, labels=NULL, skids=NULL, 
+                                       pid=1, conn=NULL, raw=FALSE, ...) {
   path=paste("", pid, "treenodes","compact-detail",sep="/")
-  post_data=as.list(tnids)
-  names(post_data)=sprintf("treenode_ids[%d]", seq_along(tnids))
-  nodeinfo=catmaid_fetch(path, body=post_data, conn=conn, simplifyVector = T, ...)
+  
+  params=!sapply(list(tnids, labels, skids), is.null)
+  if (sum(params) == 0)
+    stop("You must specify at least one of tree node ids, node labels",
+         " or skeleton id args!")
+  if(any(params[2:3])) {
+    min.version="2018.07.19"
+    if((cv <- catmaid_version(conn = conn, numeric = TRUE)) < min.version)
+      stop("Your CATMAID server is running version ", cv, " but version >=",
+           min.version, " is required to support label or skid queries!")
+  }
+  body=list()
+  if(!is.null(tnids)){
+    body=as.list(tnids)
+    names(body)=sprintf("treenode_ids[%d]", seq_along(tnids))
+  }
+  if(!is.null(labels)){
+    body=c(body, label_names=labels)
+  }
+  if(!is.null(skids)) {
+    skids=catmaid_skids(skids)
+    skidlist=as.list(skids)
+    names(skidlist)=sprintf("skeleton_ids[%d]", seq_along(skids)-1L)
+    body=c(body, skidlist)
+  }
+  
+  nodeinfo=catmaid_fetch(path, body=body, conn=conn, simplifyVector = T, ...)
   
   if(raw) return(nodeinfo)
   # else process the connector information
   if(!length(nodeinfo)) return(NULL)
   
+  catmaid_error_check(nodeinfo)
   if(!(is.matrix(nodeinfo) && ncol(nodeinfo)==10)){
     stop("Unexpected return format catmaid_get_treenodes_detail!")
   }
@@ -589,17 +644,12 @@ catmaid_get_treenodes_detail<-function(tnids, pid=1, conn=NULL, raw=FALSE, ...) 
 #' catmaid_get_node_count("glomerulus DA2")
 #' 
 #' # NB handles repeated input efficiently
-#' skids=catmaid_skids("glomerulus DA2")
+#' skids=catmaid_skids("glomerulus DA2 right")
 #' catmaid_get_node_count(rep(skids,20))
 #' }
 catmaid_get_node_count <- function(skids, pid=1, conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
-  if(any(duplicated(skids))) {
-    uskids=unique(skids)
-    ulengths=catmaid_get_review_status(uskids, pid=pid, conn=conn, raw=FALSE, ...)$total
-    res=ulengths[match(skids, uskids)]
-    return(res)
-  }
-  res=catmaid_get_review_status(skids, pid=pid, conn=conn, raw=FALSE, ...)
-  res$total
+  good_skids=unique(na.omit(skids))
+  res=catmaid_get_review_status(good_skids, pid=pid, conn=conn, raw=FALSE, ...)
+  res$total[match(skids, good_skids)]
 }

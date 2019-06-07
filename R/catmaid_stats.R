@@ -46,18 +46,46 @@ catmaid_get_contributor_stats<-function(skids, pid=1, conn=NULL, ...) {
   lapply(res, fix_list)
 }
 
-#' Fetch list of catmaid users for current/specified connection/project
+#' Fetch or translate catmaid users for current/specified connection/project
 #' 
 #' @inheritParams read.neuron.catmaid
 #' @export
+#' @return For \code{catmaid_get_user_list} a \code{data.frame} with 
 #' @examples 
-#' \dontrun{
-#' catmaid_get_user_list()
+#' \donttest{
+#' head(catmaid_get_user_list())
 #' }
 #' @seealso \code{\link{catmaid_get_review_status}, 
 #'   \link{catmaid_get_contributor_stats}}
 catmaid_get_user_list<-function(pid=1, conn=NULL, ...){
   catmaid_fetch('user-list', simplifyVector = T, pid=pid, conn=conn, ...)
+}
+
+#' @description \code{catmaid_userids} convert login names to numeric ids
+#' @param x A character vector of login names. If \code{x} contains valid
+#'   integer (or numeric) ids then they will be returned as is.
+#' @return For \code{catmaid_userids} an integer vector of numeric ids
+#' @rdname catmaid_get_user_list
+#' @importFrom checkmate check_integerish asInteger
+#' @export
+#' @examples 
+#' \donttest{
+#' catmaid_userids(1)
+#' catmaid_userids('greg')
+#' }
+catmaid_userids <- function(x, pid=1, conn=NULL, ...) {
+  if(is.numeric(x)) {
+    checkmsg=check_integerish(x)
+    
+    if(!isTRUE(checkmsg))
+      stop("You have given me numeric input but some elements are not integers!",
+         "\n  user ids must always be integers! Details:\n", checkmsg)
+    return(asInteger(x))
+  }
+  # otherwise translate login names to ids
+  ul=catmaid_get_user_list(pid=pid, conn=conn)
+  mx=match(x, ul[['login']])
+  ul[['id']][mx]
 }
 
 #' Fetch user contribution history

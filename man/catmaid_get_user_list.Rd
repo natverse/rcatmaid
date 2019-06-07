@@ -2,9 +2,12 @@
 % Please edit documentation in R/catmaid_stats.R
 \name{catmaid_get_user_list}
 \alias{catmaid_get_user_list}
-\title{Fetch list of catmaid users for current/specified connection/project}
+\alias{catmaid_userids}
+\title{Fetch or translate catmaid users for current/specified connection/project}
 \usage{
 catmaid_get_user_list(pid = 1, conn = NULL, ...)
+
+catmaid_userids(x, pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{pid}{Project id (default 1)}
@@ -16,13 +19,25 @@ options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
 function}
+
+\item{x}{A character vector of login names. If \code{x} contains valid
+integer (or numeric) ids then they will be returned as is.}
+}
+\value{
+For \code{catmaid_get_user_list} a \code{data.frame} with
+
+For \code{catmaid_userids} an integer vector of numeric ids
 }
 \description{
-Fetch list of catmaid users for current/specified connection/project
+\code{catmaid_userids} convert login names to numeric ids
 }
 \examples{
-\dontrun{
-catmaid_get_user_list()
+\donttest{
+head(catmaid_get_user_list())
+}
+\donttest{
+catmaid_userids(1)
+catmaid_userids('greg')
 }
 }
 \seealso{
