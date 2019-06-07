@@ -28,6 +28,7 @@ Imports:
     xml2,
     grDevices,
     crul,
+    httr,
     curl,
     digest,
     checkmate
