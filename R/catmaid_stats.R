@@ -167,7 +167,7 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_TIME','ACTIONS'),
                                     minimum_actions=10, max_inactive_time=3,
                                     treenodes=TRUE, connectors=TRUE, 
-                                    start_date="2005-01-01",end_date="2099-01-01") {
+                                    start_date="2005-01-01",end_date="2099-01-01", ...) {
                                     
    #Step1: Process the arguments first..
     mode <- match.arg(mode)
@@ -193,7 +193,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     user_list <- catmaid_get_user_list(pid=pid, conn=conn)
   
   #Step4: Extract node and connector ids, tags for the individual neurons..
-    list_cf_df <- extract_nodeconnectorids(skids,pid,connectors)
+    list_cf_df <- extract_nodeconnectorids(skids,pid,connectors,conn =conn)
     
     #Get the ids of the nodes and connector_id of connectors
     overallcf_df ={}
@@ -222,7 +222,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     for (listidx in seq_along(chunkall_ids)){
       post_data=list()
       post_data[sprintf("node_ids[%d]", seq_along(chunkall_ids[[listidx]]))]=as.list(chunkall_ids[[listidx]])
-      singleres=catmaid_fetch(path, body=post_data, include_headers = F, simplifyVector = T)
+      singleres=catmaid_fetch(path, body=post_data, include_headers = F, simplifyVector = T, conn=conn, ...)
       if(catmaid_error_check(singleres, stoponerror=FALSE)) {
         message("Failed to process chunk", listidx)
       } else res=append(res, singleres)
@@ -276,7 +276,8 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
           links_temp = list()
           for (linksidx in seq_along(querypath)){
               connectorslist_temp = list(catmaid_fetch(querypath[linksidx], 
-                                                       include_headers = F, simplifyVector = T))
+                                                       include_headers = F, simplifyVector = T, 
+                                                       conn=conn, ...))
               names(connectorslist_temp) <- types_connectors[linksidx]
               links_temp <- c(links_temp,connectorslist_temp)
           }
@@ -471,7 +472,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     
 }
 
-extract_nodeconnectorids <- function(skids,pid,connectors){
+extract_nodeconnectorids <- function(skids,pid,connectors, conn){
   list_cf_df = {}
   for (skididx in seq_along(skids)){
       skid = skids[skididx]
@@ -481,7 +482,7 @@ extract_nodeconnectorids <- function(skids,pid,connectors){
       path = paste(path,u, sep ="")
     
       #rename them accordingly
-      cf=catmaid_fetch(path,simplifyVector = T)
+      cf=catmaid_fetch(path,simplifyVector = T, conn=conn)
     
       if ("error" %in% names(cf)){
           cat('Skipping skid: ',skid, '\n')
