@@ -161,6 +161,8 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 #' @param start_date The start date to compute activity from
 #' @param end_date  The end date to compute end of activity at
 #' @param conn  CATMAID connection instance
+#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
+#'   function
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export

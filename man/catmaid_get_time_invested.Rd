@@ -15,7 +15,7 @@ has to perform 3x10 actions for that interval to be counted as active.
 catmaid_get_time_invested(skids, pid = 1, conn = NULL,
   mode = c("SUM", "OVER_TIME", "ACTIONS"), minimum_actions = 10,
   max_inactive_time = 3, treenodes = TRUE, connectors = TRUE,
-  start_date = "2005-01-01", end_date = "2099-01-01")
+  start_date = "2005-01-01", end_date = "2099-01-01", ...)
 }
 \arguments{
 \item{skids}{could be skeleton id or neuron name or annotation}
@@ -39,6 +39,9 @@ time, 'ACTIONS' returns actions (node/connectors placed/edited) performed per da
 \item{start_date}{The start date to compute activity from}
 
 \item{end_date}{The end date to compute end of activity at}
+
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 }
 \description{
 Calculates the time individual users have spent working on a set of neurons
