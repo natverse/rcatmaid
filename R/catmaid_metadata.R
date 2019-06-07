@@ -376,3 +376,29 @@ catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
   # ensure that return values are in order that was passed in
   res[as.character(skids),]
 }
+
+#' Update a local neuronlist with new CATMAID data
+#'
+#' @description Use to update a large neuronlist quickly by pulling just certain neurons from CATMAID,
+#' using \code{read.neurons.catmaid}.
+#'
+#' @param skids skeleton IDs
+#' @param someneuronlist a neuronlist object
+#' @param ... additional arguments passed to \code{read.neurons.catmaid}
+#'
+#' @export
+#' @rdname update
+update_neurons<-function(someneuronlist,skids,...){
+  someneuronlist[skids] = read.neurons.catmaid(skids)
+  someneuronlist
+}
+
+#' @export
+#' @rdname update
+update_names<-function(someneuronlist,skids = names(someneuronlist),...){
+  someneuronlist[,"name"] = catmaid_get_neuronnames(skids)
+  someneuronlist
+}
+
+
+
