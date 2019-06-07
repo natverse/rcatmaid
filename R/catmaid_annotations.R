@@ -140,3 +140,25 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
   unlist(catmaid_fetch(path, body=post_data, include_headers = F, 
                     simplifyVector = T, ...))
 }
+
+#' Meta-annotate CATMAID annotations
+#'
+#' @description Meta-annotate a group of CATMAID annotations
+#'
+#' @param annotations annotations to meta-annotate
+#' @param meta_annotations meta-annotation to add
+#' @param conn a catmaid_connection objection returned by catmaid_login. I
+#' f NULL (the default) a new connection object will be generated using the values of the catmaid.* package options as described in the help for catmaid_login
+#' @param pid project id (default 1)
+#' @param ... additional arguments passed to methods.
+#' @seealso \code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}
+#' @export
+#' @rdname catmaid_set_meta_annotations
+catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=NULL,...){
+  post_data = list()
+  post_data[sprintf("annotates[%d]", seq_along(annotations))] = as.list(annotations)
+  path = sprintf("/%d/annotations/add", pid)
+  post_data[sprintf("annotations[%d]", seq_along(meta_annotations))] = as.list(meta_annotations)
+  res = catmaid_fetch(path, body = post_data, include_headers = F,
+                      simplifyVector = T, conn = conn, ...)
+}
