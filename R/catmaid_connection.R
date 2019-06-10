@@ -364,6 +364,10 @@ getenvoroption <- function(vars){
 catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE, 
                         include_headers=TRUE, simplifyVector=FALSE, ...) {
   conn=catmaid_login(conn)
+  if(length(conn$recording_path)>0){
+    httptest::start_capturing(conn$recrecording_path)
+    on.exit(httptest::stop_capturing())
+  }
   req<-with_config(conn$config, {
     if(is.null(body)) {
       GET(url=file.path(conn$server, path, fsep="/"), ...)
@@ -384,6 +388,28 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
     }
     parsed
   } else req
+}
+
+catmaid_start_recording <- function(path=tempfile(fileext = '.catmaid_recording'),
+                                    conn=NULL) {
+  if(!requireNamespace('httptest', quietly = TRUE))
+    stop("The suggested package httptest must be installed for recording")
+  conn=catmaid_login(conn)
+  conn$recording_path=path
+  catmaid_cache_connection(conn)
+  invisible(TRUE)
+}
+
+catmaid_stop_recording <- function(conn=NULL) {
+  conn=catmaid_login(conn)
+  conn$recording_path=NULL
+  catmaid_cache_connection(conn)
+  invisible(TRUE)
+}
+
+catmaid_is_recording <- function(conn=NULL) {
+  conn=catmaid_login(conn)
+  length(conn$recording_path)>0
 }
 
 #' Record and use a web cache when running an R script / Rmarkdown file
