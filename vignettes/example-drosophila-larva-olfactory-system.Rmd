@@ -168,7 +168,7 @@ non_pn_downstream[grepl("right", non_pn_downstream[,'name']),'side']='R'
 
 Then we select and cluster just the neurons on the right hand side.
 
-```{r4-clusters}
+```{r 4-clusters}
 rhsids=subset(non_pn_downstream, side == 'R', rval = 'name')
 non_pn_downstream.hcr = nhclust(rhsids, scoremat = non_pn_downstream.aba)
 # note that we abbreviate only the selected neuron names
