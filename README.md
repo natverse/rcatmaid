@@ -62,6 +62,10 @@ plot3d(orns, col=Or)
 plot3d(pns, col=Or, soma=1500)
 ```
 
+Which produces the following output plot:
+
+[![Larval PN](docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png)]
+
 ## Authentication
 You will obviously need to have the login details of a valid CATMAID instance to try 
 this out. As of December 2015 CATMAID is moving to token based authentication. For this
