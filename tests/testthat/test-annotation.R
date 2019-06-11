@@ -16,6 +16,10 @@ fakeconn <-
 
 conn = fakeconn
 
+set_requester(function (request) {
+  gsub_request(request, "https://neuropil.janelia.org/tracing/fafb/v14/", "api/")
+})
+
 test_that("Check connection",{
             expect_equal(fakeconn$server,"https://neuropil.janelia.org/tracing/fafb/v14") 
  })

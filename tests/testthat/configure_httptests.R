@@ -6,6 +6,7 @@ library(catmaid)
 testpath = paste0('./',test_path())
 .mockPaths(testpath)
 
+
 #Step 2: Start capturing http data from now..
 
 start_capturing()
@@ -34,5 +35,12 @@ neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,body=list(pid=pi
 #For test file : 
       #For test case :
 
+#Step 4: Stop the capture
 stop_capturing()
+
+#Step 5: Rename the captured folder structure like below..
+#old_folderstruct -- "neuropil.janelia.org/tracing/fafb/v14/"
+#new_folderstruct -- "api/"
+
+
 
