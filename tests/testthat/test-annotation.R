@@ -24,7 +24,7 @@ test_that("Check connection",{
             expect_equal(fakeconn$server,"https://neuropil.janelia.org/tracing/fafb/v14") 
  })
  
-with_mock_api(tempval <- catmaid_skids('annotation:^ORN$'))
+with_mock_api(tempval <- catmaid_skids('annotation:^ORN$',conn = conn))
 skid_1 <-tempval[[1]]
 skid_2 <-tempval[[2]]
 
