@@ -31,9 +31,9 @@ skid_2 <-tempval[[2]]
 with_mock_api(
   test_that("catmaid_get_annotations_for_skeletons", {
     if (inherits(conn, 'try-error')) skip('No catmaid connection')
-    expect_is(n1 <- catmaid_get_annotations_for_skeletons(skids = skid_1),'data.frame')
-    n2 = catmaid_get_annotations_for_skeletons(skids = skid_2)
-    expect_is(n12 <- catmaid_get_annotations_for_skeletons(skids = c(skid_1, skid_2)),'data.frame')
+    expect_is(n1 <- catmaid_get_annotations_for_skeletons(skids = skid_1,conn = conn),'data.frame')
+    n2 = catmaid_get_annotations_for_skeletons(skids = skid_2,conn = conn)
+    expect_is(n12 <- catmaid_get_annotations_for_skeletons(skids = c(skid_1, skid_2),conn = conn),'data.frame')
     expect_equal(rbind(n1, n2), n12)
  
 }))
