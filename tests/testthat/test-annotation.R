@@ -16,7 +16,7 @@ set_requester(function (request) {
 
 ##Set up the configuration server now for live public configurations..
 publicserver <- "https://l1em.catmaid.virtualflybrain.org"
-pubconn <- catmaid_connection(server=publicserver, authname = "flyeee")
+pubconn <- catmaid_login(server=publicserver, Cache = FALSE)
 
 
 #Set the environmental variable responsible for mocking
