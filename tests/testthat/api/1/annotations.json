@@ -8298,6 +8298,16 @@
             ]
         },
         {
+            "name": "aSP-g L cand search by tract 8434986 KMS",
+            "id": 12184862,
+            "users": [
+                {
+                    "id": 305,
+                    "name": "starki"
+                }
+            ]
+        },
+        {
             "name": "aSP-g L cand search by tract 8451164 KMS",
             "id": 10623551,
             "users": [
@@ -20362,6 +20372,10 @@
             "id": 11959355,
             "users": [
                 {
+                    "id": 55,
+                    "name": "jefferis"
+                },
+                {
                     "id": 57,
                     "name": "reiserm"
                 },
@@ -25957,6 +25971,10 @@
                 {
                     "id": 247,
                     "name": "tenshawe"
+                },
+                {
+                    "id": 296,
+                    "name": "brotasm"
                 }
             ]
         },
@@ -28705,6 +28723,10 @@
                 {
                     "id": 247,
                     "name": "tenshawe"
+                },
+                {
+                    "id": 296,
+                    "name": "brotasm"
                 }
             ]
         },
@@ -28723,6 +28745,10 @@
                 {
                     "id": 247,
                     "name": "tenshawe"
+                },
+                {
+                    "id": 296,
+                    "name": "brotasm"
                 }
             ]
         },
@@ -51054,6 +51080,16 @@
             ]
         },
         {
+            "name": "neuron 11949271 FS",
+            "id": 12188134,
+            "users": [
+                {
+                    "id": 150,
+                    "name": "coatesk"
+                }
+            ]
+        },
+        {
             "name": "neuron 11952996 FS",
             "id": 11976789,
             "users": [
@@ -70114,6 +70150,16 @@
                 {
                     "id": 64,
                     "name": "managanc"
+                }
+            ]
+        },
+        {
+            "name": "neuron 5007783 FS",
+            "id": 12192675,
+            "users": [
+                {
+                    "id": 150,
+                    "name": "coatesk"
                 }
             ]
         },
@@ -93940,6 +93986,16 @@
             ]
         },
         {
+            "name": "neuron 7348297 FS",
+            "id": 12193632,
+            "users": [
+                {
+                    "id": 150,
+                    "name": "coatesk"
+                }
+            ]
+        },
+        {
             "name": "neuron 7348403 FS",
             "id": 12042065,
             "users": [
@@ -98846,6 +98902,16 @@
             ]
         },
         {
+            "name": "new DNs",
+            "id": 12182093,
+            "users": [
+                {
+                    "id": 170,
+                    "name": "eichlerk"
+                }
+            ]
+        },
+        {
             "name": "new MBON CNs by Li",
             "id": 5317229,
             "users": [
@@ -99656,6 +99722,10 @@
                 {
                     "id": 127,
                     "name": "marinl"
+                },
+                {
+                    "id": 271,
+                    "name": "turnbullr"
                 }
             ]
         },
@@ -111140,12 +111210,32 @@
             ]
         },
         {
+            "name": "Putative Dm9",
+            "id": 12190903,
+            "users": [
+                {
+                    "id": 299,
+                    "name": "kinde"
+                }
+            ]
+        },
+        {
             "name": "Putative Dm-DRA1",
             "id": 11944125,
             "users": [
                 {
                     "id": 265,
                     "name": "obrusnikt"
+                }
+            ]
+        },
+        {
+            "name": "Putative Dm-DRA2",
+            "id": 12188964,
+            "users": [
+                {
+                    "id": 299,
+                    "name": "kinde"
                 }
             ]
         },
@@ -115694,6 +115784,36 @@
             ]
         },
         {
+            "name": "putative TmY15",
+            "id": 12184367,
+            "users": [
+                {
+                    "id": 57,
+                    "name": "reiserm"
+                }
+            ]
+        },
+        {
+            "name": "putative TmY17",
+            "id": 12184365,
+            "users": [
+                {
+                    "id": 57,
+                    "name": "reiserm"
+                }
+            ]
+        },
+        {
+            "name": "putative TmY5a",
+            "id": 12184369,
+            "users": [
+                {
+                    "id": 57,
+                    "name": "reiserm"
+                }
+            ]
+        },
+        {
             "name": "putative TRN",
             "id": 1151225,
             "users": [
@@ -117411,6 +117531,16 @@
                 {
                     "id": 297,
                     "name": "francesr"
+                }
+            ]
+        },
+        {
+            "name": "RGT DA2 downstream complete",
+            "id": 12180070,
+            "users": [
+                {
+                    "id": 271,
+                    "name": "turnbullr"
                 }
             ]
         },
@@ -138736,6 +138866,10 @@
                 {
                     "id": 234,
                     "name": "steckk"
+                },
+                {
+                    "id": 296,
+                    "name": "brotasm"
                 }
             ]
         },

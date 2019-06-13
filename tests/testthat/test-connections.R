@@ -79,17 +79,18 @@ test_that("can login", {
 })
 
 test_that("can get and post data", {
-  if(inherits(conn, 'try-error')) skip('No catmaid connection')
-  tempval <- catmaid_skids('annotation:^ORN$',conn = conn)
+  pubconn <- catmaid_login(server=publicserver, Cache = FALSE)
+  if(inherits(pubconn, 'try-error')) skip('No public catmaid connection')
+  tempval <- catmaid_skids('annotation:^ORN$',conn = pubconn)
   skid_1 <-tempval[[1]]
   skid_2 <-tempval[[2]]
-  expect_is(skel<-catmaid_fetch(paste0("1/", skid_1,"/0/0/compact-skeleton"), conn=conn, parse.json = FALSE),
+  expect_is(skel<-catmaid_fetch(paste0("1/", skid_1,"/0/0/compact-skeleton"), conn=pubconn, parse.json = FALSE),
             'response')
-  expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
+  expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=pubconn,
                                        body=list(pid=1, 'skids[1]'=skid_1, 'skids[2]'=skid_2)),
             'list')
   # nb we can't rely on the returned order
-  expect_equal(sort(names(neuronnames)), c(as.character(skid_1),as.character(skid_2)))
+  expect_equal(sort(names(neuronnames)), sort(as.character(c(skid_1,skid_2))))
   expect_equal(names(attributes(neuronnames)), c("names", "url", "headers"))
 })
 

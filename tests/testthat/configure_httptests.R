@@ -32,15 +32,33 @@ skel<-catmaid_fetch(pathvar, conn=conn, parse.json = FALSE)
 neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,body=list(pid=pid, 
                           'skids[1]'=skid_1, 'skids[2]'=skid_2))
 
-#For test file : 
-      #For test case :
+#For test file : test-fetch.R
+      #For test case : catmaid_get_neuronnames
+catmaid_get_neuronnames(skids=c(77,446))
+catmaid_get_neuronnames(skids=c(77,446, NA))
+     #For test case : catmaid_query_by_name
+catmaid_query_by_name("wurgle")
+catmaid_query_by_name("ORN")
+    #For test case : catmaid_query_by_annotation
+catmaid_query_by_annotation("^ORN$")
+catmaid_query_by_annotation("wurgle")
+catmaid_query_by_name("^ORN$")$id
+    #For test case : get neuron
+catmaid_get_compact_skeleton(pid=1, skid=skid_1, conn=conn)
+    #For test case : read.neuron(s).catmaid and connectors
+read.neuron.catmaid(pid=1, skid=skid_1, conn=conn)
+read.neurons.catmaid(c(skid_2,skid_1), conn=conn)
 
 #Step 4: Stop the capture
 stop_capturing()
 
 #Step 5: Rename the captured folder structure like below..
-#old_folderstruct -- "neuropil.janelia.org/tracing/fafb/v14/"
-#new_folderstruct -- "api/"
+unlink(paste0(testpath, "/api/", sep=""), recursive = TRUE) 
+old_folderstruct <- paste0(testpath, "/neuropil.janelia.org/tracing/fafb/v14/.", sep="")
+new_folderstruct <- paste0(testpath, "/api/", sep="")
+dir.create(new_folderstruct)
+file.copy(old_folderstruct, new_folderstruct, recursive=TRUE)
+unlink(paste0(testpath, "/neuropil.janelia.org", sep=""), recursive = TRUE) 
 
 
 
