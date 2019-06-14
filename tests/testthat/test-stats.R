@@ -39,18 +39,28 @@ test_that("catmaid_user_history", {
   expect_equal(as.data.frame(res), baseline_df)
 })
 
-# nb will reuse cached connection made earlier
-conn=try(catmaid_login(), silent = TRUE)
+##Set up the configuration server for mocks..
+privateserver <- "https://neuropil.janelia.org/tracing/fafb/v14"
+fakeconn <- structure( list( server = privateserver,
+                             nologin = TRUE, authresponse = TRUE, config=httr::config() ),
+                       .class = "catmaid_connection")
 
+set_requester(function (request) {
+  gsub_request(request, "https://neuropil.janelia.org/tracing/fafb/v14/", "api/")
+})
+
+conn <- fakeconn
+
+with_mock_api(
 test_that("catmaid users", {
-  expect_equal(catmaid_userids(1), 1L)
-  expect_equal(catmaid_userids(1.00000000001), 1L)
-  expect_equal(catmaid_userids(1:2), 1:2)
-  expect_error(catmaid_userids(1.1))
+  expect_equal(catmaid_userids(1, conn = conn), 1L)
+  expect_equal(catmaid_userids(1.00000000001, conn = conn), 1L)
+  expect_equal(catmaid_userids(1:2, conn = conn), 1:2)
+  expect_error(catmaid_userids(1.1, conn = conn))
   
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
-  ul=catmaid_get_user_list()
+  ul=catmaid_get_user_list(conn = conn)
   l1=ul[['login']][1]
   i1=ul[['id']][1]
-  expect_equal(catmaid_userids(c(l1, 'rhubarbcrumble')), c(i1, NA_integer_))  
-})
+  expect_equal(catmaid_userids(c(l1, 'rhubarbcrumble'), conn = conn), c(i1, NA_integer_))  
+}))

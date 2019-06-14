@@ -32,6 +32,10 @@ skel<-catmaid_fetch(pathvar, conn=conn, parse.json = FALSE)
 neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,body=list(pid=pid, 
                           'skids[1]'=skid_1, 'skids[2]'=skid_2))
 
+#For test file : test-connections.R
+      #For test case : 
+
+
 #For test file : test-fetch.R
       #For test case : catmaid_get_neuronnames
 catmaid_get_neuronnames(skids=c(77,446))
@@ -48,6 +52,58 @@ catmaid_get_compact_skeleton(pid=1, skid=skid_1, conn=conn)
     #For test case : read.neuron(s).catmaid and connectors
 read.neuron.catmaid(pid=1, skid=skid_1, conn=conn)
 read.neurons.catmaid(c(skid_2,skid_1), conn=conn)
+
+#For test file : test-nat.R
+      #For test case : 
+
+#For test file : test-plot3d.R
+      #For test case : 
+
+#For test file : test-selections.R
+      #For test case : 
+
+#For test file : test-skeleton.R
+      #For test case : skeleton-tests
+sk <- catmaid_skids("^ORN$")[1:2]
+nc <- catmaid_get_node_count(sk)
+
+#For test file : test-skids.R
+      #For test case : process skid queries
+catmaid_skids("name:ORN")
+catmaid_skids("name:rhubarb crumble")
+catmaid_skids("annotation:^ORN$")
+catmaid_skids("annotation:ORN", several.ok = FALSE)
+catmaid_skids("annotation:rhubarb crumble")
+catmaid_skids('ORN')
+catmaid_skids('rhubarb')
+
+#For test file : test-stats.R
+      #For test case : catmaid users
+ul=catmaid_get_user_list()
+l1=ul[['login']][1]
+i1=ul[['id']][1]
+catmaid_userids(c(l1, 'rhubarbcrumble'))  
+
+#For test file : test-treenodes.R
+      #For test case : catmaid_get_treenode_table
+tempval <- catmaid_skids('annotation:^ORN$',conn = conn)
+skid_1 <-tempval[[1]]
+catmaid_get_treenode_table(skid_1, conn= conn)
+      #For test case : catmaid_get_treenodes_detail
+skid_2 <-tempval[[2]]
+skid_3 <-tempval[[3]]
+catmaid_get_treenodes_detail(c(skid_1, skid_2, skid_3), conn= conn)
+
+#For test file : test-volume.R
+      #For test case : get volume list
+tmpvolume <- catmaid_get_volumelist(conn = conn)
+
+#For test file : test-xform.R
+      #For test case : xform scales connectors as well
+tempval <- catmaid_skids('annotation:^ORN$',conn = conn)
+skid_1 <-tempval[[1]]
+read.neuron.catmaid(skid_1,conn = conn)
+
 
 #Step 4: Stop the capture
 stop_capturing()

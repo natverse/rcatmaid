@@ -19,10 +19,20 @@ test_that("can pre-process meshes for catmaid", {
   ), eg)
 })
 
-# nb will reuse cached connection made earlier
-conn=try(catmaid_login(), silent = TRUE)
+##Set up the configuration server for mocks..
+privateserver <- "https://neuropil.janelia.org/tracing/fafb/v14"
+fakeconn <- structure( list( server = privateserver,
+                             nologin = TRUE, authresponse = httr::GET(privateserver), config=httr::config() ),
+                       .class = "catmaid_connection")
 
+set_requester(function (request) {
+  gsub_request(request, "https://neuropil.janelia.org/tracing/fafb/v14/", "api/")
+})
+
+conn <- fakeconn
+
+with_mock_api(
 test_that("get volume list", {
   if(inherits(conn, 'try-error')) skip('No catmaid connection')
-  expect_is(catmaid_get_volumelist(), 'data.frame')
-})
+  expect_is(catmaid_get_volumelist(conn = conn), 'data.frame')
+}))

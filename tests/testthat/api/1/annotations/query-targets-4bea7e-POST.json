@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 1239808,
+            "name": "Putative ORN DC3 1239808 ARH",
+            "type": "neuron",
+            "skeleton_ids": [
+                1239807
+            ]
+        }
+    ],
+    "totalRecords": 1
+}
