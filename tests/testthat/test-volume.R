@@ -19,10 +19,15 @@ test_that("can pre-process meshes for catmaid", {
   ), eg)
 })
 
+##Create dummy response object..
+responseobj <- structure(list(url = "http://dummyresp.org/", status_code = 200L, 
+                              cookies = structure(list(),row.names = integer(0), class = "data.frame")), 
+                         class = 'response')
+
 ##Set up the configuration server for mocks..
 privateserver <- "https://neuropil.janelia.org/tracing/fafb/v14"
 fakeconn <- structure( list( server = privateserver,
-                             nologin = TRUE, authresponse = httr::GET(privateserver), config=httr::config() ),
+                             nologin = TRUE, authresponse = responseobj, config=httr::config() ),
                        .class = "catmaid_connection")
 
 set_requester(function (request) {
