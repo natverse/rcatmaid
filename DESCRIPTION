@@ -28,7 +28,11 @@ Imports:
     nabor,
     xml2,
     grDevices,
-    checkmate
+    checkmate,
+    lubridate,
+    reshape2,
+    magrittr,
+    rlang
 Suggests: 
     httptest,
     knitr,

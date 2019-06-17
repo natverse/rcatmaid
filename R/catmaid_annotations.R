@@ -113,13 +113,13 @@ catmaid_remove_annotations_for_skeletons<-function(skids, annotations,
 
 # internal function to check for error state in return values
 # stops on error, otherwise returns input
-catmaid_error_check <- function(x){
+catmaid_error_check <- function(x, stoponerror=TRUE){
   err_fields=c("error","type", "detail")
   if(length(x)==3 & all(names(x)%in%err_fields)){
     # looks like an error response
-    stop(x$error, "\ttype: ", x$type)
+    if(stoponerror) stop(x$error, "\ttype: ", x$type) else return(TRUE)
   }
-  x
+  if(stoponerror) x else FALSE
 }
 
 #' Return the entity ids for one or more model ids
