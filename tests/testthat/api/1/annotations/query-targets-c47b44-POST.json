@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 5582741,
+            "name": "ORN 5582741 FML",
+            "type": "neuron",
+            "skeleton_ids": [
+                5582740
+            ]
+        }
+    ],
+    "totalRecords": 1
+}

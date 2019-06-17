@@ -16,11 +16,11 @@ Description: This package provide access to the API exposed by the CATMAID (C
 License: GPL-3
 URL: https://github.com/jefferis/rcatmaid
 BugReports: https://github.com/jefferis/rcatmaid/issues
-Depends:
+Depends: 
     R (>= 2.15.1),
     httr,
     nat (>= 1.8.12.9000)
-Imports:
+Imports: 
     jsonlite,
     plyr,
     rgl,
@@ -29,12 +29,13 @@ Imports:
     xml2,
     grDevices,
     checkmate
-Suggests:
-    spelling,
-    testthat,
+Suggests: 
+    httptest,
     knitr,
+    nat.nblast,
     rmarkdown,
-    nat.nblast
+    spelling,
+    testthat
 Remotes: jefferis/nat,
     jefferislab/nat.nblast
 RoxygenNote: 6.1.1

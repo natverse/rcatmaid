@@ -207,7 +207,7 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
 #' @export
 #' @seealso \code{\link{catmaid_get_volume}}
 catmaid_get_volumelist <- function(conn=NULL, pid=1, ...) {
-  old_version=catmaid_version(numeric = TRUE)<"2018.07.19-457"
+  old_version=catmaid_version(conn = conn, numeric = TRUE)<"2018.07.19-457"
   req = catmaid_fetch(
     '/1/volumes',
     parse.json = FALSE,

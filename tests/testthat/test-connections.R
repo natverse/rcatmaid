@@ -4,7 +4,7 @@ context("catmaid login and get/post")
 conn=try(catmaid_login(Force = TRUE), silent = TRUE)
 
 # Sample server used in next block
-publicserver <- 'http://hildebrand16.neurodata.io/catmaid/' #public server running a catmaid instance..
+publicserver <- "https://l1em.catmaid.virtualflybrain.org" #public server running a catmaid instance..
 
 test_that("set and get the environmental variables responsible for connections", {
 
@@ -49,7 +49,7 @@ test_that("set and get the environmental variables responsible for connections",
 
 test_that("can connect to a server without logging in", {
   # No login is required to talk to this server
-  expect_is(catmaid_login(server='http://hildebrand16.neurodata.io/catmaid/', Cache = FALSE),
+  expect_is(catmaid_login(server=publicserver, Cache = FALSE),
             'catmaid_connection')
 })
 
@@ -79,16 +79,21 @@ test_that("can login", {
 })
 
 test_that("can get and post data", {
-  if(inherits(conn, 'try-error')) skip('No catmaid connection')
-  expect_is(skel<-catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn, parse.json = FALSE),
+  pubconn <- catmaid_login(server=publicserver, Cache = FALSE)
+  if(inherits(pubconn, 'try-error')) skip('No public catmaid connection')
+  tempval <- catmaid_skids('annotation:^ORN$',conn = pubconn)
+  skid_1 <-tempval[[1]]
+  skid_2 <-tempval[[2]]
+  expect_is(skel<-catmaid_fetch(paste0("1/", skid_1,"/0/0/compact-skeleton"), conn=pubconn, parse.json = FALSE),
             'response')
-  expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=conn,
-                                       body=list(pid=1, 'skids[1]'=10418394, 'skids[2]'=4453485)),
+  expect_is(neuronnames<-catmaid_fetch("/1/skeleton/neuronnames", conn=pubconn,
+                                       body=list(pid=1, 'skids[1]'=skid_1, 'skids[2]'=skid_2)),
             'list')
   # nb we can't rely on the returned order
-  expect_equal(sort(names(neuronnames)), c('10418394','4453485'))
+  expect_equal(sort(names(neuronnames)), sort(as.character(c(skid_1,skid_2))))
   expect_equal(names(attributes(neuronnames)), c("names", "url", "headers"))
 })
+
 
 test_that("can fetch cached connection", {
   conn1=catmaid_connection(server = "https://wurgle.com", 

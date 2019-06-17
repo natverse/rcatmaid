@@ -1,0 +1,53 @@
+{
+    "entities": [
+        {
+            "id": 1945098,
+            "name": "Putative DA1 ORN Soma Right RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                1945097
+            ]
+        },
+        {
+            "id": 1995804,
+            "name": "Putative DA1 ORN RJVR Laphroaig Upstream 3",
+            "type": "neuron",
+            "skeleton_ids": [
+                1995803
+            ]
+        },
+        {
+            "id": 1995821,
+            "name": "Putative DA1 ORN RJVR Laphroaig Upstream 2",
+            "type": "neuron",
+            "skeleton_ids": [
+                1995820
+            ]
+        },
+        {
+            "id": 2237543,
+            "name": "Putative DA1 ORN RJVR Laphroaig Upstream",
+            "type": "neuron",
+            "skeleton_ids": [
+                2237542
+            ]
+        },
+        {
+            "id": 2253837,
+            "name": "Putative DA1 ORN 2253837 Soma Right RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                2253836
+            ]
+        },
+        {
+            "id": 2285345,
+            "name": "DA1 ORN RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                2285344
+            ]
+        }
+    ],
+    "totalRecords": 6
+}
