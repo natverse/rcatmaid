@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 10484772,
+            "name": "neuron 10484772 TO",
+            "type": "neuron",
+            "skeleton_ids": [
+                10484771
+            ]
+        }
+    ],
+    "totalRecords": 1
+}

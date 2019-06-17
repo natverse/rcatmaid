@@ -173,7 +173,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
                                     
    #Step1: Process the arguments first..
     mode <- match.arg(mode)
-    cat("Using mode as : ", mode, "\n")
+    cat("\nUsing mode as : ", mode, "\n")
     # Maximal inactive time is the time interval bin in which no. of actions are computed (here 3 minutes)
     timeinterval <- max_inactive_time
     # The minimum number of actions parameter is per minute and hence it should be scaled 
@@ -504,7 +504,7 @@ extract_nodeconnectorids <- function(skids,pid,connectors, conn){
           cf_df$tags = cf[["tags"]]
       
           #Get the neuron name
-          cf_df$neuron_name <- catmaid_get_neuronnames(skid)
+          cf_df$neuron_name <- catmaid_get_neuronnames(skid, conn=conn)
       
           list_cf_df[[skididx]] <- cf_df
     }
