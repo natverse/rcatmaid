@@ -64,3 +64,27 @@ test_that("catmaid users", {
   i1=ul[['id']][1]
   expect_equal(catmaid_userids(c(l1, 'rhubarbcrumble'), conn = conn), c(i1, NA_integer_))  
 }))
+
+with_mock_api(
+test_that("catmaid_get_time_invested", {
+  tempval <- catmaid_skids('annotation:^ORN$',conn = conn)
+  skid_1 <-tempval[[1]]
+  test_summode <- catmaid_get_time_invested(skids=skid_1, conn = conn,mode='SUM')
+  test_overtimemode <- catmaid_get_time_invested(skids=skid_1, conn = conn,mode='OVER_TIME')
+  test_actionsmode <- catmaid_get_time_invested(skids=skid_1, conn = conn,mode='ACTIONS')
+  test_summodeannot <- catmaid_get_time_invested('annotation:^Putative Dm9', conn = conn,mode='SUM')
+  
+  #Test datastructures now..
+  expect_is(test_summode,'data.frame')
+  expect_is(test_overtimemode,'data.frame')
+  expect_is(test_actionsmode,'data.frame')
+  expect_is(test_summodeannot,'data.frame')
+  
+  
+  #Test details now..
+  expect_equal(63,test_summode[test_summode$login == 'heatha','total'])
+  expect_equal(18,test_overtimemode[test_overtimemode$login == 'heatha','2016-07-12'])
+  expect_equal(1147,test_actionsmode[test_actionsmode$login == 'all_users','2016-07-12'])
+  expect_equal(24,test_summodeannot[test_summodeannot$login == 'kinde','total'])
+  
+}))

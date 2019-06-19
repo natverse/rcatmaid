@@ -82,7 +82,14 @@ catmaid_skids('rhubarb')
 ul=catmaid_get_user_list()
 l1=ul[['login']][1]
 i1=ul[['id']][1]
-catmaid_userids(c(l1, 'rhubarbcrumble'))  
+catmaid_userids(c(l1, 'rhubarbcrumble')) 
+      #For test case : catmaid_get_time_invested
+tempval <- catmaid_skids('annotation:^ORN$', conn = conn)
+skid_1 <-tempval[[1]]
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='SUM')
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='OVER_TIME')
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='ACTIONS')
+catmaid_get_time_invested('annotation:^Putative Dm9', conn = conn,mode='SUM')
 
 #For test file : test-treenodes.R
       #For test case : catmaid_get_treenode_table
