@@ -148,7 +148,8 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 #'  @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
 #' 'SUM' will return total time invested (in minutes) per user.
 #' 'OVER_TIME' will return minutes invested/day over time.
-#' 'ACTIONS' will return actions (node/connectors placed/edited) per day.
+#' 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
+#' max_inactive_time don't apply and hence every action is counted
 #' @param skids could be skeleton id or neuron name or annotation
 #' @param pid the project id
 #' @param mode can be one of 'SUM','OVER_TIME','ACTIONS', where 'SUM' will return

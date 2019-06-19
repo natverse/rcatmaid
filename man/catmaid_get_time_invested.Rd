@@ -10,7 +10,8 @@ has to perform 3x10 actions for that interval to be counted as active.
  @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
 'SUM' will return total time invested (in minutes) per user.
 'OVER_TIME' will return minutes invested/day over time.
-'ACTIONS' will return actions (node/connectors placed/edited) per day.}
+'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
+max_inactive_time don't apply and hence every action is counted}
 \usage{
 catmaid_get_time_invested(skids, pid = 1, conn = NULL,
   mode = c("SUM", "OVER_TIME", "ACTIONS"), minimum_actions = 10,
@@ -52,5 +53,6 @@ has to perform 3x10 actions for that interval to be counted as active.
  @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
 'SUM' will return total time invested (in minutes) per user.
 'OVER_TIME' will return minutes invested/day over time.
-'ACTIONS' will return actions (node/connectors placed/edited) per day.
+'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
+max_inactive_time don't apply and hence every action is counted
 }
