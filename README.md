@@ -36,7 +36,7 @@ library(catmaid)
 ## Example
 This example is based on EM tracing data from the Drosophila first instar larva
 by [Albert Cardona and colleagues](https://elifesciences.org/articles/14859) as
-submitted to https://virtualflybrain.org and visible at https://catmaid.virtualflybrain.org.
+submitted to [Virtual Fly Brain](https://virtualflybrain.org) and visible at https://catmaid.virtualflybrain.org.
 
 This produces a 3D plot of first and second order olfactory neurons
 coloured according to the peripheral odorant receptor.
