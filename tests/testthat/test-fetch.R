@@ -66,6 +66,7 @@ test_that("read.neuron(s).catmaid and connectors", {
   expect_is(n<-read.neuron.catmaid(pid=1, skid=skid_1, conn=conn), 'neuron')
   # check that we also have this specialised class
   expect_is(n, 'catmaidneuron')
+  expect_equal(n$InputFileName, as.character(skid_1))
   expect_is(nl<-read.neurons.catmaid(c(skid_2,skid_1), conn=conn), 'neuronlist')
   expect_is(df<-as.data.frame(nl), 'data.frame')
   expect_is(df$name, "character")
