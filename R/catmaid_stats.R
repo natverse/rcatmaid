@@ -139,17 +139,19 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
   as.data.frame(df)
 }
 
-
+#' catmaid_get_time_invested
+#' 
+#' 
 #' Calculates the time individual users have spent working on a set of neurons
-#' This API is a replica of the get_time_invested from python package `pymaid`
-#' Use @param minimum_actions and @param max_inactive_time to fine tune how time
-#' invested is calculated: by default, time is binned over 3 minutes in which a given user 
+#' This API is a replica of the get_time_invested from python package `pymaid`.
+#' The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
+#' invested is calculated. By default, time is binned over 3 minutes in which a given user 
 #' has to perform 3x10 actions for that interval to be counted as active.
-#'  @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
+#' The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
 #' 'SUM' will return total time invested (in minutes) per user.
 #' 'OVER_TIME' will return minutes invested/day over time.
-#' 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
-#' max_inactive_time don't apply and hence every action is counted
+#' 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
+#' the minimum_actions and max_inactive_time don't apply and hence every action is counted
 #' @param skids could be skeleton id or neuron name or annotation
 #' @param pid the project id
 #' @param mode can be one of 'SUM','OVER_TIME','ACTIONS', where 'SUM' will return
@@ -167,6 +169,12 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export
+#' @examples
+#' \dontrun{
+#' tempval <- catmaid_skids('annotation:^ORN$')
+#' skid_1 <-tempval[[1]]
+#' catmaid_get_time_invested(skids=skid_1, mode='SUM')
+#' }
 catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_TIME','ACTIONS'),
                                     minimum_actions=10, max_inactive_time=3,
                                     treenodes=TRUE, connectors=TRUE, 
