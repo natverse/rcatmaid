@@ -221,7 +221,12 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     if (connectors) {connector_ids = overallcf_df$connectors$connector_id}
     # Convert ids to ints to ensure that they are formatted cleanly in the JSON post
     # body in the loop coming up
+    connector_ids <- connector_ids[!is.na(connector_ids)]
     all_ids = as.integer(c(node_ids,connector_ids))
+    #Remove elements that have na usually nodes with no connectors
+    all_ids <- all_ids[!is.na(all_ids)]
+    #Choose only unique ids as there could be overlap
+    all_ids <- unique(all_ids)
     
   #Step5: Get user details for the node_ids, connector_ids..
     #Do the user details in chunks of 1000 so the CATMAID server can process them..
@@ -272,7 +277,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
                                                           format = "%Y-%m-%dT%H:%M",tz = "UTC"))
   
   #Step6: Get details about links..
-    if (connectors) {
+    if (connectors && !all(is.na(connector_ids))) {
       path=file.path("", pid, "connectors", "links")
       path = paste(path,"?relation_type=", sep ="")
     
@@ -321,27 +326,38 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     #Choose only those links that have matching connector ids in the neuron???
     links_collec <- links_collec[links_collec$connector_id %in% connector_ids,]
     
+    } else{
+      #Just initalize with empty here..
+      links_collec <- {}
     }
   
     node_details <- node_details_df
     review_details <- review_details_df
-    link_details <- links_collec
-    colnames(link_details)[colnames(link_details)=="creator_id"] <- "creator"
+    if (!is.null(links_collec)){
+      link_details <- links_collec
+      colnames(link_details)[colnames(link_details)=="creator_id"] <- "creator"
+    }
  
   #Step7: Remove timestamps outside of date range (if provided)
     if(start_date_dt){
       node_details = node_details[node_details$creation_time >= start_date_dt,]
       review_details = review_details[review_details$review_time >= start_date_dt,]
-      link_details = link_details[link_details$creation_time >= start_date_dt,]}
+      if (!is.null(links_collec)){
+          link_details = link_details[link_details$creation_time >= start_date_dt,]}}
     if(end_date_dt){
       node_details = node_details[node_details$creation_time <= end_date_dt,]
       review_details = review_details[review_details$review_time <= end_date_dt,]
-      link_details = link_details[link_details$creation_time <= end_date_dt,]}
+      if (!is.null(links_collec)){
+          link_details = link_details[link_details$creation_time <= end_date_dt,]}}
   
   #Step8a:  Create dataframes for the creation of items
     creation_timestamps <- {}
+    if (!is.null(links_collec)){
     creation_timestamps <- rbind( link_details[, c('creator', 'creation_time')],
-                                  node_details[, c('creator', 'creation_time')])
+                                  node_details[, c('creator', 'creation_time')])}
+    else{
+    creation_timestamps <- node_details[, c('creator', 'creation_time')] 
+    }
     colnames(creation_timestamps) <- c('user', 'timestamps')
 
   
@@ -503,6 +519,10 @@ extract_nodeconnectorids <- function(skids,pid,connectors, conn){
           names(cf)=c("nodes", "connectors", "tags")
           colnames(cf[["nodes"]]) <- c("id", "parent_id", "user_id", "x", "y", "z",
                                    "radius", "confidence")
+          if (length(cf[["connectors"]]) == 0)
+          {
+            cf[["connectors"]] <- matrix(ncol = 6, nrow = 1)
+          }
           colnames(cf[["connectors"]]) <- c("treenode_id", "connector_id", "relation", 
                                         "x", "y", "z")
       
