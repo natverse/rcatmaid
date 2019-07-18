@@ -139,17 +139,19 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
   as.data.frame(df)
 }
 
-
+#' catmaid_get_time_invested
+#' 
+#' 
 #' Calculates the time individual users have spent working on a set of neurons
-#' This API is a replica of the get_time_invested from python package `pymaid`
-#' Use @param minimum_actions and @param max_inactive_time to fine tune how time
-#' invested is calculated: by default, time is binned over 3 minutes in which a given user 
+#' This API is a replica of the get_time_invested from python package `pymaid`.
+#' The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
+#' invested is calculated. By default, time is binned over 3 minutes in which a given user 
 #' has to perform 3x10 actions for that interval to be counted as active.
-#'  @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
+#' The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
 #' 'SUM' will return total time invested (in minutes) per user.
 #' 'OVER_TIME' will return minutes invested/day over time.
-#' 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
-#' max_inactive_time don't apply and hence every action is counted
+#' 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
+#' the minimum_actions and max_inactive_time don't apply and hence every action is counted
 #' @param skids could be skeleton id or neuron name or annotation
 #' @param pid the project id
 #' @param mode can be one of 'SUM','OVER_TIME','ACTIONS', where 'SUM' will return
@@ -167,6 +169,12 @@ catmaid_user_history <- function(from, to=Sys.Date(), pid=1L, conn=NULL, ...) {
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export
+#' @examples
+#' \dontrun{
+#' tempval <- catmaid_skids('annotation:^ORN$')
+#' skid_1 <-tempval[[1]]
+#' catmaid_get_time_invested(skids=skid_1, mode='SUM')
+#' }
 catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_TIME','ACTIONS'),
                                     minimum_actions=10, max_inactive_time=3,
                                     treenodes=TRUE, connectors=TRUE, 
@@ -188,6 +196,10 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     end_date_dt = as.POSIXct(as.POSIXct(end_date, tz = "UTC"), format = "%Y-%m-%dT%H:%M:%S")
     if(end_date_dt<as.POSIXct("2001-01-01", tz = "UTC")) 
       stop("Invalid date: ",end_date, ". See ?POSIXct for valid formats")
+    
+    #Check the validity of the arguments now..
+    if (treenodes ==  FALSE && connectors && FALSE) {stop("Stats cannot be performed as both treenodes and connectors are set
+                                                          to FALSE")}
   
   #Step2: Convert the queries (whether regex or character or integer) to integer skeleton ids..
     skids <- catmaid_skids(skids, conn = conn, pid=pid)
@@ -213,7 +225,12 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     if (connectors) {connector_ids = overallcf_df$connectors$connector_id}
     # Convert ids to ints to ensure that they are formatted cleanly in the JSON post
     # body in the loop coming up
+    connector_ids <- connector_ids[!is.na(connector_ids)]
     all_ids = as.integer(c(node_ids,connector_ids))
+    #Remove elements that have na usually nodes with no connectors
+    all_ids <- all_ids[!is.na(all_ids)]
+    #Choose only unique ids as there could be overlap
+    all_ids <- unique(all_ids)
     
   #Step5: Get user details for the node_ids, connector_ids..
     #Do the user details in chunks of 1000 so the CATMAID server can process them..
@@ -264,7 +281,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
                                                           format = "%Y-%m-%dT%H:%M",tz = "UTC"))
   
   #Step6: Get details about links..
-    if (connectors) {
+    if (connectors && !all(is.na(connector_ids))) {
       path=file.path("", pid, "connectors", "links")
       path = paste(path,"?relation_type=", sep ="")
     
@@ -313,27 +330,38 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
     #Choose only those links that have matching connector ids in the neuron???
     links_collec <- links_collec[links_collec$connector_id %in% connector_ids,]
     
+    } else{
+      #Just initalize with empty here..
+      links_collec <- {}
     }
   
     node_details <- node_details_df
     review_details <- review_details_df
-    link_details <- links_collec
-    colnames(link_details)[colnames(link_details)=="creator_id"] <- "creator"
+    if (!is.null(links_collec)){
+      link_details <- links_collec
+      colnames(link_details)[colnames(link_details)=="creator_id"] <- "creator"
+    }
  
   #Step7: Remove timestamps outside of date range (if provided)
     if(start_date_dt){
       node_details = node_details[node_details$creation_time >= start_date_dt,]
       review_details = review_details[review_details$review_time >= start_date_dt,]
-      link_details = link_details[link_details$creation_time >= start_date_dt,]}
+      if (!is.null(links_collec)){
+          link_details = link_details[link_details$creation_time >= start_date_dt,]}}
     if(end_date_dt){
       node_details = node_details[node_details$creation_time <= end_date_dt,]
       review_details = review_details[review_details$review_time <= end_date_dt,]
-      link_details = link_details[link_details$creation_time <= end_date_dt,]}
+      if (!is.null(links_collec)){
+          link_details = link_details[link_details$creation_time <= end_date_dt,]}}
   
   #Step8a:  Create dataframes for the creation of items
     creation_timestamps <- {}
+    if (!is.null(links_collec)){
     creation_timestamps <- rbind( link_details[, c('creator', 'creation_time')],
-                                  node_details[, c('creator', 'creation_time')])
+                                  node_details[, c('creator', 'creation_time')])}
+    else{
+    creation_timestamps <- node_details[, c('creator', 'creation_time')] 
+    }
     colnames(creation_timestamps) <- c('user', 'timestamps')
 
   
@@ -364,35 +392,37 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         stats_df = data.frame(users=character(),login = character(), total = double(),
                               creation = double(),edition = double(),review = double(),
                               stringsAsFactors = FALSE)
-        stats_df[1:length(relevant_users),'users'] <- relevant_users  
-        stats_df[,c('total','creation','edition','review')] <- 0
+        if (length(relevant_users)>0){
+          stats_df[1:length(relevant_users),'users'] <- relevant_users  
+          stats_df[,c('total','creation','edition','review')] <- 0
         
-        total_agg_df <- aggregate_timestamps(all_timestamps,minimum_actions,timeinterval)
-        creation_agg_df <- aggregate_timestamps(creation_timestamps,minimum_actions,timeinterval)
-        edition_agg_df <- aggregate_timestamps(edition_timestamps,minimum_actions,timeinterval)
-        review_agg_df <- aggregate_timestamps(review_timestamps,minimum_actions,timeinterval)
+          total_agg_df <- aggregate_timestamps(all_timestamps,minimum_actions,timeinterval)
+          creation_agg_df <- aggregate_timestamps(creation_timestamps,minimum_actions,timeinterval)
+          edition_agg_df <- aggregate_timestamps(edition_timestamps,minimum_actions,timeinterval)
+          review_agg_df <- aggregate_timestamps(review_timestamps,minimum_actions,timeinterval)
         
         
-        for (useridx in seq_along(stats_df$users)){
-          matchidx <- stats_df[useridx,'users']  == user_list$id
-          if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
+          for (useridx in seq_along(stats_df$users)){
+              matchidx <- stats_df[useridx,'users']  == user_list$id
+              if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
           
-          matchidx <- stats_df[useridx,'users']  == total_agg_df$users
-          if (any(matchidx)){stats_df[useridx,'total'] <- timeinterval*total_agg_df[matchidx,'x']} 
+              matchidx <- stats_df[useridx,'users']  == total_agg_df$users
+              if (any(matchidx)){stats_df[useridx,'total'] <- timeinterval*total_agg_df[matchidx,'x']} 
           
-          matchidx <- stats_df[useridx,'users'] == creation_agg_df$users
-          if (any(matchidx)){stats_df[useridx,'creation'] <- timeinterval*creation_agg_df[matchidx,'x']}
+              matchidx <- stats_df[useridx,'users'] == creation_agg_df$users
+              if (any(matchidx)){stats_df[useridx,'creation'] <- timeinterval*creation_agg_df[matchidx,'x']}
           
-          matchidx <- stats_df[useridx,'users'] == edition_agg_df$users
-          if (any(matchidx)){stats_df[useridx,'edition'] <- timeinterval*edition_agg_df[matchidx,'x']}
+              matchidx <- stats_df[useridx,'users'] == edition_agg_df$users
+              if (any(matchidx)){stats_df[useridx,'edition'] <- timeinterval*edition_agg_df[matchidx,'x']}
           
-          matchidx <- stats_df[useridx,'users'] == review_agg_df$users
-          if (any(matchidx)){stats_df[useridx,'review'] <- timeinterval*review_agg_df[matchidx,'x']}
+              matchidx <- stats_df[useridx,'users'] == review_agg_df$users
+              if (any(matchidx)){stats_df[useridx,'review'] <- timeinterval*review_agg_df[matchidx,'x']}
+            }
+        
+          stats_df <- stats_df[sort(stats_df$total,decreasing = TRUE, index.return = TRUE)$ix,]
+          }
+        
         }
-        
-      stats_df <- stats_df[sort(stats_df$total,decreasing = TRUE, index.return = TRUE)$ix,]
-       
-      }
     #Step10b: Time invested stats for 'OVER_TIME'
       if(mode=='OVER_TIME'){
         
@@ -424,22 +454,27 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         names(stats_df)[names(stats_df) == 'dayinterval'] <- 'day'
         names(stats_df)[names(stats_df) == 'count2'] <- 'minutes'
         names(stats_df)[names(stats_df) == 'user'] <- 'users'
-        stats_df$login <- NA
+        if (nrow(stats_df)>0){
+            stats_df$login <- NA
         
-        for (useridx in seq_along(stats_df$users)){
-          matchidx <- as.numeric(stats_df[useridx,'users'])  == user_list$id
-          if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
+            for (useridx in seq_along(stats_df$users)){
+                matchidx <- as.numeric(stats_df[useridx,'users'])  == user_list$id
+                if (any(matchidx)){stats_df[useridx,'login'] <- user_list[matchidx,'login']}
+            }
+        
+        
+            statsrecast_df <- reshape2::dcast(stats_df, login ~ day, value.var = "minutes")
+        
+            statsrecast_df[is.na(statsrecast_df)] <- 0
+            if (nrow(statsrecast_df) > 1){
+                statsrecast_df[nrow(statsrecast_df)+1,2:ncol(statsrecast_df)]  <- colSums(statsrecast_df[,2:ncol(statsrecast_df)])}
+            else {
+                statsrecast_df[nrow(statsrecast_df)+1,2:ncol(statsrecast_df)] <- statsrecast_df[,2:ncol(statsrecast_df)]
+            }
+            statsrecast_df[nrow(statsrecast_df),1] <- 'all_users'
+        
+            stats_df <- statsrecast_df
         }
-        
-        
-        statsrecast_df <- reshape2::dcast(stats_df, login ~ day, value.var = "minutes")
-        
-        statsrecast_df[is.na(statsrecast_df)] <- 0
-        
-        statsrecast_df[nrow(statsrecast_df)+1,2:length(statsrecast_df)]  <- colSums(statsrecast_df[,2:length(statsrecast_df)])
-        statsrecast_df[nrow(statsrecast_df),1] <- 'all_users'
-        
-        stats_df <- statsrecast_df
         
       }
     
@@ -465,7 +500,11 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         stats_df$user <- NULL
         stats_df <- stats_df %>%
                     dplyr::select(.data$login,dplyr::everything())
-        stats_df[nrow(stats_df)+1,2:length(stats_df)] <- colSums(stats_df[,2:length(stats_df)])
+        if (nrow(stats_df) > 1){
+            stats_df[nrow(stats_df)+1,2:ncol(stats_df)] <- colSums(stats_df[,2:ncol(stats_df)])}
+        else{
+            stats_df[nrow(stats_df)+1,2:ncol(stats_df)] <- stats_df[,2:ncol(stats_df)]}
+          
         stats_df[nrow(stats_df),1] <- 'all_users'
         
       }
@@ -495,6 +534,10 @@ extract_nodeconnectorids <- function(skids,pid,connectors, conn){
           names(cf)=c("nodes", "connectors", "tags")
           colnames(cf[["nodes"]]) <- c("id", "parent_id", "user_id", "x", "y", "z",
                                    "radius", "confidence")
+          if (length(cf[["connectors"]]) == 0)
+          {
+            cf[["connectors"]] <- matrix(ncol = 6, nrow = 1)
+          }
           colnames(cf[["connectors"]]) <- c("treenode_id", "connector_id", "relation", 
                                         "x", "y", "z")
       

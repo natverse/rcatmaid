@@ -2,7 +2,7 @@
     "entities": [
         {
             "id": 5692634,
-            "name": "neuron 5692634 - upstream of left CSDn in ipsi AL - AMD LMH",
+            "name": "putative LatLN 5692634 AMD LMH",
             "type": "neuron",
             "skeleton_ids": [
                 5692633

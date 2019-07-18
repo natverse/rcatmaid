@@ -91,6 +91,23 @@ catmaid_get_time_invested(skids=skid_1, conn = conn,mode='OVER_TIME')
 catmaid_get_time_invested(skids=skid_1, conn = conn,mode='ACTIONS')
 catmaid_get_time_invested('annotation:^Putative Dm9', conn = conn,mode='SUM')
 
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='SUM', connectors = FALSE)
+test_sk <- 7349300
+catmaid_get_time_invested(skids=test_sk, conn = conn,mode='SUM')
+catmaid_get_time_invested(skids=test_sk, conn = conn,mode='OVER_TIME')
+catmaid_get_time_invested(skids=test_sk, conn = conn,mode='ACTIONS')
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='SUM', treenodes=FALSE)
+
+tempval <- catmaid_skids('annotation:single node no tag test Sri',conn = conn)
+skid_1 <-tempval[[1]]
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='SUM')
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='OVER_TIME')
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='ACTIONS')
+catmaid_get_time_invested(skids=skid_1, conn = conn,mode='SUM',connectors = FALSE)
+
+
+
+
 #For test file : test-treenodes.R
       #For test case : catmaid_get_treenode_table
 tempval <- catmaid_skids('annotation:^ORN$',conn = conn)

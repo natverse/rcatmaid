@@ -2,7 +2,7 @@
     "entities": [
         {
             "id": 8633613,
-            "name": "putative vLN neuron 8633613 FS-LMH",
+            "name": "putative vLN 8633613 FS-LMH",
             "type": "neuron",
             "skeleton_ids": [
                 8633612
