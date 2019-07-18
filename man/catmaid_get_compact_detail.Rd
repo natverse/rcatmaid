@@ -5,8 +5,9 @@
 \alias{catmaid_get_compact_skeleton}
 \title{Return the raw data for a CATMAID neuronal skeleton}
 \usage{
-catmaid_get_compact_detail(skid, pid = 1L, conn = NULL, connectors = TRUE,
-  tags = TRUE, raw = FALSE, ...)
+catmaid_get_compact_detail(skid, pid = 1L, conn = NULL,
+  connectors = TRUE, tags = TRUE, raw = FALSE, format = "msgpack",
+  ...)
 
 catmaid_get_compact_skeleton(skid, pid = 1L, conn = NULL,
   connectors = TRUE, tags = TRUE, raw = FALSE, ...)
