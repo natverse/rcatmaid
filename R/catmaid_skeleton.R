@@ -13,6 +13,8 @@
 #' @param raw Whether to return completely unprocessed data (when \code{TRUE})
 #'   or to convert the nodes and connectors lists into processed data.frames
 #'   (when \code{FALSE}, the default)
+#' @param format Whether to use the msgpack transport format (default when
+#'   available)
 #' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}}
 #'   function.
 #' @return An R list object with three elements \itemize{
@@ -42,10 +44,14 @@
 #'
 #' }
 #' @export
-catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE, tags = TRUE, raw=FALSE, format="msgpack", ...) {
+catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE,
+                                     tags = TRUE, raw=FALSE, format=c("msgpack", "json"),
+                                     ...) {
   path=file.path("", pid, 'skeletons', skid, "compact-detail")
   
-  format <- if(.package_statevars$msgpack_available && 
+  format <- match.arg(format)
+  format <- if(format == "msgpack" && 
+               .package_statevars$msgpack_available && 
                catmaid_version(numeric = TRUE) >= "2018.07.19")
     "msgpack" else NULL
   
@@ -71,8 +77,16 @@ catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE,
   if(raw) return(skel)
   # else process the skeleton
   if(length(skel$nodes)){
-    nodes=do.call(rbind, skel$nodes)
-    colnames(nodes)=c("id", "parent_id", "user_id", "x","y", "z", "radius", "confidence")
+    nodecolnames=c("id", "parent_id", "user_id", "x","y", "z", "radius", "confidence")
+    if(isTRUE(format=='msgpack'))
+      skel$nodes <- RcppMsgPack::msgpack_simplify(skel$nodes)
+    if(is.list(skel$nodes)) {
+      # more aggressive simplification deals with NULL/NA issues
+      nodes=do.call(rbind, skel$nodes)
+    } else {
+      nodes=matrix(skel$nodes, ncol=length(nodecolnames))
+    }
+    colnames(nodes)=nodecolnames
     nodes=as.data.frame(nodes)
     mode(nodes$id)='integer'
     mode(nodes$parent_id)='integer'
@@ -82,8 +96,15 @@ catmaid_get_compact_detail<-function(skid, pid=1L, conn=NULL, connectors = TRUE,
   }
     
   if(length(skel$connectors)) {
-    connectors=do.call(rbind, skel$connectors)
-    colnames(connectors)=c("treenode_id", "connector_id", "prepost", "x", "y", "z")
+    conn_colnames=c("treenode_id", "connector_id", "prepost", "x", "y", "z")
+    connectors <- if(is.list(skel$connectors))
+      do.call(rbind, skel$connectors)
+    else if(is.matrix(skel$connectors))
+      skel$connectors
+    else
+      matrix(skel$connectors, ncol=length(conn_colnames), byrow = T)
+    
+    colnames(connectors)=conn_colnames
     connectors=as.data.frame(connectors)
     mode(connectors$treenode_id)='integer'
     mode(connectors$connector_id)='integer'
