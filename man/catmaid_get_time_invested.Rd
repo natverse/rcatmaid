@@ -2,16 +2,7 @@
 % Please edit documentation in R/catmaid_stats.R
 \name{catmaid_get_time_invested}
 \alias{catmaid_get_time_invested}
-\title{Calculates the time individual users have spent working on a set of neurons
-This API is a replica of the get_time_invested from python package `pymaid`
-Use @param minimum_actions and @param max_inactive_time to fine tune how time
-invested is calculated: by default, time is binned over 3 minutes in which a given user 
-has to perform 3x10 actions for that interval to be counted as active.
- @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
-'SUM' will return total time invested (in minutes) per user.
-'OVER_TIME' will return minutes invested/day over time.
-'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
-max_inactive_time don't apply and hence every action is counted}
+\title{catmaid_get_time_invested}
 \usage{
 catmaid_get_time_invested(skids, pid = 1, conn = NULL,
   mode = c("SUM", "OVER_TIME", "ACTIONS"), minimum_actions = 10,
@@ -46,13 +37,20 @@ function}
 }
 \description{
 Calculates the time individual users have spent working on a set of neurons
-This API is a replica of the get_time_invested from python package `pymaid`
-Use @param minimum_actions and @param max_inactive_time to fine tune how time
-invested is calculated: by default, time is binned over 3 minutes in which a given user 
+This API is a replica of the get_time_invested from python package `pymaid`.
+The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
+invested is calculated. By default, time is binned over 3 minutes in which a given user 
 has to perform 3x10 actions for that interval to be counted as active.
- @mode can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'
+The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
 'SUM' will return total time invested (in minutes) per user.
 'OVER_TIME' will return minutes invested/day over time.
-'ACTIONS' will return actions (node/connectors placed/edited) per day, for this the minimum_actions and 
-max_inactive_time don't apply and hence every action is counted
+'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
+the minimum_actions and max_inactive_time don't apply and hence every action is counted
+}
+\examples{
+\dontrun{
+tempval <- catmaid_skids('annotation:^ORN$')
+skid_1 <-tempval[[1]]
+catmaid_get_time_invested(skids=skid_1, mode='SUM')
+}
 }

@@ -1,14 +1,38 @@
 [
     {
-        "id": 235,
-        "login": "google_fafb",
+        "id": 261,
+        "login": "williamsonr",
         "full_name": "",
         "first_name": "",
         "last_name": "",
         "color": [
-            0.907947,
-            0.429343,
+            0.593947,
+            0.628997,
             1.0
+        ]
+    },
+    {
+        "id": 79,
+        "login": "rfranconville",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.156985,
+            0.439778
+        ]
+    },
+    {
+        "id": 274,
+        "login": "buhmannj",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.900653,
+            0.208175
         ]
     },
     {
@@ -20,6 +44,18 @@
         "color": [
             0.290622,
             0.213735,
+            1.0
+        ]
+    },
+    {
+        "id": 235,
+        "login": "google_fafb",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.907947,
+            0.429343,
             1.0
         ]
     },
@@ -36,30 +72,6 @@
         ]
     },
     {
-        "id": 282,
-        "login": "upload_user",
-        "full_name": "",
-        "first_name": "",
-        "last_name": "",
-        "color": [
-            0.744291,
-            1.0,
-            0.720093
-        ]
-    },
-    {
-        "id": 261,
-        "login": "williamsonr",
-        "full_name": "",
-        "first_name": "",
-        "last_name": "",
-        "color": [
-            0.593947,
-            0.628997,
-            1.0
-        ]
-    },
-    {
         "id": -1,
         "login": "AnonymousUser",
         "full_name": "",
@@ -72,6 +84,30 @@
         ]
     },
     {
+        "id": 317,
+        "login": "asa_b",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.984741,
+            0.054524,
+            1.0
+        ]
+    },
+    {
+        "id": 282,
+        "login": "upload_user",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.744291,
+            1.0,
+            0.720093
+        ]
+    },
+    {
         "id": 159,
         "login": "WT_outreach",
         "full_name": "",
@@ -81,30 +117,6 @@
             1.0,
             0.631121,
             0.67805
-        ]
-    },
-    {
-        "id": 274,
-        "login": "buhmannj",
-        "full_name": "",
-        "first_name": "",
-        "last_name": "",
-        "color": [
-            1.0,
-            0.900653,
-            0.208175
-        ]
-    },
-    {
-        "id": 79,
-        "login": "rfranconville",
-        "full_name": "",
-        "first_name": "",
-        "last_name": "",
-        "color": [
-            1.0,
-            0.156985,
-            0.439778
         ]
     },
     {
@@ -864,6 +876,18 @@
         ]
     },
     {
+        "id": 315,
+        "login": "friedricha",
+        "full_name": "Anja Friedrich",
+        "first_name": "Anja",
+        "last_name": "Friedrich",
+        "color": [
+            0.889119,
+            0.831786,
+            1.0
+        ]
+    },
+    {
         "id": 112,
         "login": "galilid",
         "full_name": "Dana Galili",
@@ -897,6 +921,18 @@
             1.0,
             0.836577,
             0.080799
+        ]
+    },
+    {
+        "id": 312,
+        "login": "gerhards",
+        "full_name": "Stephan Gerhard",
+        "first_name": "Stephan",
+        "last_name": "Gerhard",
+        "color": [
+            0.664588,
+            1.0,
+            0.415192
         ]
     },
     {
@@ -1704,6 +1740,18 @@
         ]
     },
     {
+        "id": 318,
+        "login": "luj",
+        "full_name": "Jenny Lu",
+        "first_name": "Jenny",
+        "last_name": "Lu",
+        "color": [
+            0.843248,
+            1.0,
+            0.314023
+        ]
+    },
+    {
         "id": 175,
         "login": "ludwigh",
         "full_name": "Henrique Ludwig",
@@ -1713,6 +1761,18 @@
             1.0,
             0.164352,
             0.961107
+        ]
+    },
+    {
+        "id": 319,
+        "login": "lukyanovav",
+        "full_name": "Veronika Lukyanova",
+        "first_name": "Veronika",
+        "last_name": "Lukyanova",
+        "color": [
+            1.0,
+            0.378065,
+            0.473271
         ]
     },
     {
