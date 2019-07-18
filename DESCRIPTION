@@ -40,7 +40,7 @@ Suggests:
     rmarkdown,
     spelling,
     testthat,
-    msgpack
+    RcppMsgPack
 Remotes: jefferis/nat,
     jefferislab/nat.nblast
 RoxygenNote: 6.1.1
