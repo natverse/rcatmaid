@@ -72,6 +72,28 @@ catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
 # example label search
 tosoma=catmaid_get_treenodes_detail("to soma")
 }
+
+\dontrun{
+# If you have a lot of skids to query you will need to break up your queries
+# into smaller chunks. You could do this like so:
+catmaid_get_treenodes_detail_chunked <- function(skids, chunksize=300, chunkstoread=NULL, ...) {
+  nchunks=ceiling(length(skids)/chunksize)
+  chunks=rep(seq_len(nchunks), rep(chunksize, nchunks))[seq_along(skids)]
+  
+  l=list()
+  if(is.null(chunkstoread)) chunkstoread=seq_len(nchunks)
+  pb <- progress::progress_bar$new(total = length(skids),
+                                   format = "  :current/:total [:bar]  eta: :eta",
+                                   show_after=1)
+  
+  for(i in chunkstoread) {
+    pb$tick(len = sum(chunks==i))
+    l[[length(l)+1]]=catmaid_get_treenodes_detail(skids=skids[chunks==i], ...)
+  }
+  dplyr::bind_rows(l)
+}
+
+}
 }
 \seealso{
 \code{\link{catmaid_get_treenode_table}},
