@@ -1,11 +1,11 @@
 {
     "entities": [
         {
-            "id": 5104706,
-            "name": "neuron 5104706",
+            "id": 5184270,
+            "name": "putative VM1 ORN 5184270 LMH",
             "type": "neuron",
             "skeleton_ids": [
-                5104705
+                5184269
             ]
         },
         {

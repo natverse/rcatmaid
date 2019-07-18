@@ -1,0 +1,141 @@
+{
+    "entities": [
+        {
+            "id": 7176700,
+            "name": "neuron 7176700",
+            "type": "neuron",
+            "skeleton_ids": [
+                7176699
+            ]
+        },
+        {
+            "id": 7177527,
+            "name": "neuron 7177527",
+            "type": "neuron",
+            "skeleton_ids": [
+                7177526
+            ]
+        },
+        {
+            "id": 7177616,
+            "name": "neuron 7177616",
+            "type": "neuron",
+            "skeleton_ids": [
+                7177615
+            ]
+        },
+        {
+            "id": 7178049,
+            "name": "neuron 7178049",
+            "type": "neuron",
+            "skeleton_ids": [
+                7178048
+            ]
+        },
+        {
+            "id": 7178061,
+            "name": "neuron 7178061",
+            "type": "neuron",
+            "skeleton_ids": [
+                7178060
+            ]
+        },
+        {
+            "id": 7178104,
+            "name": "neuron 7178104",
+            "type": "neuron",
+            "skeleton_ids": [
+                7178103
+            ]
+        },
+        {
+            "id": 7178310,
+            "name": "neuron 7178310",
+            "type": "neuron",
+            "skeleton_ids": [
+                7178309
+            ]
+        },
+        {
+            "id": 7178392,
+            "name": "neuron 7178392",
+            "type": "neuron",
+            "skeleton_ids": [
+                7178391
+            ]
+        },
+        {
+            "id": 7196163,
+            "name": "neuron 7196163",
+            "type": "neuron",
+            "skeleton_ids": [
+                7196162
+            ]
+        },
+        {
+            "id": 7207353,
+            "name": "neuron 7207353",
+            "type": "neuron",
+            "skeleton_ids": [
+                7207352
+            ]
+        },
+        {
+            "id": 7215135,
+            "name": "neuron 7215135",
+            "type": "neuron",
+            "skeleton_ids": [
+                7215134
+            ]
+        },
+        {
+            "id": 7234963,
+            "name": "neuron 7234963",
+            "type": "neuron",
+            "skeleton_ids": [
+                7234962
+            ]
+        },
+        {
+            "id": 7427745,
+            "name": "neuron 7427745",
+            "type": "neuron",
+            "skeleton_ids": [
+                7427744
+            ]
+        },
+        {
+            "id": 7436405,
+            "name": "neuron 7436405",
+            "type": "neuron",
+            "skeleton_ids": [
+                7436404
+            ]
+        },
+        {
+            "id": 7437216,
+            "name": "neuron 7437216",
+            "type": "neuron",
+            "skeleton_ids": [
+                7437215
+            ]
+        },
+        {
+            "id": 7440771,
+            "name": "neuron 7440771",
+            "type": "neuron",
+            "skeleton_ids": [
+                7440770
+            ]
+        },
+        {
+            "id": 7459899,
+            "name": "neuron 7459899",
+            "type": "neuron",
+            "skeleton_ids": [
+                7459898
+            ]
+        }
+    ],
+    "totalRecords": 17
+}

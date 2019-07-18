@@ -1054,6 +1054,22 @@
             ]
         },
         {
+            "id": 4095043,
+            "name": "putative VM1 ORN 4095043 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                4095042
+            ]
+        },
+        {
+            "id": 4095050,
+            "name": "putative VM1 ORN 4095050 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                4095049
+            ]
+        },
+        {
             "id": 4274729,
             "name": "AVLP.R->?.L 4274729 Stormborn ZM ",
             "type": "neuron",
@@ -1198,6 +1214,14 @@
             ]
         },
         {
+            "id": 5038797,
+            "name": "neuron 5038797 - putative ORN",
+            "type": "neuron",
+            "skeleton_ids": [
+                5038796
+            ]
+        },
+        {
             "id": 5103199,
             "name": "ORN VM4 5103199 ARJ",
             "type": "neuron",
@@ -1278,6 +1302,14 @@
             "id": 5139520,
             "name": "Putative ORN VL1 1266660 ARH",
             "type": "annotation"
+        },
+        {
+            "id": 5184270,
+            "name": "putative VM1 ORN 5184270 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                5184269
+            ]
         },
         {
             "id": 5198809,
@@ -1365,6 +1397,14 @@
             "type": "neuron",
             "skeleton_ids": [
                 5494691
+            ]
+        },
+        {
+            "id": 5500437,
+            "name": "neuron 5500437 - putative ORN based on neuroglancer",
+            "type": "neuron",
+            "skeleton_ids": [
+                5500436
             ]
         },
         {
@@ -1753,6 +1793,14 @@
             ]
         },
         {
+            "id": 6128901,
+            "name": "putative VM1 ORN 6128901 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                6128900
+            ]
+        },
+        {
             "id": 6258792,
             "name": "neuron 6258792 - upstream of CSD - suspect ORN",
             "type": "neuron",
@@ -1801,6 +1849,14 @@
             ]
         },
         {
+            "id": 6715512,
+            "name": "putative DA2 ORN 6715512 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                6715511
+            ]
+        },
+        {
             "id": 6843025,
             "name": "DA1 ORN",
             "type": "annotation"
@@ -1835,6 +1891,22 @@
             "type": "neuron",
             "skeleton_ids": [
                 7349832
+            ]
+        },
+        {
+            "id": 7349866,
+            "name": "putative DA2 ORN 7349866 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                7349865
+            ]
+        },
+        {
+            "id": 7363591,
+            "name": "putative DA2 ORN 7363591 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                7363590
             ]
         },
         {
@@ -1878,6 +1950,14 @@
             ]
         },
         {
+            "id": 7961812,
+            "name": "putative VM1 ORN 7961812 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                7961811
+            ]
+        },
+        {
             "id": 8347728,
             "name": "Stag's horn lineage 8347728 RJVR",
             "type": "neuron",
@@ -1911,7 +1991,7 @@
         },
         {
             "id": 8411734,
-            "name": "putative VM3 ORN neuron 8411734 LMH",
+            "name": "putative VM3 ORN 8411734 LMH",
             "type": "neuron",
             "skeleton_ids": [
                 8411733
@@ -1934,9 +2014,41 @@
             ]
         },
         {
+            "id": 8490629,
+            "name": "putative DA2 ORN 8490629 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                8490628
+            ]
+        },
+        {
             "id": 8536894,
             "name": "VC5 ORN",
             "type": "annotation"
+        },
+        {
+            "id": 8543283,
+            "name": "putative VM2 ORN 8543283 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                8543282
+            ]
+        },
+        {
+            "id": 8552644,
+            "name": "putative VM1 ORN 8552644 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                8552643
+            ]
+        },
+        {
+            "id": 8552755,
+            "name": "putative VM1 ORN 8552755 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                8552754
+            ]
         },
         {
             "id": 8560131,
@@ -1952,6 +2064,30 @@
             "type": "neuron",
             "skeleton_ids": [
                 8727095
+            ]
+        },
+        {
+            "id": 8727150,
+            "name": "putative DA2 ORN 8727150 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                8727149
+            ]
+        },
+        {
+            "id": 8727185,
+            "name": "putative DA2 ORN 8727185 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                8727184
+            ]
+        },
+        {
+            "id": 8736991,
+            "name": "putative VM2 ORN 8736991 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                8736990
             ]
         },
         {
@@ -1982,10 +2118,18 @@
         },
         {
             "id": 10133856,
-            "name": "putative VM3 ORN neuron 10133856 LMH",
+            "name": "putative VM3 ORN 10133856 LMH",
             "type": "neuron",
             "skeleton_ids": [
                 10133855
+            ]
+        },
+        {
+            "id": 11104672,
+            "name": "putative DC3 ORN 11104672 FS",
+            "type": "neuron",
+            "skeleton_ids": [
+                11104671
             ]
         },
         {
@@ -2097,7 +2241,15 @@
             "skeleton_ids": [
                 12116846
             ]
+        },
+        {
+            "id": 12859988,
+            "name": "putative VM1 ORN 12859988 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                12859987
+            ]
         }
     ],
-    "totalRecords": 278
+    "totalRecords": 297
 }
