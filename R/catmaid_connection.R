@@ -375,7 +375,9 @@ catmaid_fetch<-function(path, body=NULL, conn=NULL, parse.json=TRUE,
   stop_for_status(req)
   
   if(parse.json) {
-    ct=req$headers$`content-type`
+    headers=req$headers
+    names(headers)=tolower(names(headers))
+    ct=headers[['content-type']]
     if(ct=="application/json") {
       parsed=catmaid_parse_json(req, simplifyVector=simplifyVector)
     } else if(ct=="application/octet-stream") {
