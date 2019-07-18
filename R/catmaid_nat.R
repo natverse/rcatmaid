@@ -39,8 +39,8 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   soma_id_in_neuron = if(nrow(sp)==0) NULL else sp$PointNo
   n=nat::as.neuron(swc, origin=soma_id_in_neuron, skid=skid, InputFileName=as.character(skid))
   
-  # add all fields from input list except for nodes themselves
-  n[names(res[-1])]=res[-1]
+  # add connector/tags fields from input list
+  n[names(res[2:3])]=res[2:3]
   # we expect connectors field to be null when there are no connectors
   if(length(n$connectors)<1) n$connectors=NULL
   fields_to_include=c("url", "headers")
