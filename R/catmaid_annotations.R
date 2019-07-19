@@ -145,13 +145,14 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 #'
 #' @description Meta-annotate a group of CATMAID annotations
 #'
-#' @param annotations annotations to meta-annotate
+#' @param annotations annotation ids designating which annotations to to meta-annotate.
+#' Ids can be found by calling \code{catmaid_get_annotationlist}.
 #' @param meta_annotations meta-annotation to add
 #' @param conn a catmaid_connection objection returned by catmaid_login. I
 #' f NULL (the default) a new connection object will be generated using the values of the catmaid.* package options as described in the help for catmaid_login
 #' @param pid project id (default 1)
 #' @param ... additional arguments passed to methods.
-#' @seealso \code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}
+#' @seealso \code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}}
 #' @export
 #' @rdname catmaid_set_meta_annotations
 catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=NULL,...){
