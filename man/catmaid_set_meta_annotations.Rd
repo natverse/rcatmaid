@@ -10,7 +10,8 @@ catmaid_set_meta_annotations(meta_annotations, annotations, pid = 1,
 \arguments{
 \item{meta_annotations}{meta-annotation to add}
 
-\item{annotations}{annotations to meta-annotate}
+\item{annotations}{annotation ids designating which annotations to to meta-annotate.
+Ids can be found by calling \code{catmaid_get_annotationlist}.}
 
 \item{pid}{project id (default 1)}
 
@@ -23,5 +24,5 @@ f NULL (the default) a new connection object will be generated using the values 
 Meta-annotate a group of CATMAID annotations
 }
 \seealso{
-\code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}
+\code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}}
 }
