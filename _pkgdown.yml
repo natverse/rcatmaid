@@ -59,6 +59,7 @@ reference:
   - catmaid_get_contributor_stats
   - catmaid_get_user_list
   - catmaid_user_history
+  - catmaid_get_time_invested
 - title: CATMAID URLs and JSON files
   desc: Working with the URLs or JSON files used to save and exchange CATMAID state
   contents:
