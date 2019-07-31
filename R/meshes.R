@@ -205,6 +205,13 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
 #'   }
 #'
 #' @export
+#' @examples 
+#' \donttest{
+#' vl <- catmaid_get_volumelist()
+#' head(vl)
+#' # find meshes whose name matches neuropil
+#' subset(vl, grepl('neuropil', name))
+#' }
 #' @seealso \code{\link{catmaid_get_volume}}
 catmaid_get_volumelist <- function(conn=NULL, pid=1, ...) {
   old_version=catmaid_version(conn = conn, numeric = TRUE)<"2018.07.19-457"
