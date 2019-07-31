@@ -126,12 +126,16 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #'   \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}}, 
 #'   \code{\link[rgl]{shapelist3d}}
 #' @examples 
-#' \dontrun{
-#' # specifying by name is easier / less fragile than numeric ids
+#' ## NB all these examples refer to the FAFB adult Drosophila brain
+#' ## CATMAID instance
+#' \donttest{
 #' v14.neuropil=catmaid_get_volume('v14.neuropil')
+#' # specifying by name is easier / less fragile than numeric ids
+#' }
 #' 
-#' v13.AL_R=catmaid_get_volume("v13.AL_R")
-#' shade3d(v13.AL_R, col='red', alpha=.3)
+#' \dontrun{
+#' AL_R=catmaid_get_volume("AL_R")
+#' shade3d(AL_R, col='red', alpha=.3)
 #' 
 #' if(require("Morpho")) {
 #'   plotNormals(facenormals(v13.AL_R), long=5e3)
@@ -139,7 +143,8 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #' 
 #' # find surfaces for olfactory glomeruli
 #' vl=catmaid_get_volumelist()
-#' glomids=vl$id[grepl("_glomerulus$", vl$name)]
+#' x
+#' glomids=vl$id[grepl("v14.[DV][MLAPC]{0,1}[0-9]{0,1}[dvaplm]{0,1}$", vl$name)]
 #' # fetch them all
 #' gg=lapply(glomids, catmaid_get_volume)
 #' # ... and plot
