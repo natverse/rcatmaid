@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
       </span>
     </div>
 
@@ -166,6 +166,38 @@ function.</p></td>
     <div class='dont-index'><p><code><a href='catmaid_get_volume.html'>catmaid_get_volume</a></code></p></div>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>vl</span> <span class='kw'>&lt;-</span> <span class='fu'>catmaid_get_volumelist</span>()
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='no'>vl</span>)</div><div class='output co'>#&gt;    id         name                 comment user_id editor_id project_id
+#&gt; 1 439 v14.neuropil                    &lt;NA&gt;      55       247          1
+#&gt; 2 440        AME_R Accessory medulla right      55        55          1
+#&gt; 3 441         LO_R            Lobula right      55        55          1
+#&gt; 4 442           NO                  Noduli      55        55          1
+#&gt; 5 443         BU_R              Bulb right      55        55          1
+#&gt; 6 444           PB    Protocerebral bridge      55        55          1
+#&gt;              creation_time             edition_time    annotations
+#&gt; 1 2017-10-05T21:01:18.683Z 2018-08-30T17:21:20.910Z         Export
+#&gt; 2 2017-10-08T13:54:03.279Z 2017-10-08T13:54:03.279Z Primary,Export
+#&gt; 3 2017-10-08T13:54:03.840Z 2017-10-08T13:54:03.840Z Export,Primary
+#&gt; 4 2017-10-08T13:54:04.084Z 2017-10-08T13:54:04.084Z Export,Primary
+#&gt; 5 2017-10-08T13:54:04.263Z 2017-10-08T13:54:04.263Z Export,Primary
+#&gt; 6 2017-10-08T13:54:04.449Z 2017-10-08T13:54:04.449Z Export,Primary</div><div class='input'><span class='co'># find meshes whose name matches neuropil</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>vl</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>grepl</a></span>(<span class='st'>'neuropil'</span>, <span class='no'>name</span>))</div><div class='output co'>#&gt;       id                  name
+#&gt; 1    439          v14.neuropil
+#&gt; 549 1291          FIB.neuropil
+#&gt; 558 2981 v14.JRC2018F.neuropil
+#&gt;                                                             comment user_id
+#&gt; 1                                                              &lt;NA&gt;      55
+#&gt; 549 Compound mesh from individual FIB neuropils. Highly simplified!      94
+#&gt; 558                                                            &lt;NA&gt;      55
+#&gt;     editor_id project_id            creation_time             edition_time
+#&gt; 1         247          1 2017-10-05T21:01:18.683Z 2018-08-30T17:21:20.910Z
+#&gt; 549        94          1 2019-02-07T17:06:49.614Z 2019-02-07T17:06:49.614Z
+#&gt; 558        55          1 2019-07-08T16:32:10.551Z 2019-07-08T16:32:10.551Z
+#&gt;     annotations
+#&gt; 1        Export
+#&gt; 549          NA
+#&gt; 558          NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -175,7 +207,9 @@ function.</p></td>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

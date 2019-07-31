@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get contributor statistics for neurons from CATMAID — catmaid_get_contributor_stats • catmaid</title>
+<title>catmaid_get_time_invested — catmaid_get_time_invested • catmaid</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,18 @@
 
 
 
-<meta property="og:title" content="Get contributor statistics for neurons from CATMAID — catmaid_get_contributor_stats" />
+<meta property="og:title" content="catmaid_get_time_invested — catmaid_get_time_invested" />
 
-<meta property="og:description" content="Get contributor statistics for neurons from CATMAID" />
+<meta property="og:description" content="Calculates the time individual users have spent working on a set of neurons
+This API is a replica of the get_time_invested from python package `pymaid`.
+The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
+invested is calculated. By default, time is binned over 3 minutes in which a given user 
+has to perform 3x10 actions for that interval to be counted as active.
+The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
+'SUM' will return total time invested (in minutes) per user.
+'OVER_TIME' will return minutes invested/day over time.
+'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
+the minimum_actions and max_inactive_time don't apply and hence every action is counted" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,37 +123,75 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get contributor statistics for neurons from CATMAID</h1>
+    <h1>catmaid_get_time_invested</h1>
     <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_stats.R'><code>R/catmaid_stats.R</code></a></small>
-    <div class="hidden name"><code>catmaid_get_contributor_stats.Rd</code></div>
+    <div class="hidden name"><code>catmaid_get_time_invested.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Get contributor statistics for neurons from CATMAID</p>
+    <p>Calculates the time individual users have spent working on a set of neurons
+This API is a replica of the get_time_invested from python package `pymaid`.
+The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
+invested is calculated. By default, time is binned over 3 minutes in which a given user 
+has to perform 3x10 actions for that interval to be counted as active.
+The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
+'SUM' will return total time invested (in minutes) per user.
+'OVER_TIME' will return minutes invested/day over time.
+'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
+the minimum_actions and max_inactive_time don't apply and hence every action is counted</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_contributor_stats</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_time_invested</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"SUM"</span>, <span class='st'>"OVER_TIME"</span>, <span class='st'>"ACTIONS"</span>), <span class='kw'>minimum_actions</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>max_inactive_time</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>treenodes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>connectors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2005-01-01"</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"2099-01-01"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>skids</th>
-      <td><p>One or more numeric skeleton ids or a character vector defining
-a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or examples for the syntax).</p></td>
+      <td><p>could be skeleton id or neuron name or annotation</p></td>
     </tr>
     <tr>
       <th>pid</th>
-      <td><p>Project id (default 1)</p></td>
+      <td><p>the project id</p></td>
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>A <code>catmaid_connection</code> objection returned by 
-<code><a href='catmaid_login.html'>catmaid_login</a></code>. If <code>NULL</code> (the default) a new connection 
-object will be generated using the values of the <b>catmaid.*</b> package 
-options as described in the help for <code><a href='catmaid_login.html'>catmaid_login</a></code>.</p></td>
+      <td><p>CATMAID connection instance</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>can be one of 'SUM','OVER_TIME','ACTIONS', where 'SUM' will return
+the total time invested (in minutes), 'OVER_TIME' returns minutes invested per day over
+time, 'ACTIONS' returns actions (node/connectors placed/edited) performed per day</p></td>
+    </tr>
+    <tr>
+      <th>minimum_actions</th>
+      <td><p>the minimum number of actions per minute to be counted as active.</p></td>
+    </tr>
+    <tr>
+      <th>max_inactive_time</th>
+      <td><p>Interval in minutes over which time invested is binned. Essentially determines how much time can be between bouts of activity.</p></td>
+    </tr>
+    <tr>
+      <th>treenodes</th>
+      <td><p>Whether tree nodes need to be taken into account or not</p></td>
+    </tr>
+    <tr>
+      <th>connectors</th>
+      <td><p>Whether connectors need to be taken into account or not</p></td>
+    </tr>
+    <tr>
+      <th>start_date</th>
+      <td><p>The start date to compute activity from</p></td>
+    </tr>
+    <tr>
+      <th>end_date</th>
+      <td><p>The end date to compute end of activity at</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -153,48 +200,19 @@ function</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a list containing different statistics including construction and 
-  review times (aggregated across all the specified input neurons). There 
-  will also be 3 data.frames containing statistics for number of nodes and 
-  pre/post-synaptic connectors broken down per user.</p>  
-<p></p><ul>
-<li><p>pre_contributors number of pre-synaptic connectors contributed per
-  user.</p></li>
-<li><p>node_contributors number of skeleton nodes contributed per user.</p></li>
-<li><p>post_contributors number of post-synaptic connectors contributed per
-  user.</p></li>
-</ul>
-
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='catmaid_get_review_status.html'>catmaid_get_review_status</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='no'>cs</span><span class='kw'>=</span><span class='fu'>catmaid_get_contributor_stats</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='co'># fetch user list</span>
-<span class='no'>ul</span><span class='kw'>=</span><span class='fu'><a href='catmaid_get_user_list.html'>catmaid_get_user_list</a></span>()
-<span class='co'># merge with list of node contributors and sort in descending order of</span>
-<span class='co'># contributions</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/join.html'>left_join</a></span>(<span class='no'>cs</span>$<span class='no'>node_contributors</span>, <span class='no'>ul</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span>(<span class='no'>id</span>,<span class='no'>n</span>, <span class='no'>full_name</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span>(<span class='no'>n</span>))
+<span class='no'>tempval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='catmaid_skids.html'>catmaid_skids</a></span>(<span class='st'>'annotation:^ORN$'</span>)
+<span class='no'>skid_1</span> <span class='kw'>&lt;-</span><span class='no'>tempval</span><span class='kw'>[[</span><span class='fl'>1</span>]]
+<span class='fu'>catmaid_get_time_invested</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='no'>skid_1</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>'SUM'</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
+            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

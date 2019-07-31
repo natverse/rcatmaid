@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
       </span>
     </div>
 
@@ -202,9 +202,38 @@ function.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># details for 3 nodes from two different skeletons</span>
-<span class='fu'>catmaid_get_treenodes_detail</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>9943214L</span>, <span class='fl'>25069047L</span>, <span class='fl'>12829015L</span>))</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_connection(...): Must provide a valid https server</span></div><div class='input'>
+<span class='fu'>catmaid_get_treenodes_detail</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>9943214L</span>, <span class='fl'>25069047L</span>, <span class='fl'>12829015L</span>))</div><div class='output co'>#&gt;   treenode_id parent_id      x      y      z confidence radius    skid
+#&gt; 1     9943214   9943217 419085 175627 120280          5     -1 4116825
+#&gt; 2    25069047  25069046 426264 244230 143920          5     -1 7138957
+#&gt; 3    12829015  12829013 442500 147757 175160          5     -1 3821611
+#&gt;   edition_time user_id
+#&gt; 1   1498514622     113
+#&gt; 2   1521466478     134
+#&gt; 3   1496347172     150</div><div class='input'>
 <span class='co'># example label search</span>
-<span class='no'>tosoma</span><span class='kw'>=</span><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='st'>"to soma"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_connection(...): Must provide a valid https server</span></div></pre>
+<span class='no'>tosoma</span><span class='kw'>=</span><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='st'>"to soma"</span>)</div><div class='output co'>#&gt; <span class='error'>Error: catmaid_get_treenodes_detail of type: ValueError</span>
+#&gt; <span class='error'>  invalid literal for int() with base 10: 'to soma'</span></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
+<span class='co'># If you have a lot of skids to query you will need to break up your queries</span>
+<span class='co'># into smaller chunks. You could do this like so:</span>
+<span class='no'>catmaid_get_treenodes_detail_chunked</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>skids</span>, <span class='no'>chunksize</span><span class='kw'>=</span><span class='fl'>300</span>, <span class='no'>chunkstoread</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='no'>...</span>) {
+  <span class='no'>nchunks</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>ceiling</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>skids</span>)/<span class='no'>chunksize</span>)
+  <span class='no'>chunks</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='no'>nchunks</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>chunksize</span>, <span class='no'>nchunks</span>))[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_along</a></span>(<span class='no'>skids</span>)]
+
+  <span class='no'>l</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>()
+  <span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>chunkstoread</span>)) <span class='no'>chunkstoread</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='no'>nchunks</span>)
+  <span class='no'>pb</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>progress</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/progress/topics/progress_bar'>progress_bar</a></span>$<span class='fu'>new</span>(<span class='kw'>total</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>skids</span>),
+                                   <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"  :current/:total [:bar]  eta: :eta"</span>,
+                                   <span class='kw'>show_after</span><span class='kw'>=</span><span class='fl'>1</span>)
+
+  <span class='kw'>for</span>(<span class='no'>i</span> <span class='kw'>in</span> <span class='no'>chunkstoread</span>) {
+    <span class='no'>pb</span>$<span class='fu'>tick</span>(<span class='kw'>len</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>chunks</span><span class='kw'>==</span><span class='no'>i</span>))
+    <span class='no'>l</span><span class='kw'>[[</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>l</span>)+<span class='fl'>1</span>]]<span class='kw'>=</span><span class='fu'>catmaid_get_treenodes_detail</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='no'>skids</span>[<span class='no'>chunks</span><span class='kw'>==</span><span class='no'>i</span>], <span class='no'>...</span>)
+  }
+  <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind_rows</a></span>(<span class='no'>l</span>)
+}
+
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

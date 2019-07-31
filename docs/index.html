@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
       </span>
     </div>
 
@@ -92,62 +92,62 @@
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install</span>
-<span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
-<span class="co"># nb repo is rcatmaid, but R package name is catmaid</span>
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)
-
-<span class="co"># use </span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)
-
-<span class="co"># general help starting point</span>
-?catmaid</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># nb repo is rcatmaid, but R package name is catmaid</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># use </span></a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># general help starting point</span></a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">?catmaid</a></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>This example is based on EM tracing data from the Drosophila first instar larva by <a href="https://elifesciences.org/articles/14859">Albert Cardona and colleagues</a> as submitted to <a href="https://virtualflybrain.org" class="uri">https://virtualflybrain.org</a> and visible at <a href="https://catmaid.virtualflybrain.org" class="uri">https://catmaid.virtualflybrain.org</a>.</p>
+<p>This example is based on EM tracing data from the Drosophila first instar larva by <a href="https://elifesciences.org/articles/14859">Albert Cardona and colleagues</a> as submitted to <a href="https://virtualflybrain.org">Virtual Fly Brain</a> and visible at <a href="https://catmaid.virtualflybrain.org" class="uri">https://catmaid.virtualflybrain.org</a>.</p>
 <p>This produces a 3D plot of first and second order olfactory neurons coloured according to the peripheral odorant receptor.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)
-<span class="co"># Specify VFB CAMAID server containing data</span>
-conn=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">"https://l1em.catmaid.virtualflybrain.org"</span>)
-
-<span class="co"># fetch olfactory receptor neurons</span>
-orns=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"name:ORN (left|right)"</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)
-<span class="co"># calculate some useful metadata</span>
-orns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" ORN.*"</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))
-orns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".* ORN "</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))
-
-<span class="co"># repeat for their PN partners, note use of search by annotation</span>
-pns=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"ORN PNs"</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)
-pns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" PN.*"</span>, <span class="st">""</span>, pns[,<span class="st">'name'</span>]))
-pns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".*(left|right)"</span>, <span class="st">"</span><span class="ch">\\</span><span class="st">1"</span>, pns[,<span class="st">'name'</span>]))
-<span class="co"># plot, colouring by odorant receptor</span>
-<span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(orns, <span class="dt">col=</span>Or)
-<span class="co"># note that we plot somata with a radius of 1500 nm</span>
-<span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(pns, <span class="dt">col=</span>Or, <span class="dt">soma=</span><span class="dv">1500</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># Specify VFB CAMAID server containing data</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">conn=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">"https://l1em.catmaid.virtualflybrain.org"</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># fetch olfactory receptor neurons</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">orns=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"name:ORN (left|right)"</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># calculate some useful metadata</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">orns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" ORN.*"</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">orns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".* ORN "</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co"># repeat for their PN partners, note use of search by annotation</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">pns=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"ORN PNs"</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">pns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" PN.*"</span>, <span class="st">""</span>, pns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">pns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".*(left|right)"</span>, <span class="st">"</span><span class="ch">\\</span><span class="st">1"</span>, pns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co"># plot, colouring by odorant receptor</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(orns, <span class="dt">col=</span>Or)</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co"># note that we plot somata with a radius of 1500 nm</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(pns, <span class="dt">col=</span>Or, <span class="dt">soma=</span><span class="dv">1500</span>)</a></code></pre></div>
 <p>Which produces the following output plot:</p>
-<p>[<img src="docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png" alt="Larval PN">]</p>
+<p>[<img src="https://github.com/jefferis/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png" alt="Larval PN">]</p>
 </div>
 <div id="authentication" class="section level2">
 <h2 class="hasAnchor">
 <a href="#authentication" class="anchor"></a>Authentication</h2>
 <p>You will obviously need to have the login details of a valid CATMAID instance to try this out. As of December 2015 CATMAID is moving to token based authentication. For this you will need to get an API token when you are logged into the CATMAID web client in your browser. See <a href="http://catmaid.github.io/dev/api.html#api-token" class="uri">http://catmaid.github.io/dev/api.html#api-token</a> for details.</p>
 <p>Once you have the login information you can use the <code>catmaid_login</code> function to authenticate. The minimal information is your server URL and your CATMAID token.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">"https://mycatmaidserver.org/catmaidroot"</span>,
-              <span class="dt">authname=</span><span class="st">"Calvin"</span>,<span class="dt">authpassword=</span><span class="st">"hobbes"</span>,
-              <span class="dt">token=</span><span class="st">"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">"https://mycatmaidserver.org/catmaidroot"</span>,</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">              <span class="dt">authname=</span><span class="st">"Calvin"</span>,<span class="dt">authpassword=</span><span class="st">"hobbes"</span>,</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">              <span class="dt">token=</span><span class="st">"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>)</a></code></pre></div>
 <p>Note that the CATMAID servers that I am aware of require two layers of password protection, an outer HTTP auth type user/password combination as well as an inner CATMAID-specific token based login. The outer HTTP auth type user/password combination may be specific to you or generic to the project.</p>
 <div id="setting-environment-variables-in-your--renviron-file" class="section level3">
 <h3 class="hasAnchor">
 <a href="#setting-environment-variables-in-your--renviron-file" class="anchor"></a>Setting environment variables in your .Renviron file</h3>
 <p>It is recommended that you set your login details by including code like this in in your <a href="https://www.rdocumentation.org/packages/base/versions/3.4.0/topics/Startup">.Renviron file</a>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">catmaid_server=<span class="st">"https://mycatmaidserver.org/catmaidroot"</span>
-catmaid_token=<span class="st">"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>
-
-<span class="co"># additional security for mycatmaidserver.org/catmaidroot page</span>
-catmaid_authname=<span class="st">"Calvin"</span>
-catmaid_authpassword=<span class="st">"hobbes"</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">catmaid_server=<span class="st">"https://mycatmaidserver.org/catmaidroot"</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">catmaid_token=<span class="st">"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co"># additional security for mycatmaidserver.org/catmaidroot page</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">catmaid_authname=<span class="st">"Calvin"</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">catmaid_authpassword=<span class="st">"hobbes"</span></a></code></pre></div>
 <p>In this way authentication will happen transparently as required by all functions that interact with the specified CATMAID server.</p>
 <p>Be sure to leave <em>one blank line</em> at the end of the .Renviron file, or it will not work. Note that <code>catmaid_server</code> rather than <code>catmaid.server</code> is now the preferred form of specifying environment variables (some shells do not like variables with periods in their name). Note also that the use of package options in your <code>.Rprofile</code> file is still possible but now deprecated.</p>
 </div>
@@ -161,15 +161,15 @@ catmaid_authpassword=<span class="st">"hobbes"</span></code></pre></div>
 <a href="#multiple-servers" class="anchor"></a>Multiple servers</h3>
 <p>If you use more than one CATMAID server but always do so in different sessions or rmarkdown scripts then you can save an appropriate <code>.Renviron</code> file in the project folder.</p>
 <p>If you need to talk to more than one CATMAID server in a single session then you must use <code>catmaid_login</code> to login into each server</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># log in to default server specified in .Renviron/.Rprofile</span>
-conn1=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>()
-<span class="co"># log into another server, presumably with different credentials</span>
-conn2=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">'https://my.otherserver.com'</span>, ...)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># log in to default server specified in .Renviron/.Rprofile</span></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">conn1=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>()</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co"># log into another server, presumably with different credentials</span></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">conn2=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">'https://my.otherserver.com'</span>, ...)</a></code></pre></div>
 <p>and then use the returned connection objects with any calls you make e.g.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fetch neuron from server 1</span>
-n1=<span class="kw">read.neuron</span>(<span class="dv">123</span>, <span class="dt">conn=</span>conn1)
-<span class="co"># fetch neuron from server 2</span>
-n2=<span class="kw">read.neuron</span>(<span class="dv">123</span>, <span class="dt">conn=</span>conn2)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># fetch neuron from server 1</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">n1=<span class="kw">read.neuron</span>(<span class="dv">123</span>, <span class="dt">conn=</span>conn1)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># fetch neuron from server 2</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">n2=<span class="kw">read.neuron</span>(<span class="dv">123</span>, <span class="dt">conn=</span>conn2)</a></code></pre></div>
 <p>n.b. you must use connection objects to talk to both servers because if no connection object is specified, the last connection will be re-used.</p>
 </div>
 </div>
@@ -177,8 +177,8 @@ n2=<span class="kw">read.neuron</span>(<span class="dv">123</span>, <span class=
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Currently there isn’t a released version on <a href="https://cran.r-project.org/">CRAN</a> but can use the <strong>devtools</strong> package to install the development version:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</a></code></pre></div>
 <p>Note: Windows users need <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> and <a href="https://cran.r-project.org/package=devtools">devtools</a> to install this way.</p>
 </div>
 <div id="acknowledgements" class="section level2">

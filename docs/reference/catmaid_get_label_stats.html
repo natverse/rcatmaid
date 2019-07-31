@@ -65,7 +65,7 @@ catmaid_get_all_labels returns a character vector of labels" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
       </span>
     </div>
 
@@ -161,7 +161,8 @@ function</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>label_stats</span><span class='kw'>=</span><span class='fu'>catmaid_get_label_stats</span>()</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_connection(...): Must provide a valid https server</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+    <pre class="examples"><div class='input'><span class='no'>label_stats</span><span class='kw'>=</span><span class='fu'>catmaid_get_label_stats</span>()
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:nat’:</span>
@@ -173,14 +174,16 @@ function</p></td>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='co'># select soma labels</span>
 <span class='no'>soma_labels</span><span class='kw'>=</span><span class='no'>label_stats</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>labelName</span><span class='kw'>==</span><span class='st'>'soma'</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>skeletonID</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'label_stats' not found</span></div><div class='input'>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>skeletonID</span>)
+
 <span class='co'># select skeleton ids for neurons with multiple cell bodies</span>
 <span class='no'>multiple_soma</span><span class='kw'>=</span><span class='no'>soma_labels</span> <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/tally.html'>count</a></span>(<span class='no'>skeletonID</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>n</span><span class='kw'>&gt;</span><span class='fl'>1</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span>(<span class='no'>n</span>))</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'soma_labels' not found</span></div><div class='input'>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span>(<span class='no'>n</span>))
+
 <span class='no'>multiple_soma_info</span> <span class='kw'>=</span> <span class='no'>soma_labels</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>skeletonID</span><span class='kw'>%in%</span> <span class='no'>multiple_soma</span>$<span class='no'>skeletonID</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'soma_labels' not found</span></div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>catmaid_get_all_labels</span>())</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_connection(...): Must provide a valid https server</span></div></pre>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>skeletonID</span><span class='kw'>%in%</span> <span class='no'>multiple_soma</span>$<span class='no'>skeletonID</span>)</div><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>catmaid_get_all_labels</span>())</div><div class='output co'>#&gt; [1] "&gt;:(" ":)"  "!"   "?"   "?!"  "???"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
