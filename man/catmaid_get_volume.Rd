@@ -46,7 +46,9 @@ Note that if \code{x} is a volume name as a character vector then it
 }
 \examples{
 \dontrun{
-v375=catmaid_get_volume(375)
+# specifying by name is easier / less fragile than numeric ids
+v14.neuropil=catmaid_get_volume('v14.neuropil')
+
 v13.AL_R=catmaid_get_volume("v13.AL_R")
 shade3d(v13.AL_R, col='red', alpha=.3)
 
