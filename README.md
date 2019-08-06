@@ -2,6 +2,7 @@
 [![Release Version](https://img.shields.io/github/release/jefferis/rcatmaid.svg)](https://github.com/jefferis/rcatmaid/releases/latest) 
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](http://jefferis.github.io/rcatmaid/)
 [![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
+ <img src="man/figures/logo.svg" align="right" height="139" />
 
 # catmaid
 
