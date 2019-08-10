@@ -1,0 +1,21 @@
+{
+    "entities": [
+        {
+            "id": 2385025,
+            "name": "Putative DA2 ORN Soma Left 2385025 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                2385024
+            ]
+        },
+        {
+            "id": 8560131,
+            "name": "Putative DA2 ORN 8560131 FML",
+            "type": "neuron",
+            "skeleton_ids": [
+                8560130
+            ]
+        }
+    ],
+    "totalRecords": 2
+}

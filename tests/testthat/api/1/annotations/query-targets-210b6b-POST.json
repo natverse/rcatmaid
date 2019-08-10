@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 5129716,
+            "name": "Multiglomerular neuron 5129716 ECM",
+            "type": "neuron",
+            "skeleton_ids": [
+                5129715
+            ]
+        }
+    ],
+    "totalRecords": 1
+}

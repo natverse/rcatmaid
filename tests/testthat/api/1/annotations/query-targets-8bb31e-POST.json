@@ -1,0 +1,21 @@
+{
+    "entities": [
+        {
+            "id": 2926459,
+            "name": "putative DL6 ORN 2926459",
+            "type": "neuron",
+            "skeleton_ids": [
+                2926458
+            ]
+        },
+        {
+            "id": 2926483,
+            "name": "putative DL6 ORN 2926483",
+            "type": "neuron",
+            "skeleton_ids": [
+                2926482
+            ]
+        }
+    ],
+    "totalRecords": 2
+}
