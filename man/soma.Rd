@@ -16,19 +16,19 @@ soma(x, ...)
 
 \method{soma}{neuronlist}(x, ...)
 
-\method{soma}{neuron}(x)
+\method{soma}{neuron}(x, ...)
 
 somaindex(x, ...)
 
 \method{somaindex}{neuronlist}(x, ...)
 
-\method{somaindex}{neuron}(x)
+\method{somaindex}{neuron}(x, ...)
 
 somaid(x, ...)
 
 \method{somaid}{neuronlist}(x, ...)
 
-\method{somaid}{neuron}(x)
+\method{somaid}{neuron}(x, ...)
 }
 \arguments{
 \item{x}{a \code{\link{neuron}} or \code{\link{neuronlist}} object}
@@ -36,8 +36,12 @@ somaid(x, ...)
 \item{...}{additional arguments passed to methods, i.e. \code{\link{nlapply}}}
 }
 \value{
-Either the soma's 3D coordinates (soma) its PointId number (somaid)
-  or its position in the neuron's skeleton (somaindex)
+An Nx3 matrix (\code{soma}) or an integer vector (\code{somaid},
+  \code{somaindex}) with missing values filled with \code{NA}. Should a
+  neuron have multiple soma tags then \code{somaid} and \code{somaindex} will
+  return both (resulting in the *.neuronlist methods returning a \code{list}
+  not a \code{vector}) but \code{soma} will select the first coordinates
+  (with a warning) so that it always returns just one xyz location.
 }
 \description{
 \code{soma} fetches the XYZ location of the soma

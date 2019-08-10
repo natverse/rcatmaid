@@ -15,28 +15,36 @@
 #'   R, Rivera-Alba M, Mensh BD, Branson KM, Simpson JH, Truman JW, et al.
 #'   (2015) A multilevel multimodal circuit enhances action selection in
 #'   Drosophila. Nature.
-#' @return Either the soma's 3D coordinates (soma) its PointId number (somaid)
-#'   or its position in the neuron's skeleton (somaindex)
+#' @return An Nx3 matrix (\code{soma}) or an integer vector (\code{somaid},
+#'   \code{somaindex}) with missing values filled with \code{NA}. Should a
+#'   neuron have multiple soma tags then \code{somaid} and \code{somaindex} will
+#'   return both (resulting in the \code{*.neuronlist} methods returning a
+#'   \code{list} not a \code{vector}) but \code{soma} will select the first
+#'   coordinates (with a warning) so that it always returns just one xyz
+#'   location.
+#'
 #' @export
 soma<-function(x, ...) UseMethod("soma")
 
 #' @export
 #' @rdname soma
 soma.neuronlist<-function(x, ...) {
-  rdf=plyr::ldply(x, soma, ...)
-  rownames(rdf)=rdf[[1]]
-  rdf[-1]
+  rdf=t(sapply(x, soma))
+  colnames(rdf)=c("X","Y","Z")
+  rdf
 }
 
 #' @export
 #' @rdname soma
 soma.neuron<-function(x, ...) {
-  r=if(length(somaindex<-x$tags$soma[[1]])){
-    x$d[match(somaindex, x$d$PointNo),c("X","Y","Z")]
-  } else {
+  sidx=suppressWarnings(somaindex(x))
+  if(length(sidx)==0) {
     matrix(NA_real_, ncol = 3L, dimnames = list(NULL, c("X","Y","Z") ))
+  } else {
+    res=data.matrix(x$d[sidx, c("X","Y","Z")], rownames.force=F)
+    if(nrow(res)>1) warning("Neuron has multiple soma tags. Keeping first!")
+    res[1, , drop=FALSE]
   }
-  as.data.frame(r)
 }
 
 #' @export
@@ -46,7 +54,7 @@ somaindex<-function(x, ...) UseMethod("somaindex")
 #' @export
 #' @rdname soma
 somaindex.neuronlist<-function(x, ...) {
-  unlist(nlapply(x, somaindex.neuron, ...))
+  sapply(x, somaindex, ...)
 }
 
 #' @export
@@ -61,9 +69,14 @@ somaid<-function(x, ...) UseMethod("somaid")
 #' @export
 #' @rdname soma
 somaid.neuronlist<-function(x, ...) {
-  unlist(nlapply(x, somaid), ...)
+  sapply(x, somaid, ...)
 }
 
 #' @export
 #' @rdname soma
-somaid.neuron <- function(x, ...) unlist(x$tags$soma)
+somaid.neuron <- function(x, ...) {
+  id=unlist(x$tags$soma)
+  if(!length(id)) id=NA_integer_
+  else if(length(id)>1) warning("Neuron has multiple soma tags!")
+  id
+}
