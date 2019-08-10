@@ -51,7 +51,8 @@ somaindex.neuronlist<-function(x, ...) {
 
 #' @export
 #' @rdname soma
-somaindex.neuron <- function(x, ...) unlist(x$tags$soma)
+somaindex.neuron <- function(x, ...) match(somaid(x), x$d$PointNo)
+
 
 #' @export
 #' @rdname soma
@@ -65,4 +66,4 @@ somaid.neuronlist<-function(x, ...) {
 
 #' @export
 #' @rdname soma
-somaid.neuron <- function(x, ...) match(somaindex(x), x$d$PointNo)
+somaid.neuron <- function(x, ...) unlist(x$tags$soma)
