@@ -28,7 +28,8 @@ Imports:
     nabor,
     xml2,
     grDevices,
-    checkmate
+    checkmate,
+    igraph
 Suggests:
     spelling,
     testthat
