@@ -10,7 +10,7 @@
 \alias{somaid}
 \alias{somaid.neuronlist}
 \alias{somaid.neuron}
-\title{Functions for retrieving soma data}
+\title{Retrieve soma information for skeletons (specified via CATMAID tags)}
 \usage{
 soma(x, ...)
 
@@ -31,25 +31,30 @@ somaid(x, ...)
 \method{somaid}{neuron}(x)
 }
 \arguments{
-\item{x}{a neuron or neuronlist object}
+\item{x}{a \code{\link{neuron}} or \code{\link{neuronlist}} object}
 
 \item{...}{additional arguments passed to methods, i.e. \code{\link{nlapply}}}
 }
 \value{
-Either the soma's 3D coordinates (soma) its PointId number (somaid) or its position in the neuron's skeleton (somaindex)
+Either the soma's 3D coordinates (soma) its PointId number (somaid)
+  or its position in the neuron's skeleton (somaindex)
 }
 \description{
-Functions for retrieving data about somata from skeletons, that has been assigned in CATMAID using the tag system
-
 \code{soma} fetches the XYZ location of the soma
 
-\code{somaindex} fetches the raw index of the skeleton node associated with the soma (in range 1..N, number of vertices)
+\code{somaindex} fetches the raw index of the skeleton node
+  associated with the soma (in range 1..N, number of vertices)
 
-\code{somaid} fetches the identifier of the skeleton node associated with the soma
+\code{somaid} fetches the identifier of the skeleton node
+  associated with the soma
 }
 \details{
-CATMAID access required. Data collected and described in cited publication.
+CATMAID access required. Data collected and described in cited
+  publication.
 }
 \references{
-Ohyama T, Schneider-Mizell CM, Fetter RD, Aleman JV, Franconville R, Rivera-Alba M, Mensh BD, Branson KM, Simpson JH, Truman JW, et al. (2015) A multilevel multimodal circuit enhances action selection in Drosophila. Nature.
+Ohyama T, Schneider-Mizell CM, Fetter RD, Aleman JV, Franconville
+  R, Rivera-Alba M, Mensh BD, Branson KM, Simpson JH, Truman JW, et al.
+  (2015) A multilevel multimodal circuit enhances action selection in
+  Drosophila. Nature.
 }

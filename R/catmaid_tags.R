@@ -1,16 +1,22 @@
-#' Functions for retrieving soma data
+#' Retrieve soma information for skeletons (specified via CATMAID tags)
 #'
-#' @description Functions for retrieving data about somata from skeletons, that has been assigned in CATMAID using the tag system
 #' @description \code{soma} fetches the XYZ location of the soma
-#' @description \code{somaindex} fetches the raw index of the skeleton node associated with the soma (in range 1..N, number of vertices)
-#' @description \code{somaid} fetches the identifier of the skeleton node associated with the soma
-#' @param x a neuron or neuronlist object
+#' @description \code{somaindex} fetches the raw index of the skeleton node
+#'   associated with the soma (in range 1..N, number of vertices)
+#' @description \code{somaid} fetches the identifier of the skeleton node
+#'   associated with the soma
+#' @param x a \code{\link{neuron}} or \code{\link{neuronlist}} object
 #' @param ... additional arguments passed to methods, i.e. \code{\link{nlapply}}
 #'
-#' @details CATMAID access required. Data collected and described in cited publication.
+#' @details CATMAID access required. Data collected and described in cited
+#'   publication.
 #'
-#' @references Ohyama T, Schneider-Mizell CM, Fetter RD, Aleman JV, Franconville R, Rivera-Alba M, Mensh BD, Branson KM, Simpson JH, Truman JW, et al. (2015) A multilevel multimodal circuit enhances action selection in Drosophila. Nature.
-#' @return Either the soma's 3D coordinates (soma) its PointId number (somaid) or its position in the neuron's skeleton (somaindex)
+#' @references Ohyama T, Schneider-Mizell CM, Fetter RD, Aleman JV, Franconville
+#'   R, Rivera-Alba M, Mensh BD, Branson KM, Simpson JH, Truman JW, et al.
+#'   (2015) A multilevel multimodal circuit enhances action selection in
+#'   Drosophila. Nature.
+#' @return Either the soma's 3D coordinates (soma) its PointId number (somaid)
+#'   or its position in the neuron's skeleton (somaindex)
 #' @export
 soma<-function(x, ...) UseMethod("soma")
 
@@ -24,7 +30,7 @@ soma.neuronlist<-function(x, ...) {
 
 #' @export
 #' @rdname soma
-soma.neuron<-function(x) {
+soma.neuron<-function(x, ...) {
   r=if(length(somaindex<-x$tags$soma[[1]])){
     x$d[match(somaindex, x$d$PointNo),c("X","Y","Z")]
   } else {
@@ -45,7 +51,7 @@ somaindex.neuronlist<-function(x, ...) {
 
 #' @export
 #' @rdname soma
-somaindex.neuron <- function(x) unlist(x$tags$soma)
+somaindex.neuron <- function(x, ...) unlist(x$tags$soma)
 
 #' @export
 #' @rdname soma
@@ -59,4 +65,4 @@ somaid.neuronlist<-function(x, ...) {
 
 #' @export
 #' @rdname soma
-somaid.neuron <- function(x) match(somaindex(x), x$d$PointNo)
+somaid.neuron <- function(x, ...) match(somaindex(x), x$d$PointNo)
