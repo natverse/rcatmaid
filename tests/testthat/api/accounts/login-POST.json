@@ -1,0 +1,6 @@
+{
+    "error": "",
+    "detail": "Traceback (most recent call last):\n  File \"/home/catmaid/catmaid-fafb-v14/django/applications/catmaid/control/authentication.py\", line 87, in login_user\n    user = User.objects.get(username=username)\n  File \"/home/catmaid/catmaid-fafb-v14/django/env/lib/python3.6/site-packages/django/db/models/manager.py\", line 82, in manager_method\n    return getattr(self.get_queryset(), name)(*args, **kwargs)\n  File \"/home/catmaid/catmaid-fafb-v14/django/env/lib/python3.6/site-packages/django/db/models/query.py\", line 399, in get\n    self.model._meta.object_name\ndjango.contrib.auth.models.User.DoesNotExist: User matching query does not exist.\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/home/catmaid/catmaid-fafb-v14/django/env/lib/python3.6/site-packages/django/core/handlers/base.py\", line 124, in _get_response\n    response = wrapped_callback(request, *callback_args, **callback_kwargs)\n  File \"/usr/lib/python3.6/contextlib.py\", line 52, in inner\n    return func(*args, **kwds)\n  File \"/home/catmaid/catmaid-fafb-v14/django/applications/catmaid/control/authentication.py\", line 96, in login_user\n    raise InvalidLoginError()\ncatmaid.control.authentication.InvalidLoginError\n",
+    "type": "InvalidLoginError",
+    "meta": null
+}

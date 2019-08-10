@@ -45,10 +45,16 @@ Note that if \code{x} is a volume name as a character vector then it
   expect. Use \code{invertFaces=TRUE} to fix this.
 }
 \examples{
+## NB all these examples refer to the FAFB adult Drosophila brain
+## CATMAID instance
+\donttest{
+v14.neuropil=catmaid_get_volume('v14.neuropil')
+# specifying by name is easier / less fragile than numeric ids
+}
+
 \dontrun{
-v375=catmaid_get_volume(375)
-v13.AL_R=catmaid_get_volume("v13.AL_R")
-shade3d(v13.AL_R, col='red', alpha=.3)
+AL_R=catmaid_get_volume("AL_R")
+shade3d(AL_R, col='red', alpha=.3)
 
 if(require("Morpho")) {
   plotNormals(facenormals(v13.AL_R), long=5e3)
@@ -56,7 +62,8 @@ if(require("Morpho")) {
 
 # find surfaces for olfactory glomeruli
 vl=catmaid_get_volumelist()
-glomids=vl$id[grepl("_glomerulus$", vl$name)]
+x
+glomids=vl$id[grepl("v14.[DV][MLAPC]{0,1}[0-9]{0,1}[dvaplm]{0,1}$", vl$name)]
 # fetch them all
 gg=lapply(glomids, catmaid_get_volume)
 # ... and plot

@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 5233354,
+            "name": "right ORN VC5 5233354 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5233353
+            ]
+        }
+    ],
+    "totalRecords": 1
+}

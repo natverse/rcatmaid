@@ -1,0 +1,37 @@
+{
+    "entities": [
+        {
+            "id": 5184270,
+            "name": "putative VM1 ORN 5184270 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                5184269
+            ]
+        },
+        {
+            "id": 5233276,
+            "name": "right ORN VC5 5233276 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5233275
+            ]
+        },
+        {
+            "id": 5233354,
+            "name": "right ORN VC5 5233354 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5233353
+            ]
+        },
+        {
+            "id": 5521333,
+            "name": "right ORN VC5 5521333 PS",
+            "type": "neuron",
+            "skeleton_ids": [
+                5521332
+            ]
+        }
+    ],
+    "totalRecords": 4
+}
