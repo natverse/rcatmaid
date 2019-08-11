@@ -238,13 +238,13 @@ possibly.numeric <- function(x) {
 #' @rdname catmaid_lock_neurons
 catmaid_lock_neurons <- function(skids, pid = 1, conn = NULL, ...){
   skids = catmaid::catmaid_skids(skids, pid=pid,conn=conn,...)
-  catmaid::catmaid_set_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
+  catmaid_set_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
                                                  conn = conn, ...)
 }
 #' @export
 #' @rdname catmaid_lock_neurons
 catmaid_unlock_neurons <- function(skids, pid = 1, conn = NULL, ...){
   skids = catmaid::catmaid_skids(skids, pid=pid,conn=conn,...)
-  catmaid::catmaid_remove_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
+  catmaid_remove_annotations_for_skeletons(skids, annotations = "locked", pid = pid,
                                                     conn = conn, ...)
 }
