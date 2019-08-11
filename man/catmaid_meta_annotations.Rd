@@ -4,7 +4,8 @@
 \alias{catmaid_set_meta_annotations}
 \alias{catmaid_query_meta_annotations}
 \alias{catmaid_get_meta_annotations}
-\title{Get, query and set CATMAID meta-annotations for annotations}
+\alias{catmaid_remove_meta_annotations}
+\title{Get, query, set and remove CATMAID meta-annotations for annotations}
 \usage{
 catmaid_set_meta_annotations(meta_annotations, annotations, pid = 1,
   conn = NULL, ...)
@@ -13,6 +14,9 @@ catmaid_query_meta_annotations(meta_annotations,
   with_annotations = FALSE, pid = 1, conn = NULL, ...)
 
 catmaid_get_meta_annotations(annotations, pid = 1, conn = NULL, ...)
+
+catmaid_remove_meta_annotations(annotations, meta_annotations,
+  force = FALSE, pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{meta_annotations}{meta-annotation to add to query. Either a vector of IDs or a character sting of meta-annotations can be given.}
@@ -29,6 +33,10 @@ f NULL (the default) a new connection object will be generated using the values 
 \item{...}{additional arguments passed to methods.}
 
 \item{with_annotations}{whether or not to return the other meta-annotations of an anotation, when using \code(catmaid_get_meta_annotated).}
+
+\item{force}{Whether to force the catmaid server to remove multiple 
+annotations (default \code{FALSE}) to provide some protection against 
+accidents.}
 }
 \description{
 \code{catmaid_set_meta_annotations} Meta-annotate a group of CATMAID annotations
@@ -36,6 +44,8 @@ f NULL (the default) a new connection object will be generated using the values 
 \code{catmaid_query_meta_annotations} Query with meta-annotations, to find the annotations they have been used to label.
 
 \code{catmaid_get_meta_annotations} Query with annotations, to find the meta-annotations that label them.
+
+\code{catmaid_remove_meta_annotations} Remove meta-annotations from annotations.
 }
 \seealso{
 \code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}},

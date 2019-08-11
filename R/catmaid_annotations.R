@@ -145,17 +145,21 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
                     simplifyVector = T, ...))
 }
 
-#' Get, query and set CATMAID meta-annotations for annotations
+#' Get, query, set and remove CATMAID meta-annotations for annotations
 #'
 #' @description \code{catmaid_set_meta_annotations} Meta-annotate a group of CATMAID annotations
 #' @description \code{catmaid_query_meta_annotations} Query with meta-annotations, to find the annotations they have been used to label.
 #' @description \code{catmaid_get_meta_annotations} Query with annotations, to find the meta-annotations that label them.
+#' @description \code{catmaid_remove_meta_annotations} Remove meta-annotations from annotations.
 #'
 #' @param annotations annotation ids designating which annotations to to meta-annotate.
 #' IDs can be found by calling \code{catmaid_get_annotationlist}. If a character string is given, then
 #' IDs will be found by calling \code{catmaid_get_annotationlist}.
 #' @param meta_annotations meta-annotation to add to query. Either a vector of IDs or a character sting of meta-annotations can be given.
 #' @param with_annotations whether or not to return the other meta-annotations of an anotation, when using \code(catmaid_get_meta_annotated). 
+#' @param force Whether to force the catmaid server to remove multiple 
+#'   annotations (default \code{FALSE}) to provide some protection against 
+#'   accidents. 
 #' @param conn a catmaid_connection objection returned by catmaid_login. I
 #' f NULL (the default) a new connection object will be generated using the values of the catmaid.* package options as described in the help for catmaid_login
 #' @param pid project id (default 1)
@@ -222,6 +226,37 @@ catmaid_get_meta_annotations <-function(annotations, pid=1, conn=NULL,...){
   res
 }
 
+#' @export
+#' @rdname catmaid_meta_annotations
+catmaid_remove_meta_annotations <-function(annotations, 
+                                           meta_annotations,
+                                           force=FALSE, 
+                                           pid=1,
+                                           conn=NULL, ...) {
+  a <- 0
+  if(!possibly.numeric(annotations)){
+    a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
+    annotations <- a$annotations[a$annotations$name%in%annotations,"id"]
+  }
+  if(!possibly.numeric(meta_annotations)){
+    if(a == 0){
+      a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...) 
+    }
+    meta_annotations <- a$annotations[a$annotations$name%in%meta_annotations,"id"]
+  }
+  if(!length(length(meta_annotations)) | !length(length(annotations))){
+    stop("Please give valid annotations or annotation IDs for your chosen CATMAID instance.")
+  }
+  post_data <-  list()
+  post_data[sprintf("entity_ids[%d]", seq_along(annotations))]=as.list(annotations)
+  if(length(meta_annotations)>1 && !force)
+    stop("You must set force=TRUE when removing multiple meta annotations")
+  post_data[sprintf("annotation_ids[%d]", seq_along(meta_annotations))]=as.list(meta_annotations)
+  path=sprintf("/%d/annotations/remove", pid)
+  res=catmaid_fetch(path, body=post_data, include_headers = F, 
+                    simplifyVector = T, ...)
+  invisible(catmaid_error_check(res))
+}
 
 # hidden
 possibly.numeric <- function(x) {
