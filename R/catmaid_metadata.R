@@ -390,7 +390,7 @@ catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
 #' @seealso \code{\link{read.neurons.catmaid}}, \code{\link{catmaid_get_neuronnames}}
 #' @export
 #' @rdname update
-update_neuronlist<-function(someneuronlist, 
+catmaid_update_neuronlist<-function(someneuronlist, 
                             skids = names(someneuronlist), 
                             update = c("neurons", "names"),
                             ...){
