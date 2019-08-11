@@ -164,7 +164,6 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 #' @param meta_annotations meta-annotation to add to query. Either a vector of
 #'  IDs or a character sting of meta-annotations can be given.
 #' @param with_annotations whether or not to return the other meta-annotations
-#'  of an anotation, when using \code(catmaid_get_meta_annotated). 
 #' @param force Whether to force the catmaid server to remove multiple 
 #'   annotations (default \code{FALSE}) to provide some protection against 
 #'   accidents. 
@@ -174,6 +173,7 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 #'  catmaid_login
 #' @param pid project id (default 1)
 #' @param ... additional arguments passed to methods.
+#'   of an anotation, when using \code{catmaid_query_meta_annotations}.
 #' @seealso \code{\link{catmaid_get_annotations_for_skeletons}},
 #'  \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}}
 #' @export
