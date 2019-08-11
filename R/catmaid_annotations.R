@@ -177,6 +177,7 @@ catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=N
   post_data[sprintf("annotations[%d]", seq_along(meta_annotations))] <- as.list(meta_annotations)
   res <- catmaid_fetch(path, body = post_data, include_headers = F,
                       simplifyVector = T, conn = conn, ...)
+  invisible(catmaid_error_check(res))
 }
 
 #' @export
@@ -198,6 +199,7 @@ catmaid_query_meta_annotations <-function(meta_annotations,
   path <- sprintf("/%d/annotations/query-targets", pid)
   res <- catmaid_fetch(path, body = post_data, include_headers = F,
                       simplifyVector = T, conn = conn, ...)
+  invisible(catmaid_error_check(res))
   res$entities
 }
 
@@ -216,8 +218,10 @@ catmaid_get_meta_annotations <-function(annotations, pid=1, conn=NULL,...){
   path <- sprintf("/%d/annotations/query", pid)
   res <- catmaid_fetch(path, body = post_data, include_headers = F,
                       simplifyVector = T, conn = conn, ...)
+  invisible(catmaid_error_check(res))
   res
 }
+
 
 # hidden
 possibly.numeric <- function(x) {
