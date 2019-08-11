@@ -39,9 +39,10 @@ somaid(x, ...)
 An Nx3 matrix (\code{soma}) or an integer vector (\code{somaid},
   \code{somaindex}) with missing values filled with \code{NA}. Should a
   neuron have multiple soma tags then \code{somaid} and \code{somaindex} will
-  return both (resulting in the *.neuronlist methods returning a \code{list}
-  not a \code{vector}) but \code{soma} will select the first coordinates
-  (with a warning) so that it always returns just one xyz location.
+  return both (resulting in the \code{*.neuronlist} methods returning a
+  \code{list} not a \code{vector}) but \code{soma} will select the first
+  coordinates (with a warning) so that it always returns just one xyz
+  location.
 }
 \description{
 \code{soma} fetches the XYZ location of the soma
