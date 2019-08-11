@@ -172,7 +172,7 @@ catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=N
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
     annotations <- a$annotations[a$annotations$name==annotations,"id"]
   }
-  if(!length(length(annotations))){
+  if(!length(annotations)){
     stop("Please give at least one valid annotation or annotation ID for your chosen CATMAID instance.")
   }
   post_data <- list()
@@ -193,7 +193,7 @@ catmaid_query_meta_annotations <-function(meta_annotations,
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
     meta_annotations <- a$annotations[a$annotations$name%in%meta_annotations,"id"]
   }
-  if(!length(length(meta_annotations))){
+  if(!length(meta_annotations)){
     stop("Please give at least one valid meta annotation or meta annotation ID for your chosen CATMAID instance.")
   }
   post_data <- list()
@@ -214,7 +214,7 @@ catmaid_get_meta_annotations <-function(annotations, pid=1, conn=NULL,...){
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
     annotations <- a$annotations[a$annotations$name%in%annotations,"id"]
   }
-  if(!length(length(annotations))){
+  if(!length(annotations)){
     stop("Please give at least one valid annotation or annotation ID for your chosen CATMAID instance.")
   }
   post_data <-  list()
@@ -244,7 +244,7 @@ catmaid_remove_meta_annotations <-function(annotations,
     }
     meta_annotations <- a$annotations[a$annotations$name%in%meta_annotations,"id"]
   }
-  if(!length(length(meta_annotations)) | !length(length(annotations))){
+  if(!length(meta_annotations) | !length(annotations)){
     stop("Please give valid annotations or annotation IDs for your chosen CATMAID instance.")
   }
   post_data <-  list()
