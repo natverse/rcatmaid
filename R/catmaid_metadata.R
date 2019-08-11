@@ -380,23 +380,29 @@ catmaid_get_review_status<-function(skids, pid=1, conn=NULL, ...) {
 #' Update a local neuronlist with new CATMAID data
 #'
 #' @description Use to update a large neuronlist quickly by pulling just certain neurons from CATMAID,
-#' using \code{read.neurons.catmaid}.
+#' using \code{\link{read.neurons.catmaid}}. Option to update only the names.
 #'
-#' @param skids skeleton IDs
 #' @param someneuronlist a neuronlist object
-#' @param ... additional arguments passed to \code{read.neurons.catmaid}
+#' @param skids selected skeleton IDs from \code{someneuronlist}
+#' @param update what to update, either the selected neurons or just the names for selected neurons.
+#' @param ... additional arguments passed to \code{\link{read.neurons.catmaid}} or \code{\link{catmaid_get_neuronnames}}
 #'
+#' @seealso \code{\link{read.neurons.catmaid}}, \code{\link{catmaid_get_neuronnames}}
 #' @export
 #' @rdname update
-update_neurons<-function(someneuronlist,skids,...){
-  someneuronlist[skids] = read.neurons.catmaid(skids)
-  someneuronlist
-}
-
-#' @export
-#' @rdname update
-update_names<-function(someneuronlist,skids = names(someneuronlist),...){
-  someneuronlist[,"name"] = catmaid_get_neuronnames(skids)
+update_neuronlist<-function(someneuronlist, 
+                            skids = names(someneuronlist), 
+                            update = c("neurons", "names"),
+                            ...){
+  update = match.arg(update)
+  if(!nat::is.neuronlist(someneuronlist)){
+    stop("someneuronlist must be an object of type neuronlist.")
+  }
+  if(update=="neurons"){
+    someneuronlist[skids] = read.neurons.catmaid(skids, ...)
+  }else{
+    someneuronlist[skids,"name"] = catmaid_get_neuronnames(skids, ...)
+  }
   someneuronlist
 }
 
