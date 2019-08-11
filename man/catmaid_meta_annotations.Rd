@@ -19,34 +19,45 @@ catmaid_remove_meta_annotations(annotations, meta_annotations,
   force = FALSE, pid = 1, conn = NULL, ...)
 }
 \arguments{
-\item{meta_annotations}{meta-annotation to add to query. Either a vector of IDs or a character sting of meta-annotations can be given.}
+\item{meta_annotations}{meta-annotation to add to query. Either a vector of
+IDs or a character sting of meta-annotations can be given.}
 
-\item{annotations}{annotation ids designating which annotations to to meta-annotate.
-IDs can be found by calling \code{catmaid_get_annotationlist}. If a character string is given, then
+\item{annotations}{annotation ids designating which annotations to
+ meta-annotate.
+IDs can be found by calling \code{catmaid_get_annotationlist}. 
+If a character string is given, then
 IDs will be found by calling \code{catmaid_get_annotationlist}.}
 
 \item{pid}{project id (default 1)}
 
 \item{conn}{a catmaid_connection objection returned by catmaid_login. I
-f NULL (the default) a new connection object will be generated using the values of the catmaid.* package options as described in the help for catmaid_login}
+f NULL (the default) a new connection object will be generated using the 
+values of the catmaid.* package options as described in the help for
+ catmaid_login}
 
 \item{...}{additional arguments passed to methods.}
 
-\item{with_annotations}{whether or not to return the other meta-annotations of an anotation, when using \code(catmaid_get_meta_annotated).}
+\item{with_annotations}{whether or not to return the other meta-annotations
+of an anotation, when using \code(catmaid_get_meta_annotated).}
 
 \item{force}{Whether to force the catmaid server to remove multiple 
 annotations (default \code{FALSE}) to provide some protection against 
 accidents.}
 }
 \description{
-\code{catmaid_set_meta_annotations} Meta-annotate a group of CATMAID annotations
+\code{catmaid_set_meta_annotations} Meta-annotate a group of 
+CATMAID annotations
 
-\code{catmaid_query_meta_annotations} Query with meta-annotations, to find the annotations they have been used to label.
+\code{catmaid_query_meta_annotations} Query with 
+meta-annotations, to find the annotations they have been used to label.
 
-\code{catmaid_get_meta_annotations} Query with annotations, to find the meta-annotations that label them.
+\code{catmaid_get_meta_annotations} Query with annotations, 
+to find the meta-annotations that label them.
 
-\code{catmaid_remove_meta_annotations} Remove meta-annotations from annotations.
+\code{catmaid_remove_meta_annotations} Remove meta-annotations
+ from annotations.
 }
 \seealso{
-\code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}},
+\code{\link{catmaid_get_annotations_for_skeletons}},
+ \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}}
 }
