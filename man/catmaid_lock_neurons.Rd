@@ -10,13 +10,18 @@ catmaid_lock_neurons(skids, pid = 1, conn = NULL, ...)
 catmaid_unlock_neurons(skids, pid = 1, conn = NULL, ...)
 }
 \arguments{
-\item{skids}{the skeleton IDs neurons you wish to lock / unlock}
+\item{skids}{One or more numeric skeleton ids or a character vector defining
+a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
-\item{pid}{project id. Defaults to 1}
+\item{pid}{Project id (default 1)}
 
-\item{conn}{CATMAID connection object, see ?catmaid_login for details}
+\item{conn}{A \code{catmaid_connection} objection returned by 
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
+object will be generated using the values of the \bold{catmaid.*} package 
+options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{methods passed to catmaid_fetch}
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+function}
 }
 \description{
 Lock or unlock a CATMAID neuron reconstruction by adding or removing a 'locked' annotation to a set of skeleton IDs (skids). A locked neuron cannot be edited until it is unlocked.
