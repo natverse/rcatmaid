@@ -170,7 +170,7 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=NULL,...){
   if(!possibly.numeric(annotations)){
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
-    annotations <- a$annotations[a$annotations$name==annotations,"id"]
+    annotations <- a$annotations[a$annotations$name%in%annotations,"id"]
   }
   if(!length(annotations)){
     stop("Please give at least one valid annotation or annotation ID for your chosen CATMAID instance.")
