@@ -145,10 +145,11 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
                     simplifyVector = T, ...))
 }
 
-#' Meta-annotate CATMAID annotations
+#' Get, query and set CATMAID meta-annotations for annotations
 #'
-#' @description Meta-annotate a group of CATMAID annotations, or query a CATMAID database 
-#' to get annotations that themselves have been  meta-annotated).
+#' @description \code{catmaid_set_meta_annotations} Meta-annotate a group of CATMAID annotations
+#' @description \code{catmaid_query_meta_annotations} Query with meta-annotations, to find the annotations they have been used to label.
+#' @description \code{catmaid_get_meta_annotations} Query with annotations, to find the meta-annotations that label them.
 #'
 #' @param annotations annotation ids designating which annotations to to meta-annotate.
 #' IDs can be found by calling \code{catmaid_get_annotationlist}. If a character string is given, then
@@ -180,7 +181,7 @@ catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=N
 
 #' @export
 #' @rdname catmaid_meta_annotations
-catmaid_get_meta_annotated_annotations <-function(meta_annotations, 
+catmaid_query_meta_annotations <-function(meta_annotations, 
                                       with_annotations = FALSE,
                                       pid=1, conn=NULL,...){
   if(!possibly.numeric(meta_annotations)){

@@ -2,14 +2,14 @@
 % Please edit documentation in R/catmaid_annotations.R
 \name{catmaid_set_meta_annotations}
 \alias{catmaid_set_meta_annotations}
-\alias{catmaid_get_meta_annotated_annotations}
+\alias{catmaid_query_meta_annotations}
 \alias{catmaid_get_meta_annotations}
-\title{Meta-annotate CATMAID annotations}
+\title{Get, query and set CATMAID meta-annotations for annotations}
 \usage{
 catmaid_set_meta_annotations(meta_annotations, annotations, pid = 1,
   conn = NULL, ...)
 
-catmaid_get_meta_annotated_annotations(meta_annotations,
+catmaid_query_meta_annotations(meta_annotations,
   with_annotations = FALSE, pid = 1, conn = NULL, ...)
 
 catmaid_get_meta_annotations(annotations, pid = 1, conn = NULL, ...)
@@ -31,8 +31,11 @@ f NULL (the default) a new connection object will be generated using the values 
 \item{with_annotations}{whether or not to return the other meta-annotations of an anotation, when using \code(catmaid_get_meta_annotated).}
 }
 \description{
-Meta-annotate a group of CATMAID annotations, or query a CATMAID database 
-to get annotations that themselves have been  meta-annotated).
+\code{catmaid_set_meta_annotations} Meta-annotate a group of CATMAID annotations
+
+\code{catmaid_query_meta_annotations} Query with meta-annotations, to find the annotations they have been used to label.
+
+\code{catmaid_get_meta_annotations} Query with annotations, to find the meta-annotations that label them.
 }
 \seealso{
 \code{\link{catmaid_get_annotations_for_skeletons}}, \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}},
