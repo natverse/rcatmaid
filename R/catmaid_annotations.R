@@ -147,12 +147,12 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 
 #' Get, query, set and remove CATMAID meta-annotations for annotations
 #'
+#' @description \code{catmaid_get_meta_annotations} Query by annotations to find
+#'   the meta-annotations that label them.
+#' @description \code{catmaid_query_meta_annotations} Query by meta-annotations
+#'   to find the annotations that they label.
 #' @description \code{catmaid_set_meta_annotations} Meta-annotate a group of
 #'   CATMAID annotations
-#' @description \code{catmaid_query_meta_annotations} Query with
-#'   meta-annotations, to find the annotations they have been used to label.
-#' @description \code{catmaid_get_meta_annotations} Query with annotations, to
-#'   find the meta-annotations that label them.
 #' @description \code{catmaid_remove_meta_annotations} Remove meta-annotations
 #'   from annotations.
 #'
@@ -171,8 +171,9 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 #' @seealso \code{\link{catmaid_get_annotations_for_skeletons}},
 #'   \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}}
 #' @export
-#' @rdname catmaid_meta_annotations
-catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=NULL,...){
+#' @name catmaid_meta_annotations
+#' @aliases catmaid_get_meta_annotations
+catmaid_get_meta_annotations <-function(annotations, pid=1, conn=NULL,...){
   if(!possibly.numeric(annotations)){
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
     annotations <- a$annotations[a$annotations$name%in%annotations,"id"]
@@ -180,13 +181,13 @@ catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=N
   if(!length(annotations)){
     stop("Please give at least one valid annotation or annotation ID for your chosen CATMAID instance.")
   }
-  post_data <- list()
-  post_data[sprintf("entity_ids[%d]", seq_along(annotations))] <- as.list(annotations)
-  path <- sprintf("/%d/annotations/add", pid)
-  post_data[sprintf("annotations[%d]", seq_along(meta_annotations))] <- as.list(meta_annotations)
+  post_data <-  list()
+  post_data[sprintf("object_ids[%d]", seq_along(annotations))] <- as.list(annotations)
+  path <- sprintf("/%d/annotations/query", pid)
   res <- catmaid_fetch(path, body = post_data, include_headers = F,
-                      simplifyVector = T, conn = conn, ...)
+                       simplifyVector = T, conn = conn, ...)
   invisible(catmaid_error_check(res))
+  res
 }
 
 #' @export
@@ -214,7 +215,7 @@ catmaid_query_meta_annotations <-function(meta_annotations,
 
 #' @export
 #' @rdname catmaid_meta_annotations
-catmaid_get_meta_annotations <-function(annotations, pid=1, conn=NULL,...){
+catmaid_set_meta_annotations<-function(meta_annotations,annotations,pid=1,conn=NULL,...){
   if(!possibly.numeric(annotations)){
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
     annotations <- a$annotations[a$annotations$name%in%annotations,"id"]
@@ -222,13 +223,13 @@ catmaid_get_meta_annotations <-function(annotations, pid=1, conn=NULL,...){
   if(!length(annotations)){
     stop("Please give at least one valid annotation or annotation ID for your chosen CATMAID instance.")
   }
-  post_data <-  list()
-  post_data[sprintf("object_ids[%d]", seq_along(annotations))] <- as.list(annotations)
-  path <- sprintf("/%d/annotations/query", pid)
+  post_data <- list()
+  post_data[sprintf("entity_ids[%d]", seq_along(annotations))] <- as.list(annotations)
+  path <- sprintf("/%d/annotations/add", pid)
+  post_data[sprintf("annotations[%d]", seq_along(meta_annotations))] <- as.list(meta_annotations)
   res <- catmaid_fetch(path, body = post_data, include_headers = F,
-                      simplifyVector = T, conn = conn, ...)
+                       simplifyVector = T, conn = conn, ...)
   invisible(catmaid_error_check(res))
-  res
 }
 
 #' @export
