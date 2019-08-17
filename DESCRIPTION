@@ -6,7 +6,9 @@ Authors@R: c(
     person("Gregory","Jefferis", email="jefferis@gmail.com",
     role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
     person("Sridhar","Jagannathan", email="j.sridharrajan@gmail.com", 
-    role = c("ctb"), comment = c(ORCID = "0000-0002-2078-1145"))
+    role = c("ctb"), comment = c(ORCID = "0000-0002-2078-1145")),
+    person("Alex", "Bates", email = "abates@mrc-lmb.cam.ac.uk", role = c("ctb"), 
+    comment = c(ORCID = "0000-0002-1195-0445"))
     )
 Maintainer: Gregory Jefferis <jefferis@gmail.com>
 Description: This package provide access to the API exposed by the CATMAID (C
