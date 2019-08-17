@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fetch or translate catmaid users for current/specified connection/project — catmaid_get_user_list • catmaid</title>
+<title>Retrieve soma information for skeletons (specified via CATMAID tags) — soma • catmaid</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,13 @@
 
 
 
-<meta property="og:title" content="Fetch or translate catmaid users for current/specified connection/project — catmaid_get_user_list" />
+<meta property="og:title" content="Retrieve soma information for skeletons (specified via CATMAID tags) — soma" />
 
-<meta property="og:description" content="catmaid_userids convert login names to numeric ids" />
+<meta property="og:description" content="soma fetches the XYZ location of the soma
+somaindex fetches the raw index of the skeleton node
+  associated with the soma (in range 1..N, number of vertices)
+somaid fetches the identifier of the skeleton node
+  associated with the soma" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,66 +120,85 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fetch or translate catmaid users for current/specified connection/project</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_stats.R'><code>R/catmaid_stats.R</code></a></small>
-    <div class="hidden name"><code>catmaid_get_user_list.Rd</code></div>
+    <h1>Retrieve soma information for skeletons (specified via CATMAID tags)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_tags.R'><code>R/catmaid_tags.R</code></a></small>
+    <div class="hidden name"><code>soma.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>catmaid_userids</code> convert login names to numeric ids</p>
+    <p><code>soma</code> fetches the XYZ location of the soma</p>
+<p><code>somaindex</code> fetches the raw index of the skeleton node
+  associated with the soma (in range 1..N, number of vertices)</p>
+<p><code>somaid</code> fetches the identifier of the skeleton node
+  associated with the soma</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_user_list</span>(<span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>soma</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>catmaid_userids</span>(<span class='no'>x</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='co'># S3 method for neuronlist</span>
+<span class='fu'>soma</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuron</span>
+<span class='fu'>soma</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>somaindex</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuronlist</span>
+<span class='fu'>somaindex</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuron</span>
+<span class='fu'>somaindex</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='fu'>somaid</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuronlist</span>
+<span class='fu'>somaid</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for neuron</span>
+<span class='fu'>somaid</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pid</th>
-      <td><p>Project id (default 1)</p></td>
-    </tr>
-    <tr>
-      <th>conn</th>
-      <td><p>A <code>catmaid_connection</code> objection returned by 
-<code><a href='catmaid_login.html'>catmaid_login</a></code>. If <code>NULL</code> (the default) a new connection 
-object will be generated using the values of the <b>catmaid.*</b> package 
-options as described in the help for <code><a href='catmaid_login.html'>catmaid_login</a></code>.</p></td>
+      <th>x</th>
+      <td><p>a <code>neuron</code> or <code>neuronlist</code> object</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
-function</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>A character vector of login names. If <code>x</code> contains valid
-integer (or numeric) ids then they will be returned as is.</p></td>
+      <td><p>additional arguments passed to methods, i.e. <code>nlapply</code></p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>For <code>catmaid_get_user_list</code> a <code>data.frame</code> with</p>
-<p>For <code>catmaid_userids</code> an integer vector of numeric ids</p>
+    <p>An Nx3 matrix (<code>soma</code>) or an integer vector (<code>somaid</code>,
+  <code>somaindex</code>) with missing values filled with <code>NA</code>. Should a
+  neuron have multiple soma tags then <code>somaid</code> and <code>somaindex</code> will
+  return both (resulting in the <code>*.neuronlist</code> methods returning a
+  <code>list</code> not a <code>vector</code>) but <code>soma</code> will select the first
+  coordinates (with a warning) so that it always returns just one xyz
+  location.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>CATMAID access required. Data collected and described in cited
+  publication.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Ohyama T, Schneider-Mizell CM, Fetter RD, Aleman JV, Franconville
+  R, Rivera-Alba M, Mensh BD, Branson KM, Simpson JH, Truman JW, et al.
+  (2015) A multilevel multimodal circuit enhances action selection in
+  Drosophila. Nature.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='catmaid_get_review_status.html'>catmaid_get_review_status</a>, 
-  <a href='catmaid_get_contributor_stats.html'>catmaid_get_contributor_stats</a></code></p></div>
+    <div class='dont-index'><p><code><a href='nsoma.html'>nsoma</a></code></p></div>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>catmaid_get_user_list</span>())</div><div class='output co'>#&gt;    id         login full_name first_name last_name                        color
-#&gt; 1 282   upload_user                                0.744291, 1.000000, 0.720093
-#&gt; 2 261   williamsonr                                0.593947, 0.628997, 1.000000
-#&gt; 3  79 rfranconville                                1.000000, 0.156985, 0.439778
-#&gt; 4  87    tavosanisg                                0.257581, 0.049968, 1.000000
-#&gt; 5 159   WT_outreach                                1.000000, 0.631121, 0.678050
-#&gt; 6 243       wolskyd                                0.290622, 0.213735, 1.000000</div><div class='input'><span class='fu'>catmaid_userids</span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>catmaid_userids</span>(<span class='st'>'greg'</span>)</div><div class='output co'>#&gt; [1] NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -184,10 +207,12 @@ integer (or numeric) ids then they will be returned as is.</p></td>
       
       <li><a href="#value">Value</a></li>
 
+      <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
+
       <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

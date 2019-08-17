@@ -35,6 +35,8 @@
 <meta property="og:description" content="catmaid_fetch carries out a GET operation when 
   body=NULL, POST otherwise. The http status code of the response will
   be checked - if invalid an error will be thrown." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -142,7 +144,7 @@
     <tr>
       <th>body</th>
       <td><p>The (optional) body of the post request, usually in the form of a
-named list. See the <code><a href='https://www.rdocumentation.org/packages/httr/topics/POST'>POST</a></code> documentation for full 
+named list. See the <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code> documentation for full 
 details.</p></td>
     </tr>
     <tr>
@@ -169,8 +171,8 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to the <code><a href='https://www.rdocumentation.org/packages/httr/topics/GET'>httr::GET</a></code> or 
-<code><a href='https://www.rdocumentation.org/packages/httr/topics/POST'>httr::POST</a></code> function</p></td>
+      <td><p>Additional arguments passed to the <code><a href='https://httr.r-lib.org/reference/GET.html'>httr::GET</a></code> or 
+<code><a href='https://httr.r-lib.org/reference/POST.html'>httr::POST</a></code> function</p></td>
     </tr>
     </table>
     
@@ -182,8 +184,8 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='catmaid_login.html'>catmaid_login</a></code>, <code><a href='https://www.rdocumentation.org/packages/httr/topics/GET'>GET</a></code>, 
-  <code><a href='https://www.rdocumentation.org/packages/httr/topics/POST'>POST</a></code></p></div>
+    <div class='dont-index'><p><code><a href='catmaid_login.html'>catmaid_login</a></code>, <code><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></code>, 
+  <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

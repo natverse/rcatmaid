@@ -44,6 +44,8 @@ catmaid_connection is a lower level function used by
   catmaid_login to create a connection object. End users should not
   need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -196,11 +198,11 @@ username and password). See <b>Token based authentication</b> for details.</p></
     <tr>
       <th>authtype</th>
       <td><p>The http authentication scheme, see
-<code><a href='https://www.rdocumentation.org/packages/httr/topics/authenticate'>authenticate</a></code> for details.</p></td>
+<code><a href='https://httr.r-lib.org/reference/authenticate.html'>authenticate</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>config</th>
-      <td><p>Additional curl config options. See <code><a href='https://www.rdocumentation.org/packages/httr/topics/config'>config</a></code>
+      <td><p>Additional curl config options. See <code><a href='https://httr.r-lib.org/reference/config.html'>config</a></code>
 for details and the examples section below.</p></td>
     </tr>
     </table>
@@ -313,7 +315,7 @@ catmaid.authpassword="hobbes"
 <span class='co'>## set additional curl options/headers</span>
 <span class='co'># This example will bypass an SSL certificate verification error on the</span>
 <span class='co'># remote host e.g. if it has expired. Don't this regularly of course!</span>
-<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>config</span><span class='kw'>=</span><span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/httr/topics/config'>config</a></span>(<span class='kw'>ssl_verifypeer</span><span class='kw'>=</span><span class='fl'>0</span>))
+<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>config</span><span class='kw'>=</span><span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/config.html'>config</a></span>(<span class='kw'>ssl_verifypeer</span><span class='kw'>=</span><span class='fl'>0</span>))
 
 <span class='co'>## now do stuff with the connection like</span>
 <span class='no'>skel</span><span class='kw'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>, <span class='kw'>conn</span><span class='kw'>=</span><span class='no'>conn</span>)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fetch or translate catmaid users for current/specified connection/project — catmaid_get_user_list • catmaid</title>
+<title>Get, query, set and remove CATMAID meta-annotations for annotations — catmaid_meta_annotations • catmaid</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,16 @@
 
 
 
-<meta property="og:title" content="Fetch or translate catmaid users for current/specified connection/project — catmaid_get_user_list" />
+<meta property="og:title" content="Get, query, set and remove CATMAID meta-annotations for annotations — catmaid_meta_annotations" />
 
-<meta property="og:description" content="catmaid_userids convert login names to numeric ids" />
+<meta property="og:description" content="catmaid_get_meta_annotations Query by annotations to find
+  the meta-annotations that label them.
+catmaid_query_meta_annotations Query by meta-annotations
+  to find the annotations that they label.
+catmaid_set_meta_annotations Meta-annotate a group of
+  CATMAID annotations
+catmaid_remove_meta_annotations Remove meta-annotations
+  from annotations." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -116,24 +123,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fetch or translate catmaid users for current/specified connection/project</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_stats.R'><code>R/catmaid_stats.R</code></a></small>
-    <div class="hidden name"><code>catmaid_get_user_list.Rd</code></div>
+    <h1>Get, query, set and remove CATMAID meta-annotations for annotations</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_annotations.R'><code>R/catmaid_annotations.R</code></a></small>
+    <div class="hidden name"><code>catmaid_meta_annotations.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>catmaid_userids</code> convert login names to numeric ids</p>
+    <p><code>catmaid_get_meta_annotations</code> Query by annotations to find
+  the meta-annotations that label them.</p>
+<p><code>catmaid_query_meta_annotations</code> Query by meta-annotations
+  to find the annotations that they label.</p>
+<p><code>catmaid_set_meta_annotations</code> Meta-annotate a group of
+  CATMAID annotations</p>
+<p><code>catmaid_remove_meta_annotations</code> Remove meta-annotations
+  from annotations.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_user_list</span>(<span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>catmaid_get_meta_annotations</span>(<span class='no'>annotations</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='fu'>catmaid_userids</span>(<span class='no'>x</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>catmaid_query_meta_annotations</span>(<span class='no'>meta_annotations</span>,
+  <span class='kw'>with_annotations</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>catmaid_set_meta_annotations</span>(<span class='no'>meta_annotations</span>, <span class='no'>annotations</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+
+<span class='fu'>catmaid_remove_meta_annotations</span>(<span class='no'>annotations</span>, <span class='no'>meta_annotations</span>,
+  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>annotations</th>
+      <td><p>annotation ids designating which annotations to
+meta-annotate. IDs can be found by calling
+<code>catmaid_get_annotationlist</code>. If a character string is given, then IDs
+will be found by calling <code>catmaid_get_annotationlist</code>.</p></td>
+    </tr>
     <tr>
       <th>pid</th>
       <td><p>Project id (default 1)</p></td>
@@ -151,39 +179,44 @@ options as described in the help for <code><a href='catmaid_login.html'>catmaid_
 function</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>A character vector of login names. If <code>x</code> contains valid
-integer (or numeric) ids then they will be returned as is.</p></td>
+      <th>meta_annotations</th>
+      <td><p>meta-annotation to add to query. Either a vector of
+IDs or a character sting of meta-annotations can be given.</p></td>
+    </tr>
+    <tr>
+      <th>with_annotations</th>
+      <td><p>whether or not to return the other meta-annotations
+of an annotation, when using <code>catmaid_query_meta_annotations</code>.</p></td>
+    </tr>
+    <tr>
+      <th>force</th>
+      <td><p>Whether to force the catmaid server to remove multiple
+annotations (default <code>FALSE</code>, to provide some protection against
+accidents).</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>For <code>catmaid_get_user_list</code> a <code>data.frame</code> with</p>
-<p>For <code>catmaid_userids</code> an integer vector of numeric ids</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='catmaid_get_review_status.html'>catmaid_get_review_status</a>, 
-  <a href='catmaid_get_contributor_stats.html'>catmaid_get_contributor_stats</a></code></p></div>
+    <div class='dont-index'><p><code><a href='catmaid_query_by_name.html'>catmaid_query_by_annotation</a></code> which has some overlap in
+  functionality, <code><a href='catmaid_get_annotations_for_skeletons.html'>catmaid_get_annotations_for_skeletons</a></code>,
+  <code><a href='catmaid_skids.html'>catmaid_skids</a></code>, <code><a href='catmaid_get_annotationlist.html'>catmaid_get_annotationlist</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/head'>head</a></span>(<span class='fu'>catmaid_get_user_list</span>())</div><div class='output co'>#&gt;    id         login full_name first_name last_name                        color
-#&gt; 1 282   upload_user                                0.744291, 1.000000, 0.720093
-#&gt; 2 261   williamsonr                                0.593947, 0.628997, 1.000000
-#&gt; 3  79 rfranconville                                1.000000, 0.156985, 0.439778
-#&gt; 4  87    tavosanisg                                0.257581, 0.049968, 1.000000
-#&gt; 5 159   WT_outreach                                1.000000, 0.631121, 0.678050
-#&gt; 6 243       wolskyd                                0.290622, 0.213735, 1.000000</div><div class='input'><span class='fu'>catmaid_userids</span>(<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>catmaid_userids</span>(<span class='st'>'greg'</span>)</div><div class='output co'>#&gt; [1] NA</div></pre>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='co'>## Against FAFB CATMAID server</span>
+<span class='fu'>catmaid_query_meta_annotations</span>(<span class='st'>"ItoLee_Lineage"</span>)
+
+<span class='co'># note that this is similar to:</span>
+<span class='fu'><a href='catmaid_query_by_name.html'>catmaid_query_by_annotation</a></span>(<span class='st'>"^ItoLee_Lineage$"</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'annotation'</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
-      <li><a href="#value">Value</a></li>
-
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
