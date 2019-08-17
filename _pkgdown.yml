@@ -23,7 +23,7 @@ reference:
   - catmaid_get_neuronnames
   - catmaid_rename_neuron
   - catmaid_skids
-  - catmaid_meta_annotation
+  - catmaid_meta_annotations
   - catmaid_get_annotations_for_skeletons
   - catmaid_get_annotationlist
   - catmaid_lock_neurons
