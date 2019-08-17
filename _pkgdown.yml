@@ -23,8 +23,10 @@ reference:
   - catmaid_get_neuronnames
   - catmaid_rename_neuron
   - catmaid_skids
+  - catmaid_meta_annotation
   - catmaid_get_annotations_for_skeletons
   - catmaid_get_annotationlist
+  - catmaid_lock_neurons
 - title: Node labels (aka tags)
   desc: Fetching, setting and removing tags from tree nodes or connectors
   contents:
@@ -46,6 +48,7 @@ reference:
   - read.neuron.catmaid
   - plot3d.catmaidneuron
   - connectors
+  - soma
 - title: Handling volume meshes
   desc: Adding / converting volume meshes to CATMAID from regular R mesh representations
   contents:
