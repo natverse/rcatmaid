@@ -3,7 +3,7 @@
 [![Release Version](https://img.shields.io/github/release/jefferis/rcatmaid.svg)](https://github.com/jefferis/rcatmaid/releases/latest) 
 [![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
 [![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.github.io)
-[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://jefferis.github.io/rcatmaid/reference/)
+[![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/rcatmaid/reference/)
 <!-- badges: end -->
 <img src="man/figures/logo.svg" align="right" height="139" />
 
@@ -20,8 +20,8 @@ a high level function to convert neurons to the representation of the
 a wide variety of analyses.
 
 It is strongly recommended to read through the instructions below, the [package
-overview documentation](http://jefferis.github.io/rcatmaid/reference/catmaid-package.html)
-and then skim the [reference documentation index](http://jefferis.github.io/rcatmaid/reference/)
+overview documentation](http://natverse.github.io/rcatmaid/reference/catmaid-package.html)
+and then skim the [reference documentation index](http://natverse.github.io/rcatmaid/reference/)
 , which groups the available functions into useful categories.
 
 ## Quick start
