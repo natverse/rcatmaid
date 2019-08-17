@@ -51,8 +51,8 @@ For \code{catmaid_get_annotations_for_skeletons} a data.frame
   
   For \code{catmaid_set_annotations_for_skeletons} a list containing 
   information about the annotations that have just been added.
-  For \code{catmaid_remove_annotations_for_skeletons} a list containing 
-  information about the annotations that have just been removed.
+For \code{catmaid_remove_annotations_for_skeletons} a list containing
+information about the annotations that have just been removed.
 }
 \description{
 Pretty obviously: \code{catmaid_get_annotations_for_skeletons}
@@ -84,5 +84,7 @@ catmaid_remove_annotations_for_skeletons(nn, 'mytest')
 }
 }
 \seealso{
-\code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
+\code{\link{catmaid_query_by_annotation}},
+  \code{\link{catmaid_get_meta_annotations}} \code{\link{catmaid_fetch}},
+  \code{\link{catmaid_skids}}
 }

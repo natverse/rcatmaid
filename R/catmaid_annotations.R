@@ -20,8 +20,8 @@
 #'   For \code{catmaid_set_annotations_for_skeletons} a list containing 
 #'   information about the annotations that have just been added.
 
-#'   For \code{catmaid_remove_annotations_for_skeletons} a list containing 
-#'   information about the annotations that have just been removed.
+#' For \code{catmaid_remove_annotations_for_skeletons} a list containing
+#' information about the annotations that have just been removed.
 #' @export
 #' @examples
 #' \dontrun{
@@ -29,7 +29,9 @@
 #' catmaid_get_annotations_for_skeletons("name:ORN (left|right)")
 #' catmaid_get_annotations_for_skeletons("annotation:ORN PNs$")
 #' }
-#' @seealso \code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
+#' @seealso \code{\link{catmaid_query_by_annotation}},
+#'   \code{\link{catmaid_get_meta_annotations}} \code{\link{catmaid_fetch}},
+#'   \code{\link{catmaid_skids}}
 catmaid_get_annotations_for_skeletons<-function(skids, pid=1, conn=NULL, ...) {
   skids=catmaid_skids(skids, conn = conn, pid=pid)
   post_data=list()
@@ -163,7 +165,7 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
 #' @param meta_annotations meta-annotation to add to query. Either a vector of
 #'   IDs or a character sting of meta-annotations can be given.
 #' @param with_annotations whether or not to return the other meta-annotations
-#'   of an anotation, when using \code{catmaid_query_meta_annotations}.
+#'   of an annotation, when using \code{catmaid_query_meta_annotations}.
 #' @param force Whether to force the catmaid server to remove multiple
 #'   annotations (default \code{FALSE}, to provide some protection against
 #'   accidents).

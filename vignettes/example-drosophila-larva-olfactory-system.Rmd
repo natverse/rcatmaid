@@ -53,7 +53,7 @@ orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
 ```
 
 We calculate both the side of the brain and the [odorant receptor](https://en.wikipedia.org/wiki/Olfactory_receptor) expressed by the
-olfactory sensory neurons. These two variables are stored as columns in a table (i.e. `data.frame()`) that is an attribute of the `orns` `neuronlist` objtect.
+olfactory sensory neurons. These two variables are stored as columns in a table (i.e. `data.frame()`) that is an attribute of the `orns` `neuronlist` object.
 
 The *catmaid* package builds on [nat](https://jefferis.github.io/nat), a general
 purpose R neuroanatomy package. You may want to read the [nat documentation](https://jefferis.github.io/nat/articles/neurons-intro.html) to

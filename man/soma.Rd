@@ -63,3 +63,6 @@ Ohyama T, Schneider-Mizell CM, Fetter RD, Aleman JV, Franconville
   (2015) A multilevel multimodal circuit enhances action selection in
   Drosophila. Nature.
 }
+\seealso{
+\code{\link{nsoma}}
+}

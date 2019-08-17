@@ -341,6 +341,7 @@ plot3d_somarad <- function(x, soma=FALSE){
 #' @return A named integer vector corresponding to the number of neurons
 #'   specified by \code{x}.
 #' @export
+#' @seealso \code{\link{soma}}
 #' @examples
 #' nsoma(Cell07PNs)
 #' data("AV4b1")

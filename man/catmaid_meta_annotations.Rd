@@ -39,7 +39,7 @@ function}
 IDs or a character sting of meta-annotations can be given.}
 
 \item{with_annotations}{whether or not to return the other meta-annotations
-of an anotation, when using \code{catmaid_query_meta_annotations}.}
+of an annotation, when using \code{catmaid_query_meta_annotations}.}
 
 \item{force}{Whether to force the catmaid server to remove multiple
 annotations (default \code{FALSE}, to provide some protection against

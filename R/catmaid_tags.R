@@ -24,6 +24,7 @@
 #'   location.
 #'
 #' @export
+#' @seealso \code{\link{nsoma}}
 soma<-function(x, ...) UseMethod("soma")
 
 #' @export
