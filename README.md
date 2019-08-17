@@ -1,6 +1,6 @@
 <!-- badges: start -->
-[![Travis-CI Build Status](https://travis-ci.org/jefferis/rcatmaid.svg?branch=master)](https://travis-ci.org/jefferis/rcatmaid)
-[![Release Version](https://img.shields.io/github/release/jefferis/rcatmaid.svg)](https://github.com/jefferis/rcatmaid/releases/latest) 
+[![Travis-CI Build Status](https://travis-ci.org/natverse/rcatmaid.svg?branch=master)](https://travis-ci.org/natverse/rcatmaid)
+[![Release Version](https://img.shields.io/github/release/natverse/rcatmaid.svg)](https://github.com/natverse/rcatmaid/releases/latest) 
 [![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
 [![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.github.io)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/rcatmaid/reference/)
@@ -27,9 +27,9 @@ and then skim the [reference documentation index](http://natverse.github.io/rcat
 ## Quick start
 ```r
 # install
-if (!require("devtools")) install.packages("devtools")
+if (!require("remotes")) install.packages("remotes")
 # nb repo is rcatmaid, but R package name is catmaid
-devtools::install_github("jefferis/rcatmaid")
+remotes::install_github("natverse/rcatmaid")
 
 # use 
 library(catmaid)
@@ -68,7 +68,7 @@ plot3d(pns, col=Or, soma=1500)
 
 Which produces the following output plot:
 
-[![Larval PN](https://github.com/jefferis/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png)]
+[![Larval PN](https://github.com/natverse/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png)]
 
 ## Authentication
 You will obviously need to have the login details of a valid CATMAID instance to try 
@@ -149,8 +149,8 @@ Currently there isn't a released version on [CRAN](https://cran.r-project.org/)
 but can use the **devtools** package to install the development version:
 
 ```r
-if (!require("devtools")) install.packages("devtools")
-devtools::install_github("jefferis/rcatmaid")
+if (!require("remotes")) install.packages("remotes")
+remotes::install_github("natverse/rcatmaid")
 ```
 
 Note: Windows users need [Rtools](https://cran.r-project.org/bin/windows/Rtools/) and
