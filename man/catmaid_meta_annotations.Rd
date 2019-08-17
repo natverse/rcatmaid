@@ -42,8 +42,8 @@ IDs or a character sting of meta-annotations can be given.}
 of an anotation, when using \code{catmaid_query_meta_annotations}.}
 
 \item{force}{Whether to force the catmaid server to remove multiple
-annotations (default \code{FALSE}) to provide some protection against
-accidents.}
+annotations (default \code{FALSE}, to provide some protection against
+accidents).}
 }
 \description{
 \code{catmaid_get_meta_annotations} Query by annotations to find
@@ -58,7 +58,17 @@ accidents.}
 \code{catmaid_remove_meta_annotations} Remove meta-annotations
   from annotations.
 }
+\examples{
+\dontrun{
+## Against FAFB CATMAID server
+catmaid_query_meta_annotations("ItoLee_Lineage")
+
+# note that this is similar to:
+catmaid_query_by_annotation("^ItoLee_Lineage$", type = 'annotation')
+}
+}
 \seealso{
-\code{\link{catmaid_get_annotations_for_skeletons}},
+\code{\link{catmaid_query_by_annotation}} which has some overlap in
+  functionality, \code{\link{catmaid_get_annotations_for_skeletons}},
   \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotationlist}}
 }
