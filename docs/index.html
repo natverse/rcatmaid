@@ -93,7 +93,7 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<p><a href="https://travis-ci.org/jefferis/rcatmaid"><img src="https://travis-ci.org/jefferis/rcatmaid.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://github.com/jefferis/rcatmaid/releases/latest"><img src="https://img.shields.io/github/release/jefferis/rcatmaid.svg" alt="Release Version"></a> <a href="https://zenodo.org/badge/latestdoi/25650381"><img src="https://zenodo.org/badge/25650381.svg" alt="DOI"></a> <a href="https://natverse.github.io"><img src="https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6" alt="natverse"></a> <a href="https://natverse.github.io/rcatmaid/reference/"><img src="https://img.shields.io/badge/docs-100%25-brightgreen.svg" alt="Docs"></a> <!-- badges: end --> <img src="reference/figures/logo.svg" align="right" height="139"></p>
+<p><a href="https://travis-ci.org/natverse/rcatmaid"><img src="https://travis-ci.org/natverse/rcatmaid.svg?branch=master" alt="Travis-CI Build Status"></a> <a href="https://github.com/natverse/rcatmaid/releases/latest"><img src="https://img.shields.io/github/release/natverse/rcatmaid.svg" alt="Release Version"></a> <a href="https://zenodo.org/badge/latestdoi/25650381"><img src="https://zenodo.org/badge/25650381.svg" alt="DOI"></a> <a href="https://natverse.github.io"><img src="https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6" alt="natverse"></a> <a href="https://natverse.github.io/rcatmaid/reference/"><img src="https://img.shields.io/badge/docs-100%25-brightgreen.svg" alt="Docs"></a> <!-- badges: end --> <img src="reference/figures/logo.svg" align="right" height="139"></p>
 <div id="catmaid" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#catmaid" class="anchor"></a>catmaid</h1></div>
@@ -103,9 +103,9 @@
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"remotes"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># nb repo is rcatmaid, but R package name is catmaid</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"natverse/rcatmaid"</span>)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># use </span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)</a>
@@ -137,7 +137,7 @@
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co"># note that we plot somata with a radius of 1500 nm</span></a>
 <a class="sourceLine" id="cb2-18" data-line-number="18"><span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(pns, <span class="dt">col=</span>Or, <span class="dt">soma=</span><span class="dv">1500</span>)</a></code></pre></div>
 <p>Which produces the following output plot:</p>
-<p>[<img src="https://github.com/jefferis/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png" alt="Larval PN">]</p>
+<p>[<img src="https://github.com/natverse/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png" alt="Larval PN">]</p>
 </div>
 <div id="authentication" class="section level2">
 <h2 class="hasAnchor">
@@ -187,8 +187,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Currently there isn’t a released version on <a href="https://cran.r-project.org/">CRAN</a> but can use the <strong>devtools</strong> package to install the development version:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"devtools"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jefferis/rcatmaid"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"remotes"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"natverse/rcatmaid"</span>)</a></code></pre></div>
 <p>Note: Windows users need <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> and <a href="https://cran.r-project.org/package=devtools">devtools</a> to install this way.</p>
 </div>
 <div id="acknowledgements" class="section level2">
