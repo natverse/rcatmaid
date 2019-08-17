@@ -61,8 +61,14 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
 <li>
   <a href="https://github.com/jefferis/rcatmaid">
     <span class="fa fa-github fa-lg"></span>
@@ -96,7 +102,7 @@
 <div id="intro" class="section level2">
 <h2 class="hasAnchor">
 <a href="#intro" class="anchor"></a>Intro</h2>
-<p>This example is designed to introduce some of the basic features of the catmaid package and the NeuroAnatomy Toolbox (<a href="https://jefferis.github.io/nat/">nat</a>) on which it builds.</p>
+<p>This example is designed to introduce some of the basic features of the catmaid package and the NeuroAnatomy Toolbox (<a href="https://natverse.github.io/nat/">nat</a>) on which it builds.</p>
 <p>The sample data is from an EM connectomics study of the Drosophila first instar larva by <a href="https://elifesciences.org/articles/14859">Albert Cardona and colleagues</a> as submitted to <a href="https://virtualflybrain.org" class="uri">https://virtualflybrain.org</a> and visible at <a href="https://catmaid.virtualflybrain.org" class="uri">https://catmaid.virtualflybrain.org</a></p>
 </div>
 <div id="connecting" class="section level2">
@@ -126,7 +132,7 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">orns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".* ORN "</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">orns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" ORN.*"</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a></code></pre></div>
 <p>We calculate both the side of the brain and the <a href="https://en.wikipedia.org/wiki/Olfactory_receptor">odorant receptor</a> expressed by the olfactory sensory neurons. These two variables are stored as columns in a table (i.e. <code><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame()</a></code>) that is an attribute of the <code>orns</code> <code>neuronlist</code> object.</p>
-<p>The <em>catmaid</em> package builds on <a href="https://jefferis.github.io/nat">nat</a>, a general purpose R neuroanatomy package. You may want to read the <a href="https://jefferis.github.io/nat/articles/neurons-intro.html">nat documentation</a> to learn about how <em>nat</em> handles single neurons, collections of neurons (called <code>neuronlist</code>s) and their associated metadata.</p>
+<p>The <em>catmaid</em> package builds on <a href="https://natverse.github.io/nat">nat</a>, a general purpose R neuroanatomy package. You may want to read the <a href="https://natverse.github.io/nat/articles/neurons-intro.html">nat documentation</a> to learn about how <em>nat</em> handles single neurons, collections of neurons (called <code>neuronlist</code>s) and their associated metadata.</p>
 <p>Now repeat for the the second order projection neuron (PN) partners. Note use of search by annotation. See <code><a href="../reference/catmaid_skids.html">catmaid_skids()</a></code> documentation for details.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># searches for annotation "ORN PNs"</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">pns=<span class="kw"><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"ORN PNs"</span>)</a>
