@@ -16,7 +16,7 @@ There are also intermediate level functions that retrieve skeleton (i.e. neuron)
 information, connectivity information for one or more neurons as well as a number 
 of other API endpoints. Finally, there is
 a high level function to convert neurons to the representation of the
-[nat](https://github.com/jefferis/nat) (NeuroAnatomy Toolbox) R package, enabling
+[nat](https://natvese.github.io/nat) (NeuroAnatomy Toolbox) R package, enabling
 a wide variety of analyses.
 
 It is strongly recommended to read through the instructions below, the [package
