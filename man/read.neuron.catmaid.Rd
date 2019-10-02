@@ -49,7 +49,7 @@ including some metadata information.
 }
 \details{
 These functions provide a bridge between CATMAID and the 
-  neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
+  neuronanatomy toolbox R package (\url{https://github.com/natverse/nat}), 
   which provides extensive functionality for analysing and plotting neurons 
   within the context of template brains.
   

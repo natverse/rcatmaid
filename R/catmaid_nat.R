@@ -36,7 +36,13 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   )
   swc$Parent[is.na(swc$Parent)]=-1L
   sp=somapos.catmaidneuron(swc=swc, tags=res$tags)
-  soma_id_in_neuron = if(nrow(sp)==0) NULL else sp$PointNo
+  if(nrow(sp)==0) {
+    soma_id_in_neuron = NULL 
+  } else {
+    soma_id_in_neuron = sp$PointNo
+    # 1 is the code for soma
+    swc$Label[match(soma_id_in_neuron, sp$PointNo)]=1L
+  }
   n=nat::as.neuron(swc, origin=soma_id_in_neuron, skid=skid, InputFileName=as.character(skid))
   
   # add all fields from input list except for nodes themselves
