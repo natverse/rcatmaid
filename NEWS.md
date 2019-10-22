@@ -1,4 +1,4 @@
-# catmaid (development version)
+# catmaid 0.10.0
 
 * New functions for handling meta annotations (i.e. annotations of annotations):
   `catmaid_get_meta_annotations()`, `catmaid_query_meta_annotations()`,
@@ -13,6 +13,7 @@
   with the soma (in range 1..N, number of vertices).
   `somaid()` fetches the identifier of the skeleton node associated with the soma
   thanks to @alexanderbates for the PR (#128).
+* Set the SWC `Label` column inside neurons to identify the soma (#143).
 
 # catmaid 0.9.9
 
