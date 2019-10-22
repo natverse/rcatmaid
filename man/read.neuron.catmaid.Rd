@@ -52,10 +52,13 @@ These functions provide a bridge between CATMAID and the
   neuronanatomy toolbox R package (\url{https://github.com/natverse/nat}),
   which provides extensive functionality for analysing and plotting neurons
   within the context of template brains.
-  
-  Note that the soma is set by inspecting CATMAID tags that 
-  (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1 
-  tag exists the one that tags an endpoint is preferred.
+
+  Note that the soma is set by inspecting CATMAID tags that
+  (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1
+  tag exists, the one that tags an endpoint is preferred. When a soma is
+  identified via a CATMAID tag in this way, the \code{Label} column for the
+  single node identified as the soma is set to \code{1}, the standard SWC
+  code. Other nodes will have \code{Label=0} i.e. undefined.
 
 When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
   wrapped in a call to \code{\link{try}} to ensure that failure for any
