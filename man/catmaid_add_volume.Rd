@@ -10,9 +10,9 @@ catmaid_add_volume(x, conn = NULL, pid = 1, ...)
 \item{x}{A mesh object such as hxsurf or a list with raw vertices and indices
 that will be passed to \code{\link{as.catmaidmesh}}}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{pid}{Project id (default 1)}
