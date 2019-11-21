@@ -8,21 +8,32 @@
 
 <title>catmaid_get_time_invested — catmaid_get_time_invested • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +41,8 @@
 
 
 
-<meta property="og:title" content="catmaid_get_time_invested — catmaid_get_time_invested" />
 
+<meta property="og:title" content="catmaid_get_time_invested — catmaid_get_time_invested" />
 <meta property="og:description" content="Calculates the time individual users have spent working on a set of neurons
 This API is a replica of the get_time_invested from python package `pymaid`.
 The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
@@ -42,9 +53,9 @@ The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
 'OVER_TIME' will return minutes invested/day over time.
 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
 the minimum_actions and max_inactive_time don't apply and hence every action is counted" />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -56,6 +67,7 @@ the minimum_actions and max_inactive_time don't apply and hence every action is 
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -74,7 +86,7 @@ the minimum_actions and max_inactive_time don't apply and hence every action is 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -108,7 +120,6 @@ the minimum_actions and max_inactive_time don't apply and hence every action is 
   <a href="../SUPPORT.html">Help</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://natverse.github.io">natverse</a>
@@ -126,6 +137,7 @@ the minimum_actions and max_inactive_time don't apply and hence every action is 
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -137,7 +149,6 @@ the minimum_actions and max_inactive_time don't apply and hence every action is 
     </div>
 
     <div class="ref-description">
-    
     <p>Calculates the time individual users have spent working on a set of neurons
 This API is a replica of the get_time_invested from python package `pymaid`.
 The parameters `minimum_actions` and `max_inactive_time`  are used to fine tune how time
@@ -148,14 +159,13 @@ The parameter `mode` can be one of 'SUM' or 'OVER_TIME' or 'ACTIONS'.
 'OVER_TIME' will return minutes invested/day over time.
 'ACTIONS' will return actions (node/connectors placed/edited) per day, for this choice 
 the minimum_actions and max_inactive_time don't apply and hence every action is counted</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>catmaid_get_time_invested</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"SUM"</span>, <span class='st'>"OVER_TIME"</span>, <span class='st'>"ACTIONS"</span>), <span class='kw'>minimum_actions</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SUM"</span>, <span class='st'>"OVER_TIME"</span>, <span class='st'>"ACTIONS"</span>), <span class='kw'>minimum_actions</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>max_inactive_time</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>treenodes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>connectors</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>start_date</span> <span class='kw'>=</span> <span class='st'>"2005-01-01"</span>, <span class='kw'>end_date</span> <span class='kw'>=</span> <span class='st'>"2099-01-01"</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -207,25 +217,25 @@ time, 'ACTIONS' returns actions (node/connectors placed/edited) performed per da
 function</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='no'>tempval</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='catmaid_skids.html'>catmaid_skids</a></span>(<span class='st'>'annotation:^ORN$'</span>)
 <span class='no'>skid_1</span> <span class='kw'>&lt;-</span><span class='no'>tempval</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 <span class='fu'>catmaid_get_time_invested</span>(<span class='kw'>skids</span><span class='kw'>=</span><span class='no'>skid_1</span>, <span class='kw'>mode</span><span class='kw'>=</span><span class='st'>'SUM'</span>)
-<span class='co'># }</span></pre>
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -233,13 +243,16 @@ function</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

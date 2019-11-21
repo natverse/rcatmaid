@@ -7,9 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>R access to the API for the CATMAID web image annotation
     tool • catmaid</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="R access to the API for the CATMAID web image annotation
     tool">
 <meta property="og:description" content="This package provide access to the API exposed
@@ -37,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
       </span>
     </div>
 
@@ -90,6 +97,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="contents col-md-9">
 
@@ -97,18 +105,18 @@
 <div id="catmaid" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#catmaid" class="anchor"></a>catmaid</h1></div>
-<p>This package provides access to the <a href="http://catmaid.org/">CATMAID</a> API for <a href="http://r-project.org/">R</a> users. At present it provides low level functions for appropriately authenticated GET/POST requests, optionally parsing JSON responses. There are also intermediate level functions that retrieve skeleton (i.e. neuron) information, connectivity information for one or more neurons as well as a number of other API endpoints. Finally, there is a high level function to convert neurons to the representation of the <a href="https://github.com/jefferis/nat">nat</a> (NeuroAnatomy Toolbox) R package, enabling a wide variety of analyses.</p>
+<p>This package provides access to the <a href="http://catmaid.org/">CATMAID</a> API for <a href="http://r-project.org/">R</a> users. At present it provides low level functions for appropriately authenticated GET/POST requests, optionally parsing JSON responses. There are also intermediate level functions that retrieve skeleton (i.e. neuron) information, connectivity information for one or more neurons as well as a number of other API endpoints. Finally, there is a high level function to convert neurons to the representation of the <a href="https://natvese.github.io/nat">nat</a> (NeuroAnatomy Toolbox) R package, enabling a wide variety of analyses.</p>
 <p>It is strongly recommended to read through the instructions below, the <a href="http://natverse.github.io/rcatmaid/reference/catmaid-package.html">package overview documentation</a> and then skim the <a href="http://natverse.github.io/rcatmaid/reference/">reference documentation index</a> , which groups the available functions into useful categories.</p>
 <div id="quick-start" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start" class="anchor"></a>Quick start</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"remotes"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"remotes"</span>)) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co"># nb repo is rcatmaid, but R package name is catmaid</span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"natverse/rcatmaid"</span>)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"natverse/rcatmaid"</span>)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co"># use </span></a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(catmaid)</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co"># general help starting point</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">?catmaid</a></code></pre></div>
@@ -118,20 +126,20 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This example is based on EM tracing data from the Drosophila first instar larva by <a href="https://elifesciences.org/articles/14859">Albert Cardona and colleagues</a> as submitted to <a href="https://virtualflybrain.org">Virtual Fly Brain</a> and visible at <a href="https://catmaid.virtualflybrain.org" class="uri">https://catmaid.virtualflybrain.org</a>.</p>
 <p>This produces a 3D plot of first and second order olfactory neurons coloured according to the peripheral odorant receptor.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(catmaid)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(catmaid)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># Specify VFB CAMAID server containing data</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">conn=<span class="kw"><a href="reference/catmaid_login.html">catmaid_login</a></span>(<span class="dt">server=</span><span class="st">"https://l1em.catmaid.virtualflybrain.org"</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># fetch olfactory receptor neurons</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">orns=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"name:ORN (left|right)"</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co"># calculate some useful metadata</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">orns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" ORN.*"</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">orns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".* ORN "</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">orns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">" ORN.*"</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">orns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">".* ORN "</span>, <span class="st">""</span>, orns[,<span class="st">'name'</span>]))</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co"># repeat for their PN partners, note use of search by annotation</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12">pns=<span class="kw"><a href="reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span>(<span class="st">"ORN PNs"</span>, <span class="dt">.progress=</span><span class="st">'text'</span>)</a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">pns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">" PN.*"</span>, <span class="st">""</span>, pns[,<span class="st">'name'</span>]))</a>
-<a class="sourceLine" id="cb2-14" data-line-number="14">pns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/grep">sub</a></span>(<span class="st">".*(left|right)"</span>, <span class="st">"</span><span class="ch">\\</span><span class="st">1"</span>, pns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">pns[,<span class="st">'Or'</span>]=<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">" PN.*"</span>, <span class="st">""</span>, pns[,<span class="st">'name'</span>]))</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">pns[,<span class="st">'side'</span>]=<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">sub</a></span>(<span class="st">".*(left|right)"</span>, <span class="st">"</span><span class="ch">\\</span><span class="st">1"</span>, pns[,<span class="st">'name'</span>]))</a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co"># plot, colouring by odorant receptor</span></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw"><a href="reference/plot3d.catmaidneuron.html">plot3d</a></span>(orns, <span class="dt">col=</span>Or)</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co"># note that we plot somata with a radius of 1500 nm</span></a>
@@ -187,8 +195,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>Currently there isn’t a released version on <a href="https://cran.r-project.org/">CRAN</a> but can use the <strong>devtools</strong> package to install the development version:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">require</a></span>(<span class="st">"remotes"</span>)) <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"natverse/rcatmaid"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="st">"remotes"</span>)) <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"natverse/rcatmaid"</span>)</a></code></pre></div>
 <p>Note: Windows users need <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools</a> and <a href="https://cran.r-project.org/package=devtools">devtools</a> to install this way.</p>
 </div>
 <div id="acknowledgements" class="section level2">
@@ -226,7 +234,7 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Gregory Jefferis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0587-9355" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Gregory Jefferis <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0587-9355" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
@@ -234,17 +242,20 @@
   </div>
 </div>
 
+
       <footer><div class="copyright">
   <p>Developed by Gregory Jefferis.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
