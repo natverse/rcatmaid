@@ -14,6 +14,8 @@
   `somaid()` fetches the identifier of the skeleton node associated with the soma
   thanks to @alexanderbates for the PR (#128).
 * Set the SWC `Label` column inside neurons to identify the soma (#143).
+* Fix `catmaid_get_volumelist()` and `catmaid_get_volume()` when the project
+  (pid) is not 1 (#144).
 
 # catmaid 0.9.9
 

@@ -164,7 +164,7 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
     if(length(x)>1)
       stop("Multiple volumes matching that name! Please use volume id.")
   }
-  res=catmaid_fetch(paste0('/1/volumes/', x), conn=conn, pid=pid, ...)
+  res=catmaid_fetch(paste0('/',pid,'/volumes/', x), conn=conn, ...)
   catmaid_error_check(res)
   
   meshxml=read_xml(res$mesh)
@@ -223,10 +223,9 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
 catmaid_get_volumelist <- function(conn=NULL, pid=1, ...) {
   old_version=catmaid_version(conn = conn, numeric = TRUE)<"2018.07.19-457"
   req = catmaid_fetch(
-    '/1/volumes',
+    paste0('/',pid,'/volumes'),
     parse.json = FALSE,
     conn = conn,
-    pid = pid,
     include_headers = F,
     ...
   )
