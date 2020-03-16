@@ -291,10 +291,10 @@ catmaid_get_connector_table<-function(skids,
     df=merge(df, cdf, by=c('connector_id', 'skid'), all.x=TRUE)
   }
   if(get_partner_names)
-    df$partner_name <- catmaid_get_neuronnames(df$partner_skid)
+    df$partner_name <- catmaid_get_neuronnames(df$partner_skid, pid = pid, conn=conn, ...)
   
   if(get_partner_nodes)
-    df$partner_nodes <- catmaid_get_node_count(df$partner_skid)
+    df$partner_nodes <- catmaid_get_node_count(df$partner_skid, pid = pid, conn=conn, ...)
   
   df
 }
