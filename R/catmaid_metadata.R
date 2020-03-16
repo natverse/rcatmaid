@@ -329,7 +329,7 @@ catmaid_query_connected<-function(skids, minimum_synapses=1L, minimum_confidence
   
   # pretty up the output data.frames
   makeresdf<-function(x, minimum_synapses) {
-    if(is.null(x)) return(NULL)
+    if(is.null(x) || length(x)<1) return(NULL)
     # nb I do not know what the first 4 elements alongside the 5th element
     skids=sapply(x,function(x) names(x$skids), simplify = FALSE)
     npartners=sapply(skids, length)
