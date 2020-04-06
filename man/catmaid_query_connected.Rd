@@ -4,9 +4,16 @@
 \alias{catmaid_query_connected}
 \title{Find neurons connected to a starting neuron}
 \usage{
-catmaid_query_connected(skids, minimum_synapses = 1L,
-  minimum_confidence = 1L, boolean_op = c("OR", "AND"), pid = 1,
-  raw = FALSE, conn = NULL, ...)
+catmaid_query_connected(
+  skids,
+  minimum_synapses = 1L,
+  minimum_confidence = 1L,
+  boolean_op = c("OR", "AND"),
+  pid = 1,
+  raw = FALSE,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -71,9 +78,10 @@ catmaid_query_connected(orn13as, boolean_op = 'AND')
   \code{\link{catmaid_get_review_status}} to get information about the review
   status of partners (as shown in the equivalent CATMAID report).
 
-Other connectors: \code{\link{catmaid_get_connector_table}},
-  \code{\link{catmaid_get_connectors_between}},
-  \code{\link{catmaid_get_connectors}},
-  \code{\link{connectors}}
+Other connectors: 
+\code{\link{catmaid_get_connector_table}()},
+\code{\link{catmaid_get_connectors_between}()},
+\code{\link{catmaid_get_connectors}()},
+\code{\link{connectors}()}
 }
 \concept{connectors}

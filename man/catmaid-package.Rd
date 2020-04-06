@@ -78,12 +78,12 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Gregory Jefferis \email{jefferis@gmail.com} (0000-0002-0587-9355)
+\strong{Maintainer}: Gregory Jefferis \email{jefferis@gmail.com} (\href{https://orcid.org/0000-0002-0587-9355}{ORCID})
 
 Other contributors:
 \itemize{
-  \item Sridhar Jagannathan \email{j.sridharrajan@gmail.com} (0000-0002-2078-1145) [contributor]
-  \item Alex Bates \email{abates@mrc-lmb.cam.ac.uk} (0000-0002-1195-0445) [contributor]
+  \item Sridhar Jagannathan \email{j.sridharrajan@gmail.com} (\href{https://orcid.org/0000-0002-2078-1145}{ORCID}) [contributor]
+  \item Alex Bates \email{abates@mrc-lmb.cam.ac.uk} (\href{https://orcid.org/0000-0002-1195-0445}{ORCID}) [contributor]
 }
 
 }

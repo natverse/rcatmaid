@@ -10,14 +10,30 @@
 \usage{
 catmaid_get_meta_annotations(annotations, pid = 1, conn = NULL, ...)
 
-catmaid_query_meta_annotations(meta_annotations,
-  with_annotations = FALSE, pid = 1, conn = NULL, ...)
+catmaid_query_meta_annotations(
+  meta_annotations,
+  with_annotations = FALSE,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 
-catmaid_set_meta_annotations(meta_annotations, annotations, pid = 1,
-  conn = NULL, ...)
+catmaid_set_meta_annotations(
+  meta_annotations,
+  annotations,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 
-catmaid_remove_meta_annotations(annotations, meta_annotations,
-  force = FALSE, pid = 1, conn = NULL, ...)
+catmaid_remove_meta_annotations(
+  annotations,
+  meta_annotations,
+  force = FALSE,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{annotations}{annotation ids designating which annotations to

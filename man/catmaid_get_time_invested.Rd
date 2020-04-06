@@ -4,10 +4,19 @@
 \alias{catmaid_get_time_invested}
 \title{catmaid_get_time_invested}
 \usage{
-catmaid_get_time_invested(skids, pid = 1, conn = NULL,
-  mode = c("SUM", "OVER_TIME", "ACTIONS"), minimum_actions = 10,
-  max_inactive_time = 3, treenodes = TRUE, connectors = TRUE,
-  start_date = "2005-01-01", end_date = "2099-01-01", ...)
+catmaid_get_time_invested(
+  skids,
+  pid = 1,
+  conn = NULL,
+  mode = c("SUM", "OVER_TIME", "ACTIONS"),
+  minimum_actions = 10,
+  max_inactive_time = 3,
+  treenodes = TRUE,
+  connectors = TRUE,
+  start_date = "2005-01-01",
+  end_date = "2099-01-01",
+  ...
+)
 }
 \arguments{
 \item{skids}{could be skeleton id or neuron name or annotation}

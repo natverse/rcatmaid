@@ -7,8 +7,15 @@
 \usage{
 read.neuron.catmaid(skid, pid = 1L, conn = NULL, ...)
 
-read.neurons.catmaid(skids, pid = 1L, conn = NULL, OmitFailures = NA,
-  df = NULL, fetch.annotations = FALSE, ...)
+read.neurons.catmaid(
+  skids,
+  pid = 1L,
+  conn = NULL,
+  OmitFailures = NA,
+  df = NULL,
+  fetch.annotations = FALSE,
+  ...
+)
 }
 \arguments{
 \item{skid}{A numeric skeleton id}

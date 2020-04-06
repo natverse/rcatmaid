@@ -4,8 +4,14 @@
 \alias{catmaid_get_volume}
 \title{Fetch a mesh volume from CATMAID}
 \usage{
-catmaid_get_volume(x, rval = c("mesh3d", "catmaidmesh", "raw"),
-  invertFaces = FALSE, conn = NULL, pid = 1, ...)
+catmaid_get_volume(
+  x,
+  rval = c("mesh3d", "catmaidmesh", "raw"),
+  invertFaces = FALSE,
+  conn = NULL,
+  pid = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{The integer volume id or character volume name}
