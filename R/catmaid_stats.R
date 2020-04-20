@@ -455,7 +455,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         names(stats_df)[names(stats_df) == 'count2'] <- 'minutes'
         names(stats_df)[names(stats_df) == 'user'] <- 'users'
         if (nrow(stats_df)>0){
-            stats_df$login <- NA
+            stats_df$login <- NA_character_
         
             for (useridx in seq_along(stats_df$users)){
                 matchidx <- as.numeric(stats_df[useridx,'users'])  == user_list$id
