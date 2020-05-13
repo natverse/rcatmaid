@@ -324,10 +324,12 @@ plot3d_somarad <- function(x, soma=FALSE){
   if(!is.null(conndf)) {
     # multiply connectors as well
     lx=length(e2)
-    if(lx==1) xyzmatrix(conndf)=xyzmatrix(conndf)*e2
+    if(lx==1) 
+      xyzt=t(do.call(.Generic, list(t(xyzmatrix(conndf)), e2)))
     else {
-      xyzmatrix(conndf)=t(t(xyzmatrix(conndf)*e2[1:3]))
+      xyzt=do.call(.Generic, list(t(xyzmatrix(conndf)), e2[1:3]))
     }
+    xyzmatrix(conndf)=t(xyzt)
     n2[['connectors']]=conndf
   }
   n2

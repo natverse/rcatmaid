@@ -22,3 +22,11 @@ test_that("summary.catmaidneuron behaves", {
   expect_equal(s1[seq_along(s2)], s2)
   expect_equal(summary(neuronlist(AV4b1)), s1) 
 })
+
+test_that("Ops.catmaidneuron behaves", {
+  data(AV4b1)
+  expect_equal(xyzmatrix(connectors(AV4b1*2)), xyzmatrix(connectors(AV4b1))*2)
+  expect_equal(xyzmatrix(connectors(AV4b1*c(2,3,4,5))), 
+               t(t(xyzmatrix(connectors(AV4b1)))*c(2,3,4)))
+  expect_equal((AV4b1*2)/2, AV4b1)
+})
