@@ -33,7 +33,7 @@ catmaid_parse_url <- function(x) {
   paraml=lapply(paramc, strsplit, split="=", fixed=T)
   xx=sapply(paraml, "[[", 1)
   xx2=apply(xx,1,paste, collapse=' ')
-  df=cbind(df, read.table(text = xx2, header = T))
+  df=cbind(df, read.table(text = xx2, header = T, stringsAsFactors = T))
   xyzcols=c("xp","yp", "zp")
   names(df)[match(xyzcols, names(df))]=c("x","y", "z")
   df
