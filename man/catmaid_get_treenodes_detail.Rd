@@ -77,7 +77,7 @@ The key feature of this function is that allows you to fetch
 catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
 
 # example label search
-tosoma=catmaid_get_treenodes_detail("to soma")
+tosoma=catmaid_get_treenodes_detail(labels="to soma")
 }
 
 \dontrun{
