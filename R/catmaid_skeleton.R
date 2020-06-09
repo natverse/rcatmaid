@@ -563,7 +563,7 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #' catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
 #' 
 #' # example label search
-#' tosoma=catmaid_get_treenodes_detail("to soma")
+#' tosoma=catmaid_get_treenodes_detail(labels="to soma")
 #' }
 #' 
 #' \dontrun{
