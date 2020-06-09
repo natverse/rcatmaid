@@ -41,6 +41,14 @@ Since \code{CATMAID v2018.07.19-457-ga09910b} a \code{data.frame}
 \description{
 Fetch a data frame containing details of all volumes on CATMAID server
 }
+\examples{
+\donttest{
+vl <- catmaid_get_volumelist()
+head(vl)
+# find meshes whose name matches neuropil
+subset(vl, grepl('neuropil', name))
+}
+}
 \seealso{
 \code{\link{catmaid_get_volume}}
 }

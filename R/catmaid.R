@@ -69,4 +69,5 @@ NULL
 #'   \href{https://doi.org/10.1101/140905}{doi:10.1101/140905}
 #' @docType data
 #' @name AV4b1
+#' @usage data(AV4b1)
 "AV4b1"

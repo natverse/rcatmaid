@@ -1,31 +1,34 @@
 #' Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format
-#' 
-#' \code{read.neuron.catmaid} reads a single neuron, while 
-#' \code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object 
+#'
+#' \code{read.neuron.catmaid} reads a single neuron, while
+#' \code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object
 #' including some metadata information.
-#' 
-#' @details These functions provide a bridge between CATMAID and the 
-#'   neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
-#'   which provides extensive functionality for analysing and plotting neurons 
+#'
+#' @details These functions provide a bridge between CATMAID and the
+#'   neuronanatomy toolbox R package (\url{https://github.com/natverse/nat}),
+#'   which provides extensive functionality for analysing and plotting neurons
 #'   within the context of template brains.
-#'   
-#'   Note that the soma is set by inspecting CATMAID tags that 
-#'   (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1 
-#'   tag exists the one that tags an endpoint is preferred.
+#'
+#'   Note that the soma is set by inspecting CATMAID tags that
+#'   (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1
+#'   tag exists, the one that tags an endpoint is preferred. When a soma is
+#'   identified via a CATMAID tag in this way, the \code{Label} column for the
+#'   single node identified as the soma is set to \code{1}, the standard SWC
+#'   code. Other nodes will have \code{Label=0} i.e. undefined.
 #' @param skid A numeric skeleton id
 #' @param pid Project id (default 1)
-#' @param conn A \code{catmaid_connection} objection returned by 
-#'   \code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-#'   object will be generated using the values of the \bold{catmaid.*} package 
+#' @param conn A \code{catmaid_connection} objection returned by
+#'   \code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+#'   object will be generated using the values of the \bold{catmaid.*} package
 #'   options as described in the help for \code{\link{catmaid_login}}.
-#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}} 
+#' @param ... Additional arguments passed to the \code{\link{catmaid_fetch}}
 #'   function
-#' @return a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object 
+#' @return a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object
 #'   containing one or more neurons. These neurons will have an additional class
 #'   \code{catmaidneuron} which provides for some extra functionality in certain
 #'   methods.
-#' @seealso \code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}}, 
-#'   \code{\link{connectors}} to extract connector information from a 
+#' @seealso \code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}},
+#'   \code{\link{connectors}} to extract connector information from a
 #'   \code{catmaid.neuron}
 #' @export
 read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
@@ -36,8 +39,14 @@ read.neuron.catmaid<-function(skid, pid=1L, conn=NULL, ...) {
   )
   swc$Parent[is.na(swc$Parent)]=-1L
   sp=somapos.catmaidneuron(swc=swc, tags=res$tags)
-  soma_id_in_neuron = if(nrow(sp)==0) NULL else sp$PointNo
-  n=nat::as.neuron(swc, origin=soma_id_in_neuron, skid=skid)
+  if(nrow(sp)==0) {
+    soma_id_in_neuron = NULL 
+  } else {
+    soma_id_in_neuron = sp$PointNo
+    # 1 is the code for soma
+    swc$Label[match(soma_id_in_neuron, sp$PointNo)]=1L
+  }
+  n=nat::as.neuron(swc, origin=soma_id_in_neuron, skid=skid, InputFileName=as.character(skid))
   
   # add all fields from input list except for nodes themselves
   n[names(res[-1])]=res[-1]
@@ -313,12 +322,13 @@ plot3d_somarad <- function(x, soma=FALSE){
   n2=NextMethod()
   conndf=connectors(e1)
   if(!is.null(conndf)) {
-    # multiply connectors as well
+    # multiply connectors as well; note that we have already checked lx is OK
     lx=length(e2)
-    if(lx==1) xyzmatrix(conndf)=xyzmatrix(conndf)*e2
-    else {
-      xyzmatrix(conndf)=t(t(xyzmatrix(conndf)*e2[1:3]))
-    }
+    xyzt <- if(lx==1) 
+      do.call(.Generic, list(xyzmatrix(conndf), e2))
+    else
+      t(do.call(.Generic, list(t(xyzmatrix(conndf)), e2[1:3])))
+    xyzmatrix(conndf)=xyzt
     n2[['connectors']]=conndf
   }
   n2
@@ -341,6 +351,7 @@ plot3d_somarad <- function(x, soma=FALSE){
 #' @return A named integer vector corresponding to the number of neurons
 #'   specified by \code{x}.
 #' @export
+#' @seealso \code{\link{soma}}
 #' @examples
 #' nsoma(Cell07PNs)
 #' data("AV4b1")

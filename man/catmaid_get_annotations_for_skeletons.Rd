@@ -8,11 +8,22 @@
 \usage{
 catmaid_get_annotations_for_skeletons(skids, pid = 1, conn = NULL, ...)
 
-catmaid_set_annotations_for_skeletons(skids, annotations, pid = 1,
-  conn = NULL, ...)
+catmaid_set_annotations_for_skeletons(
+  skids,
+  annotations,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 
-catmaid_remove_annotations_for_skeletons(skids, annotations,
-  force = FALSE, pid = 1, conn = NULL, ...)
+catmaid_remove_annotations_for_skeletons(
+  skids,
+  annotations,
+  force = FALSE,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -20,12 +31,12 @@ a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
 \item{pid}{Project id (default 1)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 
 \item{annotations}{Character vector of one or more named annotations to add 
@@ -51,8 +62,8 @@ For \code{catmaid_get_annotations_for_skeletons} a data.frame
   
   For \code{catmaid_set_annotations_for_skeletons} a list containing 
   information about the annotations that have just been added.
-  For \code{catmaid_remove_annotations_for_skeletons} a list containing 
-  information about the annotations that have just been removed.
+For \code{catmaid_remove_annotations_for_skeletons} a list containing
+information about the annotations that have just been removed.
 }
 \description{
 Pretty obviously: \code{catmaid_get_annotations_for_skeletons}
@@ -84,5 +95,7 @@ catmaid_remove_annotations_for_skeletons(nn, 'mytest')
 }
 }
 \seealso{
-\code{\link{catmaid_fetch}}, \code{\link{catmaid_skids}}
+\code{\link{catmaid_query_by_annotation}},
+  \code{\link{catmaid_get_meta_annotations}} \code{\link{catmaid_fetch}},
+  \code{\link{catmaid_skids}}
 }

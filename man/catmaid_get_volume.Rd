@@ -4,8 +4,14 @@
 \alias{catmaid_get_volume}
 \title{Fetch a mesh volume from CATMAID}
 \usage{
-catmaid_get_volume(x, rval = c("mesh3d", "catmaidmesh", "raw"),
-  invertFaces = FALSE, conn = NULL, pid = 1, ...)
+catmaid_get_volume(
+  x,
+  rval = c("mesh3d", "catmaidmesh", "raw"),
+  invertFaces = FALSE,
+  conn = NULL,
+  pid = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{The integer volume id or character volume name}
@@ -45,20 +51,34 @@ Note that if \code{x} is a volume name as a character vector then it
   expect. Use \code{invertFaces=TRUE} to fix this.
 }
 \examples{
-\dontrun{
-v375=catmaid_get_volume(375)
-v13.AL_R=catmaid_get_volume("v13.AL_R")
-shade3d(v13.AL_R, col='red', alpha=.3)
-
-if(require("Morpho")) {
-  plotNormals(facenormals(v13.AL_R), long=5e3)
+## NB all these examples refer to the FAFB adult Drosophila brain
+## CATMAID instance
+\donttest{
+fafbconn=catmaid_login(server="https://fafb.catmaid.virtualflybrain.org")
+v14.neuropil=catmaid_get_volume('v14.neuropil', conn=fafbconn)
+# specifying by name is easier / less fragile than numeric ids
 }
 
-# find surfaces for olfactory glomeruli
-vl=catmaid_get_volumelist()
-glomids=vl$id[grepl("_glomerulus$", vl$name)]
+\dontrun{
+AL_R=catmaid_get_volume("AL_R", conn=fafbconn)
+shade3d(AL_R, col='red', alpha=.3)
+
+if(require("Morpho")) {
+  plotNormals(facenormals(AL_R), length=5e3)
+}
+
+## Fetch MB surfaces 
+vl=catmaid_get_volumelist(conn=fafbconn)
+mbids=vl$id[grepl("^MB_", vl$name)]
+mbsurfs=lapply(mbids, catmaid_get_volume, conn=fafbconn)
+# ... and plot
+mapply(shade3d, mbsurfs, col=rainbow(length(mbsurfs)))
+
+## find surfaces for olfactory glomeruli
+# not currently present in the catmaid FAFB
+glomids=vl$id[grepl("v14.[DV][MLAPC]{0,1}[0-9]{0,1}[dvaplm]{0,1}$", vl$name)]
 # fetch them all
-gg=lapply(glomids, catmaid_get_volume)
+gg=lapply(glomids, catmaid_get_volume, conn=fafbconn)
 # ... and plot
 mapply(shade3d, gg, col=rainbow(length(gg)))
 

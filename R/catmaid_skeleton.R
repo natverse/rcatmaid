@@ -237,12 +237,12 @@ catmaid_get_connector_table<-function(skids,
     df$direction=factor(df$direction)
     return(df)
   }
-  if(catmaid_version(numeric = TRUE)>="2016.09.01-77"){
+  if(catmaid_version(conn=conn, numeric = TRUE)>="2016.09.01-77"){
     body=NULL
     paramsv=sprintf("skeleton_ids[%s]=%d",seq_len(length(skids)), skids)
     paramsv=c(paramsv, paste0("relation_type=", ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")))
     params=paste(paramsv, collapse = "&")
-    if(catmaid_version(numeric = TRUE)>="2017.10.02-128"){
+    if(catmaid_version(conn=conn, numeric = TRUE)>="2017.10.02-128"){
       # see https://github.com/catmaid/CATMAID/commit/9d029cbfaa92a9f14bcf99ebffcb89c3da786ef0
       relpath=paste0("/", pid, "/connectors/links/?",params)
     } else {
@@ -252,7 +252,7 @@ catmaid_get_connector_table<-function(skids,
     relpath=paste0("/", pid, "/connector/table/list")
     body=list(skeleton_id=skids)
     # relation_type 0 => incoming
-    if(catmaid_version(numeric = TRUE)>="2016.09.01-65"){
+    if(catmaid_version(conn=conn, numeric = TRUE)>="2016.09.01-65"){
       body$relation_type=ifelse(direction=="incoming","postsynaptic_to","presynaptic_to")
     } else {
       body$relation_type=ifelse(direction=="incoming",0L, 1L)
@@ -262,7 +262,7 @@ catmaid_get_connector_table<-function(skids,
   catmaid_error_check(ctl)
   if(raw) return(ctl)
   # else process the connector information
-  dfcolnames <- if(catmaid_version(numeric = TRUE)>="2016.09.01-77") {
+  dfcolnames <- if(catmaid_version(conn=conn, numeric = TRUE)>="2016.09.01-77") {
     c("skid", "connector_id", "x", "y", "z", "confidence", 
       "user_id", "treenode_id", "last_modified")
   } else {
@@ -291,10 +291,10 @@ catmaid_get_connector_table<-function(skids,
     df=merge(df, cdf, by=c('connector_id', 'skid'), all.x=TRUE)
   }
   if(get_partner_names)
-    df$partner_name <- catmaid_get_neuronnames(df$partner_skid)
+    df$partner_name <- catmaid_get_neuronnames(df$partner_skid, pid = pid, conn=conn, ...)
   
   if(get_partner_nodes)
-    df$partner_nodes <- catmaid_get_node_count(df$partner_skid)
+    df$partner_nodes <- catmaid_get_node_count(df$partner_skid, pid = pid, conn=conn, ...)
   
   df
 }
@@ -463,7 +463,7 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
     pre_skids=catmaid_skids(pre_skids, conn = conn, pid=pid)
     post_data[sprintf("pre[%d]", seq(from=0, along.with=pre_skids))]=as.list(pre_skids)
   } else {
-    cvn = catmaid_version(numeric = TRUE)
+    cvn = catmaid_version(conn=conn, numeric = TRUE)
     if (cvn < "2017.04.20" && cvn >= "2016.08.09")
       stop(
         "catmaid_get_connectors_between is buggy for CATMAID server version",
@@ -563,7 +563,29 @@ catmaid_get_connectors_between <- function(pre_skids=NULL, post_skids=NULL,
 #' catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
 #' 
 #' # example label search
-#' tosoma=catmaid_get_treenodes_detail("to soma")
+#' tosoma=catmaid_get_treenodes_detail(labels="to soma")
+#' }
+#' 
+#' \dontrun{
+#' # If you have a lot of skids to query you will need to break up your queries
+#' # into smaller chunks. You could do this like so:
+#' catmaid_get_treenodes_detail_chunked <- function(skids, chunksize=300, chunkstoread=NULL, ...) {
+#'   nchunks=ceiling(length(skids)/chunksize)
+#'   chunks=rep(seq_len(nchunks), rep(chunksize, nchunks))[seq_along(skids)]
+#'   
+#'   l=list()
+#'   if(is.null(chunkstoread)) chunkstoread=seq_len(nchunks)
+#'   pb <- progress::progress_bar$new(total = length(skids),
+#'                                    format = "  :current/:total [:bar]  eta: :eta",
+#'                                    show_after=1)
+#'   
+#'   for(i in chunkstoread) {
+#'     pb$tick(len = sum(chunks==i))
+#'     l[[length(l)+1]]=catmaid_get_treenodes_detail(skids=skids[chunks==i], ...)
+#'   }
+#'   dplyr::bind_rows(l)
+#' }
+#' 
 #' }
 catmaid_get_treenodes_detail<-function(tnids=NULL, labels=NULL, skids=NULL, 
                                        pid=1, conn=NULL, raw=FALSE, ...) {

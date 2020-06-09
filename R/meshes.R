@@ -126,20 +126,34 @@ catmaid_add_volume <- function(x, conn=NULL, pid=1, ...) {
 #'   \code{\link[rgl]{mesh3d}}, \code{\link[nat]{hxsurf}}, 
 #'   \code{\link[rgl]{shapelist3d}}
 #' @examples 
-#' \dontrun{
-#' v375=catmaid_get_volume(375)
-#' v13.AL_R=catmaid_get_volume("v13.AL_R")
-#' shade3d(v13.AL_R, col='red', alpha=.3)
-#' 
-#' if(require("Morpho")) {
-#'   plotNormals(facenormals(v13.AL_R), long=5e3)
+#' ## NB all these examples refer to the FAFB adult Drosophila brain
+#' ## CATMAID instance
+#' \donttest{
+#' fafbconn=catmaid_login(server="https://fafb.catmaid.virtualflybrain.org")
+#' v14.neuropil=catmaid_get_volume('v14.neuropil', conn=fafbconn)
+#' # specifying by name is easier / less fragile than numeric ids
 #' }
 #' 
-#' # find surfaces for olfactory glomeruli
-#' vl=catmaid_get_volumelist()
-#' glomids=vl$id[grepl("_glomerulus$", vl$name)]
+#' \dontrun{
+#' AL_R=catmaid_get_volume("AL_R", conn=fafbconn)
+#' shade3d(AL_R, col='red', alpha=.3)
+#' 
+#' if(require("Morpho")) {
+#'   plotNormals(facenormals(AL_R), length=5e3)
+#' }
+#'
+#' ## Fetch MB surfaces 
+#' vl=catmaid_get_volumelist(conn=fafbconn)
+#' mbids=vl$id[grepl("^MB_", vl$name)]
+#' mbsurfs=lapply(mbids, catmaid_get_volume, conn=fafbconn)
+#' # ... and plot
+#' mapply(shade3d, mbsurfs, col=rainbow(length(mbsurfs)))
+#' 
+#' ## find surfaces for olfactory glomeruli
+#' # not currently present in the catmaid FAFB
+#' glomids=vl$id[grepl("v14.[DV][MLAPC]{0,1}[0-9]{0,1}[dvaplm]{0,1}$", vl$name)]
 #' # fetch them all
-#' gg=lapply(glomids, catmaid_get_volume)
+#' gg=lapply(glomids, catmaid_get_volume, conn=fafbconn)
 #' # ... and plot
 #' mapply(shade3d, gg, col=rainbow(length(gg)))
 #' 
@@ -157,7 +171,7 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
     if(length(x)>1)
       stop("Multiple volumes matching that name! Please use volume id.")
   }
-  res=catmaid_fetch(paste0('/1/volumes/', x), conn=conn, pid=pid, ...)
+  res=catmaid_fetch(paste0('/',pid,'/volumes/', x), conn=conn, ...)
   catmaid_error_check(res)
   
   meshxml=read_xml(res$mesh)
@@ -205,14 +219,20 @@ catmaid_get_volume <- function(x, rval=c("mesh3d","catmaidmesh", "raw"),
 #'   }
 #'
 #' @export
+#' @examples 
+#' \donttest{
+#' vl <- catmaid_get_volumelist()
+#' head(vl)
+#' # find meshes whose name matches neuropil
+#' subset(vl, grepl('neuropil', name))
+#' }
 #' @seealso \code{\link{catmaid_get_volume}}
 catmaid_get_volumelist <- function(conn=NULL, pid=1, ...) {
-  old_version=catmaid_version(numeric = TRUE)<"2018.07.19-457"
+  old_version=catmaid_version(conn = conn, numeric = TRUE)<"2018.07.19-457"
   req = catmaid_fetch(
-    '/1/volumes',
+    paste0('/',pid,'/volumes'),
     parse.json = FALSE,
     conn = conn,
-    pid = pid,
     include_headers = F,
     ...
   )

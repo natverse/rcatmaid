@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 5580032,
+            "name": "ORN VC5 5580032 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5580031
+            ]
+        }
+    ],
+    "totalRecords": 1
+}

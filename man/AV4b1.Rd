@@ -4,9 +4,11 @@
 \name{AV4b1}
 \alias{AV4b1}
 \title{A sample CATMAID neuron (from the adult lateral horn of class AV4b1)}
-\format{An object of class \code{catmaidneuron} (inherits from \code{neuron}) of length 15.}
+\format{
+An object of class \code{catmaidneuron} (inherits from \code{neuron}) of length 15.
+}
 \usage{
-AV4b1
+data(AV4b1)
 }
 \description{
 A sample CATMAID neuron (from the adult lateral horn of class AV4b1)

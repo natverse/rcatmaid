@@ -4,8 +4,15 @@
 \alias{catmaid_fetch}
 \title{Send http GET or POST request to a CATMAID server}
 \usage{
-catmaid_fetch(path, body = NULL, conn = NULL, parse.json = TRUE,
-  include_headers = TRUE, simplifyVector = FALSE, ...)
+catmaid_fetch(
+  path,
+  body = NULL,
+  conn = NULL,
+  parse.json = TRUE,
+  include_headers = TRUE,
+  simplifyVector = FALSE,
+  ...
+)
 }
 \arguments{
 \item{path}{The path on the CATMAID server relative to the CATMAID root}

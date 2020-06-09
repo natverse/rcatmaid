@@ -7,9 +7,16 @@
 \usage{
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
-catmaid_connection(server, username = NULL, password = NULL,
-  authname = NULL, authpassword = NULL, token = NULL,
-  authtype = NULL, config = NULL)
+catmaid_connection(
+  server,
+  username = NULL,
+  password = NULL,
+  authname = NULL,
+  authpassword = NULL,
+  token = NULL,
+  authtype = NULL,
+  config = NULL
+)
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
@@ -172,6 +179,9 @@ conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 # This example will bypass an SSL certificate verification error on the
 # remote host e.g. if it has expired. Don't this regularly of course!
 conn = catmaid_login(config=httr::config(ssl_verifypeer=0))
+# This example will allow you to change the http protocol version while connecting!
+# Changing the http version is useful when encountering curl related errors 
+conn = catmaid_login(config=httr::config(http_version=1))
 
 ## now do stuff with the connection like
 skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)

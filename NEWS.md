@@ -1,3 +1,22 @@
+# catmaid 0.10.0
+
+* New functions for handling meta annotations (i.e. annotations of annotations):
+  `catmaid_get_meta_annotations()`, `catmaid_query_meta_annotations()`,
+  `catmaid_set_meta_annotations()`, `catmaid_remove_meta_annotations()`
+  thanks to @alexanderbates for the PR (#130).
+* New functions for (un)locking neurons:
+  `catmaid_lock_neurons()`, `catmaid_unlock_neurons()`
+  thanks to @alexanderbates for the PR (#130).
+* New functions to fetch soma information from neurons in a neuronlist:
+  `soma()` fetches the XYZ location of the soma.
+  `somaindex()` fetches the raw index of the skeleton node associated 
+  with the soma (in range 1..N, number of vertices).
+  `somaid()` fetches the identifier of the skeleton node associated with the soma
+  thanks to @alexanderbates for the PR (#128).
+* Set the SWC `Label` column inside neurons to identify the soma (#143).
+* Fix `catmaid_get_volumelist()` and `catmaid_get_volume()` when the project
+  (pid) is not 1 (#144).
+
 # catmaid 0.9.9
 
 * `catmaid_query_connected()` now returns stats for all connections but

@@ -1,0 +1,21 @@
+{
+    "entities": [
+        {
+            "id": 5692634,
+            "name": "putative LatLN 5692634 AMD LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                5692633
+            ]
+        },
+        {
+            "id": 11512050,
+            "name": "Neuron 11512050 split from neuron 6127047 LMH",
+            "type": "neuron",
+            "skeleton_ids": [
+                11512049
+            ]
+        }
+    ],
+    "totalRecords": 2
+}

@@ -5,8 +5,7 @@
 \alias{plot3d}
 \title{Plot skeleton and connectors for neuron retrieved from CATMAID}
 \usage{
-\method{plot3d}{catmaidneuron}(x, WithConnectors = FALSE,
-  WithNodes = FALSE, soma = FALSE, ...)
+\method{plot3d}{catmaidneuron}(x, WithConnectors = FALSE, WithNodes = FALSE, soma = FALSE, ...)
 }
 \arguments{
 \item{x}{A neuron to plot}

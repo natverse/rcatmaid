@@ -4,8 +4,7 @@
 \alias{catmaid_user_history}
 \title{Fetch user contribution history}
 \usage{
-catmaid_user_history(from, to = Sys.Date(), pid = 1L, conn = NULL,
-  ...)
+catmaid_user_history(from, to = Sys.Date(), pid = 1L, conn = NULL, ...)
 }
 \arguments{
 \item{from}{Starting date for history}
@@ -14,12 +13,12 @@ catmaid_user_history(from, to = Sys.Date(), pid = 1L, conn = NULL,
 
 \item{pid}{Project id (default 1)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 }
 \value{

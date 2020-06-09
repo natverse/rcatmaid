@@ -1,0 +1,13 @@
+{
+    "entities": [
+        {
+            "id": 12024538,
+            "name": "putative DA2 ORN 7348153 FS - dark cytosol upstream of CSD - AMD",
+            "type": "neuron",
+            "skeleton_ids": [
+                12024537
+            ]
+        }
+    ],
+    "totalRecords": 1
+}

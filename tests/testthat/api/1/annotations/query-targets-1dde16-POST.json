@@ -1,0 +1,237 @@
+{
+    "entities": [
+        {
+            "id": 4284682,
+            "name": "right ORN VC5 4284682 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                4284681
+            ]
+        },
+        {
+            "id": 4284688,
+            "name": "ORN VC5 4284688 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                4284687
+            ]
+        },
+        {
+            "id": 5110043,
+            "name": "right ORN VC5 5110043 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5110042
+            ]
+        },
+        {
+            "id": 5123789,
+            "name": "ORN VC5 5123789 PS",
+            "type": "neuron",
+            "skeleton_ids": [
+                5123788
+            ]
+        },
+        {
+            "id": 5124863,
+            "name": "right ORN VC5 5124863 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5124862
+            ]
+        },
+        {
+            "id": 5232434,
+            "name": "ORN VC5 5232434 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5232433
+            ]
+        },
+        {
+            "id": 5232474,
+            "name": "Putative ORN VC5 5232474 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5232473
+            ]
+        },
+        {
+            "id": 5233276,
+            "name": "right ORN VC5 5233276 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5233275
+            ]
+        },
+        {
+            "id": 5233312,
+            "name": "right ORN VC5 5233312 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5233311
+            ]
+        },
+        {
+            "id": 5233354,
+            "name": "right ORN VC5 5233354 ARJ",
+            "type": "neuron",
+            "skeleton_ids": [
+                5233353
+            ]
+        },
+        {
+            "id": 5494692,
+            "name": "ORN VC5 5494692",
+            "type": "neuron",
+            "skeleton_ids": [
+                5494691
+            ]
+        },
+        {
+            "id": 5507346,
+            "name": "ORN VC5  5507346 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5507345
+            ]
+        },
+        {
+            "id": 5507979,
+            "name": "ORN VC5 5507979 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5507978
+            ]
+        },
+        {
+            "id": 5521333,
+            "name": "right ORN VC5 5521333 PS",
+            "type": "neuron",
+            "skeleton_ids": [
+                5521332
+            ]
+        },
+        {
+            "id": 5523047,
+            "name": "ORN VC5 5523047 PS",
+            "type": "neuron",
+            "skeleton_ids": [
+                5523046
+            ]
+        },
+        {
+            "id": 5528433,
+            "name": "putative right ORN VC5 5528433 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5528432
+            ]
+        },
+        {
+            "id": 5535853,
+            "name": "ORN VC5 5535853 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5535852
+            ]
+        },
+        {
+            "id": 5535916,
+            "name": "right ORN VC5 5535916 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5535915
+            ]
+        },
+        {
+            "id": 5578734,
+            "name": "Putative ORN VC5 5578734",
+            "type": "neuron",
+            "skeleton_ids": [
+                5578733
+            ]
+        },
+        {
+            "id": 5579563,
+            "name": "Putative ORN VC5 5579563",
+            "type": "neuron",
+            "skeleton_ids": [
+                5579562
+            ]
+        },
+        {
+            "id": 5579715,
+            "name": "ORN VC5 5579715",
+            "type": "neuron",
+            "skeleton_ids": [
+                5579714
+            ]
+        },
+        {
+            "id": 5579869,
+            "name": "Putative ORN VC5 5579869",
+            "type": "neuron",
+            "skeleton_ids": [
+                5579868
+            ]
+        },
+        {
+            "id": 5580032,
+            "name": "ORN VC5 5580032 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5580031
+            ]
+        },
+        {
+            "id": 5580757,
+            "name": "ORN VC5 5580757",
+            "type": "neuron",
+            "skeleton_ids": [
+                5580756
+            ]
+        },
+        {
+            "id": 5637284,
+            "name": "ORN VC5 5637284 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5637283
+            ]
+        },
+        {
+            "id": 5672035,
+            "name": "right ORN VC5 5672035 RJVR",
+            "type": "neuron",
+            "skeleton_ids": [
+                5672034
+            ]
+        },
+        {
+            "id": 5882651,
+            "name": "ORN VC5 5882651",
+            "type": "neuron",
+            "skeleton_ids": [
+                5882650
+            ]
+        },
+        {
+            "id": 5884695,
+            "name": "ORN VC5 5884695 PS",
+            "type": "neuron",
+            "skeleton_ids": [
+                5884694
+            ]
+        },
+        {
+            "id": 5886131,
+            "name": "ORN VC5 5886131 PS",
+            "type": "neuron",
+            "skeleton_ids": [
+                5886130
+            ]
+        }
+    ],
+    "totalRecords": 29
+}

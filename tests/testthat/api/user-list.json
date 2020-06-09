@@ -1,0 +1,3230 @@
+[
+    {
+        "id": 261,
+        "login": "williamsonr",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.593947,
+            0.628997,
+            1.0
+        ]
+    },
+    {
+        "id": 79,
+        "login": "rfranconville",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.156985,
+            0.439778
+        ]
+    },
+    {
+        "id": 274,
+        "login": "buhmannj",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.900653,
+            0.208175
+        ]
+    },
+    {
+        "id": 243,
+        "login": "wolskyd",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.290622,
+            0.213735,
+            1.0
+        ]
+    },
+    {
+        "id": 235,
+        "login": "google_fafb",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.907947,
+            0.429343,
+            1.0
+        ]
+    },
+    {
+        "id": 87,
+        "login": "tavosanisg",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.257581,
+            0.049968,
+            1.0
+        ]
+    },
+    {
+        "id": -1,
+        "login": "AnonymousUser",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "id": 317,
+        "login": "asa_b",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.984741,
+            0.054524,
+            1.0
+        ]
+    },
+    {
+        "id": 282,
+        "login": "upload_user",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            0.744291,
+            1.0,
+            0.720093
+        ]
+    },
+    {
+        "id": 159,
+        "login": "WT_outreach",
+        "full_name": "",
+        "first_name": "",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.631121,
+            0.67805
+        ]
+    },
+    {
+        "id": 156,
+        "login": "lindseytagg",
+        "full_name": "lindsey",
+        "first_name": "lindsey",
+        "last_name": "",
+        "color": [
+            1.0,
+            0.405651,
+            0.621608
+        ]
+    },
+    {
+        "id": 106,
+        "login": "jahjahk",
+        "full_name": "Kabas Abou Jahjah",
+        "first_name": "Kabas",
+        "last_name": "Abou Jahjah",
+        "color": [
+            0.435501,
+            0.813379,
+            1.0
+        ]
+    },
+    {
+        "id": 256,
+        "login": "achej",
+        "full_name": "Jan Ache",
+        "first_name": "Jan",
+        "last_name": "Ache",
+        "color": [
+            0.880267,
+            1.0,
+            0.695591
+        ]
+    },
+    {
+        "id": 13,
+        "login": "adesinaa",
+        "full_name": "Addy Adesina",
+        "first_name": "Addy",
+        "last_name": "Adesina",
+        "color": [
+            0.231643,
+            0.8,
+            1.0
+        ]
+    },
+    {
+        "id": 130,
+        "login": "alghailanis",
+        "full_name": "Shada Alghailani",
+        "first_name": "Shada",
+        "last_name": "Alghailani",
+        "color": [
+            0.183404,
+            0.370098,
+            1.0
+        ]
+    },
+    {
+        "id": 26,
+        "login": "alij",
+        "full_name": "Jawaid Ali",
+        "first_name": "Jawaid",
+        "last_name": "Ali",
+        "color": [
+            1.0,
+            0.943648,
+            0.290847
+        ]
+    },
+    {
+        "id": 52,
+        "login": "alis",
+        "full_name": "Saba Ali",
+        "first_name": "Saba",
+        "last_name": "Ali",
+        "color": [
+            0.684923,
+            0.753268,
+            1.0
+        ]
+    },
+    {
+        "id": 30,
+        "login": "allredg",
+        "full_name": "Gabrielle Allred",
+        "first_name": "Gabrielle",
+        "last_name": "Allred",
+        "color": [
+            1.0,
+            0.781841,
+            0.696667
+        ]
+    },
+    {
+        "id": 102,
+        "login": "ardekanic",
+        "full_name": "Cory Ardekani",
+        "first_name": "Cory",
+        "last_name": "Ardekani",
+        "color": [
+            1.0,
+            0.382249,
+            0.941481
+        ]
+    },
+    {
+        "id": 270,
+        "login": "baileys",
+        "full_name": "Shanice Bailey",
+        "first_name": "Shanice",
+        "last_name": "Bailey",
+        "color": [
+            0.771036,
+            1.0,
+            0.413602
+        ]
+    },
+    {
+        "id": 10,
+        "login": "danielbaldoni",
+        "full_name": "daniel baldoni",
+        "first_name": "daniel",
+        "last_name": "baldoni",
+        "color": [
+            0.5,
+            1.0,
+            0.0
+        ]
+    },
+    {
+        "id": 51,
+        "login": "baldonid",
+        "full_name": "Daniel Baldoni",
+        "first_name": "Daniel",
+        "last_name": "Baldoni",
+        "color": [
+            0.246554,
+            0.0208,
+            1.0
+        ]
+    },
+    {
+        "id": 109,
+        "login": "batesa",
+        "full_name": "Alex Bates",
+        "first_name": "Alex",
+        "last_name": "Bates",
+        "color": [
+            1.0,
+            0.993563,
+            0.864599
+        ]
+    },
+    {
+        "id": 2,
+        "login": "dbock",
+        "full_name": "Davi Bock",
+        "first_name": "Davi",
+        "last_name": "Bock",
+        "color": [
+            0.4,
+            0.0,
+            1.0
+        ]
+    },
+    {
+        "id": 43,
+        "login": "boyesa",
+        "full_name": "Arynne Boyes",
+        "first_name": "Arynne",
+        "last_name": "Boyes",
+        "color": [
+            0.103707,
+            0.219707,
+            1.0
+        ]
+    },
+    {
+        "id": 285,
+        "login": "brauna",
+        "full_name": "Amalia Braun",
+        "first_name": "Amalia",
+        "last_name": "Braun",
+        "color": [
+            1.0,
+            0.48483,
+            0.685674
+        ]
+    },
+    {
+        "id": 252,
+        "login": "brocklesbyc",
+        "full_name": "Charlotte Brockelsby",
+        "first_name": "Charlotte",
+        "last_name": "Brockelsby",
+        "color": [
+            1.0,
+            0.534106,
+            0.788885
+        ]
+    },
+    {
+        "id": 296,
+        "login": "brotasm",
+        "full_name": "Margarida Brotas",
+        "first_name": "Margarida",
+        "last_name": "Brotas",
+        "color": [
+            0.862048,
+            0.259298,
+            1.0
+        ]
+    },
+    {
+        "id": 143,
+        "login": "bryanta",
+        "full_name": "Ashley Bryant",
+        "first_name": "Ashley",
+        "last_name": "Bryant",
+        "color": [
+            0.937743,
+            0.992509,
+            1.0
+        ]
+    },
+    {
+        "id": 258,
+        "login": "bueldl",
+        "full_name": "Laurin Bueld",
+        "first_name": "Laurin",
+        "last_name": "Bueld",
+        "color": [
+            1.0,
+            0.927596,
+            0.050386
+        ]
+    },
+    {
+        "id": 180,
+        "login": "busheyd",
+        "full_name": "Daniel Bushey",
+        "first_name": "Daniel",
+        "last_name": "Bushey",
+        "color": [
+            1.0,
+            0.750841,
+            0.560753
+        ]
+    },
+    {
+        "id": 198,
+        "login": "scachero",
+        "full_name": "Sebastian Cachero",
+        "first_name": "Sebastian",
+        "last_name": "Cachero",
+        "color": [
+            1.0,
+            0.769099,
+            0.840748
+        ]
+    },
+    {
+        "id": 76,
+        "login": "calles",
+        "full_name": "Steven Calle",
+        "first_name": "Steven",
+        "last_name": "Calle",
+        "color": [
+            0.445065,
+            1.0,
+            0.726251
+        ]
+    },
+    {
+        "id": 301,
+        "login": "calleschulers",
+        "full_name": "Steven Calle-Schuler",
+        "first_name": "Steven",
+        "last_name": "Calle-Schuler",
+        "color": [
+            0.400161,
+            1.0,
+            0.131907
+        ]
+    },
+    {
+        "id": 48,
+        "login": "cardg",
+        "full_name": "gwyneth card",
+        "first_name": "gwyneth",
+        "last_name": "card",
+        "color": [
+            0.600058,
+            0.273626,
+            1.0
+        ]
+    },
+    {
+        "id": 65,
+        "login": "cashinm",
+        "full_name": "Michael Cashin",
+        "first_name": "Michael",
+        "last_name": "Cashin",
+        "color": [
+            1.0,
+            0.670523,
+            0.598505
+        ]
+    },
+    {
+        "id": 86,
+        "login": "chamberlainr",
+        "full_name": "Robert Chamberlain",
+        "first_name": "Robert",
+        "last_name": "Chamberlain",
+        "color": [
+            0.729911,
+            1.0,
+            0.852125
+        ]
+    },
+    {
+        "id": 20,
+        "login": "championa",
+        "full_name": "andrew champion",
+        "first_name": "andrew",
+        "last_name": "champion",
+        "color": [
+            0.862811,
+            1.0,
+            0.864207
+        ]
+    },
+    {
+        "id": 100,
+        "login": "chenw",
+        "full_name": "Winston Chen",
+        "first_name": "Winston",
+        "last_name": "Chen",
+        "color": [
+            0.667479,
+            0.86713,
+            1.0
+        ]
+    },
+    {
+        "id": 137,
+        "login": "chiappee",
+        "full_name": "Eugenia Chiappe",
+        "first_name": "Eugenia",
+        "last_name": "Chiappe",
+        "color": [
+            0.841511,
+            1.0,
+            0.004317
+        ]
+    },
+    {
+        "id": 288,
+        "login": "chingf",
+        "full_name": "Felix Ching",
+        "first_name": "Felix",
+        "last_name": "Ching",
+        "color": [
+            1.0,
+            0.708995,
+            0.688785
+        ]
+    },
+    {
+        "id": 111,
+        "login": "chois",
+        "full_name": "Soonhong Choi",
+        "first_name": "Soonhong",
+        "last_name": "Choi",
+        "color": [
+            0.832745,
+            0.282868,
+            1.0
+        ]
+    },
+    {
+        "id": 150,
+        "login": "coatesk",
+        "full_name": "Kaylynn Coates",
+        "first_name": "Kaylynn",
+        "last_name": "Coates",
+        "color": [
+            0.91389,
+            0.877853,
+            1.0
+        ]
+    },
+    {
+        "id": 238,
+        "login": "cookm",
+        "full_name": "Michael Cook",
+        "first_name": "Michael",
+        "last_name": "Cook",
+        "color": [
+            1.0,
+            0.64085,
+            0.63875
+        ]
+    },
+    {
+        "id": 116,
+        "login": "costam",
+        "full_name": "Marta Costa",
+        "first_name": "Marta",
+        "last_name": "Costa",
+        "color": [
+            1.0,
+            0.137127,
+            0.761793
+        ]
+    },
+    {
+        "id": 151,
+        "login": "dacksa",
+        "full_name": "andrew dacks",
+        "first_name": "andrew",
+        "last_name": "dacks",
+        "color": [
+            1.0,
+            0.974486,
+            0.924538
+        ]
+    },
+    {
+        "id": 72,
+        "login": "danc",
+        "full_name": "Chuntao Dan",
+        "first_name": "Chuntao",
+        "last_name": "Dan",
+        "color": [
+            0.367998,
+            0.89694,
+            1.0
+        ]
+    },
+    {
+        "id": 310,
+        "login": "dempseyg",
+        "full_name": "Georgia Dempsey",
+        "first_name": "Georgia",
+        "last_name": "Dempsey",
+        "color": [
+            0.292515,
+            1.0,
+            0.519965
+        ]
+    },
+    {
+        "id": 160,
+        "login": "dhawans",
+        "full_name": "Serene Dhawan",
+        "first_name": "Serene",
+        "last_name": "Dhawan",
+        "color": [
+            0.155305,
+            0.359091,
+            1.0
+        ]
+    },
+    {
+        "id": 60,
+        "login": "dicksonb",
+        "full_name": "Barry Dickson",
+        "first_name": "Barry",
+        "last_name": "Dickson",
+        "color": [
+            0.26188,
+            0.417951,
+            1.0
+        ]
+    },
+    {
+        "id": 232,
+        "login": "dolanmj",
+        "full_name": "Michael-John Dolan",
+        "first_name": "Michael-John",
+        "last_name": "Dolan",
+        "color": [
+            0.904225,
+            1.0,
+            0.84155
+        ]
+    },
+    {
+        "id": 168,
+        "login": "dolanm",
+        "full_name": "Mike Dolan",
+        "first_name": "Mike",
+        "last_name": "Dolan",
+        "color": [
+            1.0,
+            0.439362,
+            0.886166
+        ]
+    },
+    {
+        "id": 142,
+        "login": "dreherm",
+        "full_name": "Marisa Dreher",
+        "first_name": "Marisa",
+        "last_name": "Dreher",
+        "color": [
+            0.351858,
+            1.0,
+            0.662051
+        ]
+    },
+    {
+        "id": 251,
+        "login": "drummondn",
+        "full_name": "Nikolas Drummond",
+        "first_name": "Nikolas",
+        "last_name": "Drummond",
+        "color": [
+            1.0,
+            0.629675,
+            0.948962
+        ]
+    },
+    {
+        "id": 99,
+        "login": "dunlapj",
+        "full_name": "Jordan Dunlap",
+        "first_name": "Jordan",
+        "last_name": "Dunlap",
+        "color": [
+            0.290464,
+            1.0,
+            0.811716
+        ]
+    },
+    {
+        "id": 250,
+        "login": "durandt",
+        "full_name": "Tristan Durand",
+        "first_name": "Tristan",
+        "last_name": "Durand",
+        "color": [
+            1.0,
+            0.294731,
+            0.612161
+        ]
+    },
+    {
+        "id": 120,
+        "login": "edmondsona",
+        "full_name": "Amelia Edmondson-Stait",
+        "first_name": "Amelia",
+        "last_name": "Edmondson-Stait",
+        "color": [
+            0.901275,
+            0.944582,
+            1.0
+        ]
+    },
+    {
+        "id": 170,
+        "login": "eichlerk",
+        "full_name": "Kathi Eichler",
+        "first_name": "Kathi",
+        "last_name": "Eichler",
+        "color": [
+            1.0,
+            0.62982,
+            0.570877
+        ]
+    },
+    {
+        "id": 164,
+        "login": "elbahnasawim",
+        "full_name": "Mahmoud Elbahnasawi",
+        "first_name": "Mahmoud",
+        "last_name": "Elbahnasawi",
+        "color": [
+            0.454746,
+            0.304361,
+            1.0
+        ]
+    },
+    {
+        "id": 58,
+        "login": "eliasonj",
+        "full_name": "Jessica Eliason",
+        "first_name": "Jessica",
+        "last_name": "Eliason",
+        "color": [
+            0.951821,
+            0.899164,
+            1.0
+        ]
+    },
+    {
+        "id": 193,
+        "login": "engerts",
+        "full_name": "Stefanie Engert",
+        "first_name": "Stefanie",
+        "last_name": "Engert",
+        "color": [
+            0.717838,
+            1.0,
+            0.716925
+        ]
+    },
+    {
+        "id": 138,
+        "login": "erginkayam",
+        "full_name": "Mert Erginkaya",
+        "first_name": "Mert",
+        "last_name": "Erginkaya",
+        "color": [
+            0.527427,
+            0.085722,
+            1.0
+        ]
+    },
+    {
+        "id": 187,
+        "login": "eubanksb",
+        "full_name": "Bryon Eubanks",
+        "first_name": "Bryon",
+        "last_name": "Eubanks",
+        "color": [
+            0.80453,
+            1.0,
+            0.02935
+        ]
+    },
+    {
+        "id": 186,
+        "login": "fairbanksk",
+        "full_name": "Kelli Fairbanks",
+        "first_name": "Kelli",
+        "last_name": "Fairbanks",
+        "color": [
+            1.0,
+            0.989147,
+            0.479892
+        ]
+    },
+    {
+        "id": 309,
+        "login": "farriss",
+        "full_name": "Sarah Farris",
+        "first_name": "Sarah",
+        "last_name": "Farris",
+        "color": [
+            0.177332,
+            1.0,
+            0.291378
+        ]
+    },
+    {
+        "id": 8,
+        "login": "fetterr",
+        "full_name": "Richard Fetter",
+        "first_name": "Richard",
+        "last_name": "Fetter",
+        "color": [
+            1.0,
+            0.5,
+            0.0
+        ]
+    },
+    {
+        "id": 88,
+        "login": "fischela",
+        "full_name": "Adam Fischel",
+        "first_name": "Adam",
+        "last_name": "Fischel",
+        "color": [
+            0.93773,
+            0.679663,
+            1.0
+        ]
+    },
+    {
+        "id": 4,
+        "login": "fisherc",
+        "full_name": "Corey Fisher",
+        "first_name": "Corey",
+        "last_name": "Fisher",
+        "color": [
+            0.5,
+            1.5,
+            0.5
+        ]
+    },
+    {
+        "id": 233,
+        "login": "flynnm",
+        "full_name": "Miriam Flynn",
+        "first_name": "Miriam",
+        "last_name": "Flynn",
+        "color": [
+            0.96146,
+            0.991425,
+            1.0
+        ]
+    },
+    {
+        "id": 249,
+        "login": "fonnerj",
+        "full_name": "Jenna Fonner",
+        "first_name": "Jenna",
+        "last_name": "Fonner",
+        "color": [
+            0.894781,
+            1.0,
+            0.016398
+        ]
+    },
+    {
+        "id": 185,
+        "login": "forknalln",
+        "full_name": "Nora Forknall",
+        "first_name": "Nora",
+        "last_name": "Forknall",
+        "color": [
+            0.130313,
+            1.0,
+            0.391131
+        ]
+    },
+    {
+        "id": 297,
+        "login": "francesr",
+        "full_name": "Raquel Frances",
+        "first_name": "Raquel",
+        "last_name": "Frances",
+        "color": [
+            1.0,
+            0.788466,
+            0.690589
+        ]
+    },
+    {
+        "id": 152,
+        "login": "frechters",
+        "full_name": "Shahar Frechter",
+        "first_name": "Shahar",
+        "last_name": "Frechter",
+        "color": [
+            0.943791,
+            1.0,
+            0.698452
+        ]
+    },
+    {
+        "id": 315,
+        "login": "friedricha",
+        "full_name": "Anja Friedrich",
+        "first_name": "Anja",
+        "last_name": "Friedrich",
+        "color": [
+            0.889119,
+            0.831786,
+            1.0
+        ]
+    },
+    {
+        "id": 112,
+        "login": "galilid",
+        "full_name": "Dana Galili",
+        "first_name": "Dana",
+        "last_name": "Galili",
+        "color": [
+            1.0,
+            0.877864,
+            0.273102
+        ]
+    },
+    {
+        "id": 28,
+        "login": "gampah",
+        "full_name": "Bindu Gampah",
+        "first_name": "Bindu",
+        "last_name": "Gampah",
+        "color": [
+            0.988714,
+            1.0,
+            0.921276
+        ]
+    },
+    {
+        "id": 145,
+        "login": "garlingtona",
+        "full_name": "Angela Garlington",
+        "first_name": "Angela",
+        "last_name": "Garlington",
+        "color": [
+            1.0,
+            0.836577,
+            0.080799
+        ]
+    },
+    {
+        "id": 312,
+        "login": "gerhards",
+        "full_name": "Stephan Gerhard",
+        "first_name": "Stephan",
+        "last_name": "Gerhard",
+        "color": [
+            0.664588,
+            1.0,
+            0.415192
+        ]
+    },
+    {
+        "id": 184,
+        "login": "gezahegnb",
+        "full_name": "Bruck Gezahegn",
+        "first_name": "Bruck",
+        "last_name": "Gezahegn",
+        "color": [
+            0.498384,
+            1.0,
+            0.865418
+        ]
+    },
+    {
+        "id": 129,
+        "login": "ghorbanip",
+        "full_name": "Padideh Ghorbani",
+        "first_name": "Padideh",
+        "last_name": "Ghorbani",
+        "color": [
+            1.0,
+            0.170035,
+            0.642278
+        ]
+    },
+    {
+        "id": 303,
+        "login": "giannakakise",
+        "full_name": "Emmanouil Giannakakis",
+        "first_name": "Emmanouil",
+        "last_name": "Giannakakis",
+        "color": [
+            0.434698,
+            1.0,
+            0.838373
+        ]
+    },
+    {
+        "id": 295,
+        "login": "gibbp",
+        "full_name": "Peter Gibb",
+        "first_name": "Peter",
+        "last_name": "Gibb",
+        "color": [
+            0.73869,
+            0.898214,
+            1.0
+        ]
+    },
+    {
+        "id": 37,
+        "login": "gillisz",
+        "full_name": "Zachary Gillis",
+        "first_name": "Zachary",
+        "last_name": "Gillis",
+        "color": [
+            0.4385,
+            0.484132,
+            1.0
+        ]
+    },
+    {
+        "id": 98,
+        "login": "gonzalesj",
+        "full_name": "Julia Gonzales",
+        "first_name": "Julia",
+        "last_name": "Gonzales",
+        "color": [
+            0.471926,
+            1.0,
+            0.659023
+        ]
+    },
+    {
+        "id": 61,
+        "login": "gorkob",
+        "full_name": "Benjamin Gorko",
+        "first_name": "Benjamin",
+        "last_name": "Gorko",
+        "color": [
+            1.0,
+            0.395984,
+            0.307984
+        ]
+    },
+    {
+        "id": 133,
+        "login": "greerm",
+        "full_name": "Maggie Greer",
+        "first_name": "Maggie",
+        "last_name": "Greer",
+        "color": [
+            0.889431,
+            1.0,
+            0.952739
+        ]
+    },
+    {
+        "id": 14,
+        "login": "eyalgruntman",
+        "full_name": "eyal gruntman",
+        "first_name": "eyal",
+        "last_name": "gruntman",
+        "color": [
+            0.833066,
+            0.043469,
+            1.0
+        ]
+    },
+    {
+        "id": 286,
+        "login": "kadowi",
+        "full_name": "Ilona Grunwald Kadow",
+        "first_name": "Ilona",
+        "last_name": "Grunwald Kadow",
+        "color": [
+            1.0,
+            0.862825,
+            0.771275
+        ]
+    },
+    {
+        "id": 294,
+        "login": "haberi",
+        "full_name": "Isabel Haber",
+        "first_name": "Isabel",
+        "last_name": "Haber",
+        "color": [
+            1.0,
+            0.002787,
+            0.710741
+        ]
+    },
+    {
+        "id": 71,
+        "login": "haberkernh",
+        "full_name": "Hannah Haberkern",
+        "first_name": "Hannah",
+        "last_name": "Haberkern",
+        "color": [
+            1.0,
+            0.858853,
+            0.157488
+        ]
+    },
+    {
+        "id": 44,
+        "login": "haddada",
+        "full_name": "Ala Haddad",
+        "first_name": "Ala",
+        "last_name": "Haddad",
+        "color": [
+            0.288081,
+            1.0,
+            0.32439
+        ]
+    },
+    {
+        "id": 118,
+        "login": "hallouc",
+        "full_name": "Clement Hallou",
+        "first_name": "Clement",
+        "last_name": "Hallou",
+        "color": [
+            0.9,
+            0.25,
+            0.33
+        ]
+    },
+    {
+        "id": 82,
+        "login": "hampels",
+        "full_name": "Steffi Hampel",
+        "first_name": "Steffi",
+        "last_name": "Hampel",
+        "color": [
+            0.19589,
+            0.143485,
+            1.0
+        ]
+    },
+    {
+        "id": 11,
+        "login": "harrisonb",
+        "full_name": "bailey harrison",
+        "first_name": "bailey",
+        "last_name": "harrison",
+        "color": [
+            0.763346,
+            0.239765,
+            1.0
+        ]
+    },
+    {
+        "id": 95,
+        "login": "heatha",
+        "full_name": "Adam Heath",
+        "first_name": "Adam",
+        "last_name": "Heath",
+        "color": [
+            0.499781,
+            0.802426,
+            1.0
+        ]
+    },
+    {
+        "id": 181,
+        "login": "heinzk",
+        "full_name": "Konrad Heinz",
+        "first_name": "Konrad",
+        "last_name": "Heinz",
+        "color": [
+            1.0,
+            0.835985,
+            0.857145
+        ]
+    },
+    {
+        "id": 264,
+        "login": "helmickl",
+        "full_name": "Levi Helmick",
+        "first_name": "Levi",
+        "last_name": "Helmick",
+        "color": [
+            0.492739,
+            0.375268,
+            1.0
+        ]
+    },
+    {
+        "id": 199,
+        "login": "hopkinsg",
+        "full_name": "Gary Hopkins",
+        "first_name": "Gary",
+        "last_name": "Hopkins",
+        "color": [
+            0.677969,
+            0.780666,
+            1.0
+        ]
+    },
+    {
+        "id": 268,
+        "login": "horhorl",
+        "full_name": "Lori Horhor",
+        "first_name": "Lori",
+        "last_name": "Horhor",
+        "color": [
+            0.99659,
+            1.0,
+            0.995334
+        ]
+    },
+    {
+        "id": 262,
+        "login": "horigomem",
+        "full_name": "Mihoko Horigome",
+        "first_name": "Mihoko",
+        "last_name": "Horigome",
+        "color": [
+            0.874182,
+            1.0,
+            0.836438
+        ]
+    },
+    {
+        "id": 89,
+        "login": "hsuj",
+        "full_name": "Joseph Hsu",
+        "first_name": "Joseph",
+        "last_name": "Hsu",
+        "color": [
+            0.623173,
+            0.268424,
+            1.0
+        ]
+    },
+    {
+        "id": 267,
+        "login": "huangj",
+        "full_name": "Jolie Huang",
+        "first_name": "Jolie",
+        "last_name": "Huang",
+        "color": [
+            1.0,
+            0.862215,
+            0.988763
+        ]
+    },
+    {
+        "id": 148,
+        "login": "huovialap",
+        "full_name": "Paavo Huoviala",
+        "first_name": "Paavo",
+        "last_name": "Huoviala",
+        "color": [
+            1.0,
+            0.626591,
+            0.304502
+        ]
+    },
+    {
+        "id": 47,
+        "login": "hustons",
+        "full_name": "Stephen Huston",
+        "first_name": "Stephen",
+        "last_name": "Huston",
+        "color": [
+            1.0,
+            0.997187,
+            0.994776
+        ]
+    },
+    {
+        "id": 50,
+        "login": "imtiazs",
+        "full_name": "Shahrozia Imtiaz",
+        "first_name": "Shahrozia",
+        "last_name": "Imtiaz",
+        "color": [
+            1.0,
+            0.833027,
+            0.924447
+        ]
+    },
+    {
+        "id": 136,
+        "login": "itom",
+        "full_name": "Masayoshi Ito",
+        "first_name": "Masayoshi",
+        "last_name": "Ito",
+        "color": [
+            0.370987,
+            0.722435,
+            1.0
+        ]
+    },
+    {
+        "id": 63,
+        "login": "iyern",
+        "full_name": "Nirmala Iyer",
+        "first_name": "Nirmala",
+        "last_name": "Iyer",
+        "color": [
+            0.847489,
+            0.755863,
+            1.0
+        ]
+    },
+    {
+        "id": 298,
+        "login": "jagannathans",
+        "full_name": "Sridhar Jagannathan",
+        "first_name": "Sridhar",
+        "last_name": "Jagannathan",
+        "color": [
+            0.954349,
+            0.909622,
+            1.0
+        ]
+    },
+    {
+        "id": 167,
+        "login": "jamasba",
+        "full_name": "Arian Jamasb",
+        "first_name": "Arian",
+        "last_name": "Jamasb",
+        "color": [
+            0.802154,
+            1.0,
+            0.210283
+        ]
+    },
+    {
+        "id": 177,
+        "login": "prez",
+        "full_name": "Przemyslaw Jarzebowski",
+        "first_name": "Przemyslaw",
+        "last_name": "Jarzebowski",
+        "color": [
+            0.222956,
+            1.0,
+            0.822599
+        ]
+    },
+    {
+        "id": 16,
+        "login": "jasaniy",
+        "full_name": "Yogita Jasani",
+        "first_name": "Yogita",
+        "last_name": "Jasani",
+        "color": [
+            0.283417,
+            0.202126,
+            1.0
+        ]
+    },
+    {
+        "id": 304,
+        "login": "javiera",
+        "full_name": "Alexandre Javier",
+        "first_name": "Alexandre",
+        "last_name": "Javier",
+        "color": [
+            1.0,
+            0.564007,
+            0.621207
+        ]
+    },
+    {
+        "id": 46,
+        "login": "vivek",
+        "full_name": "Vivek Jayaraman",
+        "first_name": "Vivek",
+        "last_name": "Jayaraman",
+        "color": [
+            0.470413,
+            0.875872,
+            1.0
+        ]
+    },
+    {
+        "id": 55,
+        "login": "jefferis",
+        "full_name": "Greg Jefferis",
+        "first_name": "Greg",
+        "last_name": "Jefferis",
+        "color": [
+            0.163469,
+            0.368225,
+            1.0
+        ]
+    },
+    {
+        "id": 255,
+        "login": "jensenk",
+        "full_name": "Kristopher Jensen",
+        "first_name": "Kristopher",
+        "last_name": "Jensen",
+        "color": [
+            1.0,
+            0.823394,
+            0.09108
+        ]
+    },
+    {
+        "id": 17,
+        "login": "adamjohn",
+        "full_name": "Adam John",
+        "first_name": "Adam",
+        "last_name": "John",
+        "color": [
+            0.953446,
+            1.0,
+            0.528745
+        ]
+    },
+    {
+        "id": 125,
+        "login": "johnsonj",
+        "full_name": "Jeremy Johnson",
+        "first_name": "Jeremy",
+        "last_name": "Johnson",
+        "color": [
+            1.0,
+            0.92264,
+            0.98875
+        ]
+    },
+    {
+        "id": 141,
+        "login": "kainmuellerd",
+        "full_name": "Dagmar Kainmueller",
+        "first_name": "Dagmar",
+        "last_name": "Kainmueller",
+        "color": [
+            0.9421,
+            1.0,
+            0.97975
+        ]
+    },
+    {
+        "id": 146,
+        "login": "kamikouchia",
+        "full_name": "A. Kamikouchi",
+        "first_name": "A.",
+        "last_name": "Kamikouchi",
+        "color": [
+            0.868285,
+            0.864984,
+            1.0
+        ]
+    },
+    {
+        "id": 188,
+        "login": "kawaset",
+        "full_name": "Takashi Kawase",
+        "first_name": "Takashi",
+        "last_name": "Kawase",
+        "color": [
+            0.278256,
+            1.0,
+            0.178005
+        ]
+    },
+    {
+        "id": 21,
+        "login": "tom",
+        "full_name": "Tom Kazimiers",
+        "first_name": "Tom",
+        "last_name": "Kazimiers",
+        "color": [
+            1.0,
+            0.989354,
+            0.996722
+        ]
+    },
+    {
+        "id": 197,
+        "login": "keans",
+        "full_name": "Sam Kean",
+        "first_name": "Sam",
+        "last_name": "Kean",
+        "color": [
+            1.0,
+            0.691557,
+            0.590382
+        ]
+    },
+    {
+        "id": 59,
+        "login": "kelemank",
+        "full_name": "Krystyna Keleman",
+        "first_name": "Krystyna",
+        "last_name": "Keleman",
+        "color": [
+            0.653764,
+            1.0,
+            0.806611
+        ]
+    },
+    {
+        "id": 135,
+        "login": "khairyk",
+        "full_name": "Khaled Khairy",
+        "first_name": "Khaled",
+        "last_name": "Khairy",
+        "color": [
+            0.387506,
+            0.02547,
+            1.0
+        ]
+    },
+    {
+        "id": 287,
+        "login": "khinem",
+        "full_name": "Maybelle Khine",
+        "first_name": "Maybelle",
+        "last_name": "Khine",
+        "color": [
+            0.949144,
+            1.0,
+            0.683109
+        ]
+    },
+    {
+        "id": 147,
+        "login": "kimh",
+        "full_name": "H. Kim",
+        "first_name": "H.",
+        "last_name": "Kim",
+        "color": [
+            0.795095,
+            0.70067,
+            1.0
+        ]
+    },
+    {
+        "id": 241,
+        "login": "kimsj",
+        "full_name": "SungJin Kim",
+        "first_name": "SungJin",
+        "last_name": "Kim",
+        "color": [
+            1.0,
+            0.825804,
+            0.766103
+        ]
+    },
+    {
+        "id": 299,
+        "login": "kinde",
+        "full_name": "Emil Kind",
+        "first_name": "Emil",
+        "last_name": "Kind",
+        "color": [
+            0.813792,
+            0.945353,
+            1.0
+        ]
+    },
+    {
+        "id": 25,
+        "login": "kmecoval",
+        "full_name": "Lucia Kmecova",
+        "first_name": "Lucia",
+        "last_name": "Kmecova",
+        "color": [
+            0.938342,
+            0.5,
+            1.0
+        ]
+    },
+    {
+        "id": 18,
+        "login": "kknieriem",
+        "full_name": "Krista Knieriem",
+        "first_name": "Krista",
+        "last_name": "Knieriem",
+        "color": [
+            0.240102,
+            1.0,
+            0.311839
+        ]
+    },
+    {
+        "id": 284,
+        "login": "knottsv",
+        "full_name": "Victoria knotts",
+        "first_name": "Victoria",
+        "last_name": "knotts",
+        "color": [
+            1.0,
+            0.78946,
+            0.20168
+        ]
+    },
+    {
+        "id": 54,
+        "login": "koppenhaverb",
+        "full_name": "Ben Koppenhaver",
+        "first_name": "Ben",
+        "last_name": "Koppenhaver",
+        "color": [
+            0.597445,
+            1.0,
+            0.365859
+        ]
+    },
+    {
+        "id": 306,
+        "login": "kovalyakj",
+        "full_name": "Julie Kovalyakj",
+        "first_name": "Julie",
+        "last_name": "Kovalyakj",
+        "color": [
+            0.847464,
+            0.846877,
+            1.0
+        ]
+    },
+    {
+        "id": 176,
+        "login": "lafossep",
+        "full_name": "Paul LaFosse",
+        "first_name": "Paul",
+        "last_name": "LaFosse",
+        "color": [
+            1.0,
+            0.961986,
+            0.989695
+        ]
+    },
+    {
+        "id": 19,
+        "login": "latinaj",
+        "full_name": "Joe Latina",
+        "first_name": "Joe",
+        "last_name": "Latina",
+        "color": [
+            0.421439,
+            1.0,
+            0.450182
+        ]
+    },
+    {
+        "id": 275,
+        "login": "laturneym",
+        "full_name": "Meghan Laturney",
+        "first_name": "Meghan",
+        "last_name": "Laturney",
+        "color": [
+            0.996303,
+            1.0,
+            0.944971
+        ]
+    },
+    {
+        "id": 178,
+        "login": "laughlandc",
+        "full_name": "Connor Laughland",
+        "first_name": "Connor",
+        "last_name": "Laughland",
+        "color": [
+            0.182764,
+            1.0,
+            0.92428
+        ]
+    },
+    {
+        "id": 6,
+        "login": "jscottlauritzen",
+        "full_name": "Scott Lauritzen",
+        "first_name": "Scott",
+        "last_name": "Lauritzen",
+        "color": [
+            1.0,
+            0.55,
+            0.25
+        ]
+    },
+    {
+        "id": 293,
+        "login": "lia",
+        "full_name": "Anna Li",
+        "first_name": "Anna",
+        "last_name": "Li",
+        "color": [
+            0.498623,
+            1.0,
+            0.806501
+        ]
+    },
+    {
+        "id": 113,
+        "login": "lif",
+        "full_name": "Feng Li",
+        "first_name": "Feng",
+        "last_name": "Li",
+        "color": [
+            0.832103,
+            0.92328,
+            1.0
+        ]
+    },
+    {
+        "id": 239,
+        "login": "lij",
+        "full_name": "Jingcheng Li",
+        "first_name": "Jingcheng",
+        "last_name": "Li",
+        "color": [
+            1.0,
+            0.927152,
+            0.907374
+        ]
+    },
+    {
+        "id": 119,
+        "login": "lip",
+        "full_name": "Peter Li",
+        "first_name": "Peter",
+        "last_name": "Li",
+        "color": [
+            0.983273,
+            0.513284,
+            1.0
+        ]
+    },
+    {
+        "id": 253,
+        "login": "liangk",
+        "full_name": "Kai Liang",
+        "first_name": "Kai",
+        "last_name": "Liang",
+        "color": [
+            0.393345,
+            0.611949,
+            1.0
+        ]
+    },
+    {
+        "id": 22,
+        "login": "michaelLingelbach",
+        "full_name": "Michael Lingelbach",
+        "first_name": "Michael",
+        "last_name": "Lingelbach",
+        "color": [
+            1.0,
+            0.788927,
+            0.108022
+        ]
+    },
+    {
+        "id": 123,
+        "login": "lovef",
+        "full_name": "Fiona Love",
+        "first_name": "Fiona",
+        "last_name": "Love",
+        "color": [
+            1.0,
+            0.791901,
+            0.832944
+        ]
+    },
+    {
+        "id": 318,
+        "login": "luj",
+        "full_name": "Jenny Lu",
+        "first_name": "Jenny",
+        "last_name": "Lu",
+        "color": [
+            0.843248,
+            1.0,
+            0.314023
+        ]
+    },
+    {
+        "id": 175,
+        "login": "ludwigh",
+        "full_name": "Henrique Ludwig",
+        "first_name": "Henrique",
+        "last_name": "Ludwig",
+        "color": [
+            1.0,
+            0.164352,
+            0.961107
+        ]
+    },
+    {
+        "id": 319,
+        "login": "lukyanovav",
+        "full_name": "Veronika Lukyanova",
+        "first_name": "Veronika",
+        "last_name": "Lukyanova",
+        "color": [
+            1.0,
+            0.378065,
+            0.473271
+        ]
+    },
+    {
+        "id": 64,
+        "login": "managanc",
+        "full_name": "Claire Managan",
+        "first_name": "Claire",
+        "last_name": "Managan",
+        "color": [
+            0.5,
+            0.984732,
+            0.874974
+        ]
+    },
+    {
+        "id": 244,
+        "login": "mantonj",
+        "full_name": "James Manton",
+        "first_name": "James",
+        "last_name": "Manton",
+        "color": [
+            1.0,
+            0.531173,
+            0.711724
+        ]
+    },
+    {
+        "id": 127,
+        "login": "marinl",
+        "full_name": "Lisa Marin",
+        "first_name": "Lisa",
+        "last_name": "Marin",
+        "color": [
+            1.0,
+            0.959948,
+            0.869651
+        ]
+    },
+    {
+        "id": 41,
+        "login": "marlinc",
+        "full_name": "Chelsea Marlin",
+        "first_name": "Chelsea",
+        "last_name": "Marlin",
+        "color": [
+            0.930892,
+            1.0,
+            0.989284
+        ]
+    },
+    {
+        "id": 308,
+        "login": "marquism",
+        "full_name": "Michael Marquis",
+        "first_name": "Michael",
+        "last_name": "Marquis",
+        "color": [
+            1.0,
+            0.109923,
+            0.594447
+        ]
+    },
+    {
+        "id": 171,
+        "login": "Martikb",
+        "full_name": "Brennah Martik",
+        "first_name": "Brennah",
+        "last_name": "Martik",
+        "color": [
+            0.949522,
+            0.949512,
+            1.0
+        ]
+    },
+    {
+        "id": 97,
+        "login": "martinp",
+        "full_name": "Prescott  Martin",
+        "first_name": "Prescott ",
+        "last_name": "Martin",
+        "color": [
+            1.0,
+            0.722604,
+            0.751388
+        ]
+    },
+    {
+        "id": 53,
+        "login": "masoodpanahn",
+        "full_name": "Najla Masoodpanah",
+        "first_name": "Najla",
+        "last_name": "Masoodpanah",
+        "color": [
+            0.062237,
+            1.0,
+            0.662115
+        ]
+    },
+    {
+        "id": 67,
+        "login": "matousp",
+        "full_name": "Patrick Matous",
+        "first_name": "Patrick",
+        "last_name": "Matous",
+        "color": [
+            0.896805,
+            1.0,
+            0.932063
+        ]
+    },
+    {
+        "id": 108,
+        "login": "mccartyj",
+        "full_name": "Jack Mccarty",
+        "first_name": "Jack",
+        "last_name": "Mccarty",
+        "color": [
+            0.79676,
+            1.0,
+            0.652847
+        ]
+    },
+    {
+        "id": 121,
+        "login": "meechank",
+        "full_name": "Kimberly Meechan",
+        "first_name": "Kimberly",
+        "last_name": "Meechan",
+        "color": [
+            0.881868,
+            0.897419,
+            1.0
+        ]
+    },
+    {
+        "id": 266,
+        "login": "mingn",
+        "full_name": "Neil Ming",
+        "first_name": "Neil",
+        "last_name": "Ming",
+        "color": [
+            1.0,
+            0.07142,
+            0.134186
+        ]
+    },
+    {
+        "id": 161,
+        "login": "mitrevicaz",
+        "full_name": "Zane Mitrevica",
+        "first_name": "Zane",
+        "last_name": "Mitrevica",
+        "color": [
+            0.000933,
+            0.234647,
+            1.0
+        ]
+    },
+    {
+        "id": 96,
+        "login": "miyazakit",
+        "full_name": "Takaaki Miyazaki",
+        "first_name": "Takaaki",
+        "last_name": "Miyazaki",
+        "color": [
+            1.0,
+            0.42176,
+            0.861889
+        ]
+    },
+    {
+        "id": 39,
+        "login": "mohrs",
+        "full_name": "Sarah Mohr",
+        "first_name": "Sarah",
+        "last_name": "Mohr",
+        "color": [
+            1.0,
+            0.847146,
+            0.59603
+        ]
+    },
+    {
+        "id": 32,
+        "login": "mooree",
+        "full_name": "Emily Moore",
+        "first_name": "Emily",
+        "last_name": "Moore",
+        "color": [
+            0.877391,
+            0.8,
+            0.997883
+        ]
+    },
+    {
+        "id": 149,
+        "login": "moranc",
+        "full_name": "Cullen Moran",
+        "first_name": "Cullen",
+        "last_name": "Moran",
+        "color": [
+            0.392652,
+            0.250919,
+            1.0
+        ]
+    },
+    {
+        "id": 272,
+        "login": "morrisw",
+        "full_name": "Billy Morris",
+        "first_name": "Billy",
+        "last_name": "Morris",
+        "color": [
+            1.0,
+            0.657425,
+            0.612288
+        ]
+    },
+    {
+        "id": 27,
+        "login": "murthys",
+        "full_name": "Sri Murthy",
+        "first_name": "Sri",
+        "last_name": "Murthy",
+        "color": [
+            1.0,
+            0.045842,
+            0.20614
+        ]
+    },
+    {
+        "id": 273,
+        "login": "myersp",
+        "full_name": "Philip Myers",
+        "first_name": "Philip",
+        "last_name": "Myers",
+        "color": [
+            0.370658,
+            1.0,
+            0.620937
+        ]
+    },
+    {
+        "id": 196,
+        "login": "ndamam",
+        "full_name": "Mia Ndama",
+        "first_name": "Mia",
+        "last_name": "Ndama",
+        "color": [
+            1.0,
+            0.902742,
+            0.734318
+        ]
+    },
+    {
+        "id": 31,
+        "login": "nelsonn",
+        "full_name": "Noah Nelson",
+        "first_name": "Noah",
+        "last_name": "Nelson",
+        "color": [
+            0.857837,
+            0.596259,
+            1.0
+        ]
+    },
+    {
+        "id": 101,
+        "login": "nevest",
+        "full_name": "Teresa Neves",
+        "first_name": "Teresa",
+        "last_name": "Neves",
+        "color": [
+            0.991692,
+            0.924653,
+            1.0
+        ]
+    },
+    {
+        "id": 85,
+        "login": "ngot",
+        "full_name": "Teri Ngo",
+        "first_name": "Teri",
+        "last_name": "Ngo",
+        "color": [
+            0.81859,
+            0.56378,
+            1.0
+        ]
+    },
+    {
+        "id": 126,
+        "login": "matthew",
+        "full_name": "Matthew Nichols",
+        "first_name": "Matthew",
+        "last_name": "Nichols",
+        "color": [
+            0.173651,
+            0.149253,
+            1.0
+        ]
+    },
+    {
+        "id": 49,
+        "login": "nielsone",
+        "full_name": "Emily Nielson",
+        "first_name": "Emily",
+        "last_name": "Nielson",
+        "color": [
+            0.862575,
+            1.0,
+            0.512582
+        ]
+    },
+    {
+        "id": 265,
+        "login": "obrusnikt",
+        "full_name": "Tessa Obrusnik",
+        "first_name": "Tessa",
+        "last_name": "Obrusnik",
+        "color": [
+            0.505058,
+            1.0,
+            0.828322
+        ]
+    },
+    {
+        "id": 269,
+        "login": "oramt",
+        "full_name": "Tess Oram",
+        "first_name": "Tess",
+        "last_name": "Oram",
+        "color": [
+            1.0,
+            0.638462,
+            0.701185
+        ]
+    },
+    {
+        "id": 68,
+        "login": "osbornej",
+        "full_name": "Jason Osborne",
+        "first_name": "Jason",
+        "last_name": "Osborne",
+        "color": [
+            0.291945,
+            0.51652,
+            1.0
+        ]
+    },
+    {
+        "id": 165,
+        "login": "otton",
+        "full_name": "Nils Otto",
+        "first_name": "Nils",
+        "last_name": "Otto",
+        "color": [
+            0.573588,
+            0.230859,
+            1.0
+        ]
+    },
+    {
+        "id": 195,
+        "login": "padillan",
+        "full_name": "Nicholas Padilla",
+        "first_name": "Nicholas",
+        "last_name": "Padilla",
+        "color": [
+            0.575118,
+            0.192658,
+            1.0
+        ]
+    },
+    {
+        "id": 78,
+        "login": "cpape",
+        "full_name": "Constantin Pape",
+        "first_name": "Constantin",
+        "last_name": "Pape",
+        "color": [
+            0.838625,
+            1.0,
+            0.230155
+        ]
+    },
+    {
+        "id": 84,
+        "login": "parekhr",
+        "full_name": "Ruchi Parekh",
+        "first_name": "Ruchi",
+        "last_name": "Parekh",
+        "color": [
+            1.0,
+            0.908073,
+            0.975474
+        ]
+    },
+    {
+        "id": 114,
+        "login": "patersont",
+        "full_name": "Tyler Paterson",
+        "first_name": "Tyler",
+        "last_name": "Paterson",
+        "color": [
+            1.0,
+            0.634986,
+            0.163901
+        ]
+    },
+    {
+        "id": 115,
+        "login": "patrickc",
+        "full_name": "Christopher Patrick",
+        "first_name": "Christopher",
+        "last_name": "Patrick",
+        "color": [
+            1.0,
+            0.910333,
+            0.760459
+        ]
+    },
+    {
+        "id": 1,
+        "login": "eric",
+        "full_name": "Eric Perlman",
+        "first_name": "Eric",
+        "last_name": "Perlman",
+        "color": [
+            0.0,
+            1.0,
+            0.0
+        ]
+    },
+    {
+        "id": 62,
+        "login": "petersonc",
+        "full_name": "Claire Peterson",
+        "first_name": "Claire",
+        "last_name": "Peterson",
+        "color": [
+            0.290593,
+            1.0,
+            0.087936
+        ]
+    },
+    {
+        "id": 237,
+        "login": "placaispy",
+        "full_name": "Pierre-Yves Plaçais",
+        "first_name": "Pierre-Yves",
+        "last_name": "Plaçais",
+        "color": [
+            0.51296,
+            0.874367,
+            1.0
+        ]
+    },
+    {
+        "id": 163,
+        "login": "pleijzierm",
+        "full_name": "Markus Pleijzier",
+        "first_name": "Markus",
+        "last_name": "Pleijzier",
+        "color": [
+            1.0,
+            0.416089,
+            0.016058
+        ]
+    },
+    {
+        "id": 134,
+        "login": "polskyj",
+        "full_name": "Jason Polsky",
+        "first_name": "Jason",
+        "last_name": "Polsky",
+        "color": [
+            0.999261,
+            0.984931,
+            1.0
+        ]
+    },
+    {
+        "id": 257,
+        "login": "popvicip",
+        "full_name": "Patricia Popovici",
+        "first_name": "Patricia",
+        "last_name": "Popovici",
+        "color": [
+            1.0,
+            0.86164,
+            0.043999
+        ]
+    },
+    {
+        "id": 236,
+        "login": "preatt",
+        "full_name": "Thomas Preat",
+        "first_name": "Thomas",
+        "last_name": "Preat",
+        "color": [
+            1.0,
+            0.499486,
+            0.6335
+        ]
+    },
+    {
+        "id": 56,
+        "login": "qub",
+        "full_name": "Boyd Qu",
+        "first_name": "Boyd",
+        "last_name": "Qu",
+        "color": [
+            0.081441,
+            0.738117,
+            1.0
+        ]
+    },
+    {
+        "id": 103,
+        "login": "raisr",
+        "full_name": "Razi Rais",
+        "first_name": "Razi",
+        "last_name": "Rais",
+        "color": [
+            1.0,
+            0.236675,
+            0.949741
+        ]
+    },
+    {
+        "id": 190,
+        "login": "rampallyn",
+        "full_name": "Neha Rampally",
+        "first_name": "Neha",
+        "last_name": "Rampally",
+        "color": [
+            1.0,
+            0.329303,
+            0.852448
+        ]
+    },
+    {
+        "id": 75,
+        "login": "ranftp",
+        "full_name": "Philipp Ranft",
+        "first_name": "Philipp",
+        "last_name": "Ranft",
+        "color": [
+            0.494888,
+            0.424306,
+            1.0
+        ]
+    },
+    {
+        "id": 12,
+        "login": "ratliffj",
+        "full_name": "Jacob Ratliff",
+        "first_name": "Jacob",
+        "last_name": "Ratliff",
+        "color": [
+            1.0,
+            0.25,
+            0.1
+        ]
+    },
+    {
+        "id": 291,
+        "login": "rayshubskiys",
+        "full_name": "Sasha Rayshubskiy",
+        "first_name": "Sasha",
+        "last_name": "Rayshubskiy",
+        "color": [
+            0.432667,
+            0.597084,
+            1.0
+        ]
+    },
+    {
+        "id": 42,
+        "login": "reddyn",
+        "full_name": "Nethan Reddy",
+        "first_name": "Nethan",
+        "last_name": "Reddy",
+        "color": [
+            1.0,
+            0.60256,
+            0.855879
+        ]
+    },
+    {
+        "id": 277,
+        "login": "canalesm",
+        "full_name": "Magdalena Redondo-Canales",
+        "first_name": "Magdalena",
+        "last_name": "Redondo-Canales",
+        "color": [
+            1.0,
+            0.41689,
+            0.258111
+        ]
+    },
+    {
+        "id": 57,
+        "login": "reiserm",
+        "full_name": "Michael  Reiser",
+        "first_name": "Michael ",
+        "last_name": "Reiser",
+        "color": [
+            0.625305,
+            0.518128,
+            1.0
+        ]
+    },
+    {
+        "id": 105,
+        "login": "ribeiron",
+        "full_name": "Niles Ribeiro",
+        "first_name": "Niles",
+        "last_name": "Ribeiro",
+        "color": [
+            1.0,
+            0.897331,
+            0.602749
+        ]
+    },
+    {
+        "id": 278,
+        "login": "ridleyk",
+        "full_name": "Katherine Ridley",
+        "first_name": "Katherine",
+        "last_name": "Ridley",
+        "color": [
+            1.0,
+            0.496347,
+            0.6251
+        ]
+    },
+    {
+        "id": 122,
+        "login": "rivlinp",
+        "full_name": "Pat Rivlin",
+        "first_name": "Pat",
+        "last_name": "Rivlin",
+        "color": [
+            0.963804,
+            1.0,
+            0.491768
+        ]
+    },
+    {
+        "id": 117,
+        "login": "robertsr",
+        "full_name": "Ruairi Roberts",
+        "first_name": "Ruairi",
+        "last_name": "Roberts",
+        "color": [
+            0.891886,
+            0.842302,
+            1.0
+        ]
+    },
+    {
+        "id": 7,
+        "login": "robinsonc",
+        "full_name": "Cam Robinson",
+        "first_name": "Cam",
+        "last_name": "Robinson",
+        "color": [
+            0.8,
+            1.0,
+            0.5
+        ]
+    },
+    {
+        "id": 110,
+        "login": "rodmanl",
+        "full_name": "Laura Rodman",
+        "first_name": "Laura",
+        "last_name": "Rodman",
+        "color": [
+            1.0,
+            0.3048,
+            0.524766
+        ]
+    },
+    {
+        "id": 300,
+        "login": "rosnerr",
+        "full_name": "Ronny Rosner",
+        "first_name": "Ronny",
+        "last_name": "Rosner",
+        "color": [
+            0.641785,
+            0.993964,
+            1.0
+        ]
+    },
+    {
+        "id": 280,
+        "login": "royr",
+        "full_name": "Ritwika Roy",
+        "first_name": "Ritwika",
+        "last_name": "Roy",
+        "color": [
+            0.364358,
+            0.56271,
+            1.0
+        ]
+    },
+    {
+        "id": 40,
+        "login": "ryanm",
+        "full_name": "Melissa Ryan",
+        "first_name": "Melissa",
+        "last_name": "Ryan",
+        "color": [
+            0.343351,
+            1.0,
+            0.845529
+        ]
+    },
+    {
+        "id": 15,
+        "login": "saalfelds",
+        "full_name": "Stephan Saalfeld",
+        "first_name": "Stephan",
+        "last_name": "Saalfeld",
+        "color": [
+            0.0,
+            1.0,
+            0.5
+        ]
+    },
+    {
+        "id": 231,
+        "login": "salarisi",
+        "full_name": "Ilenia Salaris",
+        "first_name": "Ilenia",
+        "last_name": "Salaris",
+        "color": [
+            1.0,
+            0.550352,
+            0.488822
+        ]
+    },
+    {
+        "id": 245,
+        "login": "salmanf",
+        "full_name": "Farzaan Salman",
+        "first_name": "Farzaan",
+        "last_name": "Salman",
+        "color": [
+            0.671402,
+            0.345155,
+            1.0
+        ]
+    },
+    {
+        "id": 259,
+        "login": "sammonsm",
+        "full_name": "Megan Sammons",
+        "first_name": "Megan",
+        "last_name": "Sammons",
+        "color": [
+            0.99979,
+            0.999711,
+            1.0
+        ]
+    },
+    {
+        "id": 302,
+        "login": "sancerg",
+        "full_name": "Gizem Sancer",
+        "first_name": "Gizem",
+        "last_name": "Sancer",
+        "color": [
+            0.275778,
+            0.624939,
+            1.0
+        ]
+    },
+    {
+        "id": 260,
+        "login": "sarkarn",
+        "full_name": "Nathan Sarkar",
+        "first_name": "Nathan",
+        "last_name": "Sarkar",
+        "color": [
+            0.677856,
+            1.0,
+            0.871976
+        ]
+    },
+    {
+        "id": 94,
+        "login": "schlegelp",
+        "full_name": "Philipp Schlegel",
+        "first_name": "Philipp",
+        "last_name": "Schlegel",
+        "color": [
+            0.719159,
+            0.907619,
+            1.0
+        ]
+    },
+    {
+        "id": 9,
+        "login": "caseysm",
+        "full_name": "Casey Schneider-Mizell",
+        "first_name": "Casey",
+        "last_name": "Schneider-Mizell",
+        "color": [
+            1.0,
+            0.0,
+            0.5
+        ]
+    },
+    {
+        "id": 191,
+        "login": "schorj",
+        "full_name": "Johann Schor",
+        "first_name": "Johann",
+        "last_name": "Schor",
+        "color": [
+            0.644336,
+            0.689364,
+            1.0
+        ]
+    },
+    {
+        "id": 91,
+        "login": "scottak",
+        "full_name": "Annie Scott",
+        "first_name": "Annie",
+        "last_name": "Scott",
+        "color": [
+            0.513663,
+            0.444115,
+            1.0
+        ]
+    },
+    {
+        "id": 90,
+        "login": "scottal",
+        "full_name": "Ashley Scott",
+        "first_name": "Ashley",
+        "last_name": "Scott",
+        "color": [
+            1.0,
+            0.742371,
+            0.925372
+        ]
+    },
+    {
+        "id": 242,
+        "login": "ScottK",
+        "full_name": "kristin Scott",
+        "first_name": "kristin",
+        "last_name": "Scott",
+        "color": [
+            1.0,
+            0.02853,
+            0.078808
+        ]
+    },
+    {
+        "id": 83,
+        "login": "seedsa",
+        "full_name": "Andy Seeds",
+        "first_name": "Andy",
+        "last_name": "Seeds",
+        "color": [
+            0.944273,
+            1.0,
+            0.722307
+        ]
+    },
+    {
+        "id": 29,
+        "login": "sharifin",
+        "full_name": "Nadiya Sharifi",
+        "first_name": "Nadiya",
+        "last_name": "Sharifi",
+        "color": [
+            1.0,
+            0.435196,
+            0.885773
+        ]
+    },
+    {
+        "id": 35,
+        "login": "sheridana",
+        "full_name": "Arlo Sheridan",
+        "first_name": "Arlo",
+        "last_name": "Sheridan",
+        "color": [
+            1.0,
+            0.982973,
+            0.970609
+        ]
+    },
+    {
+        "id": 36,
+        "login": "smithn",
+        "full_name": "Aidan Smith",
+        "first_name": "Aidan",
+        "last_name": "Smith",
+        "color": [
+            0.296113,
+            1.0,
+            0.282602
+        ]
+    },
+    {
+        "id": 200,
+        "login": "smithk",
+        "full_name": "Kelsey Smith",
+        "first_name": "Kelsey",
+        "last_name": "Smith",
+        "color": [
+            1.0,
+            0.283389,
+            0.027363
+        ]
+    },
+    {
+        "id": 34,
+        "login": "spillmane",
+        "full_name": "Emma Spillman",
+        "first_name": "Emma",
+        "last_name": "Spillman",
+        "color": [
+            1.0,
+            0.484561,
+            0.593021
+        ]
+    },
+    {
+        "id": 305,
+        "login": "starki",
+        "full_name": "Ildiko Stark",
+        "first_name": "Ildiko",
+        "last_name": "Stark",
+        "color": [
+            0.833613,
+            1.0,
+            0.923045
+        ]
+    },
+    {
+        "id": 234,
+        "login": "steckk",
+        "full_name": "Kathrin Steck",
+        "first_name": "Kathrin",
+        "last_name": "Steck",
+        "color": [
+            0.315936,
+            1.0,
+            0.293323
+        ]
+    },
+    {
+        "id": 194,
+        "login": "stevensk",
+        "full_name": "Katie Stevens",
+        "first_name": "Katie",
+        "last_name": "Stevens",
+        "color": [
+            0.44464,
+            1.0,
+            0.704564
+        ]
+    },
+    {
+        "id": 279,
+        "login": "stewarte",
+        "full_name": "Emily Ann Stewart",
+        "first_name": "Emily Ann",
+        "last_name": "Stewart",
+        "color": [
+            0.201923,
+            0.238668,
+            1.0
+        ]
+    },
+    {
+        "id": 173,
+        "login": "suleimana",
+        "full_name": "Alia Suleiman",
+        "first_name": "Alia",
+        "last_name": "Suleiman",
+        "color": [
+            0.126598,
+            1.0,
+            0.010469
+        ]
+    },
+    {
+        "id": 73,
+        "login": "suny",
+        "full_name": "Yi Sun",
+        "first_name": "Yi",
+        "last_name": "Sun",
+        "color": [
+            0.992439,
+            0.96598,
+            1.0
+        ]
+    },
+    {
+        "id": 157,
+        "login": "svirskasr",
+        "full_name": "Rob Svirskas",
+        "first_name": "Rob",
+        "last_name": "Svirskas",
+        "color": [
+            0.697099,
+            1.0,
+            0.894675
+        ]
+    },
+    {
+        "id": 263,
+        "login": "sweetn",
+        "full_name": "Nick Sweet",
+        "first_name": "Nick",
+        "last_name": "Sweet",
+        "color": [
+            0.919225,
+            0.390843,
+            1.0
+        ]
+    },
+    {
+        "id": 128,
+        "login": "remyt",
+        "full_name": "Remy Tabano",
+        "first_name": "Remy",
+        "last_name": "Tabano",
+        "color": [
+            0.651464,
+            1.0,
+            0.116856
+        ]
+    },
+    {
+        "id": 154,
+        "login": "taggl",
+        "full_name": "Lindsey Tagg",
+        "first_name": "Lindsey",
+        "last_name": "Tagg",
+        "color": [
+            0.815289,
+            1.0,
+            0.73488
+        ]
+    },
+    {
+        "id": 92,
+        "login": "taiszi",
+        "full_name": "Istvan Taisz",
+        "first_name": "Istvan",
+        "last_name": "Taisz",
+        "color": [
+            0.900526,
+            0.950961,
+            1.0
+        ]
+    },
+    {
+        "id": 283,
+        "login": "tamimii",
+        "full_name": "Imaan Tamimi",
+        "first_name": "Imaan",
+        "last_name": "Tamimi",
+        "color": [
+            0.756105,
+            1.0,
+            0.677001
+        ]
+    },
+    {
+        "id": 140,
+        "login": "team",
+        "full_name": "team team",
+        "first_name": "team",
+        "last_name": "team",
+        "color": [
+            0.451968,
+            1.0,
+            0.863276
+        ]
+    },
+    {
+        "id": 247,
+        "login": "tenshawe",
+        "full_name": "Emily Tenshaw",
+        "first_name": "Emily",
+        "last_name": "Tenshaw",
+        "color": [
+            0.519545,
+            1.0,
+            0.803641
+        ]
+    },
+    {
+        "id": 248,
+        "login": "theissm",
+        "full_name": "Maria Theiss",
+        "first_name": "Maria",
+        "last_name": "Theiss",
+        "color": [
+            1.0,
+            0.379001,
+            0.442198
+        ]
+    },
+    {
+        "id": 254,
+        "login": "thomsona",
+        "full_name": "Alex Thomson",
+        "first_name": "Alex",
+        "last_name": "Thomson",
+        "color": [
+            1.0,
+            0.207852,
+            0.485674
+        ]
+    },
+    {
+        "id": 74,
+        "login": "trans",
+        "full_name": "Stanley Tran",
+        "first_name": "Stanley",
+        "last_name": "Tran",
+        "color": [
+            1.0,
+            0.482273,
+            0.959514
+        ]
+    },
+    {
+        "id": 271,
+        "login": "turnbullr",
+        "full_name": "Robert Turnbull",
+        "first_name": "Robert",
+        "last_name": "Turnbull",
+        "color": [
+            1.0,
+            0.941027,
+            0.686925
+        ]
+    },
+    {
+        "id": 70,
+        "login": "turnerevansd",
+        "full_name": "Dan Turne-Evans",
+        "first_name": "Dan",
+        "last_name": "Turne-Evans",
+        "color": [
+            0.963322,
+            1.0,
+            0.876838
+        ]
+    },
+    {
+        "id": 139,
+        "login": "slackbot",
+        "full_name": "SlackBot UK Team",
+        "first_name": "SlackBot",
+        "last_name": "UK Team",
+        "color": [
+            0.604319,
+            0.559715,
+            1.0
+        ]
+    },
+    {
+        "id": 166,
+        "login": "google-segmentation",
+        "full_name": "Import User",
+        "first_name": "Import",
+        "last_name": "User",
+        "color": [
+            0.362004,
+            1.0,
+            0.301702
+        ]
+    },
+    {
+        "id": 107,
+        "login": "testUser1",
+        "full_name": "test User1",
+        "first_name": "test",
+        "last_name": "User1",
+        "color": [
+            0.873546,
+            1.0,
+            0.015596
+        ]
+    },
+    {
+        "id": 66,
+        "login": "valentam",
+        "full_name": "Monica Valenta",
+        "first_name": "Monica",
+        "last_name": "Valenta",
+        "color": [
+            0.906261,
+            1.0,
+            0.843856
+        ]
+    },
+    {
+        "id": 189,
+        "login": "vallas",
+        "full_name": "Sophia Valla",
+        "first_name": "Sophia",
+        "last_name": "Valla",
+        "color": [
+            0.962135,
+            1.0,
+            0.997589
+        ]
+    },
+    {
+        "id": 292,
+        "login": "vanderbeckq",
+        "full_name": "Quinn Vanderbeck",
+        "first_name": "Quinn",
+        "last_name": "Vanderbeck",
+        "color": [
+            0.712993,
+            0.552558,
+            1.0
+        ]
+    },
+    {
+        "id": 158,
+        "login": "varelai",
+        "full_name": "Irene Varela",
+        "first_name": "Irene",
+        "last_name": "Varela",
+        "color": [
+            0.016972,
+            0.595108,
+            1.0
+        ]
+    },
+    {
+        "id": 307,
+        "login": "vazirip",
+        "full_name": "Parisa Vaziri",
+        "first_name": "Parisa",
+        "last_name": "Vaziri",
+        "color": [
+            0.827516,
+            0.98973,
+            1.0
+        ]
+    },
+    {
+        "id": 131,
+        "login": "waddells",
+        "full_name": "Scott Waddell",
+        "first_name": "Scott",
+        "last_name": "Waddell",
+        "color": [
+            0.501346,
+            1.0,
+            0.81871
+        ]
+    },
+    {
+        "id": 192,
+        "login": "walshj",
+        "full_name": "John Walsh",
+        "first_name": "John",
+        "last_name": "Walsh",
+        "color": [
+            1.0,
+            0.756761,
+            0.531473
+        ]
+    },
+    {
+        "id": 77,
+        "login": "wangf",
+        "full_name": "Fei Wang",
+        "first_name": "Fei",
+        "last_name": "Wang",
+        "color": [
+            0.116782,
+            0.160572,
+            1.0
+        ]
+    },
+    {
+        "id": 93,
+        "login": "warnera",
+        "full_name": "Austin Warner",
+        "first_name": "Austin",
+        "last_name": "Warner",
+        "color": [
+            1.0,
+            0.047665,
+            0.027498
+        ]
+    },
+    {
+        "id": 172,
+        "login": "Warnerl",
+        "full_name": "Lauren Warner",
+        "first_name": "Lauren",
+        "last_name": "Warner",
+        "color": [
+            0.990988,
+            0.99602,
+            1.0
+        ]
+    },
+    {
+        "id": 38,
+        "login": "waterss",
+        "full_name": "Spencer Waters",
+        "first_name": "Spencer",
+        "last_name": "Waters",
+        "color": [
+            0.947942,
+            1.0,
+            0.952452
+        ]
+    },
+    {
+        "id": 69,
+        "login": "wegemers",
+        "full_name": "Stephanie Wegemer",
+        "first_name": "Stephanie",
+        "last_name": "Wegemer",
+        "color": [
+            0.560187,
+            1.0,
+            0.336341
+        ]
+    },
+    {
+        "id": 276,
+        "login": "wernetm",
+        "full_name": "Mathias Wernet",
+        "first_name": "Mathias",
+        "last_name": "Wernet",
+        "color": [
+            0.796628,
+            0.679389,
+            1.0
+        ]
+    },
+    {
+        "id": 290,
+        "login": "wilsonr",
+        "full_name": "Rachel Wilson",
+        "first_name": "Rachel",
+        "last_name": "Wilson",
+        "color": [
+            0.990634,
+            1.0,
+            0.653897
+        ]
+    },
+    {
+        "id": 33,
+        "login": "wisselle",
+        "full_name": "Emily Wissell",
+        "first_name": "Emily",
+        "last_name": "Wissell",
+        "color": [
+            0.496065,
+            0.713716,
+            1.0
+        ]
+    },
+    {
+        "id": 179,
+        "login": "wonga",
+        "full_name": "Allan Wong",
+        "first_name": "Allan",
+        "last_name": "Wong",
+        "color": [
+            0.604599,
+            0.74947,
+            1.0
+        ]
+    },
+    {
+        "id": 81,
+        "login": "wus",
+        "full_name": "Shiuan-Tze Wu",
+        "first_name": "Shiuan-Tze",
+        "last_name": "Wu",
+        "color": [
+            0.540703,
+            1.0,
+            0.338142
+        ]
+    },
+    {
+        "id": 153,
+        "login": "yangt",
+        "full_name": "Tansy Yang",
+        "first_name": "Tansy",
+        "last_name": "Yang",
+        "color": [
+            0.793044,
+            1.0,
+            0.409584
+        ]
+    },
+    {
+        "id": 183,
+        "login": "zhaoa",
+        "full_name": "Arthur Zhao",
+        "first_name": "Arthur",
+        "last_name": "Zhao",
+        "color": [
+            1.0,
+            0.593497,
+            0.750962
+        ]
+    },
+    {
+        "id": 311,
+        "login": "zhaox",
+        "full_name": "Xincheng Zhao",
+        "first_name": "Xincheng",
+        "last_name": "Zhao",
+        "color": [
+            1.0,
+            0.152571,
+            0.038243
+        ]
+    },
+    {
+        "id": 3,
+        "login": "zzheng",
+        "full_name": "Zhihao Zheng",
+        "first_name": "Zhihao",
+        "last_name": "Zheng",
+        "color": [
+            1.0,
+            0.0,
+            0.5
+        ]
+    }
+]
