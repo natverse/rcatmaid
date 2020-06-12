@@ -51,6 +51,7 @@ head(catmaid_get_all_labels())
 \seealso{
 \code{\link{catmaid_get_review_status}}
 
-Other labels: \code{\link{catmaid_get_labels}}
+Other labels: 
+\code{\link{catmaid_get_labels}()}
 }
 \concept{labels}

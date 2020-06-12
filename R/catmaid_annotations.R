@@ -244,13 +244,13 @@ catmaid_remove_meta_annotations <-function(annotations,
                                            force=FALSE, 
                                            pid=1,
                                            conn=NULL, ...) {
-  a <- 0
+  a <- NULL
   if(!possibly.numeric(annotations)){
     a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...)
     annotations <- a$annotations[a$annotations$name%in%annotations,"id"]
   }
   if(!possibly.numeric(meta_annotations)){
-    if(a == 0){
+    if(is.null(a$annotations)){
       a <- catmaid_get_annotationlist(pid=pid, conn=conn, ...) 
     }
     meta_annotations <- a$annotations[a$annotations$name%in%meta_annotations,"id"]

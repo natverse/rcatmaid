@@ -7,9 +7,16 @@
 \usage{
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
-catmaid_connection(server, username = NULL, password = NULL,
-  authname = NULL, authpassword = NULL, token = NULL,
-  authtype = NULL, config = NULL)
+catmaid_connection(
+  server,
+  username = NULL,
+  password = NULL,
+  authname = NULL,
+  authpassword = NULL,
+  token = NULL,
+  authtype = NULL,
+  config = NULL
+)
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}

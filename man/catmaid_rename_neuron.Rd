@@ -4,8 +4,14 @@
 \alias{catmaid_rename_neuron}
 \title{Rename (presently) a single neuron or other entity (e.g. annotation)}
 \usage{
-catmaid_rename_neuron(skids = NULL, entityids = NULL, names, pid = 1,
-  conn = NULL, ...)
+catmaid_rename_neuron(
+  skids = NULL,
+  entityids = NULL,
+  names,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
