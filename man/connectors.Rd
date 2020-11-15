@@ -18,7 +18,7 @@ connectors(x, ...)
 \item{...}{Additional arguments passed to methods (and to \code{nlapply} in 
 the case of connectors)}
 
-\item{subset, }{optional subset of neurons to keep (see 
+\item{subset, }{optional subset of neurons to keep (see
 \code{\link[nat]{nlapply}} for details)}
 }
 \value{
@@ -47,6 +47,14 @@ A data.frame with columns \itemize{
 In contrast to \code{\link{catmaid_get_connector_table}} this assumes that
 you have already read the neurons into an R structure of class 
 \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}}.
+}
+\details{
+Note that the id column identifying each neuron will be called
+  \code{bodyid} or \code{skid} if such a field exists in the metadata
+  attached to the neuron or \code{id} otherwise. If the column is called
+  skid, the identifier will be converted to an integer otherwise it will be a
+  character vector. These adjustments will avoid large 64 bit int ids from
+  neuprint being zapped.
 }
 \examples{
 \dontrun{

@@ -236,9 +236,15 @@ connectors.neuron<-function(x, ...) {
 }
 
 #' @rdname connectors
-#' @param subset, optional subset of neurons to keep (see 
+#' @param subset, optional subset of neurons to keep (see
 #'   \code{\link[nat]{nlapply}} for details)
 #' @export
+#' @details Note that the id column identifying each neuron will be called
+#'   \code{bodyid} or \code{skid} if such a field exists in the metadata
+#'   attached to the neuron or \code{id} otherwise. If the column is called
+#'   skid, the identifier will be converted to an integer otherwise it will be a
+#'   character vector. These adjustments will avoid large 64 bit int ids from
+#'   neuprint being zapped.
 #' @seealso \code{\link[nat]{nlapply}}
 #' @importFrom plyr rbind.fill
 connectors.neuronlist<-function(x, subset=NULL, ...) {
@@ -246,7 +252,15 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
   # drop any null return values
   dfs=dfs[!sapply(dfs,is.null)]
   df=rbind.fill(dfs)
-  df$skid=as.integer(rep(names(dfs), sapply(dfs, nrow)))
+  skids=names(dfs)
+  # bit of a cheat, but support neuprint bodyids here
+  cx=colnames(x[,])
+  idcol=if('skid' %in% cx) 'skid' else {
+    if('bodyid' %in% cx) 'bodyid' else 'id'
+  }
+  # only convert catmaid ids to integer 
+  if(idcol=='skid') skids=as.integer(skids)
+  df[[idcol]]=rep(skids, sapply(dfs, nrow))
   df
 }
 
