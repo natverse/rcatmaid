@@ -453,7 +453,7 @@ copy_tags_connectors <- function(new, old, update_node_ids=TRUE) {
   } else {
     nnres = nabor::knn(
       data = nat::xyzmatrix(new),
-      query = nat::xyzmatrix(old)[match(old_tag_ids, old$d$PointNo), ],
+      query = nat::xyzmatrix(old)[match(old_tag_ids, old$d$PointNo), , drop=FALSE],
       k = 1
     )
     new_tag_ids = new$d$PointNo[nnres$nn.idx]
