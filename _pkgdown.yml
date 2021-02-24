@@ -6,6 +6,7 @@ reference:
   desc: Functions handling connections to a catmaid server
   contents:
   - catmaid_login
+  - vfbcatmaid
   - catmaid_connection_setenv
 - title: CATMAID skeleton functions
   desc: Fetching raw skeleton information
