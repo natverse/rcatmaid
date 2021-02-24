@@ -27,8 +27,10 @@ A connection to the vfb catmaid server for a given dataset
 }
 
 \examples{
-\dontrun{
+\donttest{
 vfbcatmaid("fafb")
+}
+\dontrun{
 vfbcatmaid("l1em")
 vfbcatmaid("fanc")
 }

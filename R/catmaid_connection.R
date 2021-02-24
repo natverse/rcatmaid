@@ -98,7 +98,7 @@
 #'   file.
 #'   
 #' @seealso \code{\link{options}}, \code{\link{Startup}},
-#'   \code{\link{vfb_catmaid}}
+#'   \code{\link{vfbcatmaid}}
 #' @export
 #' @examples
 #' \dontrun{
