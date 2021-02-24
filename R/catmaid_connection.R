@@ -97,7 +97,9 @@
 #'   it is important to have a final return at the end of your \code{.Rprofile}
 #'   file.
 #'   
-#' @seealso \code{\link{options}}, \code{\link{Startup}}
+#' @seealso \code{\link{options}}, \code{\link{Startup}},
+#'   \code{\link{vfb_catmaid}}
+#' @export
 #' @examples
 #' \dontrun{
 #' ## example explicitly specifying connection options
@@ -132,8 +134,6 @@
 #' skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton",
 #'   config=conn$config)
 #' }
-#' @export
-#' 
 catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   if(is.character(conn) && grepl("^http", conn)) {
     # this looks like a server, probably because we are trying to connect to 

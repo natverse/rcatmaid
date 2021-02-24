@@ -81,8 +81,7 @@ test_that("read.neuron(s).catmaid and connectors", {
 
 test_that("read.neuron", {
   skip_if_offline()
-  pubconn <- catmaid_connection(
-    server="https://fafb.catmaid.virtualflybrain.org")
+  pubconn <- vfbcatmaid("fafb")
   n=try(read.neurons.catmaid('name:PN glomerulus DL4 23830 JMR', conn=pubconn)[[1]])
   skip_if_not(is.neuron(n))
   # exactly one soma recorded in Label column

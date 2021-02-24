@@ -54,7 +54,7 @@ Note that if \code{x} is a volume name as a character vector then it
 ## NB all these examples refer to the FAFB adult Drosophila brain
 ## CATMAID instance
 \donttest{
-fafbconn=catmaid_login(server="https://fafb.catmaid.virtualflybrain.org")
+fafbconn=vfbcatmaid("fafb")
 v14.neuropil=catmaid_get_volume('v14.neuropil', conn=fafbconn)
 # specifying by name is easier / less fragile than numeric ids
 }
