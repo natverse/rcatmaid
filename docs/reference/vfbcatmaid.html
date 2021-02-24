@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read a CATMAID selection file — read_catmaid_selection • catmaid</title>
+<title>A connection to the vfb catmaid server for a given dataset — vfbcatmaid • catmaid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Read a CATMAID selection file — read_catmaid_selection" />
-<meta property="og:description" content="Read a CATMAID selection file" />
+<meta property="og:title" content="A connection to the vfb catmaid server for a given dataset — vfbcatmaid" />
+<meta property="og:description" content="A connection to the vfb catmaid server for a given dataset" />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -137,98 +137,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read a CATMAID selection file</h1>
-    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/catmaid_selection.R'><code>R/catmaid_selection.R</code></a></small>
-    <div class="hidden name"><code>read_catmaid_selection.Rd</code></div>
+    <h1>A connection to the vfb catmaid server for a given dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/R/vfb.R'><code>R/vfb.R</code></a></small>
+    <div class="hidden name"><code>vfbcatmaid.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read a CATMAID selection file</p>
+    <p>A connection to the vfb catmaid server for a given dataset</p>
     </div>
 
-    <pre class="usage"><span class='fu'>read_catmaid_selection</span><span class='op'>(</span><span class='va'>f</span>, readNeurons <span class='op'>=</span> <span class='cn'>FALSE</span>, getNames <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>vfbcatmaid</span><span class='op'>(</span>dataset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"fafb"</span>, <span class='st'>"l1em"</span>, <span class='st'>"fanc"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>f</th>
-      <td><p>Path to the <code>.json</code> file saved by CATMAID</p></td>
-    </tr>
-    <tr>
-      <th>readNeurons</th>
-      <td><p>Whether or not to read the neurons listed in the selection
-file</p></td>
-    </tr>
-    <tr>
-      <th>getNames</th>
-      <td><p>Whether to fetch the names of the neurons (default 
-<code>TRUE</code>, ignored if neurons are being fetched)</p></td>
+      <th>dataset</th>
+      <td><p>Character vector specifying dataset. See datasets section..</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Connection parameters passed to <code>read.neurons.catmaid</code></p></td>
+      <td><p>Additional arguments passed to <code><a href='catmaid_login.html'>catmaid_login</a></code></p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="datasets"><a class="anchor" href="#datasets"></a>Datasets</h2>
 
-    <p>A <code>data.frame</code> containing the selection information or (if 
-  <code>readNeurons=TRUE</code>) a <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> containing this 
-  information in the attached metadata. The columns will be</p><ul>
-<li><p>skid The numeric skeleton id</p></li>
-<li><p>color The colour of the selected neuron in catmaid</p></li>
-<li><p>opacity The opacity (alpha value) of the neuron name</p></li>
-<li><p>name Optionally the name of the neuron</p></li>
+    <p>The following three datasets are currently available</p><ul>
+<li><p><code>fafb</code> The full adult female brain <em>Drosophila</em> dataset</p></li>
+<li><p><code>l1em</code> The L1 first instar larval <em>Drosophila</em> dataset</p></li>
+<li><p><code>fanc</code> The Full Adult female Nerve Cord <em>Drosophila</em>
+  dataset</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='write_catmaid_selection.html'>write_catmaid_selection</a></code></p></div>
+    <div class='dont-index'><p><code><a href='catmaid_login.html'>catmaid_login</a></code>,
+  <a href='https://catmaid.virtualflybrain.org/'>https://catmaid.virtualflybrain.org/</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>f</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'catmaid-skeletons.json'</span>, package <span class='op'>=</span> <span class='st'>'catmaid'</span><span class='op'>)</span>
-<span class='fu'>read_catmaid_selection</span><span class='op'>(</span><span class='va'>f</span>, getNames<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;       skid   color opacity
-#&gt; 1  1180353 #ffff00       1
-#&gt; 2  1181286 #ff00ff       1
-#&gt; 3  1182615 #0000ff       1
-#&gt; 4  1313485 #00ff00       1
-#&gt; 5  1334552 #ffffff       1
-#&gt; 6  1334561 #00ffff       1
-#&gt; 7  1371629 #ff7f00       1
-#&gt; 8  2390270 #7fff00       1
-#&gt; 9  2390280 #7f7f7f       1
-#&gt; 10 3826596 #ff0000       1
-#&gt; 11 3842618 #7f7fff       1
-#&gt; 12 3853002 #bfbfbf       1
-#&gt; 13 3872709 #ff7f7f       1
-#&gt; 14 4232956 #7fff7f       1
-#&gt; 15 4260599 #ff007f       1
-#&gt; 16 1182625 #d8a31e       1
-#&gt; 17 1273130 #3fe0d1       1
-#&gt; 18 1334538 #ffbfc9       1
-#&gt; 19 1338786 #08f62f       1
-#&gt; 20 3842350 #f30b61       1
-#&gt; 21 3852709 #02fc9f       1
-#&gt; 22 3908112 #04fa3f       1
-#&gt; 23 3910750 #ffffff       1
-#&gt; 24 3927073 #57f608       1
-#&gt; 25 3930323 #ff0046       1
-#&gt; 26 3931453 #98ff00       1
-#&gt; 27 4149101 #89bf3f       1
-#&gt; 28 4165941 #00ff51       1
-#&gt; 29 4214127 #ff9a00       1
-#&gt; 30 4233149 #819cfd       1
-#&gt; 31 4260588 #dfae9f       1
-#&gt; 32 4276626 #fc82f7       1
-#&gt; 33 4311394 #99fa83       1
-#&gt; 34 4328317 #1306f8       1
-#&gt; 35 4344859 #790a05       1</div><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># read in the neurons for the selection</span>
-<span class='va'>x</span><span class='op'>=</span><span class='fu'>read_catmaid_selection</span><span class='op'>(</span><span class='va'>f</span>, readNeurons<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='co'># plot using the CATMAID colour specifications</span>
-<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span><span class='op'>(</span><span class='va'>x</span>, col<span class='op'>=</span><span class='va'>color</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>vfbcatmaid</span><span class='op'>(</span><span class='st'>"fafb"</span><span class='op'>)</span>
+<span class='fu'>vfbcatmaid</span><span class='op'>(</span><span class='st'>"l1em"</span><span class='op'>)</span>
+<span class='fu'>vfbcatmaid</span><span class='op'>(</span><span class='st'>"fanc"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

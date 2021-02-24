@@ -38,9 +38,15 @@ library(catmaid)
 conn=catmaid_login(server="https://l1em.catmaid.virtualflybrain.org")
 ```
 
+There is also a convenience function which you could use to do the same thing:
+```{r, eval=FALSE}
+conn=vfbcatmaid("l1em")
+```
+for the public VFB servers.
+
 ## Fetching neurons
 
-Now lets fetch the peripheral olfactory sensory neurons, reading them into a 
+Now let's fetch the peripheral olfactory sensory neurons, reading them into a 
 `neuronlist()` object called `orns`.
 ```{r orns}
 orns=read.neurons.catmaid("name:ORN (left|right)")

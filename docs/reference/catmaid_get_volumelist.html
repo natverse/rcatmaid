@@ -8,25 +8,36 @@
 
 <title>Fetch a data frame containing details of all volumes on CATMAID server — catmaid_get_volumelist • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,8 +48,7 @@
 
 <meta property="og:title" content="Fetch a data frame containing details of all volumes on CATMAID server — catmaid_get_volumelist" />
 <meta property="og:description" content="Fetch a data frame containing details of all volumes on CATMAID server" />
-<meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -56,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -110,7 +120,7 @@
 </li>
 <li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,7 +146,7 @@
     <p>Fetch a data frame containing details of all volumes on CATMAID server</p>
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_volumelist</span>(<span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>catmaid_get_volumelist</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='cn'>NULL</span>, pid <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,55 +187,42 @@ function.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='no'>vl</span> <span class='kw'>&lt;-</span> <span class='fu'>catmaid_get_volumelist</span>()
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>vl</span>)</div><div class='output co'>#&gt;    id         name                 comment user_id editor_id project_id
+<span class='va'>vl</span> <span class='op'>&lt;-</span> <span class='fu'>catmaid_get_volumelist</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='va'>vl</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    id         name                 comment user_id editor_id project_id
 #&gt; 1 439 v14.neuropil                    &lt;NA&gt;      55       247          1
 #&gt; 2 440        AME_R Accessory medulla right      55        55          1
 #&gt; 3 441         LO_R            Lobula right      55        55          1
 #&gt; 4 442           NO                  Noduli      55        55          1
 #&gt; 5 443         BU_R              Bulb right      55        55          1
 #&gt; 6 444           PB    Protocerebral bridge      55        55          1
-#&gt;              creation_time             edition_time    annotations        area
-#&gt; 1 2017-10-05T21:01:18.683Z 2018-08-30T17:21:20.910Z         Export 6.37731e+11
-#&gt; 2 2017-10-08T13:54:03.279Z 2017-10-08T13:54:03.279Z Primary,Export 1.89410e+09
-#&gt; 3 2017-10-08T13:54:03.840Z 2017-10-08T13:54:03.840Z Export,Primary 4.10328e+10
-#&gt; 4 2017-10-08T13:54:04.084Z 2017-10-08T13:54:04.084Z Export,Primary 3.95516e+09
-#&gt; 5 2017-10-08T13:54:04.263Z 2017-10-08T13:54:04.263Z Export,Primary 1.44587e+09
-#&gt; 6 2017-10-08T13:54:04.449Z 2017-10-08T13:54:04.449Z Export,Primary 1.31393e+10
-#&gt;        volume watertight meta_computed
-#&gt; 1 1.53338e+16      FALSE          TRUE
-#&gt; 2 4.79929e+12       TRUE          TRUE
-#&gt; 3 5.79071e+14       TRUE          TRUE
-#&gt; 4 1.79639e+13       TRUE          TRUE
-#&gt; 5 4.10926e+12       TRUE          TRUE
-#&gt; 6 5.51894e+13       TRUE          TRUE</div><div class='input'><span class='co'># find meshes whose name matches neuropil</span>
-<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>vl</span>, <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span>(<span class='st'>'neuropil'</span>, <span class='no'>name</span>))</div><div class='output co'>#&gt;       id                  name
-#&gt; 1    439          v14.neuropil
-#&gt; 494 1291          FIB.neuropil
-#&gt; 503 2981 v14.JRC2018F.neuropil
-#&gt;                                                             comment user_id
-#&gt; 1                                                              &lt;NA&gt;      55
-#&gt; 494 Compound mesh from individual FIB neuropils. Highly simplified!      94
-#&gt; 503                                                            &lt;NA&gt;      55
-#&gt;     editor_id project_id            creation_time             edition_time
-#&gt; 1         247          1 2017-10-05T21:01:18.683Z 2018-08-30T17:21:20.910Z
-#&gt; 494        94          1 2019-02-07T17:06:49.614Z 2019-02-07T17:06:49.614Z
-#&gt; 503        55          1 2019-07-08T16:32:10.551Z 2019-07-08T16:32:10.551Z
-#&gt;     annotations        area       volume watertight meta_computed
-#&gt; 1        Export 6.37731e+11  1.53338e+16      FALSE          TRUE
-#&gt; 494          NA 4.70959e+11 -5.87460e+15      FALSE          TRUE
-#&gt; 503          NA 8.55750e+11  1.61820e+16      FALSE          TRUE</div><div class='input'># }
+#&gt;              creation_time             edition_time annotations         area
+#&gt; 1 2017-10-05T21:01:18.683Z 2018-08-30T17:21:20.910Z          NA 637731300000
+#&gt; 2 2017-10-08T13:54:03.279Z 2017-10-08T13:54:03.279Z          NA   1894095100
+#&gt; 3 2017-10-08T13:54:03.840Z 2017-10-08T13:54:03.840Z          NA  41032815000
+#&gt; 4 2017-10-08T13:54:04.084Z 2017-10-08T13:54:04.084Z          NA   3955157800
+#&gt; 5 2017-10-08T13:54:04.263Z 2017-10-08T13:54:04.263Z          NA   1445868300
+#&gt; 6 2017-10-08T13:54:04.449Z 2017-10-08T13:54:04.449Z          NA  13139257000
+#&gt;         volume watertight meta_computed
+#&gt; 1 1.533375e+16      FALSE          TRUE
+#&gt; 2 4.799292e+12       TRUE          TRUE
+#&gt; 3 5.790708e+14       TRUE          TRUE
+#&gt; 4 1.796395e+13       TRUE          TRUE
+#&gt; 5 4.109262e+12       TRUE          TRUE
+#&gt; 6 5.518945e+13       TRUE          TRUE</div><div class='input'><span class='co'># find meshes whose name matches neuropil</span>
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/subset.html'>subset</a></span><span class='op'>(</span><span class='va'>vl</span>, <span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>'neuropil'</span>, <span class='va'>name</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    id         name comment user_id editor_id project_id
+#&gt; 1 439 v14.neuropil    &lt;NA&gt;      55       247          1
+#&gt;              creation_time             edition_time annotations         area
+#&gt; 1 2017-10-05T21:01:18.683Z 2018-08-30T17:21:20.910Z          NA 637731300000
+#&gt;         volume watertight meta_computed
+#&gt; 1 1.533375e+16      FALSE          TRUE</div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -236,7 +233,7 @@ function.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
