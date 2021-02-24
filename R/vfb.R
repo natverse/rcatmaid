@@ -17,8 +17,10 @@
 #' @seealso \code{\link{catmaid_login}},
 #'   \url{https://catmaid.virtualflybrain.org/}
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' vfbcatmaid("fafb")
+#' }
+#' \dontrun{
 #' vfbcatmaid("l1em")
 #' vfbcatmaid("fanc")
 #' }

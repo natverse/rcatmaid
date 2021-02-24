@@ -557,3 +557,16 @@ catmaid_envstr <- function(){
   else stop(paste("\ncatmaid error: Only found the environment variable -- ", matchvalues))
 }
 
+#' @export
+print.catmaid_connection <- function(x, ...) {
+  cat("Connection to catmaid server:\n  ",
+      x$server, sep="", "\n")
+  # if(!is.null(x$dataset))
+  #   cat("with default dataset:\n  ", x$dataset, "\n")
+  if(!is.null(x$authresponse)) {
+    cat("Login active since:", httr::headers(x$authresponse)$date)
+  } else {
+    cat("No active login")
+  }
+  invisible(x)
+}
