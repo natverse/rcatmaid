@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -188,24 +188,11 @@ integer (or numeric) ids then they will be returned as is.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='fu'>catmaid_get_user_list</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    id         login full_name first_name last_name                        color
-#&gt; 1 341          test                                0.976927, 0.980864, 1.000000
-#&gt; 2 282   upload_user                                0.744291, 1.000000, 0.720093
-#&gt; 3 317         asa_b                                0.984741, 0.054524, 1.000000
-#&gt; 4 261   williamsonr                                0.593947, 0.628997, 1.000000
-#&gt; 5 235   google_fafb                                0.907947, 0.429343, 1.000000
-#&gt; 6  79 rfranconville                                1.000000, 0.156985, 0.439778
-#&gt;   primary_group_id
-#&gt; 1              251
-#&gt; 2               NA
-#&gt; 3               NA
-#&gt; 4               NA
-#&gt; 5               NA
-#&gt; 6               NA</div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_login(conn): Forbidden (HTTP 403).</span></div><div class='input'><span class='co'># }</span>
 <span class='co'># \donttest{</span>
 <span class='fu'>catmaid_userids</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 1</div><div class='input'><span class='fu'>catmaid_userids</span><span class='op'>(</span><span class='st'>'greg'</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='co'># }</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_login(conn): Forbidden (HTTP 403).</span></div><div class='input'><span class='co'># }</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -229,17 +229,10 @@ function.</p></td>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
 <span class='co'># details for 3 nodes from two different skeletons</span>
 <span class='fu'>catmaid_get_treenodes_detail</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>9943214L</span>, <span class='fl'>25069047L</span>, <span class='fl'>12829015L</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;   treenode_id parent_id        x        y      z confidence radius    skid
-#&gt; 1     9943214   9943217 419085.5 175627.1 120280          5     -1 4116825
-#&gt; 2    25069047  25069046 426264.0 244230.0 143920          5     -1 7138957
-#&gt; 3    12829015  12829013 442499.7 147757.4 175160          5     -1 3821611
-#&gt;   edition_time user_id
-#&gt; 1   1498514622     113
-#&gt; 2   1521466478     134
-#&gt; 3   1496347172     150</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_login(conn): Forbidden (HTTP 403).</span></div><div class='input'>
 <span class='co'># example label search</span>
 <span class='va'>tosoma</span><span class='op'>=</span><span class='fu'>catmaid_get_treenodes_detail</span><span class='op'>(</span>labels<span class='op'>=</span><span class='st'>"to soma"</span><span class='op'>)</span>
-<span class='co'># }</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in catmaid_login(conn = conn): Forbidden (HTTP 403).</span></div><div class='input'><span class='co'># }</span>
 
 <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># If you have a lot of skids to query you will need to break up your queries</span>
