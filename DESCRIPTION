@@ -2,7 +2,7 @@ Type: Package
 Package: catmaid
 Title: R access to the API for the CATMAID web image annotation
     tool
-Version: 0.10.0
+Version: 0.10.1
 Authors@R: 
     c(person(given = "Gregory",
              family = "Jefferis",

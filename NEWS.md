@@ -1,3 +1,23 @@
+# catmaid 0.10.1
+
+* Fix bug in pid handling for meshes (#144)
+* Pass on pid / conn in catmaid_get_annotations_for_skeleton (#147)
+* Fix bug in catmaid_query_connected when no outputs at all (#148)
+  Thanks to Shanice Bailey
+* Always pass on conn in catmaid_version calls (#150)
+  Thanks to Rob Turnbull
+* Fix test baseline in catmaid_get_annotations_for_skeletons
+* Switch from deprecated as_data_frame to as_tibble
+* Fix NA types in tibble (#153, @SridharJagannathan)
+* Fix HTTP/2 call failures in `catmaid` server (#158, @SridharJagannathan)
+* Fix [problem in elmr::unspike when only one tag](https://github.com/natverse/elmr/issues/53) (#163, #164)
+* Add `vfbcatmaid()` convenience function
+* Add `print.catmaid_connection` method to give a nice summary of connection
+  properties in the console.
+* Fix bug in setting label field for soma (#167)
+  Thanks to @Robbie1977
+* Fix copy_tags_connectors
+
 # catmaid 0.10.0
 
 * New functions for handling meta annotations (i.e. annotations of annotations):
