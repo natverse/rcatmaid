@@ -101,6 +101,9 @@
 #'   \code{\link{vfbcatmaid}}
 #' @export
 #' @examples
+#' # but see vfbcatmaid() convenience function
+#' catmaid_login(server="https://l1em.catmaid.virtualflybrain.org")
+#' 
 #' \dontrun{
 #' ## example explicitly specifying connection options
 #' # using modern token based authentication
@@ -193,7 +196,7 @@ catmaid_login<-function(conn=NULL, ..., Cache=TRUE, Force=FALSE){
   conn$config=c(conn$config, set_cookies(conn$cookies))
   if(Cache)
     catmaid_cache_connection(conn)
-  invisible(conn)
+  conn
 }
 
 #' @name catmaid_login
@@ -558,6 +561,9 @@ catmaid_envstr <- function(){
 }
 
 #' @export
+#' @rdname catmaid_login
+#' @description \code{print.catmaid_connection} provides a convenient summary of
+#'   the status of a \code{catmaid_connection}.
 print.catmaid_connection <- function(x, ...) {
   cat("Connection to catmaid server:\n  ",
       x$server, sep="", "\n")

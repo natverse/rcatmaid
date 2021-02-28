@@ -3,6 +3,7 @@
 \name{catmaid_login}
 \alias{catmaid_login}
 \alias{catmaid_connection}
+\alias{print.catmaid_connection}
 \title{Connect/authenticate to a CATMAID server, returning a connection object}
 \usage{
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
@@ -17,6 +18,8 @@ catmaid_connection(
   authtype = NULL,
   config = NULL
 )
+
+\method{print}{catmaid_connection}(x, ...)
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
@@ -66,6 +69,9 @@ a \code{catmaid_connection} object that can be used to make
   \code{catmaid_login} to create a connection object. End users should not
   need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server.
+
+\code{print.catmaid_connection} provides a convenient summary of
+  the status of a \code{catmaid_connection}.
 }
 \details{
 After successful login, the \code{catmaid_connection} object will 
@@ -159,6 +165,9 @@ catmaid.authpassword="hobbes"
 }
 
 \examples{
+# but see vfbcatmaid() convenience function
+catmaid_login(server="https://l1em.catmaid.virtualflybrain.org/")
+
 \dontrun{
 ## example explicitly specifying connection options
 # using modern token based authentication
