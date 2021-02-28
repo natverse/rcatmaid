@@ -68,7 +68,7 @@ plot3d(pns, col=Or, soma=1500)
 
 Which produces the following output plot:
 
-[![Larval PN](https://github.com/natverse/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png)]
+![Larval PN](https://github.com/natverse/rcatmaid/raw/master/docs/articles/example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png)
 
 ## Authentication
 You will obviously need to have the login details of a valid CATMAID instance to try 
