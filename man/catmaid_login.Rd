@@ -166,7 +166,7 @@ catmaid.authpassword="hobbes"
 
 \examples{
 # but see vfbcatmaid() convenience function
-catmaid_login(server="https://l1em.catmaid.virtualflybrain.org/")
+catmaid_login(server="https://l1em.catmaid.virtualflybrain.org")
 
 \dontrun{
 ## example explicitly specifying connection options
