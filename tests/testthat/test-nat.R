@@ -12,7 +12,8 @@ test_that("copy fields", {
   
   lhn.noconn <- lhn
   lhn.noconn$connectors=NULL
-  expect_equal(copy_tags_connectors(new = lhn.noconn, old = lhn), lhn.noconn)
+  lhn.noconn$tags=NULL
+  expect_equal(copy_tags_connectors(new = lhn.noconn, old = lhn.noconn), lhn.noconn)
 })
 
 test_that("summary.catmaidneuron behaves", {

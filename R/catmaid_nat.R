@@ -434,7 +434,7 @@ summary.catmaidneuron<-function(object, ...) {
 copy_tags_connectors <- function(new, old, update_node_ids = TRUE) {
   ## connectors
   c = connectors(old)
-  if (update_node_ids) {
+  if (update_node_ids && !is.null(c)) {
     nnres = nabor::knn(
       data = xyzmatrix(new),
       query = xyzmatrix(c),
@@ -448,7 +448,7 @@ copy_tags_connectors <- function(new, old, update_node_ids = TRUE) {
   ## tags
   # replace the tag ids using a similar strategy
   old_tag_ids = unlist(old$tags, use.names = F)
-  if (!update_node_ids) {
+  if (!update_node_ids || length(old_tag_ids)==0) {
     new[['tags']] = old[['tags']]
   } else {
     nnres = nabor::knn(
