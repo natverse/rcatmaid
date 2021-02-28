@@ -15,7 +15,7 @@ set_requester(function (request) {
 
 
 ##Set up the configuration server now for live public configurations.
-publicserver="https://l1em.catmaid.virtualflybrain.org/"
+publicserver="https://l1em.catmaid.virtualflybrain.org"
 pubconn <- vfbcatmaid("l1em", Cache = FALSE)
 
 print(paste0("Testing with public live server: ",publicserver, sep=""))
