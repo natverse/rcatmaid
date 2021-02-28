@@ -431,29 +431,29 @@ summary.catmaidneuron<-function(object, ...) {
 #'   neuron and having the same class as the old neuron.
 #' @family catmaidneuron
 #' @importFrom nabor knn
-copy_tags_connectors <- function(new, old, update_node_ids=TRUE) {
+copy_tags_connectors <- function(new, old, update_node_ids = TRUE) {
   ## connectors
   c = connectors(old)
-  if(update_node_ids) {
-  nnres = nabor::knn(
-    data = nat::xyzmatrix(new),
-    query = nat::xyzmatrix(c),
-    k = 1
-  )
-  # note that we map indices into the point array onto PointNo
-  c$treenode_id=new$d$PointNo[nnres$nn.idx]
+  if (update_node_ids && !is.null(c)) {
+    nnres = nabor::knn(
+      data = xyzmatrix(new),
+      query = xyzmatrix(c),
+      k = 1
+    )
+    # note that we map indices into the point array onto PointNo
+    c$treenode_id = new$d$PointNo[nnres$nn.idx]
   }
   new[['connectors']] = c
-
+  
   ## tags
   # replace the tag ids using a similar strategy
   old_tag_ids = unlist(old$tags, use.names = F)
-  if (!update_node_ids) {
+  if (!update_node_ids || length(old_tag_ids)==0) {
     new[['tags']] = old[['tags']]
   } else {
     nnres = nabor::knn(
-      data = nat::xyzmatrix(new),
-      query = nat::xyzmatrix(old)[match(old_tag_ids, old$d$PointNo), , drop=FALSE],
+      data = xyzmatrix(new),
+      query = xyzmatrix(old)[match(old_tag_ids, old$d$PointNo), , drop = FALSE],
       k = 1
     )
     new_tag_ids = new$d$PointNo[nnres$nn.idx]
@@ -468,6 +468,6 @@ copy_tags_connectors <- function(new, old, update_node_ids=TRUE) {
     }
     names(new$tags) = names(old$tags)
   }
-  class(new)=class(old)
+  class(new) = class(old)
   new
 }
