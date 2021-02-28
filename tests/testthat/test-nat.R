@@ -8,8 +8,11 @@ test_that("copy fields", {
   r=resample(lhn, 1000)
   expect_equal(copy_tags_connectors(new = r, old = lhn, update_node_ids = FALSE)$tags, lhn$tags)
 
-  
   expect_is(r2 <- copy_tags_connectors(new = r, old = lhn), 'catmaidneuron')
+  
+  lhn.noconn <- lhn
+  lhn.noconn$connectors=NULL
+  expect_equal(copy_tags_connectors(new = lhn.noconn, old = lhn), lhn.noconn)
 })
 
 test_that("summary.catmaidneuron behaves", {
