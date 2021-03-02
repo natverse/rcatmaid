@@ -48,6 +48,8 @@ username and password). See \bold{Token based authentication} for details.}
 
 \item{config}{Additional curl config options. See \code{\link[httr]{config}}
 for details and the examples section below.}
+
+\item{x}{A \code{catmaid_connection} object to print}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make 

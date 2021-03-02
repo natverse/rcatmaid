@@ -562,6 +562,7 @@ catmaid_envstr <- function(){
 
 #' @export
 #' @rdname catmaid_login
+#' @param x A \code{catmaid_connection} object to print
 #' @description \code{print.catmaid_connection} provides a convenient summary of
 #'   the status of a \code{catmaid_connection}.
 print.catmaid_connection <- function(x, ...) {
