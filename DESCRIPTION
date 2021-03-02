@@ -56,8 +56,8 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes: 
-    jefferis/nat,
-    jefferislab/nat.nblast
+    natverse/nat,
+    natverse/nat.nblast
 Encoding: UTF-8
 Language: en-GB
 RoxygenNote: 7.1.1
