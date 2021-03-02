@@ -51,7 +51,8 @@ Suggests:
     nat.nblast,
     rmarkdown,
     spelling,
-    testthat
+    testthat,
+    plotly
 VignetteBuilder: 
     knitr
 Remotes: 

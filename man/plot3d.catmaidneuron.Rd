@@ -28,7 +28,7 @@ Plot skeleton and connectors for neuron retrieved from CATMAID
 }
 \examples{
 \dontrun{
-nl=read.neurons.catmaid(c(10418394,4453485))
+nl=read.neurons.catmaid(c(4181593,15738886))
 plot3d(nl)
 
 # now with connectors (i.e. synapses)
