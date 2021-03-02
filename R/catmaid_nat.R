@@ -280,7 +280,7 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' @inheritParams nat::plot3d.neuron
 #' @examples 
 #' \dontrun{
-#' nl=read.neurons.catmaid(c(10418394,4453485))
+#' nl=read.neurons.catmaid(c(4181593,15738886))
 #' plot3d(nl)
 #' 
 #' # now with connectors (i.e. synapses)
@@ -288,17 +288,45 @@ connectors.neuronlist<-function(x, subset=NULL, ...) {
 #' }
 #' @aliases plot3d
 plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, soma=FALSE, ...) {
-  soma=plot3d_somarad(x, soma)
-  rglreturnlist=NextMethod(WithNodes=WithNodes, soma=soma)
+  
+  #get the plotting option..
+  plotengine = getOption('nat.plotengine')
+  
+  #get the soma radius to plot
+  soma = plot3d_somarad(x, soma)
   if (WithConnectors) {
     conndf = connectors(x)
-    # only try to plot if the neuron has connectors
-    if (length(conndf)){
-      rglreturnlist[['synapses']] = 
-        points3d(xyzmatrix(conndf), col = c(pre ='red', post = 'cyan')[conndf$prepost + 1])
-    }
   }
-  invisible(rglreturnlist)
+  
+  if (plotengine == 'rgl') {
+    rglreturnlist = NextMethod(WithNodes = WithNodes, soma = soma)
+    if (WithConnectors) {
+      # only try to plot if the neuron has connectors
+      if (length(conndf)) {
+        rglreturnlist[['synapses']] =
+          points3d(xyzmatrix(conndf), col = c(pre = 'red', post = 'cyan')[conndf$prepost + 1])
+      }
+    }
+    invisible(rglreturnlist)
+  }
+  
+  if (plotengine == 'plotly') {
+    
+      psh = NextMethod(WithNodes = WithNodes, soma = soma)
+      if (WithConnectors) {
+        # only try to plot if the neuron has connectors
+        if (length(conndf)) {
+          psh <- psh %>%
+            plotly::add_trace(data = conndf, x = ~ x, y = ~ y, z = ~ z,  hoverinfo = "none",
+                              type = 'scatter3d', mode = 'markers',
+                              marker = list(color = c(pre = 'red', post = 'cyan')[conndf$prepost + 1],
+                                            size = 3))
+        }
+      }
+      psh
+
+  }
+  
 }
 
 # private function to choose plotting radius for a neuron
