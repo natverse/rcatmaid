@@ -26,7 +26,7 @@
 #' }
 vfbcatmaid <- function(dataset=c("fafb", "l1em", "fanc"), ...) {
   dataset=match.arg(dataset)
-  baseu=".catmaid.virtualflybrain.org/"
+  baseu=".catmaid.virtualflybrain.org"
   url=paste0("https://", dataset, baseu)
   catmaid_login(server=url, ...)
 }
