@@ -42,6 +42,7 @@ reference:
   - catmaid_get_connector_table
   - catmaid_get_connectors_between
   - catmaid_get_connectors
+  - catmaid_adjacency_matrix
 - title: Interfacing with Nat
   desc: Fetching and using catmaid skeletons for use with the NeuroAnatomy Toolbox
     (nat) package.
