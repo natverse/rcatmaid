@@ -299,6 +299,43 @@ catmaid_get_connector_table<-function(skids,
   df
 }
 
+#' Get connectivity adjacency matrix between set of neurons
+#'
+#' @param inputskids,outputskids Input (source) and output (target) skids in any
+#'   form understandable to \code{\link{catmaid_skids}}.
+#' @inheritParams catmaid_get_connector_table
+#' @return A matrix, with inputs (sources) as rows and outputs (targets) as
+#'   columns.
+#' @family connectors
+#' @export
+#' @importFrom utils read.csv
+#' @examples
+#' \donttest{
+#' conn=vfbcatmaid('fafb')
+#' da1adj=catmaid_adjacency_matrix("name:DA1", conn=conn)
+#' # note that we translate skids to neuron names (longer but more informative)
+#' heatmap(
+#'   da1adj,
+#'   scale = 'none',
+#'   labCol = catmaid_get_neuronnames(colnames(da1adj)),
+#'   labRow = catmaid_get_neuronnames(rownames(da1adj)),
+#'   margins = c(12,12)
+#' )
+#' }
+catmaid_adjacency_matrix <- function(inputskids, outputskids=inputskids, pid = 1, conn=NULL, ...){
+  inputskids=catmaid_skids(inputskids, conn=conn)
+  outputskids=catmaid_skids(outputskids, conn=conn)
+  names(inputskids)=paste0("rows[", seq_along(inputskids)-1,"]")
+  names(outputskids)=paste0("columns[", seq_along(outputskids)-1,"]")
+  body=c(as.list(inputskids), as.list(outputskids))
+  path=paste0(pid, "/skeletons/connectivity_matrix/csv")
+  res=catmaid_fetch(path = path, body = body, conn=conn, ..., parse.json = F)
+  txt=httr::content(res, as = 'text', encoding = 'UTF-8')
+  m=read.csv(text = txt, colClasses='integer', check.names=F, row.names = 1)
+  m=data.matrix(m)
+  m
+}
+
 #' Return tree node table for a given neuron
 #' 
 #' @param skid Numeric skeleton id

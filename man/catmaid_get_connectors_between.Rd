@@ -92,6 +92,7 @@ If either the \code{pre_skids} or \code{post_skids} arguments are
 }
 \seealso{
 Other connectors: 
+\code{\link{catmaid_adjacency_matrix}()},
 \code{\link{catmaid_get_connector_table}()},
 \code{\link{catmaid_get_connectors}()},
 \code{\link{catmaid_query_connected}()},
