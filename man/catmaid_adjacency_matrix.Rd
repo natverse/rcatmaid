@@ -34,7 +34,10 @@ A matrix, with inputs (sources) as rows and outputs (targets) as
 Get connectivity adjacency matrix between set of neurons
 }
 \examples{
-da1adj=catmaid_adjacency_matrix("name:DA1")
+\donttest{
+conn=vfbcatmaid('fafb')
+da1adj=catmaid_adjacency_matrix("name:DA1", conn=conn)
+# note that we translate skids to neuron names (longer but more informative)
 heatmap(
   da1adj,
   scale = 'none',
@@ -42,6 +45,7 @@ heatmap(
   labRow = catmaid_get_neuronnames(rownames(da1adj)),
   margins = c(12,12)
 )
+}
 }
 \seealso{
 Other connectors: 

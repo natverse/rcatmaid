@@ -308,9 +308,12 @@ catmaid_get_connector_table<-function(skids,
 #'   columns.
 #' @family connectors
 #' @export
-#'
+#' @importFrom utils read.csv
 #' @examples
-#' da1adj=catmaid_adjacency_matrix("name:DA1")
+#' \donttest{
+#' conn=vfbcatmaid('fafb')
+#' da1adj=catmaid_adjacency_matrix("name:DA1", conn=conn)
+#' # note that we translate skids to neuron names (longer but more informative)
 #' heatmap(
 #'   da1adj,
 #'   scale = 'none',
@@ -318,6 +321,7 @@ catmaid_get_connector_table<-function(skids,
 #'   labRow = catmaid_get_neuronnames(rownames(da1adj)),
 #'   margins = c(12,12)
 #' )
+#' }
 catmaid_adjacency_matrix <- function(inputskids, outputskids=inputskids, pid = 1, conn=NULL, ...){
   inputskids=catmaid_skids(inputskids, conn=conn)
   outputskids=catmaid_skids(outputskids, conn=conn)

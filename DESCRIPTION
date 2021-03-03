@@ -44,7 +44,8 @@ Imports:
     reshape2,
     rgl,
     rlang,
-    xml2
+    xml2,
+    utils
 Suggests: 
     httptest,
     knitr,
