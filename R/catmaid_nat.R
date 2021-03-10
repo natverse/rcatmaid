@@ -308,25 +308,21 @@ plot3d.catmaidneuron<-function(x, WithConnectors=FALSE, WithNodes=FALSE, soma=FA
       }
     }
     invisible(rglreturnlist)
-  }
-  
-  if (plotengine == 'plotly') {
-    
+  } else if (plotengine == 'plotly') {
       psh = NextMethod(WithNodes = WithNodes, soma = soma)
       if (WithConnectors) {
         # only try to plot if the neuron has connectors
         if (length(conndf)) {
           psh <- psh %>%
-            plotly::add_trace(data = conndf, x = ~ x, y = ~ y, z = ~ z,  hoverinfo = "none",
-                              type = 'scatter3d', mode = 'markers',
-                              marker = list(color = c(pre = 'red', post = 'cyan')[conndf$prepost + 1],
-                                            size = 3))
+            plotly::add_trace(
+              data = conndf, x = ~ x, y = ~ y, z = ~ z, 
+              hoverinfo = "none", type = 'scatter3d', mode = 'markers',
+              marker = list(color = c(pre = 'red', post = 'cyan')[conndf$prepost + 1],
+              size = 3))
         }
       }
       psh
-
   }
-  
 }
 
 # private function to choose plotting radius for a neuron
