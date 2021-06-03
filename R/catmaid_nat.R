@@ -441,6 +441,12 @@ summary.catmaidneuron<-function(object, ...) {
   df
 }
 
+#' @export
+reroot.catmaidneuron<-function(object, ...) {
+  n = NextMethod()
+  copy_tags_connectors(n, object)
+}
+
 #' Copy the tag / connector info from a catmaid neuron to a new neuron
 #' @description This function is intended primarily for developer use as a way 
 #'   to copy over connector/tag information typically contained in CATMAID
