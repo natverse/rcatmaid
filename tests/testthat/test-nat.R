@@ -34,3 +34,13 @@ test_that("Ops.catmaidneuron behaves", {
                t(t(xyzmatrix(connectors(AV4b1)))*c(2,3,4)))
   expect_equal((AV4b1*2)/2, AV4b1)
 })
+
+test_that("reroot.catmaidneuron works", {
+  data(AV4b1)
+  soma <- list(id=2712463, idx=126)
+  rAV4b1 <- reroot(AV4b1, pointno = soma$id)
+  # check if new soma has correct index
+  expect_equal(rAV4b1$StartPoint, soma$idx)
+  # old soma is no longer without parent
+  expect_true(rAV4b1$d[AV4b1$StartPoint, "Parent"] != -1)
+})
