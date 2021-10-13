@@ -712,3 +712,88 @@ catmaid_get_node_count <- function(skids, pid=1, conn=NULL, ...) {
   res=catmaid_get_review_status(good_skids, pid=pid, conn=conn, raw=FALSE, ...)
   res$total[match(skids, good_skids)]
 }
+
+
+#' Return the edit history of a CATMAID skeleton
+#'
+#' @inheritParams catmaid_get_review_status
+#'
+#' @return a list of lists containing with the most recent ids last
+#' @export
+#' @seealso \href{https://github.com/catmaid/CATMAID/blob/ce1dee4485e76c3b33bc751d5440ce8477fb1f43/django/applications/catmaid/control/skeleton.py#L3982}{catmaid }
+#' @examples
+#' \dontrun{
+#' catmaid_change_history(15886)
+#' }
+catmaid_change_history <- function(skids, pid=1, conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
+  good_skids=unique(na.omit(skids))
+  path=paste("", pid, "skeletons","change-history",sep="/")
+  path=paste0(path, "?skeleton_ids[]=", paste0(skids, collapse=','))
+  res=catmaid_fetch(path, conn=conn, include_headers = F, ...)
+  res
+}
+
+#' Return the latest skeleton id accounting for edits
+#'
+#' @inheritParams catmaid_islatest
+#'
+#' @return A named vector of skeleton ids
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' # for FAFB CATMAID
+#' catmaid_latestid(c(13682, 9254, 15886))
+#' }
+catmaid_latestid <- function(skids, pid=1, conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
+  good_skids=unique(na.omit(skids))
+  
+  islatest=catmaid_islatest(good_skids, pid=pid, conn=conn, ...)
+  
+  names(good_skids)=good_skids
+  if(!all(islatest)) {
+    old_skids=good_skids[!islatest]
+    res=nat::nlapply(old_skids, catmaid_change_history, 
+                     pid=pid, conn=conn, ...)
+    
+    new_skids=sapply(res, function(x) {
+      yy=lapply(x, function(y) y[[1]])
+      yy=yy[lengths(yy)>1]
+      last=tail(yy, 1)
+      ans=rev(unlist(last))[1]
+      if(length(ans)>0) ans else NA_integer_
+    })
+    good_skids[as.character(old_skids)]=new_skids
+  }
+  good_skids
+}
+
+#' Check if CATMAID skeleton ids are up to date
+#' 
+#' @details NB this will not distinguish between an ID that has been merged away
+#'   and one that never actually existed.
+#' @param skids One more skids in any form accepted by
+#'   \code{\link{catmaid_skids}}. Note that \code{NA}s are accepted and will
+#'   give NA output.
+#' @inheritParams catmaid_get_review_status
+#'
+#' @return A logical vector of the same length as the \code{skids} argument.
+#'   Note  duplicates will also still be found in the output.
+#' @export
+#'
+#' @examples
+#' \donttest{
+#' # for FAFB CATMAID
+#' catmaid_islatest(c(13682, 9254, 15886))
+#' }
+catmaid_islatest <- function(skids, pid=1, conn=NULL, ...) {
+  skids=catmaid_skids(skids, conn = conn, pid=pid)
+  good_skids=unique(na.omit(skids))
+  nids=catmaid_entities_from_models(good_skids, pid=pid, conn=conn, ...)
+  res1=good_skids %in% names(nids)
+  res2=rep(NA, length(skids))
+  res2[match(good_skids, skids)]=res1
+  res2
+}
