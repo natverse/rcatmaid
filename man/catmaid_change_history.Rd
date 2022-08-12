@@ -21,7 +21,7 @@ options as described in the help for \code{\link{catmaid_login}}.}
 function}
 }
 \value{
-a list of lists containing with the most recent ids last
+a list of lists with the most recent ids last
 }
 \description{
 Return the edit history of a CATMAID skeleton
@@ -32,5 +32,5 @@ catmaid_change_history(15886)
 }
 }
 \seealso{
-\href{https://github.com/catmaid/CATMAID/blob/ce1dee4485e76c3b33bc751d5440ce8477fb1f43/django/applications/catmaid/control/skeleton.py#L3982}{catmaid }
+\href{https://github.com/catmaid/CATMAID/blob/ce1dee4485e76c3b33bc751d5440ce8477fb1f43/django/applications/catmaid/control/skeleton.py#L3982}{catmaid source code}
 }

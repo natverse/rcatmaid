@@ -718,9 +718,9 @@ catmaid_get_node_count <- function(skids, pid=1, conn=NULL, ...) {
 #'
 #' @inheritParams catmaid_get_review_status
 #'
-#' @return a list of lists containing with the most recent ids last
+#' @return a list of lists with the most recent ids last
 #' @export
-#' @seealso \href{https://github.com/catmaid/CATMAID/blob/ce1dee4485e76c3b33bc751d5440ce8477fb1f43/django/applications/catmaid/control/skeleton.py#L3982}{catmaid }
+#' @seealso \href{https://github.com/catmaid/CATMAID/blob/ce1dee4485e76c3b33bc751d5440ce8477fb1f43/django/applications/catmaid/control/skeleton.py#L3982}{catmaid source code}
 #' @examples
 #' \dontrun{
 #' catmaid_change_history(15886)
