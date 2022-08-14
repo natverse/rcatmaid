@@ -4,14 +4,9 @@
 \name{catmaid-package}
 \alias{catmaid}
 \alias{catmaid-package}
-\title{catmaid: R access to the API for the CATMAID web image annotation
-    tool}
+\title{catmaid: R access to the API for the CATMAID web image annotation tool}
 \description{
-This package provide access to the API exposed
-    by the CATMAID (C ollaborative A nnotation T oolkit for M assive A
-    mounts of I mage D ata) web tool. This includes a bridge to the
-    neuroanatomy toolbox (R package nat), thereby allowing analysis and
-    visualisation of neuronal skeletons.
+This package provide access to the API exposed by the CATMAID (C ollaborative A nnotation T oolkit for M assive A mounts of I mage D ata) web tool. This includes a bridge to the neuroanatomy toolbox (R package nat), thereby allowing analysis and visualisation of neuronal skeletons.
 
 To use, first call \code{\link{catmaid_login}} to authenticate to a catmaid
 server. You can then use functions such as
