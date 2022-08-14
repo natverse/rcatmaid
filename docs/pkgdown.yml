@@ -1,7 +1,8 @@
-pandoc: 2.11.2
-pkgdown: 1.6.1
+pandoc: '2.18'
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
+  connecting-to-virtual-fly-brain: connecting-to-virtual-fly-brain.html
   example-drosophila-larva-olfactory-system: example-drosophila-larva-olfactory-system.html
-last_built: 2021-02-28T12:08Z
+last_built: 2022-08-14T10:18Z
 

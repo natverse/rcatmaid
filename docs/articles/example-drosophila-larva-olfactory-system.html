@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.10.1</span>
       </span>
     </div>
 
@@ -46,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -54,7 +56,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -74,11 +76,11 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://natverse.github.io">natverse</a>
+  <a href="https://natverse.github.io" class="external-link">natverse</a>
 </li>
 <li>
-  <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fas fa-github fa-lg"></span>
+  <a href="https://github.com/jefferis/rcatmaid" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -92,33 +94,39 @@
 
       
 
-      </header><script src="example-drosophila-larva-olfactory-system_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Introductory Example - Drosophila Larval Olfaction</h1>
-                        <h4 class="author">Gregory Jefferis</h4>
+      <h1 data-toc-skip>Introductory Example - Drosophila Larval
+Olfaction</h1>
+                        <h4 data-toc-skip class="author">Gregory
+Jefferis</h4>
             
-            <h4 class="date">2021-02-28</h4>
+            <h4 data-toc-skip class="date">2022-08-14</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/jefferis/rcatmaid/blob/master/vignettes/example-drosophila-larva-olfactory-system.Rmd"><code>vignettes/example-drosophila-larva-olfactory-system.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/jefferis/rcatmaid/blob/HEAD/vignettes/example-drosophila-larva-olfactory-system.Rmd" class="external-link"><code>vignettes/example-drosophila-larva-olfactory-system.Rmd</code></a></small>
       <div class="hidden name"><code>example-drosophila-larva-olfactory-system.Rmd</code></div>
 
     </div>
 
     
     
-<div id="intro" class="section level2">
-<h2 class="hasAnchor">
-<a href="#intro" class="anchor"></a>Intro</h2>
-<p>This example is designed to introduce some of the basic features of the catmaid package and the NeuroAnatomy Toolbox (<a href="https://natverse.github.io/nat/">nat</a>) on which it builds.</p>
-<p>The sample data is from an EM connectomics study of the Drosophila first instar larva by <a href="https://elifesciences.org/articles/14859">Albert Cardona and colleagues</a> as submitted to <a href="https://virtualflybrain.org" class="uri">https://virtualflybrain.org</a> and visible at <a href="https://catmaid.virtualflybrain.org" class="uri">https://catmaid.virtualflybrain.org</a></p>
+<div class="section level2">
+<h2 id="intro">Intro<a class="anchor" aria-label="anchor" href="#intro"></a>
+</h2>
+<p>This example is designed to introduce some of the basic features of
+the catmaid package and the NeuroAnatomy Toolbox (<a href="https://natverse.github.io/nat/" class="external-link">nat</a>) on which it builds.</p>
+<p>The sample data is from an EM connectomics study of the Drosophila
+first instar larva by <a href="https://elifesciences.org/articles/14859" class="external-link">Albert Cardona and
+colleagues</a> as submitted to <a href="https://virtualflybrain.org" class="external-link uri">https://virtualflybrain.org</a> and visible at <a href="https://catmaid.virtualflybrain.org" class="external-link uri">https://catmaid.virtualflybrain.org</a></p>
 </div>
-<div id="connecting" class="section level2">
-<h2 class="hasAnchor">
-<a href="#connecting" class="anchor"></a>Connecting</h2>
-<p>First we need to specify which CATMAID server we will use. This will be the default for the rest of the session.</p>
+<div class="section level2">
+<h2 id="connecting">Connecting<a class="anchor" aria-label="anchor" href="#connecting"></a>
+</h2>
+<p>First we need to specify which CATMAID server we will use. This will
+be the default for the rest of the session.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jefferis/rcatmaid">catmaid</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jefferis/rcatmaid" class="external-link">catmaid</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: httr</span>
 <span class="co">#&gt; Loading required package: nat</span>
 <span class="co">#&gt; Loading required package: rgl</span>
@@ -134,55 +142,73 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, union</span>
 <span class="va">conn</span><span class="op">=</span><span class="fu"><a href="../reference/catmaid_login.html">catmaid_login</a></span><span class="op">(</span>server<span class="op">=</span><span class="st">"https://l1em.catmaid.virtualflybrain.org"</span><span class="op">)</span></code></pre></div>
-<p>There is also a convenience function which you could use to do the same thing:</p>
+<p>There is also a convenience function which you could use to do the
+same thing:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">conn</span><span class="op">=</span><span class="fu"><a href="../reference/vfbcatmaid.html">vfbcatmaid</a></span><span class="op">(</span><span class="st">"l1em"</span><span class="op">)</span></code></pre></div>
 <p>for the public VFB servers.</p>
 </div>
-<div id="fetching-neurons" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fetching-neurons" class="anchor"></a>Fetching neurons</h2>
-<p>Now let’s fetch the peripheral olfactory sensory neurons, reading them into a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html">neuronlist()</a></code> object called <code>orns</code>.</p>
+<div class="section level2">
+<h2 id="fetching-neurons">Fetching neurons<a class="anchor" aria-label="anchor" href="#fetching-neurons"></a>
+</h2>
+<p>Now let’s fetch the peripheral olfactory sensory neurons, reading
+them into a <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html" class="external-link">neuronlist()</a></code> object called
+<code>orns</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">orns</span><span class="op">=</span><span class="fu"><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span><span class="op">(</span><span class="st">"name:ORN (left|right)"</span><span class="op">)</span></code></pre></div>
 <p>We can also add some useful metadata.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">orns</span><span class="op">[</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">".* ORN "</span>, <span class="st">""</span>, <span class="va">orns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="va">orns</span><span class="op">[</span>,<span class="st">'Or'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">" ORN.*"</span>, <span class="st">""</span>, <span class="va">orns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>We calculate both the side of the brain and the <a href="https://en.wikipedia.org/wiki/Olfactory_receptor">odorant receptor</a> expressed by the olfactory sensory neurons. These two variables are stored as columns in a table (i.e. <code><a href="https://rdrr.io/r/base/data.frame.html">data.frame()</a></code>) that is an attribute of the <code>orns</code> <code>neuronlist</code> object.</p>
-<p>The <em>catmaid</em> package builds on <a href="https://natverse.github.io/nat">nat</a>, a general purpose R neuroanatomy package. You may want to read the <a href="https://natverse.github.io/nat/articles/neurons-intro.html">nat documentation</a> to learn about how <em>nat</em> handles single neurons, collections of neurons (called <code>neuronlist</code>s) and their associated metadata.</p>
-<p>Now repeat for the the second order projection neuron (PN) partners. Note use of search by annotation. See <code><a href="../reference/catmaid_skids.html">catmaid_skids()</a></code> documentation for details.</p>
+<code class="sourceCode R"><span class="va">orns</span><span class="op">[</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".* ORN "</span>, <span class="st">""</span>, <span class="va">orns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="va">orns</span><span class="op">[</span>,<span class="st">'Or'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">" ORN.*"</span>, <span class="st">""</span>, <span class="va">orns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>We calculate both the side of the brain and the <a href="https://en.wikipedia.org/wiki/Olfactory_receptor" class="external-link">odorant
+receptor</a> expressed by the olfactory sensory neurons. These two
+variables are stored as columns in a table
+(i.e. <code><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame()</a></code>) that is an attribute of the
+<code>orns</code> <code>neuronlist</code> object.</p>
+<p>The <em>catmaid</em> package builds on <a href="https://natverse.github.io/nat" class="external-link">nat</a>, a general purpose R
+neuroanatomy package. You may want to read the <a href="https://natverse.github.io/nat/articles/neurons-intro.html" class="external-link">nat
+documentation</a> to learn about how <em>nat</em> handles single
+neurons, collections of neurons (called <code>neuronlist</code>s) and
+their associated metadata.</p>
+<p>Now repeat for the the second order projection neuron (PN) partners.
+Note use of search by annotation. See <code><a href="../reference/catmaid_skids.html">catmaid_skids()</a></code>
+documentation for details.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># searches for annotation "ORN PNs"</span>
 <span class="va">pns</span><span class="op">=</span><span class="fu"><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span><span class="op">(</span><span class="st">"ORN PNs"</span><span class="op">)</span>
-<span class="va">pns</span><span class="op">[</span>,<span class="st">'Or'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">" PN.*"</span>, <span class="st">""</span>, <span class="va">pns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="va">pns</span><span class="op">[</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">sub</a></span><span class="op">(</span><span class="st">".*(left|right)"</span>, <span class="st">"\\1"</span>, <span class="va">pns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="va">pns</span><span class="op">[</span>,<span class="st">'Or'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">" PN.*"</span>, <span class="st">""</span>, <span class="va">pns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="va">pns</span><span class="op">[</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">".*(left|right)"</span>, <span class="st">"\\1"</span>, <span class="va">pns</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="plotting-neurons" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plotting-neurons" class="anchor"></a>Plotting neurons</h2>
-<p>Now let’s plot both sets of neurons, colouring by odorant receptor.</p>
+<div class="section level2">
+<h2 id="plotting-neurons">Plotting neurons<a class="anchor" aria-label="anchor" href="#plotting-neurons"></a>
+</h2>
+<p>Now let’s plot both sets of neurons, colouring by odorant
+receptor.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="va">orns</span>, col<span class="op">=</span><span class="va">Or</span><span class="op">)</span>
 <span class="co"># note that we plot somata with a radius of 1500 nm</span>
 <span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="va">pns</span>, col<span class="op">=</span><span class="va">Or</span>, soma<span class="op">=</span><span class="fl">1500</span><span class="op">)</span>
 <span class="co"># set 3D viewer to frontal aspect</span>
-<span class="fu"><a href="https://rdrr.io/pkg/nat/man/nview3d.html">nview3d</a></span><span class="op">(</span><span class="st">'frontal'</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/nat/man/nview3d.html" class="external-link">nview3d</a></span><span class="op">(</span><span class="st">'frontal'</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/plot-1.png" width="672"></p>
 </div>
-<div id="going-further" class="section level2">
-<h2 class="hasAnchor">
-<a href="#going-further" class="anchor"></a>Going further</h2>
-<div id="finding-synaptic-partners" class="section level3">
-<h3 class="hasAnchor">
-<a href="#finding-synaptic-partners" class="anchor"></a>Finding synaptic partners</h3>
-<p>Now we can directly identify the downstream partner neurons of the ORNs and plots them in 3D coloured by their synaptic strength. It then carries out morphological clustering with <a href="http://bit.ly/nblast">NBLAST</a> and plots the partner neurons according to those clusters.</p>
-<p>Let’s find all the ORN downstream partners with at least 2 synapses</p>
+<div class="section level2">
+<h2 id="going-further">Going further<a class="anchor" aria-label="anchor" href="#going-further"></a>
+</h2>
+<div class="section level3">
+<h3 id="finding-synaptic-partners">Finding synaptic partners<a class="anchor" aria-label="anchor" href="#finding-synaptic-partners"></a>
+</h3>
+<p>Now we can directly identify the downstream partner neurons of the
+ORNs and plots them in 3D coloured by their synaptic strength. It then
+carries out morphological clustering with <a href="http://bit.ly/nblast" class="external-link">NBLAST</a> and plots the partner neurons
+according to those clusters.</p>
+<p>Let’s find all the ORN downstream partners with at least 2
+synapses</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">orn_partners</span><span class="op">=</span><span class="fu"><a href="../reference/catmaid_query_connected.html">catmaid_query_connected</a></span><span class="op">(</span><span class="va">orns</span><span class="op">[</span>,<span class="st">'skid'</span><span class="op">]</span>, minimum_synapses <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co"># keep the ones not already in our set of PNs</span>
 <span class="co"># there are lots!</span>
-<span class="va">non_pn_downstream_ids</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/setdiff.html">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">orn_partners</span><span class="op">$</span><span class="va">outgoing</span><span class="op">$</span><span class="va">partner</span><span class="op">)</span>, <span class="va">pns</span><span class="op">[</span>,<span class="st">'skid'</span><span class="op">]</span><span class="op">)</span>
+<span class="va">non_pn_downstream_ids</span><span class="op">=</span><span class="fu"><a href="https://generics.r-lib.org/reference/setops.html" class="external-link">setdiff</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">orn_partners</span><span class="op">$</span><span class="va">outgoing</span><span class="op">$</span><span class="va">partner</span><span class="op">)</span>, <span class="va">pns</span><span class="op">[</span>,<span class="st">'skid'</span><span class="op">]</span><span class="op">)</span>
 <span class="co"># download and plot those neurons</span>
 <span class="va">non_pn_downstream</span><span class="op">=</span><span class="fu"><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid</a></span><span class="op">(</span><span class="va">non_pn_downstream_ids</span><span class="op">)</span></code></pre></div>
 <p>Note that although we exclude the downstream PNs</p>
@@ -191,12 +217,13 @@
 <span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="va">non_pn_downstream</span>, col<span class="op">=</span><span class="st">'grey'</span>, soma<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/plot-downs-1.png" width="672"></p>
 </div>
-<div id="plot-by-connection-strength" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plot-by-connection-strength" class="anchor"></a>Plot by connection strength</h3>
-<p>Plot, but colouring partners by number of synapses they receive from ORNs First collect synapse numbers:</p>
+<div class="section level3">
+<h3 id="plot-by-connection-strength">Plot by connection strength<a class="anchor" aria-label="anchor" href="#plot-by-connection-strength"></a>
+</h3>
+<p>Plot, but colouring partners by number of synapses they receive from
+ORNs First collect synapse numbers:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'dplyr'</span>
 <span class="co">#&gt; The following objects are masked from 'package:nat':</span>
@@ -208,67 +235,89 @@
 <span class="co">#&gt; The following objects are masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="va">totsyndf</span><span class="op">=</span><span class="va">orn_partners</span><span class="op">$</span><span class="va">outgoing</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">partner</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>totsyn<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">syn.count</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">totsyn</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">totsyndf</span><span class="op">$</span><span class="va">totsyn</span><span class="op">)</span></code></pre></div>
+<span class="va">totsyndf</span><span class="op">=</span><span class="va">orn_partners</span><span class="op">$</span><span class="va">outgoing</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">partner</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>totsyn<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">syn.count</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">totsyn</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span><span class="va">totsyndf</span><span class="op">$</span><span class="va">totsyn</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 <p>Now do the plot</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># matlab style palette</span>
 <span class="va">jet.colors</span> <span class="op">&lt;-</span>
-<span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#00007F"</span>, <span class="st">"blue"</span>, <span class="st">"#007FFF"</span>, <span class="st">"cyan"</span>,
+<span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html" class="external-link">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"#00007F"</span>, <span class="st">"blue"</span>, <span class="st">"#007FFF"</span>, <span class="st">"cyan"</span>,
 <span class="st">"#7FFF7F"</span>, <span class="st">"yellow"</span>, <span class="st">"#FF7F00"</span>, <span class="st">"red"</span>, <span class="st">"#7F0000"</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># plot colouring by synapse number on a log scale </span>
 <span class="co"># note that it is necessary to convert totsyndf$partner to a character</span>
 <span class="co"># vector to ensure that they are not treated as integer indices</span>
-<span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="va">totsyndf</span><span class="op">$</span><span class="va">partner</span><span class="op">)</span>,  db<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">pns</span>, <span class="va">non_pn_downstream</span><span class="op">)</span>, 
-  col<span class="op">=</span><span class="fu">jet.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="va">totsyndf</span><span class="op">$</span><span class="va">totsyn</span>, breaks <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>, soma<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">totsyndf</span><span class="op">$</span><span class="va">partner</span><span class="op">)</span>,  db<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">pns</span>, <span class="va">non_pn_downstream</span><span class="op">)</span>, 
+  col<span class="op">=</span><span class="fu">jet.colors</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">totsyndf</span><span class="op">$</span><span class="va">totsyn</span>, breaks <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>, soma<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/downs-strength-1.png" width="672"></p>
 </div>
-<div id="nblast-cluster" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nblast-cluster" class="anchor"></a>NBLAST cluster</h3>
-<p>Now let’s cluster these other connected neurons morphologically. This is often an efficient way to group neurons that may have distinct functions.</p>
+<div class="section level3">
+<h3 id="nblast-cluster">NBLAST cluster<a class="anchor" aria-label="anchor" href="#nblast-cluster"></a>
+</h3>
+<p>Now let’s cluster these other connected neurons morphologically. This
+is often an efficient way to group neurons that may have distinct
+functions.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat.nblast">nat.nblast</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/natverse/nat.nblast" class="external-link">nat.nblast</a></span><span class="op">)</span>
 <span class="co"># convert to nblast-compatible format</span>
 <span class="co"># nb also convert from nm to um, resample to 1µm spacing and use k=5</span>
 <span class="co"># nearest neighbours of each point to define tangent vector</span>
-<span class="va">non_pn_downstream.dps</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/dotprops.html">dotprops</a></span><span class="op">(</span><span class="va">non_pn_downstream</span><span class="op">/</span><span class="fl">1e3</span>, k<span class="op">=</span><span class="fl">5</span>, resample<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">non_pn_downstream.dps</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/dotprops.html" class="external-link">dotprops</a></span><span class="op">(</span><span class="va">non_pn_downstream</span><span class="op">/</span><span class="fl">1e3</span>, k<span class="op">=</span><span class="fl">5</span>, resample<span class="op">=</span><span class="fl">1</span><span class="op">)</span>
 <span class="co"># now compute all x all NBLAST scores and cluster</span>
-<span class="va">non_pn_downstream.aba</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat.nblast/man/nblast_allbyall.html">nblast_allbyall</a></span><span class="op">(</span><span class="va">non_pn_downstream.dps</span><span class="op">)</span>
-<span class="va">non_pn_downstream.hc</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat.nblast/man/nhclust.html">nhclust</a></span><span class="op">(</span>scoremat <span class="op">=</span> <span class="va">non_pn_downstream.aba</span><span class="op">)</span>
+<span class="va">non_pn_downstream.aba</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat.nblast/man/nblast_allbyall.html" class="external-link">nblast_allbyall</a></span><span class="op">(</span><span class="va">non_pn_downstream.dps</span><span class="op">)</span>
+<span class="va">non_pn_downstream.hc</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat.nblast/man/nhclust.html" class="external-link">nhclust</a></span><span class="op">(</span>scoremat <span class="op">=</span> <span class="va">non_pn_downstream.aba</span><span class="op">)</span>
 <span class="co">#&gt; The "ward" method has been renamed to "ward.D"; note new "ward.D2"</span></code></pre></div>
-<p>Plot result of clustering as dendrogram, labelled by abbreviated neuron name (rather than id).</p>
+<p>Plot result of clustering as dendrogram, labelled by abbreviated
+neuron name (rather than id).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">non_pn_downstream.hc</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/abbreviate.html">abbreviate</a></span><span class="op">(</span><span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span>, minlength <span class="op">=</span> <span class="fl">8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">non_pn_downstream.hc</span>, label<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/abbreviate.html" class="external-link">abbreviate</a></span><span class="op">(</span><span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span>, minlength <span class="op">=</span> <span class="fl">8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/downstream-dendrogram-1.png" width="672"></p>
 <p>Plot in 3d cutting into 2 clusters essentially left right</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="va">non_pn_downstream.hc</span>,db<span class="op">=</span><span class="va">non_pn_downstream</span>, k<span class="op">=</span><span class="fl">2</span>, soma<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/2-clusters-1.png" width="672"></p>
-<p>Let’s just try for one half of the brain. First we compute the side of brain based on the neuron names.</p>
+<p>Let’s just try for one half of the brain. First we compute the side
+of brain based on the neuron names.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span><span class="st">'?'</span>
-<span class="va">non_pn_downstream</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span><span class="st">'L'</span>
-<span class="va">non_pn_downstream</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span><span class="st">'R'</span></code></pre></div>
-<p>Then we select and cluster just the neurons on the right hand side.</p>
+<span class="va">non_pn_downstream</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"left"</span>, <span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span><span class="st">'L'</span>
+<span class="va">non_pn_downstream</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="va">non_pn_downstream</span><span class="op">[</span>,<span class="st">'name'</span><span class="op">]</span><span class="op">)</span>,<span class="st">'side'</span><span class="op">]</span><span class="op">=</span><span class="st">'R'</span></code></pre></div>
+<p>Then we select and cluster just the neurons on the right hand
+side.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rhsids</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/subset.html">subset</a></span><span class="op">(</span><span class="va">non_pn_downstream</span>, <span class="va">side</span> <span class="op">==</span> <span class="st">'R'</span>, rval <span class="op">=</span> <span class="st">'name'</span><span class="op">)</span>
-<span class="va">non_pn_downstream.hcr</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/nat.nblast/man/nhclust.html">nhclust</a></span><span class="op">(</span><span class="va">rhsids</span>, scoremat <span class="op">=</span> <span class="va">non_pn_downstream.aba</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">rhsids</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/pkg/nat/man/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">non_pn_downstream</span>, <span class="va">side</span> <span class="op">==</span> <span class="st">'R'</span>, rval <span class="op">=</span> <span class="st">'name'</span><span class="op">)</span>
+<span class="va">non_pn_downstream.hcr</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/nat.nblast/man/nhclust.html" class="external-link">nhclust</a></span><span class="op">(</span><span class="va">rhsids</span>, scoremat <span class="op">=</span> <span class="va">non_pn_downstream.aba</span><span class="op">)</span>
 <span class="co">#&gt; The "ward" method has been renamed to "ward.D"; note new "ward.D2"</span>
 <span class="co"># note that we abbreviate only the selected neuron names</span>
 <span class="co"># by indexing with the ids for the RHS neurons.</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span>
   <span class="va">non_pn_downstream.hcr</span>,
-  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/abbreviate.html">abbreviate</a></span><span class="op">(</span><span class="va">non_pn_downstream</span><span class="op">[</span><span class="va">rhsids</span>, <span class="st">'name'</span><span class="op">]</span>, minlength <span class="op">=</span> <span class="fl">8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/abbreviate.html" class="external-link">abbreviate</a></span><span class="op">(</span><span class="va">non_pn_downstream</span><span class="op">[</span><span class="va">rhsids</span>, <span class="st">'name'</span><span class="op">]</span>, minlength <span class="op">=</span> <span class="fl">8</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/4-clusters-1.png" width="672"></p>
 <p>Finally here is the plot with 4 clusters coloured.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="va">non_pn_downstream.hcr</span>,db<span class="op">=</span><span class="va">non_pn_downstream</span>, k<span class="op">=</span><span class="fl">4</span>, soma<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
 <p><img src="example-drosophila-larva-olfactory-system_files/figure-html/4-clusters-plot-1.png" width="672"></p>
+<p>We could also get a 3D mesh for context</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># list available meshes</span>
+<span class="fu"><a href="../reference/catmaid_get_volumelist.html">catmaid_get_volumelist</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt;   id name                                  comment user_id editor_id project_id</span>
+<span class="co">#&gt; 1  2  cns Imported HDF5 mesh (project: 1 stack: 3)     156       156          1</span>
+<span class="co">#&gt;              creation_time             edition_time annotations        area</span>
+<span class="co">#&gt; 1 2017-01-03T20:10:29.528Z 2017-01-03T20:10:29.528Z          NA 66791800000</span>
+<span class="co">#&gt;        volume watertight meta_computed</span>
+<span class="co">#&gt; 1 8.27854e+14      FALSE          TRUE</span>
+<span class="va">cns</span><span class="op">=</span><span class="fu">catmaid</span><span class="fu">::</span><span class="fu"><a href="../reference/catmaid_get_volume.html">catmaid_get_volume</a></span><span class="op">(</span><span class="st">'cns'</span><span class="op">)</span>
+<span class="va">cns</span>
+<span class="co">#&gt;  mesh3d object with 39804 vertices, 13268 triangles.</span></code></pre></div>
+<p>Here is how you could plot that.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://dmurdoch.github.io/rgl/dev/reference/shade3d.html" class="external-link">shade3d</a></span><span class="op">(</span><span class="va">cns</span>, col<span class="op">=</span><span class="st">'grey'</span>, alpha<span class="op">=</span><span class="fl">.1</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot3d.catmaidneuron.html">plot3d</a></span><span class="op">(</span><span class="va">non_pn_downstream.hcr</span>,db<span class="op">=</span><span class="va">non_pn_downstream</span>, k<span class="op">=</span><span class="fl">4</span>, soma<span class="op">=</span><span class="fl">1000</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -284,11 +333,14 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Gregory Jefferis.</p>
+  <p></p>
+<p>Developed by Gregory Jefferis.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.1.</p>
 </div>
 
       </footer>
@@ -296,6 +348,8 @@
 
   
 
+
+  
 
   </body>
 </html>

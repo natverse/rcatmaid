@@ -16,6 +16,9 @@ reference:
   - catmaid_get_node_count
   - catmaid_get_review_status
   - catmaid_get_treenodes_detail
+  - catmaid_change_history
+  - catmaid_islatest
+  - catmaid_latestid
 - title: Names and Annotations
   desc: Querying, fetching and setting neuron names and annotations
   contents:
@@ -48,6 +51,7 @@ reference:
     (nat) package.
   contents:
   - read.neuron.catmaid
+  - catmaid_update_neuronlist
   - plot3d.catmaidneuron
   - connectors
   - soma
