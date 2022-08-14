@@ -144,7 +144,7 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
   post_data[sprintf("model_ids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/neurons/from-models", pid)
   unlist(catmaid_fetch(path, body=post_data, include_headers = F, 
-                    simplifyVector = T, ...))
+                    simplifyVector = T, conn=conn, ...))
 }
 
 #' Get, query, set and remove CATMAID meta-annotations for annotations
