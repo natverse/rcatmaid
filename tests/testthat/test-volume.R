@@ -1,7 +1,7 @@
 context("volumes")
 test_that("can pre-process meshes for catmaid", {
   mbcal = subset(nat::MBL.surf, "MB_CA_L")
-  expect_equal(as.catmaidmesh(mbcal), as.catmaidmesh(as.mesh3d(mbcal)))
+  expect_equivalent(as.catmaidmesh(mbcal), as.catmaidmesh(as.mesh3d(mbcal)))
   
   eg = jsonlite::fromJSON(
     paste(
