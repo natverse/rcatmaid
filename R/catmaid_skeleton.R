@@ -740,7 +740,8 @@ catmaid_change_history <- function(skids, pid=1, conn=NULL, ...) {
 #'
 #' @return A named vector of skeleton ids
 #' @export
-#'
+#' @importFrom utils tail
+#' 
 #' @examples
 #' \dontrun{
 #' # for FAFB CATMAID
