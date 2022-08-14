@@ -70,3 +70,16 @@ test_that("catmaid_get_annotations_for_skeletons", {
     row.names(n12) <- NULL
     expect_equal(rn12, n12)
   })
+
+
+test_that('model - entity conversion', {
+  if (inherits(pubconn, 'try-error')) skip('No catmaid connection')
+  
+  ents <- c(`3991518` = 3570509L, `9747710` = 9747712L)
+  skids=c(3991518,9747710)
+  expect_equal(catmaid_entities_from_models(skids, conn = pubconn),
+               ents)
+  l=as.list(as.integer(names(ents)))
+  names(l)=unname(ents)
+  expect_equal(catmaid_models_from_entities(ents, conn=pubconn), l)
+})
