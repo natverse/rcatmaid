@@ -4,6 +4,7 @@
 [![DOI](https://zenodo.org/badge/25650381.svg)](https://zenodo.org/badge/latestdoi/25650381)
 [![natverse](https://img.shields.io/badge/natverse-Part%20of%20the%20natverse-a241b6)](https://natverse.github.io)
 [![Docs](https://img.shields.io/badge/docs-100%25-brightgreen.svg)](https://natverse.github.io/rcatmaid/reference/)
+[![R-CMD-check](https://github.com/natverse/rcatmaid/workflows/R-CMD-check/badge.svg)](https://github.com/natverse/rcatmaid/actions)
 <!-- badges: end -->
 <img src="man/figures/logo.svg" align="right" height="139" />
 
