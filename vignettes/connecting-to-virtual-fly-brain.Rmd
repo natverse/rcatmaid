@@ -1,0 +1,38 @@
+---
+title: "Connecting to Virtual Fly Brain"
+author: "Gregory Jefferis"
+date: "2022-08-12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The [Virtual Fly Brain](https://www.virtualflybrain.org/) project runs several public CATMAID servers that you can access without any access tokens. This quick example shows you how to access them.
+
+
+```{r}
+library(dplyr)
+library(catmaid)
+```
+
+The [`vfbcatmaid()`](https://natverse.org/rcatmaid/reference/vfbcatmaid.html) function provides a convenient way to connect to those servers.
+
+```{r}
+fafb=vfbcatmaid(dataset = 'fafb')
+fafbal=catmaid_get_annotationlist(conn = fafb)
+fafbal$annotations %>%
+  filter(grepl("^Paper", name))
+wang2020a=read.neurons.catmaid('Paper: Wang et al 2020a')
+plot(wang2020a, WithNodes=F)
+```
+
+You could do a 3D plot of those neurons 
+
+```{r, eval=FALSE}
+library(elmr)
+plot3d(wang2020a)
+plot3d(FAFB)
+```
+
