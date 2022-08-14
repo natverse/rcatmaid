@@ -14,9 +14,9 @@ set_requester(function (request) {
 })
 
 
-##Set up the configuration server now for live public configurations..
-publicserver <- "https://l1em.catmaid.virtualflybrain.org"
-pubconn <- catmaid_login(server=publicserver, Cache = FALSE)
+##Set up the configuration server now for live public configurations.
+publicserver="https://l1em.catmaid.virtualflybrain.org"
+pubconn <- vfbcatmaid("l1em", Cache = FALSE)
 
 print(paste0("Testing with public live server: ",publicserver, sep=""))
 print(paste0("Testing with mock server: ",privateserver, sep=""))
@@ -59,7 +59,14 @@ test_that("catmaid_get_annotations_for_skeletons", {
     if (inherits(pubconn, 'try-error')) skip('No catmaid connection')
     expect_is(n1 <- catmaid_get_annotations_for_skeletons(skids = skid_1,conn = pubconn),'data.frame')
     n2 = catmaid_get_annotations_for_skeletons(skids = skid_2,conn = pubconn)
-    expect_is(n12 <- catmaid_get_annotations_for_skeletons(skids = c(skid_1, skid_2),conn = pubconn),'data.frame')
-    expect_equal(rbind(n1, n2), n12)
+    # NB the ordering is apparently not guaranteed, so need to fix this
+    rn12 <- rbind(n1, n2)
+    rn12 <- rn12[order(rn12$skid, rn12$id),]
+    row.names(rn12) <- NULL
     
+    expect_is(n12 <- catmaid_get_annotations_for_skeletons(skids = c(skid_1, skid_2),conn = pubconn),'data.frame')
+    
+    n12 <- n12[order(n12$skid, n12$id),]
+    row.names(n12) <- NULL
+    expect_equal(rn12, n12)
   })

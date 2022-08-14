@@ -8,21 +8,36 @@
 
 <title>Changelog • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +45,10 @@
 
 
 
+
 <meta property="og:title" content="Changelog" />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -44,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -60,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -68,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,12 +109,17 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,34 +130,65 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/jefferis/rcatmaid/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="catmaid-0-9-9" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-9" class="anchor"></a>catmaid 0.9.9</h1>
+    <div id="catmaid-0101" class="section level1">
+<h1 class="page-header" data-toc-text="0.10.1">
+<a href="#catmaid-0101" class="anchor"></a>catmaid 0.10.1</h1>
+<ul>
+<li>Fix bug in pid handling for meshes (<a href='https://github.com/jefferis/rcatmaid/issues/144'>#144</a>)</li>
+<li>Pass on pid / conn in catmaid_get_annotations_for_skeleton (<a href='https://github.com/jefferis/rcatmaid/issues/147'>#147</a>)</li>
+<li>Fix bug in catmaid_query_connected when no outputs at all (<a href='https://github.com/jefferis/rcatmaid/issues/148'>#148</a>) Thanks to Shanice Bailey</li>
+<li>Always pass on conn in catmaid_version calls (<a href='https://github.com/jefferis/rcatmaid/issues/150'>#150</a>) Thanks to Rob Turnbull</li>
+<li>Fix test baseline in catmaid_get_annotations_for_skeletons</li>
+<li>Switch from deprecated as_data_frame to as_tibble</li>
+<li>Fix NA types in tibble (<a href='https://github.com/jefferis/rcatmaid/issues/153'>#153</a>, <a href='https://github.com/SridharJagannathan'>@SridharJagannathan</a>)</li>
+<li>Fix HTTP/2 call failures in <code>catmaid</code> server (<a href='https://github.com/jefferis/rcatmaid/issues/158'>#158</a>, <a href='https://github.com/SridharJagannathan'>@SridharJagannathan</a>)</li>
+<li>Fix <a href="https://github.com/natverse/elmr/issues/53">problem in elmr::unspike when only one tag</a> (<a href='https://github.com/jefferis/rcatmaid/issues/163'>#163</a>, <a href='https://github.com/jefferis/rcatmaid/issues/164'>#164</a>)</li>
+<li>Add <code><a href="../reference/vfbcatmaid.html">vfbcatmaid()</a></code> convenience function</li>
+<li>Add <code>print.catmaid_connection</code> method to give a nice summary of connection properties in the console.</li>
+<li>Fix bug in setting label field for soma (<a href='https://github.com/jefferis/rcatmaid/issues/167'>#167</a>) Thanks to <a href='https://github.com/Robbie1977'>@Robbie1977</a></li>
+<li>Fix copy_tags_connectors</li>
+</ul>
+</div>
+    <div id="catmaid-0100" class="section level1">
+<h1 class="page-header" data-toc-text="0.10.0">
+<a href="#catmaid-0100" class="anchor"></a>catmaid 0.10.0</h1>
+<ul>
+<li>New functions for handling meta annotations (i.e. annotations of annotations): <code><a href="../reference/catmaid_meta_annotations.html">catmaid_get_meta_annotations()</a></code>, <code><a href="../reference/catmaid_meta_annotations.html">catmaid_query_meta_annotations()</a></code>, <code><a href="../reference/catmaid_meta_annotations.html">catmaid_set_meta_annotations()</a></code>, <code><a href="../reference/catmaid_meta_annotations.html">catmaid_remove_meta_annotations()</a></code> thanks to <a href='https://github.com/alexanderbates'>@alexanderbates</a> for the PR (<a href='https://github.com/jefferis/rcatmaid/issues/130'>#130</a>).</li>
+<li>New functions for (un)locking neurons: <code><a href="../reference/catmaid_lock_neurons.html">catmaid_lock_neurons()</a></code>, <code><a href="../reference/catmaid_lock_neurons.html">catmaid_unlock_neurons()</a></code> thanks to <a href='https://github.com/alexanderbates'>@alexanderbates</a> for the PR (<a href='https://github.com/jefferis/rcatmaid/issues/130'>#130</a>).</li>
+<li>New functions to fetch soma information from neurons in a neuronlist: <code><a href="../reference/soma.html">soma()</a></code> fetches the XYZ location of the soma. <code><a href="../reference/soma.html">somaindex()</a></code> fetches the raw index of the skeleton node associated with the soma (in range 1..N, number of vertices). <code><a href="../reference/soma.html">somaid()</a></code> fetches the identifier of the skeleton node associated with the soma thanks to <a href='https://github.com/alexanderbates'>@alexanderbates</a> for the PR (<a href='https://github.com/jefferis/rcatmaid/issues/128'>#128</a>).</li>
+<li>Set the SWC <code>Label</code> column inside neurons to identify the soma (<a href='https://github.com/jefferis/rcatmaid/issues/143'>#143</a>).</li>
+<li>Fix <code><a href="../reference/catmaid_get_volumelist.html">catmaid_get_volumelist()</a></code> and <code><a href="../reference/catmaid_get_volume.html">catmaid_get_volume()</a></code> when the project (pid) is not 1 (<a href='https://github.com/jefferis/rcatmaid/issues/144'>#144</a>).</li>
+</ul>
+</div>
+    <div id="catmaid-099" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.9">
+<a href="#catmaid-099" class="anchor"></a>catmaid 0.9.9</h1>
 <ul>
 <li>
 <code><a href="../reference/catmaid_query_connected.html">catmaid_query_connected()</a></code> now returns stats for all connections but also allows a confidence threshold to be set. The default threshold of 1 is a new more permissive behaviour (<a href='https://github.com/jefferis/rcatmaid/issues/113'>#113</a>). Thanks to Sebastian Cachero / <a href='https://github.com/schlegelp'>@schlegelp</a> for the bug report.</li>
 <li>Fix bug in <code><a href="../reference/catmaid_connection_setenv.html">catmaid_connection_getenv()</a></code> and friends in getting environment variables on some OSes. It turns out that we should switch to recommending variables of the form <code>catmaid_*</code> (<a href='https://github.com/jefferis/rcatmaid/issues/110'>#110</a>). Thanks to <a href='https://github.com/SridharJagannathan'>@SridharJagannathan</a> for detective work and a PR with a fix.</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-8" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-8" class="anchor"></a>catmaid 0.9.8</h1>
+    <div id="catmaid-098" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.8">
+<a href="#catmaid-098" class="anchor"></a>catmaid 0.9.8</h1>
 <ul>
 <li>Fix bug in <code><a href="../reference/catmaid_get_connectors_between.html">catmaid_get_connectors_between()</a></code> when getting neuron names. There was an off by one error for the postsynaptic partner name (<a href='https://github.com/jefferis/rcatmaid/issues/109'>#109</a>). Thanks to <a href='https://github.com/mmc46'>@mmc46</a> for the bug report.</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-7" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-7" class="anchor"></a>catmaid 0.9.7</h1>
+    <div id="catmaid-097" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.7">
+<a href="#catmaid-097" class="anchor"></a>catmaid 0.9.7</h1>
 <ul>
 <li>New <code><a href="../reference/catmaid_get_user_list.html">catmaid_userids()</a></code> function converts user login names to ids.</li>
 <li>
@@ -141,41 +196,41 @@
 <li>Return format and documentation fix: tree node ids in <code><a href="../reference/catmaid_get_connector_table.html">catmaid_get_connector_table()</a></code> always refer to the query skeleton and not the partner neuron (<a href='https://github.com/jefferis/rcatmaid/issues/107'>#107</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-6" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-6" class="anchor"></a>catmaid 0.9.6</h1>
+    <div id="catmaid-096" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.6">
+<a href="#catmaid-096" class="anchor"></a>catmaid 0.9.6</h1>
 <ul>
-<li>Give <code><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid()</a></code> an optional fetch.annotations argument that adds a second metadata data.frame as an attribute to the resultant <code>neuronlist()</code> object (<a href='https://github.com/jefferis/rcatmaid/issues/18'>#18</a>).</li>
+<li>Give <code><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid()</a></code> an optional fetch.annotations argument that adds a second metadata data.frame as an attribute to the resultant <code><a href="https://rdrr.io/pkg/nat/man/neuronlist.html">neuronlist()</a></code> object (<a href='https://github.com/jefferis/rcatmaid/issues/18'>#18</a>).</li>
 <li>Fix handling of CATMAID version string (<a href='https://github.com/jefferis/rcatmaid/issues/103'>#103</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-5" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-5" class="anchor"></a>catmaid 0.9.5</h1>
+    <div id="catmaid-095" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.5">
+<a href="#catmaid-095" class="anchor"></a>catmaid 0.9.5</h1>
 <ul>
 <li>Stop <code><a href="../reference/catmaid_get_connector_table.html">catmaid_get_connector_table()</a></code> returning duplicate rows when there are multiple connections between the same partner neurons at a given connector. Thanks to Shanice Bailey and Istvan Taisz for the bug report (<a href='https://github.com/jefferis/rcatmaid/issues/106'>#106</a>).</li>
 <li>Pass on pid in <code><a href="../reference/catmaid_skids.html">catmaid_skids()</a></code>, thereby fixing an issue with <code><a href="../reference/read.neuron.catmaid.html">read.neurons.catmaid()</a></code> with annotation queries when project id is not 1. Thanks to Marta Costa for the bug report (<a href='https://github.com/jefferis/rcatmaid/issues/105'>#105</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-4" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-4" class="anchor"></a>catmaid 0.9.4</h1>
+    <div id="catmaid-094" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.4">
+<a href="#catmaid-094" class="anchor"></a>catmaid 0.9.4</h1>
 <ul>
 <li>
 <code><a href="../reference/write_catmaid_selection.html">write_catmaid_selection()</a></code> accepts annotations/name specs</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-3" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-3" class="anchor"></a>catmaid 0.9.3</h1>
+    <div id="catmaid-093" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.3">
+<a href="#catmaid-093" class="anchor"></a>catmaid 0.9.3</h1>
 <ul>
 <li>workaround for bug in <code><a href="../reference/catmaid_version.html">catmaid_version()</a></code> (<a href='https://github.com/jefferis/rcatmaid/issues/103'>#103</a>). Still waiting on changes in CATMAID for more permanent fix.</li>
 <li>fix import error with jsonlite version &gt;=1.6</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-2" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-2" class="anchor"></a>catmaid 0.9.2</h1>
+    <div id="catmaid-092" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.2">
+<a href="#catmaid-092" class="anchor"></a>catmaid 0.9.2</h1>
 <ul>
 <li>Teach <code><a href="../reference/catmaid_get_volumelist.html">catmaid_get_volumelist()</a></code> about new API return format (<a href='https://github.com/jefferis/rcatmaid/issues/102'>#102</a>)</li>
 <li>Sync <code><a href="../reference/catmaid_get_treenode_table.html">catmaid_get_treenode_table()</a></code> with API (<a href='https://github.com/jefferis/rcatmaid/issues/101'>#101</a>)</li>
@@ -183,7 +238,7 @@
 <li>Fix bug in metadata for read_catmaid_selection (<a href='https://github.com/jefferis/rcatmaid/issues/99'>#99</a>)</li>
 <li>Sort tags for neurons so that they are always returned in the same order (<a href='https://github.com/jefferis/rcatmaid/issues/98'>#98</a>)</li>
 <li>Add <code><a href="../reference/catmaid_get_node_count.html">catmaid_get_node_count()</a></code> to get the number of nodes per skeleton</li>
-<li>Teach <code><a href="../reference/catmaid_get_treenodes_detail.html">catmaid_get_treenodes_detail()</a></code> to search by labels - can use this e.g. to find all nodes (regardless of neuron) with a certain tag e.g. <code>soma</code>.</li>
+<li>Teach <code><a href="../reference/catmaid_get_treenodes_detail.html">catmaid_get_treenodes_detail()</a></code> to search by labels - can use this e.g. to find all nodes (regardless of neuron) with a certain tag e.g. <code>soma</code>.</li>
 <li>Fix bug in <code><a href="../reference/nsoma.html">nsoma()</a></code> for duplicate skids; also speed-up</li>
 <li>Make <code><a href="../reference/catmaid_login.html">catmaid_login()</a></code> explain why passing server directly doesn’t work</li>
 <li>Add name|nodes to results of <code><a href="../reference/catmaid_get_connector_table.html">catmaid_get_connector_table()</a></code>
@@ -193,9 +248,9 @@
 <li>Teach <code><a href="../reference/catmaid_get_node_count.html">catmaid_get_node_count()</a></code> to handle NAs/dupes</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-1" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-1" class="anchor"></a>catmaid 0.9.1</h1>
+    <div id="catmaid-091" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.1">
+<a href="#catmaid-091" class="anchor"></a>catmaid 0.9.1</h1>
 <ul>
 <li>Add catmaid_get_labels, catmaid_set_labels, catmaid_remove_labels to manipulate labels (aka tags) on treenodes and connectors (<a href='https://github.com/jefferis/rcatmaid/issues/95'>#95</a>)</li>
 <li>Add catmaid_get_all_labels</li>
@@ -206,9 +261,9 @@
 <li>Teach catmaid_login to accept arguments in a list (<a href='https://github.com/jefferis/rcatmaid/issues/91'>#91</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-9-0" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-9-0" class="anchor"></a>catmaid 0.9.0</h1>
+    <div id="catmaid-090" class="section level1">
+<h1 class="page-header" data-toc-text="0.9.0">
+<a href="#catmaid-090" class="anchor"></a>catmaid 0.9.0</h1>
 <p>This version is synced with the upcoming release of nat v1.9.0 which streamlines some functionality but has some breaking changes in behaviour. It must be used with nat &gt;=1.8.12.900 from github.</p>
 <ul>
 <li>switch to Ops.catmaidneuron to match nat 1.9.0 in prep (and add version requirement)</li>
@@ -216,18 +271,18 @@
 <li>Fix bug in catmaid_skids error message when looking for one skid (<a href='https://github.com/jefferis/rcatmaid/issues/90'>#90</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-8-1" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-8-1" class="anchor"></a>catmaid 0.8.1</h1>
+    <div id="catmaid-081" class="section level1">
+<h1 class="page-header" data-toc-text="0.8.1">
+<a href="#catmaid-081" class="anchor"></a>catmaid 0.8.1</h1>
 <ul>
 <li>Add function to get volumes from catmaid (<a href='https://github.com/jefferis/rcatmaid/issues/82'>#82</a>)</li>
 <li>Add functions to read/write catmaid json selection files</li>
 <li>make catmaid_neuronnames returns NA for NA skids</li>
 </ul>
 </div>
-    <div id="catmaid-0-8" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-8" class="anchor"></a>catmaid 0.8</h1>
+    <div id="catmaid-08" class="section level1">
+<h1 class="page-header" data-toc-text="0.8">
+<a href="#catmaid-08" class="anchor"></a>catmaid 0.8</h1>
 <p>This is a major version update because of the new support (and recommendation) to use environment variables for login (.Rprofile is still supported).</p>
 <ul>
 <li>support fetching login information from environment variables (<a href='https://github.com/jefferis/rcatmaid/issues/80'>#80</a>)</li>
@@ -235,9 +290,9 @@
 <li>fix query_by_neuron_or_annotation adding empty annotations attribute</li>
 </ul>
 </div>
-    <div id="catmaid-0-7-2" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-7-2" class="anchor"></a>catmaid 0.7.2</h1>
+    <div id="catmaid-072" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.2">
+<a href="#catmaid-072" class="anchor"></a>catmaid 0.7.2</h1>
 <ul>
 <li>Add catmaid_get_label_stats (use it to find neurons with soma)</li>
 <li>Add copy_tags_connectors (bring over tags/connector info)</li>
@@ -245,9 +300,9 @@
 <li>plot3d bugfix when there are NA points (and soma=T) (<a href='https://github.com/jefferis/rcatmaid/issues/77'>#77</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-7-1" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-7-1" class="anchor"></a>catmaid 0.7.1</h1>
+    <div id="catmaid-071" class="section level1">
+<h1 class="page-header" data-toc-text="0.7.1">
+<a href="#catmaid-071" class="anchor"></a>catmaid 0.7.1</h1>
 <ul>
 <li>only plot soma when explicitly tagged (rather than plotting a sphere at the root of the neuron if not tagged) (<a href='https://github.com/jefferis/rcatmaid/issues/62'>#62</a>)</li>
 <li>only plot3d connectors if they exist (<a href='https://github.com/jefferis/rcatmaid/issues/73'>#73</a>)</li>
@@ -255,43 +310,43 @@
 <li>doc fix for catmaid_get_treenode_table (<a href='https://github.com/jefferis/rcatmaid/issues/75'>#75</a>)</li>
 </ul>
 </div>
-    <div id="catmaid-0-7" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-7" class="anchor"></a>catmaid 0.7</h1>
+    <div id="catmaid-07" class="section level1">
+<h1 class="page-header" data-toc-text="0.7">
+<a href="#catmaid-07" class="anchor"></a>catmaid 0.7</h1>
 <p>This is a substantial release with many new functions/enhancements, changes to match the API defined by the 2016.10.18 CATMAID release, support for token-based authentication and numerous bug fixes.</p>
 <ul>
-<li>support for CATMAID token-based authentication (<a href='https://github.com/jefferis/rcatmaid/issues/35'>#35</a>)</li>
-<li>Add catmaid_get_connectors_between to return connections between (multiple) pre and postsynaptic partners - thanks to Zhihao Zheng (<a href='https://github.com/jefferis/rcatmaid/issues/53'>#53</a>, <a href='https://github.com/jefferis/rcatmaid/issues/56'>#56</a>)</li>
-<li>Add function to parse CATMAID urls e.g. to extract xyz position (<a href='https://github.com/jefferis/rcatmaid/issues/55'>#55</a>)</li>
-<li>Add rename_neuron function (<a href='https://github.com/jefferis/rcatmaid/issues/54'>#54</a>)</li>
-<li>Add catmaid_version function (<a href='https://github.com/jefferis/rcatmaid/issues/58'>#58</a>)</li>
-<li>Add catmaid_user_history function (<a href='https://github.com/jefferis/rcatmaid/issues/57'>#57</a>)</li>
-<li>Add catmaid_get_annotations_for_skeletons function (<a href='https://github.com/jefferis/rcatmaid/issues/38'>#38</a>)</li>
-<li>Add catmaid_remove_annotations_for_skeletons function (<a href='https://github.com/jefferis/rcatmaid/issues/43'>#43</a>)</li>
+<li><p>support for CATMAID token-based authentication (<a href='https://github.com/jefferis/rcatmaid/issues/35'>#35</a>)</p></li>
+<li><p>Add catmaid_get_connectors_between to return connections between (multiple) pre and postsynaptic partners - thanks to Zhihao Zheng (<a href='https://github.com/jefferis/rcatmaid/issues/53'>#53</a>, <a href='https://github.com/jefferis/rcatmaid/issues/56'>#56</a>)</p></li>
+<li><p>Add function to parse CATMAID urls e.g. to extract xyz position (<a href='https://github.com/jefferis/rcatmaid/issues/55'>#55</a>)</p></li>
+<li><p>Add rename_neuron function (<a href='https://github.com/jefferis/rcatmaid/issues/54'>#54</a>)</p></li>
+<li><p>Add catmaid_version function (<a href='https://github.com/jefferis/rcatmaid/issues/58'>#58</a>)</p></li>
+<li><p>Add catmaid_user_history function (<a href='https://github.com/jefferis/rcatmaid/issues/57'>#57</a>)</p></li>
+<li><p>Add catmaid_get_annotations_for_skeletons function (<a href='https://github.com/jefferis/rcatmaid/issues/38'>#38</a>)</p></li>
+<li><p>Add catmaid_remove_annotations_for_skeletons function (<a href='https://github.com/jefferis/rcatmaid/issues/43'>#43</a>)</p></li>
 <li><p>Add catmaid_add_volume to add 3D meshes to catmaid (<a href='https://github.com/jefferis/rcatmaid/issues/69'>#69</a>)</p></li>
-<li>catmaid_get_connector_table can now accept multi skid specifications (<a href='https://github.com/jefferis/rcatmaid/issues/49'>#49</a>)</li>
+<li><p>catmaid_get_connector_table can now accept multi skid specifications (<a href='https://github.com/jefferis/rcatmaid/issues/49'>#49</a>)</p></li>
 <li><p>catmaid_get_connectors_between returns more informative errors (<a href='https://github.com/jefferis/rcatmaid/issues/51'>#51</a>)</p></li>
-<li>fix “No encoding supplied: defaulting to UTF-8.” warning (<a href='https://github.com/jefferis/rcatmaid/issues/59'>#59</a>)</li>
-<li>stop catmaid_skids returning duplicates when there are multiple matching annotations (<a href='https://github.com/jefferis/rcatmaid/issues/44'>#44</a>)</li>
-<li>ensure that connectors are also scaled when xforming neurons (<a href='https://github.com/jefferis/rcatmaid/issues/47'>#47</a>)</li>
-<li>catmaid_query_by_annotation returns neuron column as character vector (<a href='https://github.com/jefferis/rcatmaid/issues/46'>#46</a>)</li>
-<li>catmaid_get_connector_table returns partner_skid columns as an integer (<a href='https://github.com/jefferis/rcatmaid/issues/48'>#48</a>)</li>
-<li>fix bug in url for catmaid_get_review_status function (<a href='https://github.com/jefferis/rcatmaid/issues/45'>#45</a>)</li>
-<li>Give sensible name to 1st column of connector data.frame (<a href='https://github.com/jefferis/rcatmaid/issues/42'>#42</a>)</li>
-<li>ensure neurons without connectors scale properly (<a href='https://github.com/jefferis/rcatmaid/issues/41'>#41</a>)</li>
-<li>fix bug in catmaid_connection_setenv() when some elements are null (<a href='https://github.com/jefferis/rcatmaid/issues/50'>#50</a>)</li>
-<li>catmaid_get_annotations_for_skeletons - fix bug in skid order (<a href='https://github.com/jefferis/rcatmaid/issues/39'>#39</a>)</li>
-<li>ensure catmaid_get_contributor_stats passes on connection (<a href='https://github.com/jefferis/rcatmaid/issues/37'>#37</a>)</li>
-<li>ensure all functions pass on connection to catmaid_fetch (<a href='https://github.com/jefferis/rcatmaid/issues/60'>#60</a>)</li>
-<li>connectors.neuronlist should handle neurons without connectors (<a href='https://github.com/jefferis/rcatmaid/issues/29'>#29</a>)</li>
-<li>catmaid_skids should pass on pid (<a href='https://github.com/jefferis/rcatmaid/issues/64'>#64</a>)</li>
-<li>fix catmaid_get_connector_table to reflect 2016.09.01-65 API change (<a href='https://github.com/jefferis/rcatmaid/issues/65'>#65</a>)</li>
+<li><p>fix “No encoding supplied: defaulting to UTF-8.” warning (<a href='https://github.com/jefferis/rcatmaid/issues/59'>#59</a>)</p></li>
+<li><p>stop catmaid_skids returning duplicates when there are multiple matching annotations (<a href='https://github.com/jefferis/rcatmaid/issues/44'>#44</a>)</p></li>
+<li><p>ensure that connectors are also scaled when xforming neurons (<a href='https://github.com/jefferis/rcatmaid/issues/47'>#47</a>)</p></li>
+<li><p>catmaid_query_by_annotation returns neuron column as character vector (<a href='https://github.com/jefferis/rcatmaid/issues/46'>#46</a>)</p></li>
+<li><p>catmaid_get_connector_table returns partner_skid columns as an integer (<a href='https://github.com/jefferis/rcatmaid/issues/48'>#48</a>)</p></li>
+<li><p>fix bug in url for catmaid_get_review_status function (<a href='https://github.com/jefferis/rcatmaid/issues/45'>#45</a>)</p></li>
+<li><p>Give sensible name to 1st column of connector data.frame (<a href='https://github.com/jefferis/rcatmaid/issues/42'>#42</a>)</p></li>
+<li><p>ensure neurons without connectors scale properly (<a href='https://github.com/jefferis/rcatmaid/issues/41'>#41</a>)</p></li>
+<li><p>fix bug in catmaid_connection_setenv() when some elements are null (<a href='https://github.com/jefferis/rcatmaid/issues/50'>#50</a>)</p></li>
+<li><p>catmaid_get_annotations_for_skeletons - fix bug in skid order (<a href='https://github.com/jefferis/rcatmaid/issues/39'>#39</a>)</p></li>
+<li><p>ensure catmaid_get_contributor_stats passes on connection (<a href='https://github.com/jefferis/rcatmaid/issues/37'>#37</a>)</p></li>
+<li><p>ensure all functions pass on connection to catmaid_fetch (<a href='https://github.com/jefferis/rcatmaid/issues/60'>#60</a>)</p></li>
+<li><p>connectors.neuronlist should handle neurons without connectors (<a href='https://github.com/jefferis/rcatmaid/issues/29'>#29</a>)</p></li>
+<li><p>catmaid_skids should pass on pid (<a href='https://github.com/jefferis/rcatmaid/issues/64'>#64</a>)</p></li>
+<li><p>fix catmaid_get_connector_table to reflect 2016.09.01-65 API change (<a href='https://github.com/jefferis/rcatmaid/issues/65'>#65</a>)</p></li>
 <li><p>fix bug in catmaid_user_history with small queries (<a href='https://github.com/jefferis/rcatmaid/issues/70'>#70</a>)</p></li>
 </ul>
 </div>
-    <div id="catmaid-0-6" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-6" class="anchor"></a>catmaid 0.6</h1>
+    <div id="catmaid-06" class="section level1">
+<h1 class="page-header" data-toc-text="0.6">
+<a href="#catmaid-06" class="anchor"></a>catmaid 0.6</h1>
 <ul>
 <li>support for upcoming httr 1.0 release</li>
 <li>fix: ensure catmaid connection objects are passed to all downstream functions e.g. so that you can you use different servers in the same session.</li>
@@ -300,9 +355,9 @@
 <li>fix: servers don’t have to be https</li>
 </ul>
 </div>
-    <div id="catmaid-0-5" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-5" class="anchor"></a>catmaid 0.5</h1>
+    <div id="catmaid-05" class="section level1">
+<h1 class="page-header" data-toc-text="0.5">
+<a href="#catmaid-05" class="anchor"></a>catmaid 0.5</h1>
 <p>This release</p>
 <ul>
 <li>check for http status errors in catmaid (in case there is trouble connecting to site, bad URL etc)</li>
@@ -311,9 +366,9 @@
 <li>… and clear those env vars (all useful for testing)</li>
 </ul>
 </div>
-    <div id="catmaid-0-4" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-4" class="anchor"></a>catmaid 0.4</h1>
+    <div id="catmaid-04" class="section level1">
+<h1 class="page-header" data-toc-text="0.4">
+<a href="#catmaid-04" class="anchor"></a>catmaid 0.4</h1>
 <p>This release significantly enhances functionality for querying for neurons by annotation or name, while also simplifying a number of plotting/analysis tasks involving connectors (synapses).</p>
 <ul>
 <li>catmaid_query_by_neuronname was renamed to catmaid_query_by_name (since it can query by both neuron or annotation name as well as returning both annotations and neurons)</li>
@@ -329,9 +384,9 @@
 <li>minor doc fixes</li>
 </ul>
 </div>
-    <div id="catmaid-0-3" class="section level1">
-<h1 class="page-header">
-<a href="#catmaid-0-3" class="anchor"></a>catmaid 0.3</h1>
+    <div id="catmaid-03" class="section level1">
+<h1 class="page-header" data-toc-text="0.3">
+<a href="#catmaid-03" class="anchor"></a>catmaid 0.3</h1>
 <ul>
 <li>cache login credentials for automatic reuse</li>
 <li>option to set/get environment variables for passwords etc</li>
@@ -341,34 +396,14 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#catmaid-0-9-9">0.9.9</a></li>
-        <li><a href="#catmaid-0-9-8">0.9.8</a></li>
-        <li><a href="#catmaid-0-9-7">0.9.7</a></li>
-        <li><a href="#catmaid-0-9-6">0.9.6</a></li>
-        <li><a href="#catmaid-0-9-5">0.9.5</a></li>
-        <li><a href="#catmaid-0-9-4">0.9.4</a></li>
-        <li><a href="#catmaid-0-9-3">0.9.3</a></li>
-        <li><a href="#catmaid-0-9-2">0.9.2</a></li>
-        <li><a href="#catmaid-0-9-1">0.9.1</a></li>
-        <li><a href="#catmaid-0-9-0">0.9.0</a></li>
-        <li><a href="#catmaid-0-8-1">0.8.1</a></li>
-        <li><a href="#catmaid-0-8">0.8</a></li>
-        <li><a href="#catmaid-0-7-2">0.7.2</a></li>
-        <li><a href="#catmaid-0-7-1">0.7.1</a></li>
-        <li><a href="#catmaid-0-7">0.7</a></li>
-        <li><a href="#catmaid-0-6">0.6</a></li>
-        <li><a href="#catmaid-0-5">0.5</a></li>
-        <li><a href="#catmaid-0-4">0.4</a></li>
-        <li><a href="#catmaid-0-3">0.3</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -376,13 +411,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

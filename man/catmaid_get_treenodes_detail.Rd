@@ -4,8 +4,15 @@
 \alias{catmaid_get_treenodes_detail}
 \title{Fetch position and other information for arbitrary treenode ids}
 \usage{
-catmaid_get_treenodes_detail(tnids = NULL, labels = NULL,
-  skids = NULL, pid = 1, conn = NULL, raw = FALSE, ...)
+catmaid_get_treenodes_detail(
+  tnids = NULL,
+  labels = NULL,
+  skids = NULL,
+  pid = 1,
+  conn = NULL,
+  raw = FALSE,
+  ...
+)
 }
 \arguments{
 \item{tnids}{One or more (integer) treenode ids}
@@ -70,7 +77,7 @@ The key feature of this function is that allows you to fetch
 catmaid_get_treenodes_detail(c(9943214L, 25069047L, 12829015L))
 
 # example label search
-tosoma=catmaid_get_treenodes_detail("to soma")
+tosoma=catmaid_get_treenodes_detail(labels="to soma")
 }
 
 \dontrun{

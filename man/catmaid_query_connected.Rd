@@ -4,9 +4,16 @@
 \alias{catmaid_query_connected}
 \title{Find neurons connected to a starting neuron}
 \usage{
-catmaid_query_connected(skids, minimum_synapses = 1L,
-  minimum_confidence = 1L, boolean_op = c("OR", "AND"), pid = 1,
-  raw = FALSE, conn = NULL, ...)
+catmaid_query_connected(
+  skids,
+  minimum_synapses = 1L,
+  minimum_confidence = 1L,
+  boolean_op = c("OR", "AND"),
+  pid = 1,
+  raw = FALSE,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -28,12 +35,12 @@ to all the specified neurons (\code{boolean_op="AND"}).}
 or to convert the nodes and connectors lists into processed data.frames 
 (when \code{FALSE}, the default)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 }
 \value{
@@ -71,9 +78,11 @@ catmaid_query_connected(orn13as, boolean_op = 'AND')
   \code{\link{catmaid_get_review_status}} to get information about the review
   status of partners (as shown in the equivalent CATMAID report).
 
-Other connectors: \code{\link{catmaid_get_connector_table}},
-  \code{\link{catmaid_get_connectors_between}},
-  \code{\link{catmaid_get_connectors}},
-  \code{\link{connectors}}
+Other connectors: 
+\code{\link{catmaid_adjacency_matrix}()},
+\code{\link{catmaid_get_connector_table}()},
+\code{\link{catmaid_get_connectors_between}()},
+\code{\link{catmaid_get_connectors}()},
+\code{\link{connectors}()}
 }
 \concept{connectors}

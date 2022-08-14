@@ -3,13 +3,23 @@
 \name{catmaid_login}
 \alias{catmaid_login}
 \alias{catmaid_connection}
+\alias{print.catmaid_connection}
 \title{Connect/authenticate to a CATMAID server, returning a connection object}
 \usage{
 catmaid_login(conn = NULL, ..., Cache = TRUE, Force = FALSE)
 
-catmaid_connection(server, username = NULL, password = NULL,
-  authname = NULL, authpassword = NULL, token = NULL,
-  authtype = NULL, config = NULL)
+catmaid_connection(
+  server,
+  username = NULL,
+  password = NULL,
+  authname = NULL,
+  authpassword = NULL,
+  token = NULL,
+  authtype = NULL,
+  config = NULL
+)
+
+\method{print}{catmaid_connection}(x, ...)
 }
 \arguments{
 \item{conn}{An optional \code{catmaid_connection} connection object.}
@@ -38,6 +48,8 @@ username and password). See \bold{Token based authentication} for details.}
 
 \item{config}{Additional curl config options. See \code{\link[httr]{config}}
 for details and the examples section below.}
+
+\item{x}{A \code{catmaid_connection} object to print}
 }
 \value{
 a \code{catmaid_connection} object that can be used to make 
@@ -59,6 +71,9 @@ a \code{catmaid_connection} object that can be used to make
   \code{catmaid_login} to create a connection object. End users should not
   need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server.
+
+\code{print.catmaid_connection} provides a convenient summary of
+  the status of a \code{catmaid_connection}.
 }
 \details{
 After successful login, the \code{catmaid_connection} object will 
@@ -152,6 +167,9 @@ catmaid.authpassword="hobbes"
 }
 
 \examples{
+# but see vfbcatmaid() convenience function
+catmaid_login(server="https://l1em.catmaid.virtualflybrain.org")
+
 \dontrun{
 ## example explicitly specifying connection options
 # using modern token based authentication
@@ -172,6 +190,9 @@ conn = catmaid_login(server='https://someotherserver.org/catmaidroot')
 # This example will bypass an SSL certificate verification error on the
 # remote host e.g. if it has expired. Don't this regularly of course!
 conn = catmaid_login(config=httr::config(ssl_verifypeer=0))
+# This example will allow you to change the http protocol version while connecting!
+# Changing the http version is useful when encountering curl related errors 
+conn = catmaid_login(config=httr::config(http_version=1))
 
 ## now do stuff with the connection like
 skel=catmaid_fetch("1/10418394/0/0/compact-skeleton", conn=conn)
@@ -184,5 +205,6 @@ skel2=GET("https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skelet
 }
 }
 \seealso{
-\code{\link{options}}, \code{\link{Startup}}
+\code{\link{options}}, \code{\link{Startup}},
+  \code{\link{vfbcatmaid}}
 }

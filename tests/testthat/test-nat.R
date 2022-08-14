@@ -8,8 +8,12 @@ test_that("copy fields", {
   r=resample(lhn, 1000)
   expect_equal(copy_tags_connectors(new = r, old = lhn, update_node_ids = FALSE)$tags, lhn$tags)
 
-  
   expect_is(r2 <- copy_tags_connectors(new = r, old = lhn), 'catmaidneuron')
+  
+  lhn.noconn <- lhn
+  lhn.noconn$connectors=NULL
+  lhn.noconn$tags=NULL
+  expect_equal(copy_tags_connectors(new = lhn.noconn, old = lhn.noconn), lhn.noconn)
 })
 
 test_that("summary.catmaidneuron behaves", {
@@ -21,4 +25,12 @@ test_that("summary.catmaidneuron behaves", {
   # check the initial summary columns are identical
   expect_equal(s1[seq_along(s2)], s2)
   expect_equal(summary(neuronlist(AV4b1)), s1) 
+})
+
+test_that("Ops.catmaidneuron behaves", {
+  data(AV4b1)
+  expect_equal(xyzmatrix(connectors(AV4b1*2)), xyzmatrix(connectors(AV4b1))*2)
+  expect_equal(xyzmatrix(connectors(AV4b1*c(2,3,4,5))), 
+               t(t(xyzmatrix(connectors(AV4b1)))*c(2,3,4)))
+  expect_equal((AV4b1*2)/2, AV4b1)
 })

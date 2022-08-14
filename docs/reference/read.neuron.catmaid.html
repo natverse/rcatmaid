@@ -8,21 +8,36 @@
 
 <title>Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format — read.neuron.catmaid • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +45,13 @@
 
 
 
-<meta property="og:title" content="Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format — read.neuron.catmaid" />
 
-<meta property="og:description" content="read.neuron.catmaid reads a single neuron, while 
-read.neurons.catmaid generates a neuronlist object 
+<meta property="og:title" content="Read neuron(s) from CATMAID server into NeuroAnatomy Toolbox (nat) format — read.neuron.catmaid" />
+<meta property="og:description" content="read.neuron.catmaid reads a single neuron, while
+read.neurons.catmaid generates a neuronlist object
 including some metadata information." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -49,9 +65,10 @@ including some metadata information." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +82,7 @@ including some metadata information." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -73,7 +90,7 @@ including some metadata information." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,12 +112,17 @@ including some metadata information." />
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -111,6 +133,7 @@ including some metadata information." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -122,18 +145,23 @@ including some metadata information." />
     </div>
 
     <div class="ref-description">
-    
-    <p><code>read.neuron.catmaid</code> reads a single neuron, while 
-<code>read.neurons.catmaid</code> generates a <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
+    <p><code>read.neuron.catmaid</code> reads a single neuron, while
+<code>read.neurons.catmaid</code> generates a <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> object
 including some metadata information.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>read.neuron.catmaid</span>(<span class='no'>skid</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>read.neuron.catmaid</span><span class='op'>(</span><span class='va'>skid</span>, pid <span class='op'>=</span> <span class='fl'>1L</span>, conn <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>read.neurons.catmaid</span>(<span class='no'>skids</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1L</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fetch.annotations</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'>read.neurons.catmaid</span><span class='op'>(</span>
+  <span class='va'>skids</span>,
+  pid <span class='op'>=</span> <span class='fl'>1L</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  OmitFailures <span class='op'>=</span> <span class='cn'>NA</span>,
+  df <span class='op'>=</span> <span class='cn'>NULL</span>,
+  fetch.annotations <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -147,14 +175,14 @@ including some metadata information.</p>
     </tr>
     <tr>
       <th>conn</th>
-      <td><p>A <code>catmaid_connection</code> objection returned by 
-<code><a href='catmaid_login.html'>catmaid_login</a></code>. If <code>NULL</code> (the default) a new connection 
-object will be generated using the values of the <b>catmaid.*</b> package 
+      <td><p>A <code>catmaid_connection</code> objection returned by
+<code><a href='catmaid_login.html'>catmaid_login</a></code>. If <code>NULL</code> (the default) a new connection
+object will be generated using the values of the <b>catmaid.*</b> package
 options as described in the help for <code><a href='catmaid_login.html'>catmaid_login</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code> 
+      <td><p>Additional arguments passed to the <code><a href='catmaid_fetch.html'>catmaid_fetch</a></code>
 function</p></td>
     </tr>
     <tr>
@@ -165,7 +193,7 @@ a query (see <code><a href='catmaid_skids.html'>catmaid_skids</a></code> or exam
     <tr>
       <th>OmitFailures</th>
       <td><p>Whether to omit neurons for which <code>FUN</code> gives an
-error. The default value (<code>NA</code>) will result in <code>nlapply</code>
+error. The default value (<code>NA</code>) will result in <code><a href='https://rdrr.io/pkg/nat/man/nlapply.html'>nlapply</a></code>
 stopping with an error message the moment there is an error. For other
 values, see details.</p></td>
     </tr>
@@ -179,116 +207,108 @@ values, see details.</p></td>
 skeleton (default <code>FALSE</code>)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuron'>neuron</a></code> or <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> object 
+    <p>a <code><a href='https://rdrr.io/pkg/nat/man/neuron.html'>neuron</a></code> or <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> object
   containing one or more neurons. These neurons will have an additional class
   <code>catmaidneuron</code> which provides for some extra functionality in certain
   methods.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These functions provide a bridge between CATMAID and the 
-  neuronanatomy toolbox R package (<a href='https://github.com/jefferis/nat'>https://github.com/jefferis/nat</a>), 
-  which provides extensive functionality for analysing and plotting neurons 
-  within the context of template brains.</p>  
-<p>Note that the soma is set by inspecting CATMAID tags that 
-  (case-insensitively) match the regex <code>"(cell body|soma)"</code>. Where &gt;1 
-  tag exists the one that tags an endpoint is preferred.</p>
+    <p>These functions provide a bridge between CATMAID and the
+  neuronanatomy toolbox R package (<a href='https://github.com/natverse/nat'>https://github.com/natverse/nat</a>),
+  which provides extensive functionality for analysing and plotting neurons
+  within the context of template brains.</p>
+<p>Note that the soma is set by inspecting CATMAID tags that
+  (case-insensitively) match the regex <code>"(cell body|soma)"</code>. Where &gt;1
+  tag exists, the one that tags an endpoint is preferred. When a soma is
+  identified via a CATMAID tag in this way, the <code>Label</code> column for the
+  single node identified as the soma is set to <code>1</code>, the standard SWC
+  code. Other nodes will have <code>Label=0</code> i.e. undefined.</p>
 <p>When <code>OmitFailures</code> is not <code>NA</code>, <code>FUN</code> will be
-  wrapped in a call to <code><a href='https://www.rdocumentation.org/packages/base/topics/try'>try</a></code> to ensure that failure for any
-  single neuron does not abort the <code><a href='https://www.rdocumentation.org/packages/nat/topics/nlapply'>nlapply</a></code> call. When
-  <code>OmitFailures=TRUE</code> the resultant <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> will be
+  wrapped in a call to <code><a href='https://rdrr.io/r/base/try.html'>try</a></code> to ensure that failure for any
+  single neuron does not abort the <code><a href='https://rdrr.io/pkg/nat/man/nlapply.html'>nlapply</a></code> call. When
+  <code>OmitFailures=TRUE</code> the resultant <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> will be
   subsetted down to return values for which <code>FUN</code> evaluated
   successfully. When <code>OmitFailures=FALSE</code>, "try-error" objects will be
   left in place. In either of the last 2 cases error messages will not be
-  printed because the call is wrapped as <code><a href='https://www.rdocumentation.org/packages/base/topics/try'>try(expr, silent=TRUE)</a></code>.</p>
+  printed because the call is wrapped as <code><a href='https://rdrr.io/r/base/try.html'>try(expr, silent=TRUE)</a></code>.</p>
 <p>The optional dataframe (<code>df</code>) detailing each neuron should have
   <code>rownames</code> that match the names of each neuron. It would also make
   sense if the same key was present in a column of the data frame. If the
   dataframe contains more rows than neurons, the superfluous rows are dropped
   with a warning. If the dataframe is missing rows for some neurons an error
   is generated. If <code>SortOnUpdate=TRUE</code> then updating an existing
-  <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code> should result in a new <code><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist'>neuronlist</a></code>
+  <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code> should result in a new <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code>
   with ordering identical to reading all neurons from scratch.</p>
 <p>When <code>fetch.annotations=TRUE</code> then a second data.frame containing the
   annotations for each neurons as returned by
   <code><a href='catmaid_get_annotations_for_skeletons.html'>catmaid_get_annotations_for_skeletons</a></code> will be attached as the
   attribute <code>anndf</code> (see examples).</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='https://www.rdocumentation.org/packages/nat/topics/read.neuron'>read.neuron</a></code>, 
-  <code><a href='connectors.html'>connectors</a></code> to extract connector information from a 
+    <div class='dont-index'><p><code><a href='plot3d.catmaidneuron.html'>plot3d.catmaidneuron</a></code>, <code><a href='https://rdrr.io/pkg/nat/man/read.neuron.html'>read.neuron</a></code>,
+  <code><a href='connectors.html'>connectors</a></code> to extract connector information from a
   <code>catmaid.neuron</code></p>
 <p><code><a href='catmaid_skids.html'>catmaid_skids</a></code>, <code><a href='catmaid_get_annotations_for_skeletons.html'>catmaid_get_annotations_for_skeletons</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>nat</span>)
-<span class='no'>nl</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>))
-<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>nl</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/natverse/nat'>nat</a></span><span class='op'>)</span>
+<span class='va'>nl</span><span class='op'>=</span><span class='fu'>read.neurons.catmaid</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10418394</span>,<span class='fl'>4453485</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span><span class='op'>(</span><span class='va'>nl</span><span class='op'>)</span>
 
-<span class='no'>nl</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>10418394</span>,<span class='fl'>4453485</span>), <span class='kw'>fetch.annotations</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='va'>nl</span><span class='op'>=</span><span class='fu'>read.neurons.catmaid</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10418394</span>,<span class='fl'>4453485</span><span class='op'>)</span>, fetch.annotations<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='co'># look at those annotations</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist-dataframe-methods'>head</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>nl</span>, <span class='st'>'anndf'</span>))
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>nl</span>, <span class='st'>'anndf'</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## Full worked example looking at Olfactory Receptor Neurons</span>
 <span class='co'># read in ORNs (using exact match to ORN annotation)</span>
 <span class='co'># note that use a progress bar drop any failures</span>
-<span class='no'>orns</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='st'>"ORN"</span>, <span class='kw'>OmitFailures</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>.progress</span><span class='kw'>=</span><span class='st'>'text'</span>)
+<span class='va'>orns</span><span class='op'>=</span><span class='fu'>read.neurons.catmaid</span><span class='op'>(</span><span class='st'>"ORN"</span>, OmitFailures <span class='op'>=</span> <span class='cn'>T</span>, .progress<span class='op'>=</span><span class='st'>'text'</span><span class='op'>)</span>
 
 <span class='co'># Add two extra columns to the attached data.frame</span>
 <span class='co'># for the Odorant receptor genes and the side of brain</span>
-<span class='no'>orns</span>[,<span class='st'>'side'</span>]<span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>grepl</a></span>(<span class='st'>"left"</span>, <span class='no'>orns</span>[,<span class='st'>'name'</span>]), <span class='st'>"L"</span>, <span class='st'>"R"</span>))
-<span class='no'>orns</span>[,<span class='st'>'Or'</span>]<span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>sub</a></span>(<span class='st'>" ORN.*"</span>, <span class='st'>""</span>, <span class='no'>orns</span>[,<span class='st'>'name'</span>]))
+<span class='va'>orns</span><span class='op'>[</span>,<span class='st'>'side'</span><span class='op'>]</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"left"</span>, <span class='va'>orns</span><span class='op'>[</span>,<span class='st'>'name'</span><span class='op'>]</span><span class='op'>)</span>, <span class='st'>"L"</span>, <span class='st'>"R"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>orns</span><span class='op'>[</span>,<span class='st'>'Or'</span><span class='op'>]</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>" ORN.*"</span>, <span class='st'>""</span>, <span class='va'>orns</span><span class='op'>[</span>,<span class='st'>'name'</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># check what we have</span>
 <span class='co'># see ?head.neuronlist and ?with.neuronlist for details of how this works</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist-dataframe-methods'>head</a></span>(<span class='no'>orns</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/nat/topics/neuronlist-dataframe-methods'>with</a></span>(<span class='no'>orns</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/ftable'>ftable</a></span>(<span class='no'>side</span>~<span class='no'>Or</span>))
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>head</a></span><span class='op'>(</span><span class='va'>orns</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/nat/man/neuronlist-dataframe-methods.html'>with</a></span><span class='op'>(</span><span class='va'>orns</span>, <span class='fu'><a href='https://rdrr.io/r/stats/ftable.html'>ftable</a></span><span class='op'>(</span><span class='va'>side</span><span class='op'>~</span><span class='va'>Or</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># now some plots</span>
-<span class='fu'>open3d</span>()
+<span class='fu'>open3d</span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># colour by side of brain</span>
-<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>orns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>side</span>)
-<span class='fu'>clear3d</span>()
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span><span class='op'>(</span><span class='va'>orns</span>, col<span class='op'>=</span><span class='va'>side</span><span class='op'>)</span>
+<span class='fu'>clear3d</span><span class='op'>(</span><span class='op'>)</span>
 <span class='co'># colour by Odorant Receptor</span>
 <span class='co'># note similar position of axon terminals for same ORN class on left and right</span>
-<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>orns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>Or</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span><span class='op'>(</span><span class='va'>orns</span>, col<span class='op'>=</span><span class='va'>Or</span><span class='op'>)</span>
 
 <span class='co'>## Additional example using Olfactory Projection Neurons</span>
-<span class='no'>pns</span><span class='kw'>=</span><span class='fu'>read.neurons.catmaid</span>(<span class='st'>"annotation:ORN PNs$"</span>, <span class='kw'>.progress</span><span class='kw'>=</span><span class='st'>'text'</span>)
-<span class='no'>pns</span>[,<span class='st'>'side'</span>]<span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ifelse'>ifelse</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>grepl</a></span>(<span class='st'>"left"</span>, <span class='no'>pns</span>[,<span class='st'>'name'</span>]), <span class='st'>"L"</span>, <span class='st'>"R"</span>))
-<span class='no'>pns</span>[,<span class='st'>'Or'</span>]<span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>sub</a></span>(<span class='st'>" PN.*"</span>, <span class='st'>""</span>, <span class='no'>pns</span>[,<span class='st'>'name'</span>]))
+<span class='va'>pns</span><span class='op'>=</span><span class='fu'>read.neurons.catmaid</span><span class='op'>(</span><span class='st'>"annotation:ORN PNs$"</span>, .progress<span class='op'>=</span><span class='st'>'text'</span><span class='op'>)</span>
+<span class='va'>pns</span><span class='op'>[</span>,<span class='st'>'side'</span><span class='op'>]</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"left"</span>, <span class='va'>pns</span><span class='op'>[</span>,<span class='st'>'name'</span><span class='op'>]</span><span class='op'>)</span>, <span class='st'>"L"</span>, <span class='st'>"R"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>pns</span><span class='op'>[</span>,<span class='st'>'Or'</span><span class='op'>]</span><span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>sub</a></span><span class='op'>(</span><span class='st'>" PN.*"</span>, <span class='st'>""</span>, <span class='va'>pns</span><span class='op'>[</span>,<span class='st'>'name'</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># check that we have the same levels for the Odorant Receptor (Or) factor</span>
 <span class='co'># for ORNs and PNs</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/stopifnot'>stopifnot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/levels'>levels</a></span>(<span class='no'>pns</span>[,<span class='st'>'Or'</span>])<span class='kw'>==</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/levels'>levels</a></span>(<span class='no'>orns</span>[,<span class='st'>'Or'</span>]))
+<span class='fu'><a href='https://rdrr.io/r/base/stopifnot.html'>stopifnot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>pns</span><span class='op'>[</span>,<span class='st'>'Or'</span><span class='op'>]</span><span class='op'>)</span><span class='op'>==</span><span class='fu'><a href='https://rdrr.io/r/base/levels.html'>levels</a></span><span class='op'>(</span><span class='va'>orns</span><span class='op'>[</span>,<span class='st'>'Or'</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Ok, let's plot the PNs - they will be in matching colours</span>
-<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>pns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>Or</span>)
+<span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span><span class='op'>(</span><span class='va'>pns</span>, col<span class='op'>=</span><span class='va'>Or</span><span class='op'>)</span>
 
-<span class='co'># }</span></pre>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -296,13 +316,16 @@ skeleton (default <code>FALSE</code>)</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

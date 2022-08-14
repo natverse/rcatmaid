@@ -8,21 +8,36 @@
 
 <title>Make a CATMAID selection file based on neuronlist or skids — write_catmaid_selection • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +45,11 @@
 
 
 
-<meta property="og:title" content="Make a CATMAID selection file based on neuronlist or skids — write_catmaid_selection" />
 
+<meta property="og:title" content="Make a CATMAID selection file based on neuronlist or skids — write_catmaid_selection" />
 <meta property="og:description" content="Make a CATMAID selection file based on neuronlist or skids" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -47,9 +63,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -71,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -93,12 +110,17 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +131,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -120,19 +143,17 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Make a CATMAID selection file based on neuronlist or skids</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>write_catmaid_selection</span>(<span class='no'>x</span>, <span class='no'>f</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>opacity</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>write_catmaid_selection</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>f</span>, color <span class='op'>=</span> <span class='cn'>NULL</span>, opacity <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A <code>neuronlist</code>, data.frame or vector of skids</p></td>
+      <td><p>A <code><a href='https://rdrr.io/pkg/nat/man/neuronlist.html'>neuronlist</a></code>, data.frame or vector of skids</p></td>
     </tr>
     <tr>
       <th>f</th>
@@ -141,7 +162,7 @@
     <tr>
       <th>color</th>
       <td><p>Optional vector of colours in any format understood by
-<code><a href='https://www.rdocumentation.org/packages/grDevices/topics/col2rgb'>col2rgb</a></code></p></td>
+<code><a href='https://rdrr.io/r/grDevices/col2rgb.html'>col2rgb</a></code></p></td>
     </tr>
     <tr>
       <th>opacity</th>
@@ -152,42 +173,37 @@
       <td><p>Additional arguments passed to <code><a href='catmaid_skids.html'>catmaid_skids</a></code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='read_catmaid_selection.html'>read_catmaid_selection</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Write selection file for neurons defined by annotation or name</span>
-<span class='fu'>write_catmaid_selection</span>(<span class='st'>"PN"</span>, <span class='st'>"pns.json"</span>)
-<span class='fu'>write_catmaid_selection</span>(<span class='st'>"name:AV6"</span>, <span class='st'>"name:av6.json"</span>)
+<span class='fu'>write_catmaid_selection</span><span class='op'>(</span><span class='st'>"PN"</span>, <span class='st'>"pns.json"</span><span class='op'>)</span>
+<span class='fu'>write_catmaid_selection</span><span class='op'>(</span><span class='st'>"name:AV6"</span>, <span class='st'>"name:av6.json"</span><span class='op'>)</span>
 
-<span class='no'>pns</span><span class='kw'>=</span><span class='fu'><a href='read.neuron.catmaid.html'>read.neurons.catmaid</a></span>(<span class='st'>"PN"</span>)
+<span class='va'>pns</span><span class='op'>=</span><span class='fu'><a href='read.neuron.catmaid.html'>read.neurons.catmaid</a></span><span class='op'>(</span><span class='st'>"PN"</span><span class='op'>)</span>
 <span class='co'># extract the glomerulus from the name</span>
-<span class='no'>pns</span>[, <span class='st'>'glomerulus'</span>] <span class='kw'>=</span> <span class='kw pkg'>stringr</span><span class='kw ns'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_match.html'>str_match</a></span>(<span class='no'>pns</span>[, <span class='st'>'name'</span>],
-                                         <span class='st'>".*glomerulus ([A-z0-9]+) .*"</span>)[, <span class='fl'>2</span>]
-<span class='no'>pns</span>[, <span class='st'>'glomerulus'</span>]<span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>addNA</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>pns</span>[, <span class='st'>'glomerulus'</span>]))
+<span class='va'>pns</span><span class='op'>[</span>, <span class='st'>'glomerulus'</span><span class='op'>]</span> <span class='op'>=</span> <span class='fu'>stringr</span><span class='fu'>::</span><span class='fu'><a href='https://stringr.tidyverse.org/reference/str_match.html'>str_match</a></span><span class='op'>(</span><span class='va'>pns</span><span class='op'>[</span>, <span class='st'>'name'</span><span class='op'>]</span>,
+                                         <span class='st'>".*glomerulus ([A-z0-9]+) .*"</span><span class='op'>)</span><span class='op'>[</span>, <span class='fl'>2</span><span class='op'>]</span>
+<span class='va'>pns</span><span class='op'>[</span>, <span class='st'>'glomerulus'</span><span class='op'>]</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>addNA</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span><span class='op'>(</span><span class='va'>pns</span><span class='op'>[</span>, <span class='st'>'glomerulus'</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># get the same colours that nat would normally use in a plot</span>
-<span class='no'>plotres</span><span class='kw'>=</span><span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span>(<span class='no'>pns</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='no'>glomerulus</span>)
-<span class='no'>cols</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>plotres</span>,<span class='st'>'df'</span>)$<span class='no'>col</span>
+<span class='va'>plotres</span><span class='op'>=</span><span class='fu'><a href='plot3d.catmaidneuron.html'>plot3d</a></span><span class='op'>(</span><span class='va'>pns</span>, col<span class='op'>=</span><span class='va'>glomerulus</span><span class='op'>)</span>
+<span class='va'>cols</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span><span class='op'>(</span><span class='va'>plotres</span>,<span class='st'>'df'</span><span class='op'>)</span><span class='op'>$</span><span class='va'>col</span>
 <span class='co'># write out selection file with those colours</span>
-<span class='fu'>write_catmaid_selection</span>(<span class='no'>pns</span>, <span class='kw'>f</span><span class='kw'>=</span><span class='st'>'pns-by-glom.json'</span>, <span class='kw'>color</span><span class='kw'>=</span><span class='no'>cols</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>write_catmaid_selection</span><span class='op'>(</span><span class='va'>pns</span>, f<span class='op'>=</span><span class='st'>'pns-by-glom.json'</span>, color<span class='op'>=</span><span class='va'>cols</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -195,13 +211,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

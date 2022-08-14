@@ -1,4 +1,41 @@
-# catmaid (development version)
+# catmaid 0.10.1
+
+* Fix bug in pid handling for meshes (#144)
+* Pass on pid / conn in catmaid_get_annotations_for_skeleton (#147)
+* Fix bug in catmaid_query_connected when no outputs at all (#148)
+  Thanks to Shanice Bailey
+* Always pass on conn in catmaid_version calls (#150)
+  Thanks to Rob Turnbull
+* Fix test baseline in catmaid_get_annotations_for_skeletons
+* Switch from deprecated as_data_frame to as_tibble
+* Fix NA types in tibble (#153, @SridharJagannathan)
+* Fix HTTP/2 call failures in `catmaid` server (#158, @SridharJagannathan)
+* Fix [problem in elmr::unspike when only one tag](https://github.com/natverse/elmr/issues/53) (#163, #164)
+* Add `vfbcatmaid()` convenience function
+* Add `print.catmaid_connection` method to give a nice summary of connection
+  properties in the console.
+* Fix bug in setting label field for soma (#167)
+  Thanks to @Robbie1977
+* Fix copy_tags_connectors
+
+# catmaid 0.10.0
+
+* New functions for handling meta annotations (i.e. annotations of annotations):
+  `catmaid_get_meta_annotations()`, `catmaid_query_meta_annotations()`,
+  `catmaid_set_meta_annotations()`, `catmaid_remove_meta_annotations()`
+  thanks to @alexanderbates for the PR (#130).
+* New functions for (un)locking neurons:
+  `catmaid_lock_neurons()`, `catmaid_unlock_neurons()`
+  thanks to @alexanderbates for the PR (#130).
+* New functions to fetch soma information from neurons in a neuronlist:
+  `soma()` fetches the XYZ location of the soma.
+  `somaindex()` fetches the raw index of the skeleton node associated 
+  with the soma (in range 1..N, number of vertices).
+  `somaid()` fetches the identifier of the skeleton node associated with the soma
+  thanks to @alexanderbates for the PR (#128).
+* Set the SWC `Label` column inside neurons to identify the soma (#143).
+* Fix `catmaid_get_volumelist()` and `catmaid_get_volume()` when the project
+  (pid) is not 1 (#144).
 
 # catmaid 0.9.9
 

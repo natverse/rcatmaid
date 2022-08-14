@@ -112,7 +112,7 @@ catmaid_userids <- function(x, pid=1, conn=NULL, ...) {
 #'   
 #'   }
 #' @export
-#' @importFrom dplyr bind_rows right_join as_data_frame
+#' @importFrom dplyr bind_rows right_join as_tibble
 #' @examples
 #' \dontrun{
 #' catmaid_user_history(from="2016-01-01")
@@ -455,7 +455,7 @@ catmaid_get_time_invested<-function(skids, pid=1, conn=NULL, mode=c('SUM','OVER_
         names(stats_df)[names(stats_df) == 'count2'] <- 'minutes'
         names(stats_df)[names(stats_df) == 'user'] <- 'users'
         if (nrow(stats_df)>0){
-            stats_df$login <- NA
+            stats_df$login <- NA_character_
         
             for (useridx in seq_along(stats_df$users)){
                 matchidx <- as.numeric(stats_df[useridx,'users'])  == user_list$id
@@ -593,7 +593,7 @@ process_one_user_history <- function(x) {
            new_reviewed_nodes = integer(0), date = structure(numeric(0), class = "Date"))
     return(empytydf)
   }
-  df=bind_rows(lapply(x, as_data_frame))
+  df=bind_rows(lapply(x, as_tibble))
   dates=as.Date(names(x), format="%Y%m%d")
   df$date=rep(dates, sapply(x, function(x) length(x)>0))
   df

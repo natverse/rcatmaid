@@ -8,21 +8,36 @@
 
 <title>Function reference • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,7 +45,10 @@
 
 
 
+
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -44,9 +62,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-index">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -60,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -68,7 +87,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,12 +109,17 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -106,6 +130,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -129,12 +154,18 @@
           <p class="section-desc"><p>Provides an overview of key functions and classes</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
           <p><code><a href="catmaid-package.html">catmaid-package</a></code> </p>
         </td>
-        <td><p>Programmatic access to the CATMAID API</p></td>
+        <td><p>catmaid: R access to the API for the CATMAID web image annotation
+    tool</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -143,12 +174,23 @@
           <p class="section-desc"><p>Functions handling connections to a catmaid server</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
-          <p><code><a href="catmaid_login.html">catmaid_login()</a></code> <code><a href="catmaid_login.html">catmaid_connection()</a></code> </p>
+          <p><code><a href="catmaid_login.html">catmaid_login()</a></code> <code><a href="catmaid_login.html">catmaid_connection()</a></code> <code><a href="catmaid_login.html">print(<i>&lt;catmaid_connection&gt;</i>)</a></code> </p>
         </td>
         <td><p>Connect/authenticate to a CATMAID server, returning a connection object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="vfbcatmaid.html">vfbcatmaid()</a></code> </p>
+        </td>
+        <td><p>A connection to the vfb catmaid server for a given dataset</p></td>
       </tr><tr>
         
         <td>
@@ -163,6 +205,11 @@
           <p class="section-desc"><p>Fetching raw skeleton information</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -201,6 +248,11 @@
           <p class="section-desc"><p>Querying, fetching and setting neuron names and annotations</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -228,6 +280,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="catmaid_meta_annotations.html">catmaid_get_meta_annotations()</a></code> <code><a href="catmaid_meta_annotations.html">catmaid_query_meta_annotations()</a></code> <code><a href="catmaid_meta_annotations.html">catmaid_set_meta_annotations()</a></code> <code><a href="catmaid_meta_annotations.html">catmaid_remove_meta_annotations()</a></code> </p>
+        </td>
+        <td><p>Get, query, set and remove CATMAID meta-annotations for annotations</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_get_annotations_for_skeletons()</a></code> <code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_set_annotations_for_skeletons()</a></code> <code><a href="catmaid_get_annotations_for_skeletons.html">catmaid_remove_annotations_for_skeletons()</a></code> </p>
         </td>
         <td><p>Get or set annotations for neurons from CATMAID</p></td>
@@ -237,6 +295,12 @@
           <p><code><a href="catmaid_get_annotationlist.html">catmaid_get_annotationlist()</a></code> </p>
         </td>
         <td><p>Get list of annotations (including user information) from CATMAID</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="catmaid_lock_neurons.html">catmaid_lock_neurons()</a></code> <code><a href="catmaid_lock_neurons.html">catmaid_unlock_neurons()</a></code> </p>
+        </td>
+        <td><p>Lock or unlock a CATMAID neuron reconstruction</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -245,6 +309,11 @@
           <p class="section-desc"><p>Fetching, setting and removing tags from tree nodes or connectors</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -271,6 +340,11 @@
           <p class="section-desc"><p>Querying and fetching neuronal connectivity information</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -303,6 +377,11 @@
           <p class="section-desc"><p>Fetching and using catmaid skeletons for use with the NeuroAnatomy Toolbox (nat) package.</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -321,6 +400,12 @@
           <p><code><a href="connectors.html">connectors()</a></code> </p>
         </td>
         <td><p>Get data.frame of connector (synapse) information from a neuron or <code>neuronlist</code></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="soma.html">soma()</a></code> <code><a href="soma.html">somaindex()</a></code> <code><a href="soma.html">somaid()</a></code> </p>
+        </td>
+        <td><p>Retrieve soma information for skeletons (specified via CATMAID tags)</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -329,6 +414,11 @@
           <p class="section-desc"><p>Adding / converting volume meshes to CATMAID from regular R mesh representations</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -361,6 +451,11 @@
           <p class="section-desc"><p>Neuron and user lists and statistics</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -393,6 +488,11 @@
           <p class="section-desc"><p>Working with the URLs or JSON files used to save and exchange CATMAID state</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -419,6 +519,11 @@
           <p class="section-desc"><p>Sample data included with the package</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -433,6 +538,11 @@
           <p class="section-desc"><p>Functions primarily intended for developer use</p></p>
         </th>
       </tr>
+      
+      
+    </tbody><tbody>
+      
+      
       <tr>
         
         <td>
@@ -462,24 +572,13 @@
     </table>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-package-help">Package Help</a></li>
-      <li><a href="#section-catmaid-login">Catmaid Login</a></li>
-      <li><a href="#section-catmaid-skeleton-functions">CATMAID skeleton functions</a></li>
-      <li><a href="#section-names-and-annotations">Names and Annotations</a></li>
-      <li><a href="#section-node-labels-aka-tags-">Node labels (aka tags)</a></li>
-      <li><a href="#section-synaptic-connections">Synaptic Connections</a></li>
-      <li><a href="#section-interfacing-with-nat">Interfacing with Nat</a></li>
-      <li><a href="#section-handling-volume-meshes">Handling volume meshes</a></li>
-      <li><a href="#section-catmaid-statistics-and-users">CATMAID statistics and users</a></li>
-      <li><a href="#section-catmaid-urls-and-json-files">CATMAID URLs and JSON files</a></li>
-      <li><a href="#section-data">Data</a></li>
-      <li><a href="#section-low-level-functions">Low level functions</a></li>
-    </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -487,13 +586,16 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

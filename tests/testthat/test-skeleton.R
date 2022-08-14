@@ -23,3 +23,20 @@ test_that("skeleton-tests", {
   # make sure that we can cope with duplicates and NAs
   expect_equal(catmaid_get_node_count(sk2,conn=conn), nc2)
 }))
+
+
+test_that("catmaid_adjacency_matrix works", {
+  vfbconn = try(vfbcatmaid('fafb'), silent = T)
+  if(inherits(vfbconn, 'try-error'))
+    skip("Unable to connect to VFB FAFB CATMAID server")
+  expect_true(inherits(
+    m <- catmaid_adjacency_matrix("name:DA2", conn = vfbconn),
+    'matrix'
+  ))
+  expect_true(inherits(
+    m2 <-
+      catmaid_adjacency_matrix("name:DA2", "name:AV1a1#1", conn = vfbconn),
+    'matrix'
+  ))
+  expect_equal(ncol(m2), 1L)
+})

@@ -49,3 +49,6 @@ nsoma("ORN PNs")
 nsoma(3486381)
 }
 }
+\seealso{
+\code{\link{soma}}
+}

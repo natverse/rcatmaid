@@ -8,21 +8,36 @@
 
 <title>Connect/authenticate to a CATMAID server, returning a connection object — catmaid_login • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,8 +45,8 @@
 
 
 
-<meta property="og:title" content="Connect/authenticate to a CATMAID server, returning a connection object — catmaid_login" />
 
+<meta property="og:title" content="Connect/authenticate to a CATMAID server, returning a connection object — catmaid_login" />
 <meta property="og:description" content="catmaid_login allows you to login to a CATMAID server 
   specified by a catmaid_connection object. If such an object is not 
   specified, then the last successful connection in this R session is reused 
@@ -43,8 +58,11 @@ The connection object returned by catmaid_login (or cached when
 catmaid_connection is a lower level function used by
   catmaid_login to create a connection object. End users should not
   need to call this directly, but it does document the arguments that can be
-  used to specify a connection to a CATMAID server." />
-<meta name="twitter:card" content="summary" />
+  used to specify a connection to a CATMAID server.
+print.catmaid_connection provides a convenient summary of
+  the status of a catmaid_connection." />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -58,9 +76,10 @@ catmaid_connection is a lower level function used by
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +93,7 @@ catmaid_connection is a lower level function used by
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -82,7 +101,7 @@ catmaid_connection is a lower level function used by
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -104,12 +123,17 @@ catmaid_connection is a lower level function used by
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -120,6 +144,7 @@ catmaid_connection is a lower level function used by
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -131,7 +156,6 @@ catmaid_connection is a lower level function used by
     </div>
 
     <div class="ref-description">
-    
     <p><code>catmaid_login</code> allows you to login to a CATMAID server 
   specified by a <code>catmaid_connection</code> object. If such an object is not 
   specified, then the last successful connection in this R session is reused 
@@ -144,15 +168,26 @@ catmaid_connection is a lower level function used by
   <code>catmaid_login</code> to create a connection object. End users should not
   need to call this directly, but it does document the arguments that can be
   used to specify a connection to a CATMAID server.</p>
-    
+<p><code>print.catmaid_connection</code> provides a convenient summary of
+  the status of a <code>catmaid_connection</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_login</span>(<span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>Cache</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>Force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>catmaid_login</span><span class='op'>(</span>conn <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, Cache <span class='op'>=</span> <span class='cn'>TRUE</span>, Force <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>catmaid_connection</span>(<span class='no'>server</span>, <span class='kw'>username</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>password</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>authname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>authpassword</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>token</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>authtype</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>config</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+<span class='fu'>catmaid_connection</span><span class='op'>(</span>
+  <span class='va'>server</span>,
+  username <span class='op'>=</span> <span class='cn'>NULL</span>,
+  password <span class='op'>=</span> <span class='cn'>NULL</span>,
+  authname <span class='op'>=</span> <span class='cn'>NULL</span>,
+  authpassword <span class='op'>=</span> <span class='cn'>NULL</span>,
+  token <span class='op'>=</span> <span class='cn'>NULL</span>,
+  authtype <span class='op'>=</span> <span class='cn'>NULL</span>,
+  config <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for catmaid_connection</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -196,21 +231,20 @@ username and password). See <b>Token based authentication</b> for details.</p></
     <tr>
       <th>authtype</th>
       <td><p>The http authentication scheme, see
-<code><a href='https://www.rdocumentation.org/packages/httr/topics/authenticate'>authenticate</a></code> for details.</p></td>
+<code><a href='https://httr.r-lib.org/reference/authenticate.html'>authenticate</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>config</th>
-      <td><p>Additional curl config options. See <code><a href='https://www.rdocumentation.org/packages/httr/topics/config'>config</a></code>
+      <td><p>Additional curl config options. See <code><a href='https://httr.r-lib.org/reference/config.html'>config</a></code>
 for details and the examples section below.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a <code>catmaid_connection</code> object that can be used to make 
   authenticated http requests to a CATMAID server, specifically by making use
   of the <code>$config</code> field.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>After successful login, the <code>catmaid_connection</code> object will 
@@ -227,7 +261,6 @@ for details and the examples section below.</p></td>
   authenticate to the CATMAID web application itself - for example the
   <code>username</code> is the one that will be associated with any tracing carried
   out by you in CATMAID.</p>
-    
     <h2 class="hasAnchor" id="token-based-authentication"><a class="anchor" href="#token-based-authentication"></a>Token based authentication</h2>
 
     <p>CATMAID offers token based 
@@ -240,12 +273,13 @@ for details and the examples section below.</p></td>
 <p>Note that you must <b>NOT</b> reveal this token e.g. by checking it into a 
   version controlled script as it gives complete access to your CATMAID 
   account.</p>
-    
     <h2 class="hasAnchor" id="environment-variables"><a class="anchor" href="#environment-variables"></a>Environment variables</h2>
 
     
-    <p>You will very likely want to set the following environment variables in 
-  your <code>.Renviron</code> file (see <code><a href='https://www.rdocumentation.org/packages/base/topics/Startup'>Startup</a></code> for details). This 
+
+  
+<p>You will very likely want to set the following environment variables in 
+  your <code>.Renviron</code> file (see <code><a href='https://rdrr.io/r/base/Startup.html'>Startup</a></code> for details). This 
   file is read by R on startup. In this way the catmaid package will 
   automatically login to your preferred CATMAID server. Note that environment
   variables will also be inherited by child R sessions. This means for
@@ -265,15 +299,15 @@ for details and the examples section below.</p></td>
 </ul><p>An example <code>.Renviron</code> file might look like (the periods(.) in the environmental variable name can be also replaced
   with underscore(_) as mentioned above:</p>  
 <p></p><pre>
-catmaid.server="https://mycatmaidserver.org/catmaidroot"
-catmaid.token="9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"
-catmaid.authname="Calvin"
-catmaid.authpassword="hobbes"
+<span class='va'>catmaid.server</span><span class='op'>=</span><span class='st'>"https://mycatmaidserver.org/catmaidroot"</span>
+<span class='va'>catmaid.token</span><span class='op'>=</span><span class='st'>"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>
+<span class='va'>catmaid.authname</span><span class='op'>=</span><span class='st'>"Calvin"</span>
+<span class='va'>catmaid.authpassword</span><span class='op'>=</span><span class='st'>"hobbes"</span>
   </pre>
-    <p>and <b>must</b> finish with a return at the end of the last line. See
+  
+<p>and <b>must</b> finish with a return at the end of the last line. See
   <a href='http://catmaid.github.io/dev/api.html#api-token'>http://catmaid.github.io/dev/api.html#api-token</a> for details of 
   obtaining an API token</p>
-    
     <h2 class="hasAnchor" id="options"><a class="anchor" href="#options"></a>Options</h2>
 
     <p>Although setting environment variables is now the recommended 
@@ -281,72 +315,65 @@ catmaid.authpassword="hobbes"
   to specify default CATMAID login options including your personal access 
   token. The startup options have the same names as the environment variables
   listed above, so you can place code along the lines of:</p>  
-<p><code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
+<p><code><a href='https://rdrr.io/r/base/options.html'>options(catmaid.server="https://mycatmaidserver.org/catmaidroot", 
   catmaid.authname="Calvin",catmaid.authpassword="hobbes", catmaid.token = 
   "9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b")</a></code></p>  
-<p>in your <code>.Rprofile</code> (see <code><a href='https://www.rdocumentation.org/packages/base/topics/Startup'>Startup</a></code> for details). Note that
+<p>in your <code>.Rprofile</code> (see <code><a href='https://rdrr.io/r/base/Startup.html'>Startup</a></code> for details). Note that
   it is important to have a final return at the end of your <code>.Rprofile</code>
   file.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/base/topics/options'>options</a></code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/Startup'>Startup</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/options.html'>options</a></code>, <code><a href='https://rdrr.io/r/base/Startup.html'>Startup</a></code>,
+  <code><a href='vfbcatmaid.html'>vfbcatmaid</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='co'># but see vfbcatmaid() convenience function</span>
+<span class='fu'>catmaid_login</span><span class='op'>(</span>server<span class='op'>=</span><span class='st'>"https://l1em.catmaid.virtualflybrain.org"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Connection to catmaid server:
+#&gt;   https://l1em.catmaid.virtualflybrain.org
+#&gt; Login active since: Sun, 28 Feb 2021 12:08:37 GMT</div><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## example explicitly specifying connection options</span>
 <span class='co'># using modern token based authentication</span>
-<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>"https://mycatmaidserver.org/catmaidroot"</span>,
-  <span class='kw'>authname</span><span class='kw'>=</span><span class='st'>"Calvin"</span>,<span class='kw'>authpassword</span><span class='kw'>=</span><span class='st'>"hobbes"</span>,
-  <span class='kw'>token</span><span class='kw'>=</span><span class='st'>"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span>)
-
+<span class='va'>conn</span> <span class='op'>=</span> <span class='fu'>catmaid_login</span><span class='op'>(</span>server<span class='op'>=</span><span class='st'>"https://mycatmaidserver.org/catmaidroot"</span>,
+  authname<span class='op'>=</span><span class='st'>"Calvin"</span>,authpassword<span class='op'>=</span><span class='st'>"hobbes"</span>, 
+  token<span class='op'>=</span><span class='st'>"9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b"</span><span class='op'>)</span>
+  
 <span class='co'># ... or using the old fashioned approach specifiy username/password</span>
-<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>"https://mycatmaidserver.org/catmaidroot"</span>,
-  <span class='kw'>authname</span><span class='kw'>=</span><span class='st'>"Calvin"</span>,<span class='kw'>authpassword</span><span class='kw'>=</span><span class='st'>"hobbes"</span>,
-  <span class='kw'>username</span><span class='kw'>=</span><span class='st'>"calvin"</span>, <span class='kw'>password</span><span class='kw'>=</span><span class='st'>"hobbesagain"</span>)
+<span class='va'>conn</span> <span class='op'>=</span> <span class='fu'>catmaid_login</span><span class='op'>(</span>server<span class='op'>=</span><span class='st'>"https://mycatmaidserver.org/catmaidroot"</span>,
+  authname<span class='op'>=</span><span class='st'>"Calvin"</span>,authpassword<span class='op'>=</span><span class='st'>"hobbes"</span>, 
+  username<span class='op'>=</span><span class='st'>"calvin"</span>, password<span class='op'>=</span><span class='st'>"hobbesagain"</span><span class='op'>)</span>
 
 <span class='co'>## examples assuming that catmaid.* environment variables/options are set</span>
-<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>()
-<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>server</span><span class='kw'>=</span><span class='st'>'https://someotherserver.org/catmaidroot'</span>)
+<span class='va'>conn</span> <span class='op'>=</span> <span class='fu'>catmaid_login</span><span class='op'>(</span><span class='op'>)</span>
+<span class='va'>conn</span> <span class='op'>=</span> <span class='fu'>catmaid_login</span><span class='op'>(</span>server<span class='op'>=</span><span class='st'>'https://someotherserver.org/catmaidroot'</span><span class='op'>)</span>
 
 <span class='co'>## set additional curl options/headers</span>
 <span class='co'># This example will bypass an SSL certificate verification error on the</span>
 <span class='co'># remote host e.g. if it has expired. Don't this regularly of course!</span>
-<span class='no'>conn</span> <span class='kw'>=</span> <span class='fu'>catmaid_login</span>(<span class='kw'>config</span><span class='kw'>=</span><span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/httr/topics/config'>config</a></span>(<span class='kw'>ssl_verifypeer</span><span class='kw'>=</span><span class='fl'>0</span>))
+<span class='va'>conn</span> <span class='op'>=</span> <span class='fu'>catmaid_login</span><span class='op'>(</span>config<span class='op'>=</span><span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/config.html'>config</a></span><span class='op'>(</span>ssl_verifypeer<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># This example will allow you to change the http protocol version while connecting!</span>
+<span class='co'># Changing the http version is useful when encountering curl related errors </span>
+<span class='va'>conn</span> <span class='op'>=</span> <span class='fu'>catmaid_login</span><span class='op'>(</span>config<span class='op'>=</span><span class='fu'>httr</span><span class='fu'>::</span><span class='fu'><a href='https://httr.r-lib.org/reference/config.html'>config</a></span><span class='op'>(</span>http_version<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## now do stuff with the connection like</span>
-<span class='no'>skel</span><span class='kw'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>, <span class='kw'>conn</span><span class='kw'>=</span><span class='no'>conn</span>)
+<span class='va'>skel</span><span class='op'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span><span class='op'>(</span><span class='st'>"1/10418394/0/0/compact-skeleton"</span>, conn<span class='op'>=</span><span class='va'>conn</span><span class='op'>)</span>
 <span class='co'># you can also omit the connecttion because it will be cached and reused</span>
-<span class='no'>skel</span><span class='kw'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>)
+<span class='va'>skel</span><span class='op'>=</span><span class='fu'><a href='catmaid_fetch.html'>catmaid_fetch</a></span><span class='op'>(</span><span class='st'>"1/10418394/0/0/compact-skeleton"</span><span class='op'>)</span>
 
 <span class='co'>## or for those who want to work at the lowest level</span>
-<span class='no'>skel2</span><span class='kw'>=</span><span class='fu'>GET</span>(<span class='st'>"https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton"</span>,
-  <span class='kw'>config</span><span class='kw'>=</span><span class='no'>conn</span>$<span class='no'>config</span>)
-<span class='co'># }</span></pre>
+<span class='va'>skel2</span><span class='op'>=</span><span class='fu'>GET</span><span class='op'>(</span><span class='st'>"https://mycatmaidserver.org/catmaidroot/1/10418394/0/0/compact-skeleton"</span>,
+  config<span class='op'>=</span><span class='va'>conn</span><span class='op'>$</span><span class='va'>config</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#token-based-authentication">Token based authentication</a></li>
-
-      <li><a href="#environment-variables">Environment variables</a></li>
-
-      <li><a href="#options">Options</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -354,13 +381,16 @@ catmaid.authpassword="hobbes"
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

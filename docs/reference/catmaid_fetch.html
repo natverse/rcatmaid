@@ -8,21 +8,36 @@
 
 <title>Send http GET or POST request to a CATMAID server — catmaid_fetch • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,12 +45,13 @@
 
 
 
-<meta property="og:title" content="Send http GET or POST request to a CATMAID server — catmaid_fetch" />
 
+<meta property="og:title" content="Send http GET or POST request to a CATMAID server — catmaid_fetch" />
 <meta property="og:description" content="catmaid_fetch carries out a GET operation when 
   body=NULL, POST otherwise. The http status code of the response will
   be checked - if invalid an error will be thrown." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -49,9 +65,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,7 +82,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -73,7 +90,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,12 +112,17 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -111,6 +133,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -122,16 +145,21 @@
     </div>
 
     <div class="ref-description">
-    
     <p><code>catmaid_fetch</code> carries out a GET operation when 
   <code>body=NULL</code>, POST otherwise. The http status code of the response will
   be checked - if invalid an error will be thrown.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_fetch</span>(<span class='no'>path</span>, <span class='kw'>body</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>parse.json</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>include_headers</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>simplifyVector</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>catmaid_fetch</span><span class='op'>(</span>
+  <span class='va'>path</span>,
+  body <span class='op'>=</span> <span class='cn'>NULL</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  parse.json <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  include_headers <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  simplifyVector <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -142,7 +170,7 @@
     <tr>
       <th>body</th>
       <td><p>The (optional) body of the post request, usually in the form of a
-named list. See the <code><a href='https://www.rdocumentation.org/packages/httr/topics/POST'>POST</a></code> documentation for full 
+named list. See the <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code> documentation for full 
 details.</p></td>
     </tr>
     <tr>
@@ -169,80 +197,72 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments passed to the <code><a href='https://www.rdocumentation.org/packages/httr/topics/GET'>httr::GET</a></code> or 
-<code><a href='https://www.rdocumentation.org/packages/httr/topics/POST'>httr::POST</a></code> function</p></td>
+      <td><p>Additional arguments passed to the <code><a href='https://httr.r-lib.org/reference/GET.html'>httr::GET</a></code> or 
+<code><a href='https://httr.r-lib.org/reference/POST.html'>httr::POST</a></code> function</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>When <code>parse.json=FALSE</code> an object of class <code>response</code> 
   otherwise the raw R object generated by calling 
-  <code>jsonlite::<a href='https://www.rdocumentation.org/packages/jsonlite/topics/fromJSON'>fromJSON</a></code> on the body of the response.</p>
-    
+  <code>jsonlite::<a href='https://rdrr.io/pkg/jsonlite/man/fromJSON.html'>fromJSON</a></code> on the body of the response.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='catmaid_login.html'>catmaid_login</a></code>, <code><a href='https://www.rdocumentation.org/packages/httr/topics/GET'>GET</a></code>, 
-  <code><a href='https://www.rdocumentation.org/packages/httr/topics/POST'>POST</a></code></p></div>
-    
+    <div class='dont-index'><p><code><a href='catmaid_login.html'>catmaid_login</a></code>, <code><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></code>, 
+  <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## Make a catmaid_connection object to use for these requests</span>
-<span class='no'>conn</span><span class='kw'>=</span><span class='fu'><a href='catmaid_login.html'>catmaid_login</a></span>()
+<span class='va'>conn</span><span class='op'>=</span><span class='fu'><a href='catmaid_login.html'>catmaid_login</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'>## fetch a demo skeleton using a GET request</span>
 <span class='co'># raw response</span>
-<span class='no'>skel.response</span><span class='kw'>=</span><span class='fu'>catmaid_fetch</span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>, <span class='kw'>conn</span><span class='kw'>=</span><span class='no'>conn</span>)
+<span class='va'>skel.response</span><span class='op'>=</span><span class='fu'>catmaid_fetch</span><span class='op'>(</span><span class='st'>"1/10418394/0/0/compact-skeleton"</span>, conn<span class='op'>=</span><span class='va'>conn</span><span class='op'>)</span>
 <span class='co'># list object</span>
-<span class='no'>skel</span><span class='kw'>=</span><span class='fu'>catmaid_fetch</span>(<span class='st'>"1/10418394/0/0/compact-skeleton"</span>, <span class='kw'>conn</span><span class='kw'>=</span><span class='no'>conn</span>)
+<span class='va'>skel</span><span class='op'>=</span><span class='fu'>catmaid_fetch</span><span class='op'>(</span><span class='st'>"1/10418394/0/0/compact-skeleton"</span>, conn<span class='op'>=</span><span class='va'>conn</span><span class='op'>)</span>
 
 <span class='co'>## Get the names of two skeletons using a POST request</span>
 <span class='co'># NB that the skids[n] elements are quoted when constructing the list since </span>
 <span class='co'># they are not valid R names.</span>
-<span class='fu'>catmaid_fetch</span>(<span class='st'>"/1/skeleton/neuronnames"</span>, <span class='kw'>conn</span><span class='kw'>=</span><span class='no'>conn</span>,
-  <span class='kw'>body</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>pid</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='st'>'skids[1]'</span><span class='kw'>=</span><span class='fl'>10418394</span>, <span class='st'>'skids[2]'</span><span class='kw'>=</span><span class='fl'>4453485</span>))
+<span class='fu'>catmaid_fetch</span><span class='op'>(</span><span class='st'>"/1/skeleton/neuronnames"</span>, conn<span class='op'>=</span><span class='va'>conn</span>,
+  body<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pid<span class='op'>=</span><span class='fl'>1</span>, <span class='st'>'skids[1]'</span><span class='op'>=</span><span class='fl'>10418394</span>, <span class='st'>'skids[2]'</span><span class='op'>=</span><span class='fl'>4453485</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## get all skeletons with more than 1000 nodes</span>
-<span class='no'>skids</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>as.integer</a></span>(<span class='fu'>catmaid_fetch</span>(<span class='st'>"/1/skeletons/?nodecount_gt=1000"</span>))
+<span class='va'>skids</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'>catmaid_fetch</span><span class='op'>(</span><span class='st'>"/1/skeletons/?nodecount_gt=1000"</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'>## fetch user history since 1st April 2016</span>
-<span class='no'>uh</span> <span class='kw'>=</span> <span class='fu'>catmaid_fetch</span>(<span class='st'>'1/stats/history?start_date=2016-04-01'</span>,
-  <span class='kw'>simplifyVector</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>include_headers</span> <span class='kw'>=</span> <span class='no'>F</span>)
-<span class='no'>uh</span>$<span class='no'>date</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.Date'>as.Date</a></span>(<span class='no'>uh</span>$<span class='no'>date</span>,<span class='st'>"%Y%m%d"</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='va'>uh</span> <span class='op'>=</span> <span class='fu'>catmaid_fetch</span><span class='op'>(</span><span class='st'>'1/stats/history?start_date=2016-04-01'</span>, 
+  simplifyVector <span class='op'>=</span> <span class='cn'>T</span>, include_headers <span class='op'>=</span> <span class='cn'>F</span><span class='op'>)</span>
+<span class='va'>uh</span><span class='op'>$</span><span class='va'>date</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='va'>uh</span><span class='op'>$</span><span class='va'>date</span>,<span class='st'>"%Y%m%d"</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='co'># select top 10 users by nodes added</span>
-<span class='no'>top10</span><span class='kw'>=</span><span class='no'>uh</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>name</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span>(<span class='kw'>total</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>count</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span>(<span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span>(<span class='no'>total</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/top_n.html'>top_n</a></span>(<span class='fl'>10</span>)
+<span class='va'>top10</span><span class='op'>=</span><span class='va'>uh</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>total<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>total</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/top_n.html'>top_n</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='co'># plot cumulative nodes traced</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='no'>uh</span> <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span>(<span class='no'>name</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span>(<span class='kw'>ccount</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cumsum'>cumsum</a></span>(<span class='no'>count</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span>(<span class='no'>name</span> <span class='kw'>%in%</span> <span class='no'>top10</span>$<span class='no'>name</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>date</span>, <span class='no'>ccount</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>name</span>)) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span>()
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='va'>uh</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>ccount <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>count</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>name</span> <span class='op'>%in%</span> <span class='va'>top10</span><span class='op'>$</span><span class='va'>name</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span><span class='va'>date</span>, <span class='va'>ccount</span>, col <span class='op'>=</span> <span class='va'>name</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'>## demonstrate that bad urls will result in an error</span>
-<span class='fu'>catmaid_fetch</span>(<span class='st'>"/1/rhubarb/crumble"</span>)
-<span class='co'># }</span></pre>
+<span class='fu'>catmaid_fetch</span><span class='op'>(</span><span class='st'>"/1/rhubarb/crumble"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -250,13 +270,16 @@ as attributes on the parsed JSON object (default <code>TRUE</code>) when
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

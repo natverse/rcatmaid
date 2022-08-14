@@ -20,4 +20,8 @@ test_that("xform scales connectors as well", {
   n=read.neuron.catmaid(skid_1,conn = conn)
   n10=xform(n, function(x, ...) x*10)
   expect_equivalent(xyzmatrix(connectors(n10)), xyzmatrix(connectors(n))*10)
+
+  n0.1=xform(n, function(x, ...) x/10)
+  expect_equivalent(xyzmatrix(connectors(n0.1)), xyzmatrix(connectors(n))/10)
+  
 }))

@@ -4,10 +4,17 @@
 \alias{catmaid_get_connector_table}
 \title{Return connector table for a given neuron}
 \usage{
-catmaid_get_connector_table(skids, direction = c("both", "incoming",
-  "outgoing"), partner.skids = TRUE, get_partner_names = FALSE,
-  get_partner_nodes = FALSE, pid = 1, conn = NULL, raw = FALSE,
-  ...)
+catmaid_get_connector_table(
+  skids,
+  direction = c("both", "incoming", "outgoing"),
+  partner.skids = TRUE,
+  get_partner_names = FALSE,
+  get_partner_nodes = FALSE,
+  pid = 1,
+  conn = NULL,
+  raw = FALSE,
+  ...
+)
 }
 \arguments{
 \item{skids}{Numeric skeleton ids}
@@ -22,16 +29,16 @@ number of nodes for the partner neurons.}
 
 \item{pid}{Project id (default 1)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{raw}{Whether to return completely unprocessed data (when \code{TRUE}) 
 or to convert the nodes and connectors lists into processed data.frames 
 (when \code{FALSE}, the default)}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 }
 \value{
@@ -125,9 +132,11 @@ plot3d(partner_neurons)
 }
 }
 \seealso{
-Other connectors: \code{\link{catmaid_get_connectors_between}},
-  \code{\link{catmaid_get_connectors}},
-  \code{\link{catmaid_query_connected}},
-  \code{\link{connectors}}
+Other connectors: 
+\code{\link{catmaid_adjacency_matrix}()},
+\code{\link{catmaid_get_connectors_between}()},
+\code{\link{catmaid_get_connectors}()},
+\code{\link{catmaid_query_connected}()},
+\code{\link{connectors}()}
 }
 \concept{connectors}

@@ -5,3 +5,5 @@
 ^docs$
 ^_pkgdown\.yml$
 ^\.httr-oauth$
+^LICENSE\.md$
+^\.github$

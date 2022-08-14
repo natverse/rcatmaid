@@ -7,20 +7,27 @@
 \usage{
 read.neuron.catmaid(skid, pid = 1L, conn = NULL, ...)
 
-read.neurons.catmaid(skids, pid = 1L, conn = NULL, OmitFailures = NA,
-  df = NULL, fetch.annotations = FALSE, ...)
+read.neurons.catmaid(
+  skids,
+  pid = 1L,
+  conn = NULL,
+  OmitFailures = NA,
+  df = NULL,
+  fetch.annotations = FALSE,
+  ...
+)
 }
 \arguments{
 \item{skid}{A numeric skeleton id}
 
 \item{pid}{Project id (default 1)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -37,25 +44,28 @@ values, see details.}
 skeleton (default \code{FALSE})}
 }
 \value{
-a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object 
+a \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}} object
   containing one or more neurons. These neurons will have an additional class
   \code{catmaidneuron} which provides for some extra functionality in certain
   methods.
 }
 \description{
-\code{read.neuron.catmaid} reads a single neuron, while 
-\code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object 
+\code{read.neuron.catmaid} reads a single neuron, while
+\code{read.neurons.catmaid} generates a \code{\link[nat]{neuronlist}} object
 including some metadata information.
 }
 \details{
-These functions provide a bridge between CATMAID and the 
-  neuronanatomy toolbox R package (\url{https://github.com/jefferis/nat}), 
-  which provides extensive functionality for analysing and plotting neurons 
+These functions provide a bridge between CATMAID and the
+  neuronanatomy toolbox R package (\url{https://github.com/natverse/nat}),
+  which provides extensive functionality for analysing and plotting neurons
   within the context of template brains.
-  
-  Note that the soma is set by inspecting CATMAID tags that 
-  (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1 
-  tag exists the one that tags an endpoint is preferred.
+
+  Note that the soma is set by inspecting CATMAID tags that
+  (case-insensitively) match the regex \code{"(cell body|soma)"}. Where >1
+  tag exists, the one that tags an endpoint is preferred. When a soma is
+  identified via a CATMAID tag in this way, the \code{Label} column for the
+  single node identified as the soma is set to \code{1}, the standard SWC
+  code. Other nodes will have \code{Label=0} i.e. undefined.
 
 When \code{OmitFailures} is not \code{NA}, \code{FUN} will be
   wrapped in a call to \code{\link{try}} to ensure that failure for any
@@ -129,8 +139,8 @@ plot3d(pns, col=Or)
 }
 }
 \seealso{
-\code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}}, 
-  \code{\link{connectors}} to extract connector information from a 
+\code{\link{plot3d.catmaidneuron}}, \code{\link[nat]{read.neuron}},
+  \code{\link{connectors}} to extract connector information from a
   \code{catmaid.neuron}
 
 \code{\link{catmaid_skids}}, \code{\link{catmaid_get_annotations_for_skeletons}}

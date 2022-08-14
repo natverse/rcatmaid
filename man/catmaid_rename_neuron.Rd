@@ -4,8 +4,14 @@
 \alias{catmaid_rename_neuron}
 \title{Rename (presently) a single neuron or other entity (e.g. annotation)}
 \usage{
-catmaid_rename_neuron(skids = NULL, entityids = NULL, names, pid = 1,
-  conn = NULL, ...)
+catmaid_rename_neuron(
+  skids = NULL,
+  entityids = NULL,
+  names,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -17,12 +23,12 @@ a query (see \code{\link{catmaid_skids}} or examples for the syntax).}
 
 \item{pid}{Project id (default 1)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 }
 \value{

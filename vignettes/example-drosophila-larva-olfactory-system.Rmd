@@ -21,7 +21,7 @@ rgl::setupKnitr()
 
 ## Intro
 This example is designed to introduce some of the basic features of
-the catmaid package and the NeuroAnatomy Toolbox ([nat](https://jefferis.github.io/nat/))
+the catmaid package and the NeuroAnatomy Toolbox ([nat](https://natverse.github.io/nat/))
 on which it builds.
 
 The sample data is from an EM connectomics study of the Drosophila first instar larva
@@ -38,9 +38,15 @@ library(catmaid)
 conn=catmaid_login(server="https://l1em.catmaid.virtualflybrain.org")
 ```
 
+There is also a convenience function which you could use to do the same thing:
+```{r, eval=FALSE}
+conn=vfbcatmaid("l1em")
+```
+for the public VFB servers.
+
 ## Fetching neurons
 
-Now lets fetch the peripheral olfactory sensory neurons, reading them into a 
+Now let's fetch the peripheral olfactory sensory neurons, reading them into a 
 `neuronlist()` object called `orns`.
 ```{r orns}
 orns=read.neurons.catmaid("name:ORN (left|right)")
@@ -53,10 +59,10 @@ orns[,'Or']= factor(sub(" ORN.*", "", orns[,'name']))
 ```
 
 We calculate both the side of the brain and the [odorant receptor](https://en.wikipedia.org/wiki/Olfactory_receptor) expressed by the
-olfactory sensory neurons. These two variables are stored as columns in a table (i.e. `data.frame()`) that is an attribute of the `orns` `neuronlist` objtect.
+olfactory sensory neurons. These two variables are stored as columns in a table (i.e. `data.frame()`) that is an attribute of the `orns` `neuronlist` object.
 
-The *catmaid* package builds on [nat](https://jefferis.github.io/nat), a general
-purpose R neuroanatomy package. You may want to read the [nat documentation](https://jefferis.github.io/nat/articles/neurons-intro.html) to
+The *catmaid* package builds on [nat](https://natverse.github.io/nat), a general
+purpose R neuroanatomy package. You may want to read the [nat documentation](https://natverse.github.io/nat/articles/neurons-intro.html) to
 learn about how *nat* handles single neurons, collections of neurons (called `neuronlist`s)
 and their associated metadata.
 
@@ -182,6 +188,21 @@ plot(
 Finally here is the plot with 4 clusters coloured.
 
 ```{r 4-clusters-plot, rgl=T}
+plot3d(non_pn_downstream.hcr,db=non_pn_downstream, k=4, soma=1000)
+```
+
+We could also get a 3D mesh for context
+```{r}
+# list available meshes
+catmaid_get_volumelist()
+cns=catmaid::catmaid_get_volume('cns')
+cns
+```
+
+Here is how you could plot that.
+
+```{r, eval=FALSE}
+shade3d(cns, col='grey', alpha=.1)
 plot3d(non_pn_downstream.hcr,db=non_pn_downstream, k=4, soma=1000)
 ```
 

@@ -8,21 +8,36 @@
 
 <title>Fetch a mesh volume from CATMAID — catmaid_get_volume • catmaid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +45,11 @@
 
 
 
-<meta property="og:title" content="Fetch a mesh volume from CATMAID — catmaid_get_volume" />
 
+<meta property="og:title" content="Fetch a mesh volume from CATMAID — catmaid_get_volume" />
 <meta property="og:description" content="Fetch a mesh volume from CATMAID" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content="/logo.svg" />
+
 
 
 
@@ -47,9 +63,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">catmaid</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.9.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.10.1</span>
       </span>
     </div>
 
@@ -71,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -93,12 +110,17 @@
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
+<li>
+  <a href="../SUPPORT.html">Help</a>
+</li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://natverse.github.io">natverse</a>
+</li>
+<li>
   <a href="https://github.com/jefferis/rcatmaid">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fas fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +131,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -120,14 +143,18 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Fetch a mesh volume from CATMAID</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>catmaid_get_volume</span>(<span class='no'>x</span>, <span class='kw'>rval</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"mesh3d"</span>, <span class='st'>"catmaidmesh"</span>, <span class='st'>"raw"</span>),
-  <span class='kw'>invertFaces</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>conn</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>pid</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>catmaid_get_volume</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  rval <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"mesh3d"</span>, <span class='st'>"catmaidmesh"</span>, <span class='st'>"raw"</span><span class='op'>)</span>,
+  invertFaces <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  conn <span class='op'>=</span> <span class='cn'>NULL</span>,
+  pid <span class='op'>=</span> <span class='fl'>1</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -158,14 +185,13 @@ see details).</p></td>
 function.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>When rval <code>mesh3d</code>, the standard format used by the <code>rgl</code> 
   and <code>nat</code> packages is the default. <code>catmaidmesh</code> is a tidy 
   version of the mesh format used by catmaid. <code>raw</code> will allow any 
   return value.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that if <code>x</code> is a volume name as a character vector then it
@@ -175,60 +201,60 @@ function.</p></td>
   of vertices but an invalid set of indices.</p>  
 <p>I have noticed that some CATMAID meshes are returned with the normals
   facing into the mesh (the opposite of what one would expect). This causes
-  <code><a href='https://www.rdocumentation.org/packages/nat/topics/pointsinside'>pointsinside</a></code> to do the opposite of what one would
+  <code><a href='https://rdrr.io/pkg/nat/man/pointsinside.html'>pointsinside</a></code> to do the opposite of what one would
   expect. Use <code>invertFaces=TRUE</code> to fix this.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='catmaid_get_volumelist.html'>catmaid_get_volumelist</a></code>, 
   <code><a href='catmaid_add_volume.html'>catmaid_add_volume</a></code>, <code><a href='as.catmaidmesh.html'>as.catmaidmesh</a></code>, 
-  <code><a href='https://www.rdocumentation.org/packages/rgl/topics/mesh3d'>mesh3d</a></code>, <code><a href='https://www.rdocumentation.org/packages/nat/topics/read.hxsurf'>hxsurf</a></code>, 
-  <code><a href='https://www.rdocumentation.org/packages/rgl/topics/shapelist3d'>shapelist3d</a></code></p></div>
-    
+  <code><a href='https://rdrr.io/pkg/rgl/man/mesh3d.html'>mesh3d</a></code>, <code><a href='https://rdrr.io/pkg/nat/man/read.hxsurf.html'>hxsurf</a></code>, 
+  <code><a href='https://rdrr.io/pkg/rgl/man/shapelist3d.html'>shapelist3d</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>## NB all these examples refer to the FAFB adult Drosophila brain
-## CATMAID instance
-</div><div class='input'><span class='no'>v14.neuropil</span><span class='kw'>=</span><span class='fu'>catmaid_get_volume</span>(<span class='st'>'v14.neuropil'</span>)
-<span class='co'># specifying by name is easier / less fragile than numeric ids</span></div><div class='input'>
-</div><span class='co'># NOT RUN {</span>
-<span class='no'>AL_R</span><span class='kw'>=</span><span class='fu'>catmaid_get_volume</span>(<span class='st'>"AL_R"</span>)
-<span class='fu'>shade3d</span>(<span class='no'>AL_R</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>'red'</span>, <span class='kw'>alpha</span><span class='kw'>=</span><span class='fl'>.3</span>)
+    <pre class="examples"><div class='input'><span class='co'>## NB all these examples refer to the FAFB adult Drosophila brain</span>
+<span class='co'>## CATMAID instance</span>
+<span class='co'># \donttest{</span>
+<span class='va'>fafbconn</span><span class='op'>=</span><span class='fu'><a href='vfbcatmaid.html'>vfbcatmaid</a></span><span class='op'>(</span><span class='st'>"fafb"</span><span class='op'>)</span>
+<span class='va'>v14.neuropil</span><span class='op'>=</span><span class='fu'>catmaid_get_volume</span><span class='op'>(</span><span class='st'>'v14.neuropil'</span>, conn<span class='op'>=</span><span class='va'>fafbconn</span><span class='op'>)</span>
+<span class='co'># specifying by name is easier / less fragile than numeric ids</span>
+<span class='co'># }</span>
 
-<span class='kw'>if</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"Morpho"</span>)) {
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/Morpho/topics/plotNormals'>plotNormals</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/Morpho/topics/updateNormals'>facenormals</a></span>(<span class='no'>v13.AL_R</span>), <span class='kw'>long</span><span class='kw'>=</span><span class='fl'>5e3</span>)
-}
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>AL_R</span><span class='op'>=</span><span class='fu'>catmaid_get_volume</span><span class='op'>(</span><span class='st'>"AL_R"</span>, conn<span class='op'>=</span><span class='va'>fafbconn</span><span class='op'>)</span>
+<span class='fu'>shade3d</span><span class='op'>(</span><span class='va'>AL_R</span>, col<span class='op'>=</span><span class='st'>'red'</span>, alpha<span class='op'>=</span><span class='fl'>.3</span><span class='op'>)</span>
 
-<span class='co'># find surfaces for olfactory glomeruli</span>
-<span class='no'>vl</span><span class='kw'>=</span><span class='fu'><a href='catmaid_get_volumelist.html'>catmaid_get_volumelist</a></span>()
-<span class='no'>x</span>
-<span class='no'>glomids</span><span class='kw'>=</span><span class='no'>vl</span>$<span class='no'>id</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/grep'>grepl</a></span>(<span class='st'>"v14.[DV][MLAPC]{0,1}[0-9]{0,1}[dvaplm]{0,1}$"</span>, <span class='no'>vl</span>$<span class='no'>name</span>)]
-<span class='co'># fetch them all</span>
-<span class='no'>gg</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='no'>glomids</span>, <span class='no'>catmaid_get_volume</span>)
+<span class='kw'>if</span><span class='op'>(</span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='st'><a href='https://github.com/zarquon42b/Morpho'>"Morpho"</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/Morpho/man/plotNormals.html'>plotNormals</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/Morpho/man/updateNormals.html'>facenormals</a></span><span class='op'>(</span><span class='va'>AL_R</span><span class='op'>)</span>, length<span class='op'>=</span><span class='fl'>5e3</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'>## Fetch MB surfaces </span>
+<span class='va'>vl</span><span class='op'>=</span><span class='fu'><a href='catmaid_get_volumelist.html'>catmaid_get_volumelist</a></span><span class='op'>(</span>conn<span class='op'>=</span><span class='va'>fafbconn</span><span class='op'>)</span>
+<span class='va'>mbids</span><span class='op'>=</span><span class='va'>vl</span><span class='op'>$</span><span class='va'>id</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"^MB_"</span>, <span class='va'>vl</span><span class='op'>$</span><span class='va'>name</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>mbsurfs</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>mbids</span>, <span class='va'>catmaid_get_volume</span>, conn<span class='op'>=</span><span class='va'>fafbconn</span><span class='op'>)</span>
 <span class='co'># ... and plot</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mapply'>mapply</a></span>(<span class='no'>shade3d</span>, <span class='no'>gg</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>rainbow</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>gg</span>)))
+<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='va'>shade3d</span>, <span class='va'>mbsurfs</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>mbsurfs</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## find surfaces for olfactory glomeruli</span>
+<span class='co'># not currently present in the catmaid FAFB</span>
+<span class='va'>glomids</span><span class='op'>=</span><span class='va'>vl</span><span class='op'>$</span><span class='va'>id</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/grep.html'>grepl</a></span><span class='op'>(</span><span class='st'>"v14.[DV][MLAPC]{0,1}[0-9]{0,1}[dvaplm]{0,1}$"</span>, <span class='va'>vl</span><span class='op'>$</span><span class='va'>name</span><span class='op'>)</span><span class='op'>]</span>
+<span class='co'># fetch them all</span>
+<span class='va'>gg</span><span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>glomids</span>, <span class='va'>catmaid_get_volume</span>, conn<span class='op'>=</span><span class='va'>fafbconn</span><span class='op'>)</span>
+<span class='co'># ... and plot</span>
+<span class='fu'><a href='https://rdrr.io/r/base/mapply.html'>mapply</a></span><span class='op'>(</span><span class='va'>shade3d</span>, <span class='va'>gg</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>gg</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># alternatively wrap them all in an rgl shapelist3d, plotting each object</span>
-<span class='no'>sl</span><span class='kw'>=</span><span class='fu'>shapelist3d</span>(<span class='no'>gg</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>rainbow</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>gg</span>)), <span class='kw'>plot</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='va'>sl</span><span class='op'>=</span><span class='fu'>shapelist3d</span><span class='op'>(</span><span class='va'>gg</span>, col<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>gg</span><span class='op'>)</span><span class='op'>)</span>, plot<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='co'># }</span></pre>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -236,13 +262,16 @@ function.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

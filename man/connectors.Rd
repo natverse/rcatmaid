@@ -18,7 +18,7 @@ connectors(x, ...)
 \item{...}{Additional arguments passed to methods (and to \code{nlapply} in 
 the case of connectors)}
 
-\item{subset, }{optional subset of neurons to keep (see 
+\item{subset, }{optional subset of neurons to keep (see
 \code{\link[nat]{nlapply}} for details)}
 }
 \value{
@@ -48,6 +48,14 @@ In contrast to \code{\link{catmaid_get_connector_table}} this assumes that
 you have already read the neurons into an R structure of class 
 \code{\link[nat]{neuron}} or \code{\link[nat]{neuronlist}}.
 }
+\details{
+Note that the id column identifying each neuron will be called
+  \code{bodyid} or \code{skid} if such a field exists in the metadata
+  attached to the neuron or \code{id} otherwise. If the column is called
+  skid, the identifier will be converted to an integer otherwise it will be a
+  character vector. These adjustments will avoid large 64 bit int ids from
+  neuprint being zapped.
+}
 \examples{
 \dontrun{
 ornsl=read.neurons.catmaid("name:ORN left", OmitFailures = T, .progress='text')
@@ -63,9 +71,11 @@ points3d(xyzmatrix(conndf), col=c(pre='red', post='cyan')[conndf$prepost+1])
 \seealso{
 \code{\link[nat]{nlapply}}
 
-Other connectors: \code{\link{catmaid_get_connector_table}},
-  \code{\link{catmaid_get_connectors_between}},
-  \code{\link{catmaid_get_connectors}},
-  \code{\link{catmaid_query_connected}}
+Other connectors: 
+\code{\link{catmaid_adjacency_matrix}()},
+\code{\link{catmaid_get_connector_table}()},
+\code{\link{catmaid_get_connectors_between}()},
+\code{\link{catmaid_get_connectors}()},
+\code{\link{catmaid_query_connected}()}
 }
 \concept{connectors}

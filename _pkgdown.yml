@@ -1,12 +1,12 @@
 reference:
 - title: Package Help
   desc: Provides an overview of key functions and classes
-  contents:
-  - catmaid-package
+  contents: catmaid-package
 - title: Catmaid Login
   desc: Functions handling connections to a catmaid server
   contents:
   - catmaid_login
+  - vfbcatmaid
   - catmaid_connection_setenv
 - title: CATMAID skeleton functions
   desc: Fetching raw skeleton information
@@ -23,8 +23,10 @@ reference:
   - catmaid_get_neuronnames
   - catmaid_rename_neuron
   - catmaid_skids
+  - catmaid_meta_annotations
   - catmaid_get_annotations_for_skeletons
   - catmaid_get_annotationlist
+  - catmaid_lock_neurons
 - title: Node labels (aka tags)
   desc: Fetching, setting and removing tags from tree nodes or connectors
   contents:
@@ -40,12 +42,15 @@ reference:
   - catmaid_get_connector_table
   - catmaid_get_connectors_between
   - catmaid_get_connectors
+  - catmaid_adjacency_matrix
 - title: Interfacing with Nat
-  desc: Fetching and using catmaid skeletons for use with the NeuroAnatomy Toolbox (nat) package.
+  desc: Fetching and using catmaid skeletons for use with the NeuroAnatomy Toolbox
+    (nat) package.
   contents:
   - read.neuron.catmaid
   - plot3d.catmaidneuron
   - connectors
+  - soma
 - title: Handling volume meshes
   desc: Adding / converting volume meshes to CATMAID from regular R mesh representations
   contents:
@@ -68,8 +73,7 @@ reference:
   - write_catmaid_selection
 - title: Data
   desc: Sample data included with the package
-  contents:
-  - AV4b1
+  contents: AV4b1
 - title: Low level functions
   desc: Functions primarily intended for developer use
   contents:
@@ -77,3 +81,41 @@ reference:
   - copy_tags_connectors
   - catmaid_entities_from_models
   - catmaid_version
+navbar:
+  structure:
+    left:
+    - home
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    - help
+    right:
+    - natverse
+    - github
+  components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
+    reference:
+      text: Reference
+      href: reference/index.html
+    articles:
+      text: Articles
+      menu:
+      - text: Introductory Example - Drosophila Larval Olfaction
+        href: articles/example-drosophila-larva-olfactory-system.html
+    news:
+      text: Changelog
+      href: news/index.html
+    github:
+      icon: fa-github fa-lg
+      href: https://github.com/jefferis/rcatmaid
+    natverse:
+      text: natverse
+      href: https://natverse.github.io
+    help:
+      text: Help
+      href: SUPPORT.html
+

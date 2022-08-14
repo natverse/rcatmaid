@@ -1,48 +1,64 @@
-Package: catmaid
 Type: Package
-Title: R access to the API for the CATMAID web image annotation tool
-Version: 0.9.9.9000
-Authors@R: c(
-    person("Gregory","Jefferis", email="jefferis@gmail.com",
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0002-0587-9355")),
-    person("Sridhar","Jagannathan", email="j.sridharrajan@gmail.com", 
-    role = c("ctb"), comment = c(ORCID = "0000-0002-2078-1145"))
-    )
+Package: catmaid
+Title: R access to the API for the CATMAID web image annotation
+    tool
+Version: 0.10.1
+Authors@R: 
+    c(person(given = "Gregory",
+             family = "Jefferis",
+             role = c("aut", "cre"),
+             email = "jefferis@gmail.com",
+             comment = c(ORCID = "0000-0002-0587-9355")),
+      person(given = "Sridhar",
+             family = "Jagannathan",
+             role = "ctb",
+             email = "j.sridharrajan@gmail.com",
+             comment = c(ORCID = "0000-0002-2078-1145")),
+      person(given = "Alex",
+             family = "Bates",
+             role = "ctb",
+             email = "abates@mrc-lmb.cam.ac.uk",
+             comment = c(ORCID = "0000-0002-1195-0445")))
 Maintainer: Gregory Jefferis <jefferis@gmail.com>
-Description: This package provide access to the API exposed by the CATMAID (C
-    ollaborative A nnotation T oolkit for M assive A mounts of I mage D ata)
-    web tool. This includes a bridge to the neuroanatomy toolbox (R package
-    nat), thereby allowing analysis and visualisation of neuronal skeletons.
+Description: This package provide access to the API exposed
+    by the CATMAID (C ollaborative A nnotation T oolkit for M assive A
+    mounts of I mage D ata) web tool. This includes a bridge to the
+    neuroanatomy toolbox (R package nat), thereby allowing analysis and
+    visualisation of neuronal skeletons.
 License: GPL-3
 URL: https://github.com/jefferis/rcatmaid
 BugReports: https://github.com/jefferis/rcatmaid/issues
 Depends: 
-    R (>= 2.15.1),
     httr,
-    nat (>= 1.8.12.9000)
+    nat (>= 1.8.12.9000),
+    R (>= 2.15.1)
 Imports: 
-    jsonlite,
-    plyr,
-    rgl,
-    dplyr,
-    nabor,
-    xml2,
-    grDevices,
     checkmate,
+    dplyr,
+    grDevices,
+    jsonlite,
     lubridate,
-    reshape2,
     magrittr,
-    rlang
+    nabor,
+    plyr,
+    reshape2,
+    rgl,
+    rlang,
+    xml2,
+    utils
 Suggests: 
     httptest,
     knitr,
     nat.nblast,
     rmarkdown,
     spelling,
-    testthat
-Remotes: jefferis/nat,
-    jefferislab/nat.nblast
-RoxygenNote: 6.1.1
-Language: en-GB
+    testthat,
+    plotly
+VignetteBuilder: 
+    knitr
+Remotes: 
+    natverse/nat,
+    natverse/nat.nblast
 Encoding: UTF-8
-VignetteBuilder: knitr
+Language: en-GB
+RoxygenNote: 7.1.2

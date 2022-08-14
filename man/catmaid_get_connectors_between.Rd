@@ -4,8 +4,15 @@
 \alias{catmaid_get_connectors_between}
 \title{Return information about connectors joining sets of pre/postsynaptic skids}
 \usage{
-catmaid_get_connectors_between(pre_skids = NULL, post_skids = NULL,
-  get_names = FALSE, pid = 1, conn = NULL, raw = FALSE, ...)
+catmaid_get_connectors_between(
+  pre_skids = NULL,
+  post_skids = NULL,
+  get_names = FALSE,
+  pid = 1,
+  conn = NULL,
+  raw = FALSE,
+  ...
+)
 }
 \arguments{
 \item{pre_skids, post_skids}{Skeleton ids in any form understood by
@@ -84,9 +91,11 @@ If either the \code{pre_skids} or \code{post_skids} arguments are
   would create two rows.
 }
 \seealso{
-Other connectors: \code{\link{catmaid_get_connector_table}},
-  \code{\link{catmaid_get_connectors}},
-  \code{\link{catmaid_query_connected}},
-  \code{\link{connectors}}
+Other connectors: 
+\code{\link{catmaid_adjacency_matrix}()},
+\code{\link{catmaid_get_connector_table}()},
+\code{\link{catmaid_get_connectors}()},
+\code{\link{catmaid_query_connected}()},
+\code{\link{connectors}()}
 }
 \concept{connectors}

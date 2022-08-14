@@ -6,26 +6,44 @@
 \alias{catmaid_remove_labels}
 \title{Get/Set/Remove CATMAID treenode labels (aka tags)}
 \usage{
-catmaid_get_labels(treenodes = NULL, connectors = NULL, pid = 1,
-  conn = NULL, ...)
+catmaid_get_labels(
+  treenodes = NULL,
+  connectors = NULL,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 
-catmaid_set_labels(node, labels, type = c("treenode", "connector"),
-  delete_existing = FALSE, pid = 1, conn = NULL, ...)
+catmaid_set_labels(
+  node,
+  labels,
+  type = c("treenode", "connector"),
+  delete_existing = FALSE,
+  pid = 1,
+  conn = NULL,
+  ...
+)
 
-catmaid_remove_labels(node, labels, type = c("treenode", "connector"),
-  pid = 1, conn = NULL, ...)
+catmaid_remove_labels(
+  node,
+  labels,
+  type = c("treenode", "connector"),
+  pid = 1,
+  conn = NULL,
+  ...
+)
 }
 \arguments{
 \item{treenodes, connectors}{Integer ids of nodes to be queried}
 
 \item{pid}{Project id (default 1)}
 
-\item{conn}{A \code{catmaid_connection} objection returned by 
-\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection 
-object will be generated using the values of the \bold{catmaid.*} package 
+\item{conn}{A \code{catmaid_connection} objection returned by
+\code{\link{catmaid_login}}. If \code{NULL} (the default) a new connection
+object will be generated using the values of the \bold{catmaid.*} package
 options as described in the help for \code{\link{catmaid_login}}.}
 
-\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}} 
+\item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
 
 \item{node}{A single tree or connector node to modify}
@@ -65,6 +83,7 @@ existing labels before setting the new ones.}
   specified node.
 }
 \seealso{
-Other labels: \code{\link{catmaid_get_label_stats}}
+Other labels: 
+\code{\link{catmaid_get_label_stats}()}
 }
 \concept{labels}
