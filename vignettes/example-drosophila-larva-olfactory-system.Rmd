@@ -191,3 +191,18 @@ Finally here is the plot with 4 clusters coloured.
 plot3d(non_pn_downstream.hcr,db=non_pn_downstream, k=4, soma=1000)
 ```
 
+We could also get a 3D mesh for context
+```{r}
+# list available meshes
+catmaid_get_volumelist()
+cns=catmaid::catmaid_get_volume('cns')
+cns
+```
+
+Here is how you could plot that.
+
+```{r, eval=FALSE}
+shade3d(cns, col='grey', alpha=.1)
+plot3d(non_pn_downstream.hcr,db=non_pn_downstream, k=4, soma=1000)
+```
+
