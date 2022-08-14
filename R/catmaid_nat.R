@@ -442,20 +442,30 @@ summary.catmaidneuron<-function(object, ...) {
 }
 
 #' Copy the tag / connector info from a catmaid neuron to a new neuron
-#' @description This function is intended primarily for developer use as a way 
+#' @description This function is intended primarily for developer use as a way
 #'   to copy over connector/tag information typically contained in CATMAID
 #'   neurons but lost when nat functions are applied to transform a neuron.
 #' @details Both connectors and tag information contain node ids. These may need
-#'   to be mapped onto new node ids if these are not consistent between old and 
-#'   new neurons.
+#'   to be mapped onto new node ids if these are not consistent between old and
+#'   new neurons e.g. after using \code{\link{resample}} on a neuron to change
+#'   the number/position the nodes.
+#'
+#'   Alternatively some nodes may removed (but the remaining nodes are
+#'   unmodified). This is typical of \code{\link{prune}} operations. Here the
+#'   most obvious thing to do is to remove tags/connectors that no longer
+#'   reference a node in the new neuron.
 #' @export
-#' @param new,old information will be copied from old -> new
+#' @param new,old information will be copied from old -> new neuron
 #' @param update_node_ids whether to update the node ids (default \code{TRUE})
-#' @return A new neuron containing tag and connector information from the old 
+#' @param remove_unreferenced_node_ids whether to remove connectors, tags
+#'   associated with nodes that are no longer present in the new neuron (see
+#'   details). Defaults to the opposite of \code{update_node_ids}.
+#' @return A new neuron containing tag and connector information from the old
 #'   neuron and having the same class as the old neuron.
 #' @family catmaidneuron
 #' @importFrom nabor knn
-copy_tags_connectors <- function(new, old, update_node_ids = TRUE) {
+copy_tags_connectors <- function(new, old, update_node_ids = TRUE,
+                                 remove_unreferenced_node_ids=!update_node_ids) {
   ## connectors
   c = connectors(old)
   if (update_node_ids && !is.null(c)) {
@@ -466,6 +476,8 @@ copy_tags_connectors <- function(new, old, update_node_ids = TRUE) {
     )
     # note that we map indices into the point array onto PointNo
     c$treenode_id = new$d$PointNo[nnres$nn.idx]
+  } else if(isTRUE(remove_unreferenced_node_ids) && !is.null(c)) {
+    c=subset(c, c$treenode_id %in% new$d$PointNo)
   }
   new[['connectors']] = c
   
@@ -473,7 +485,11 @@ copy_tags_connectors <- function(new, old, update_node_ids = TRUE) {
   # replace the tag ids using a similar strategy
   old_tag_ids = unlist(old$tags, use.names = F)
   if (!update_node_ids || length(old_tag_ids)==0) {
-    new[['tags']] = old[['tags']]
+    new[['tags']] <- if(remove_unreferenced_node_ids) {
+      tags=sapply(old[['tags']], intersect, new$d$PointNo)
+      # remove any tags classes that no longer refer to a node
+      tags[sapply(tags, length)!=0]
+    } else old[['tags']]
   } else {
     nnres = nabor::knn(
       data = xyzmatrix(new),
