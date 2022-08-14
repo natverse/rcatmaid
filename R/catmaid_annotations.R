@@ -128,14 +128,15 @@ catmaid_error_check <- function(x, stoponerror=TRUE){
   if(stoponerror) x else FALSE
 }
 
-#' Return the entity ids for one or more model ids
+#' Convert between entity (neuron) and model (skeleton) ids
+#' @description \code{catmaid_entities_from_models} converts from neuron ids to skeleton ids
 #' @details This will normally be used to turn skeleton ids into neuron ids 
 #'   which are used e.g. for annotation purposes. This is probably not something
 #'   that many end users will need but is required e.g. by 
 #'   \code{catmaid_remove_annotations_for_skeletons}.
 #' @inheritParams read.neuron.catmaid
 #' @export
-#' @return An integer vector of \bold{entity ids} each named by the 
+#' @return For \code{catmaid_entities_from_models} an integer vector of \bold{entity ids} each named by the 
 #'   corresponding \bold{model id} (usually a skeleton id).
 #' @seealso Used by \code{\link{catmaid_remove_annotations_for_skeletons}}
 catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
@@ -144,8 +145,38 @@ catmaid_entities_from_models <- function(skids, pid = 1, conn = NULL, ...) {
   post_data[sprintf("model_ids[%d]", seq_along(skids))]=as.list(skids)
   path=sprintf("/%d/neurons/from-models", pid)
   unlist(catmaid_fetch(path, body=post_data, include_headers = F, 
-                    simplifyVector = T, ...))
+                    simplifyVector = T, conn=conn, ...))
 }
+
+
+#' @description \code{catmaid_models_from_entities} converts skeleton ids to
+#'   from neuron ids
+#' @param nids Neuron (entity) ids
+#'
+#' @return For \code{catmaid_models_from_entities} a list of \bold{model ids} (usually skeleton ids) named by the 
+#'   corresponding \bold{entity ids}. Formally there may be multiple skeletons per neuron.
+#' @export
+#' @rdname catmaid_entities_from_models
+#' @examples
+#' ents=catmaid_entities_from_models('ORN PNs left', conn=vfbcatmaid('l1em'))
+#' ents
+#' mods=catmaid_models_from_entities(unname(ents), conn=vfbcatmaid('l1em'))
+#' str(mods)
+catmaid_models_from_entities <- function(nids, pid = 1, conn = NULL, ...) {
+  res=sapply(nids, simplify = F, function(nid, ...) {
+    path=sprintf("/%d/neuron/%s/get-all-skeletons", pid, nid)
+    tryCatch(
+      catmaid_fetch(path, include_headers = F, simplifyVector = T, conn=conn, ...),
+      error=function(e) {
+        warning("unable to find skeleton for neuron id: ", nid)
+        NA_integer_
+        }
+      )
+  }, ...)
+  names(res)=nids
+  res
+}
+
 
 #' Get, query, set and remove CATMAID meta-annotations for annotations
 #'

@@ -2,9 +2,12 @@
 % Please edit documentation in R/catmaid_annotations.R
 \name{catmaid_entities_from_models}
 \alias{catmaid_entities_from_models}
-\title{Return the entity ids for one or more model ids}
+\alias{catmaid_models_from_entities}
+\title{Convert between entity (neuron) and model (skeleton) ids}
 \usage{
 catmaid_entities_from_models(skids, pid = 1, conn = NULL, ...)
+
+catmaid_models_from_entities(nids, pid = 1, conn = NULL, ...)
 }
 \arguments{
 \item{skids}{One or more numeric skeleton ids or a character vector defining
@@ -19,19 +22,33 @@ options as described in the help for \code{\link{catmaid_login}}.}
 
 \item{...}{Additional arguments passed to the \code{\link{catmaid_fetch}}
 function}
+
+\item{nids}{Neuron (entity) ids}
 }
 \value{
-An integer vector of \bold{entity ids} each named by the 
+For \code{catmaid_entities_from_models} an integer vector of \bold{entity ids} each named by the 
   corresponding \bold{model id} (usually a skeleton id).
+
+For \code{catmaid_models_from_entities} a list of \bold{model ids} (usually skeleton ids) named by the 
+  corresponding \bold{entity ids}. Formally there may be multiple skeletons per neuron.
 }
 \description{
-Return the entity ids for one or more model ids
+\code{catmaid_entities_from_models} converts from neuron ids to skeleton ids
+
+\code{catmaid_models_from_entities} converts skeleton ids to
+  from neuron ids
 }
 \details{
 This will normally be used to turn skeleton ids into neuron ids 
   which are used e.g. for annotation purposes. This is probably not something
   that many end users will need but is required e.g. by 
   \code{catmaid_remove_annotations_for_skeletons}.
+}
+\examples{
+ents=catmaid_entities_from_models('ORN PNs left', conn=vfbcatmaid('l1em'))
+ents
+mods=catmaid_models_from_entities(unname(ents), conn=vfbcatmaid('l1em'))
+str(mods)
 }
 \seealso{
 Used by \code{\link{catmaid_remove_annotations_for_skeletons}}
